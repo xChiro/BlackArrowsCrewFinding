@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKA.Tools.CrewFinding.BehaviourTest", "BKA.Tools.CrewFinding.BehaviourTest\BKA.Tools.CrewFinding.BehaviourTest.csproj", "{ABEC5B25-64DC-42F0-B409-6CD342D98B01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKA.Tools.CrewFinding.Tests", "BKA.Tools.CrewFinding.Tests\BKA.Tools.CrewFinding.Tests.csproj", "{A0A0B0C4-DED7-44E8-8783-A34F219D0E32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKA.Tools.CrewFinding", "BKA.Tools.CrewFinding\BKA.Tools.CrewFinding.csproj", "{51B2FAF4-31CA-4F47-BE7B-4FCFF889D92C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABEC5B25-64DC-42F0-B409-6CD342D98B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABEC5B25-64DC-42F0-B409-6CD342D98B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABEC5B25-64DC-42F0-B409-6CD342D98B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABEC5B25-64DC-42F0-B409-6CD342D98B01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0A0B0C4-DED7-44E8-8783-A34F219D0E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A0B0C4-DED7-44E8-8783-A34F219D0E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A0B0C4-DED7-44E8-8783-A34F219D0E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A0B0C4-DED7-44E8-8783-A34F219D0E32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51B2FAF4-31CA-4F47-BE7B-4FCFF889D92C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51B2FAF4-31CA-4F47-BE7B-4FCFF889D92C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51B2FAF4-31CA-4F47-BE7B-4FCFF889D92C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51B2FAF4-31CA-4F47-BE7B-4FCFF889D92C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
