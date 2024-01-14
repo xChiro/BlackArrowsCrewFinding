@@ -11,7 +11,7 @@ public class CrewPartyCreator : ICrewPartyCreator
         _commands = commands;
     }
 
-    public void Create(string captainName, int totalCrew, Location location, string[] languagesAbbrevs)
+    public void Create(string captainName, int totalCrew, Location location, string[] languagesAbbrevs, string activityName)
     {
         if (captainName is "")
             throw new ArgumentException("Captain name cannot be empty", nameof(captainName));
@@ -20,9 +20,11 @@ public class CrewPartyCreator : ICrewPartyCreator
         var captain = new Captain(captainName);
         var maxCrew = new MaxCrewNumber(totalCrew, _maxCrewAllowed);
         var languageCollections = LanguageCollections.CreateFromAbbrevs(languagesAbbrevs);
+        var activity = Activity.Create(activityName);
         
-        var crewParty = new CrewParty(crewName, location, languageCollections, maxCrew, Activity.Default(), DateTime.UtcNow);
-            
+        var crewParty = new CrewParty(crewName, location, languageCollections, maxCrew, activity, DateTime.UtcNow);
+
         _commands.SaveCrewParty(captain, crewParty);
     }
 }
+

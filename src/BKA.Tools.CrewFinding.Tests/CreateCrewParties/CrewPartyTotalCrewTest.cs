@@ -41,7 +41,7 @@ public class CrewPartyTotalCrewTest
     }
 
     [Fact]
-    public void When_creating_a_crew_party_with_a_valid_total_crew_members()
+    public void When_creating_a_crew_party_with_a_valid_total_crew_members_successfully()
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
@@ -58,6 +58,6 @@ public class CrewPartyTotalCrewTest
 
     private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew)
     {
-        sut.Create(captainName, totalCrew, Location.DefaultLocation(), Array.Empty<string>());
+        sut.Create(captainName, totalCrew, Location.DefaultLocation(), Array.Empty<string>(), Activity.Default().Value);
     }
 }

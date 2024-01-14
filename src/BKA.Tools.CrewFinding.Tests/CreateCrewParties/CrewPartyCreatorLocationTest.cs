@@ -17,7 +17,6 @@ public class CrewPartyCreatorLocationTest
 
         // Assert
         createCrewPartyResultMock.StartingPlace.Should().Be(expectedLocation);
-
     }
 
     [Theory]
@@ -25,7 +24,8 @@ public class CrewPartyCreatorLocationTest
     [InlineData("Stanton", "Crusader", "Crusader", "Port Olisar")]
     [InlineData("Stanton", "MicroTech", "MicroTech", "New Babbage")]
     [InlineData("Pyro", "Pyro", "Pyro I", "Pyro I Station")]
-    public void When_creating_crew_party_with_locations_and_save_it(string system, string planetarySystem, string planetMoon, string place)
+    public void When_creating_crew_party_with_locations_and_save_it_successfully(string system, string planetarySystem,
+        string planetMoon, string place)
     {
         // Arrange
         var expectedLocation = new Location(system, planetarySystem, planetMoon, place);
@@ -41,6 +41,6 @@ public class CrewPartyCreatorLocationTest
 
     private static void ExecuteSut(ICrewPartyCreator sut, Location expectedLocation)
     {
-        sut.Create("Rowan", 4, expectedLocation, Array.Empty<string>());
+        sut.Create("Rowan", 4, expectedLocation, Array.Empty<string>(), Activity.Default().Value);
     }
 }

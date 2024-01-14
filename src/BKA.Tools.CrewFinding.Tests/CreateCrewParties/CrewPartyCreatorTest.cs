@@ -35,21 +35,6 @@ public class CrewPartyCreatorTest
     }
 
     [Fact]
-    public void When_creating_a_crew_party_with_not_activity_then_use_default_activity()
-    {
-        // Arrange
-        var defaultActivities = Activity.Default().Value;
-        var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
-
-        // Act
-        ExecuteCrewCreation(ref sut, "Rowan", 4);
-
-        // Assert
-        createCrewPartyResultMock.Activity!.Value.Should().BeEquivalentTo(defaultActivities);
-    }
-
-    [Fact]
     public void When_creating_a_crew_party_should_be_assigned_to_the_captain()
     {
         // Arrange
@@ -82,6 +67,6 @@ public class CrewPartyCreatorTest
 
     private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew)
     {
-        sut.Create(captainName, totalCrew, Location.DefaultLocation(), Array.Empty<string>());
+        sut.Create(captainName, totalCrew, Location.DefaultLocation(), Array.Empty<string>(), Activity.Default().Value);
     }
-}   
+}

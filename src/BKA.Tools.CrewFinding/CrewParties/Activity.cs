@@ -13,4 +13,9 @@ public record Activity
     {
         return new Activity("Bounty Hunting");
     }
+
+    public static Activity Create(string activity)
+    {
+        return activity is "" ? Default() : new Activity(activity);
+    }
 }

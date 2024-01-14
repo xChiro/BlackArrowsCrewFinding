@@ -10,8 +10,7 @@ public class CrewPartyLanguageTest
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
         var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
-
-
+        
         // Act
         ExecuteCrewCreation(ref sut, "Rowan", 4, Array.Empty<string>());
 
@@ -41,6 +40,6 @@ public class CrewPartyLanguageTest
     private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew,
         string[] languages)
     {
-        sut.Create(captainName, totalCrew, Location.DefaultLocation(), languages);
+        sut.Create(captainName, totalCrew, Location.DefaultLocation(), languages, Activity.Default().Value);
     }
 }
