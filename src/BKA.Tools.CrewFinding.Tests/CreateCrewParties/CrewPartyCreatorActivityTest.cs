@@ -5,7 +5,7 @@ namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
 public class CrewPartyCreatorActivityTest
 {
     [Fact]
-    public void When_creating_a_crew_party_with_not_activity_then_use_default_activity()
+    public void Create_Crew_Party_Without_Activity_Uses_Default()
     {
         // Arrange
         var defaultActivities = Activity.Default().Value;
@@ -18,9 +18,9 @@ public class CrewPartyCreatorActivityTest
         // Assert
         createCrewPartyResultMock.Activity!.Value.Should().BeEquivalentTo(defaultActivities);
     }
-    
+
     [Fact]
-    public void When_creating_a_crew_party_with_an_activity_successfully()
+    public void Create_Crew_Party_With_Activity_Succeeds()
     {
         // Arrange
         const string activity = "Mining";
@@ -31,13 +31,15 @@ public class CrewPartyCreatorActivityTest
         ExecuteCrewCreation(ref sut, "Rowan", 4, activity);
 
         // Assert
-        createCrewPartyResultMock.Activity!.Should().BeEquivalentTo(activity);
+        createCrewPartyResultMock.Activity!.Value.Should().BeEquivalentTo(activity);
     }
-    
-    
+
     private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew,
         string activity)
     {
-        sut.Create(captainName, totalCrew, Location.DefaultLocation(), Array.Empty<string>(), activity);
+        var request = new CrewPartyCreatorRequest(captainName, totalCrew, Location.DefaultLocation(),
+            Array.Empty<string>(), activity);
+
+        sut.Create(request);
     }
 }

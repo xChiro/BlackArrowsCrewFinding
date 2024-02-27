@@ -5,7 +5,7 @@ namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
 public class CrewPartyLanguageTest
 {
     [Fact]
-    public void When_creating_crew_party_without_languages_then_uses_default_languages()
+    public void Create_Crew_Party_Without_Languages_Uses_Default()
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
@@ -22,7 +22,7 @@ public class CrewPartyLanguageTest
     [InlineData("EN", "FR", "ES")]
     [InlineData("EN", "ES")]
     [InlineData("ES")]
-    public void When_creating_crew_party_with_languages_successfully(params string[] languagesAbbrevs)
+    public void Create_Crew_Party_With_Languages_Succeeds(params string[] languagesAbbrevs)
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
@@ -40,6 +40,9 @@ public class CrewPartyLanguageTest
     private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew,
         string[] languages)
     {
-        sut.Create(captainName, totalCrew, Location.DefaultLocation(), languages, Activity.Default().Value);
+        var request = new CrewPartyCreatorRequest(captainName, totalCrew, Location.DefaultLocation(), 
+            languages, Activity.Default().Value);
+
+        sut.Create(request);
     }
 }

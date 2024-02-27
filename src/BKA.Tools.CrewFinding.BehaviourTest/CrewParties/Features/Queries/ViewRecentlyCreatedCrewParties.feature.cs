@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Queries
+namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
 {
     using TechTalk.SpecFlow;
     using System;
@@ -24,7 +24,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Queries
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private string[] _featureTags = ((string[])(null));
+        private static string[] featureTags = ((string[])(null));
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -40,7 +40,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Queries
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Queries", "View recently created Crew Parties", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CrewParties/Features/Queries", "View recently created Crew Parties", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -50,27 +50,27 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Queries
             testRunner = null;
         }
         
-        public virtual void TestInitialize()
+        public void TestInitialize()
         {
         }
         
-        public virtual void TestTearDown()
+        public void TestTearDown()
         {
             testRunner.OnScenarioEnd();
         }
         
-        public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+        public void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
             testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
-        public virtual void ScenarioStart()
+        public void ScenarioStart()
         {
             testRunner.OnScenarioStart();
         }
         
-        public virtual void ScenarioCleanup()
+        public void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
@@ -83,25 +83,15 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Queries
         [Xunit.SkippableFactAttribute(DisplayName="Viewing Crew Parties created within the last hour")]
         [Xunit.TraitAttribute("FeatureTitle", "View recently created Crew Parties")]
         [Xunit.TraitAttribute("Description", "Viewing Crew Parties created within the last hour")]
-        public virtual void ViewingCrewPartiesCreatedWithinTheLastHour()
+        public void ViewingCrewPartiesCreatedWithinTheLastHour()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Viewing Crew Parties created within the last hour", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Viewing Crew Parties created within the last hour", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
@@ -110,72 +100,6 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Queries
                 this.ScenarioStart();
 #line 4
         testRunner.Given("the current time is \"2023-07-29T15:00:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                            "CrewPartyName",
-                            "CaptainHandle",
-                            "CreationTime",
-                            "MaxCrewSize",
-                            "Languages",
-                            "System",
-                            "PlanetarySystem",
-                            "PlanetMoon",
-                            "Location",
-                            "Description",
-                            "Activity"});
-                table3.AddRow(new string[] {
-                            "The Stellar Hunters",
-                            "Rowan",
-                            "2023-07-29T14:20:00",
-                            "4",
-                            "ES, EN",
-                            "Stanton",
-                            "Crusader",
-                            "Crusader",
-                            "Seraphim Station",
-                            "Elite bounty hunters",
-                            "Bounty Hunting"});
-                table3.AddRow(new string[] {
-                            "The Galactic Voyagers",
-                            "Ada",
-                            "2023-07-29T14:45:00",
-                            "5",
-                            "EN, DE",
-                            "Terra",
-                            "Sol",
-                            "Terra",
-                            "New Austin",
-                            "Space explorers",
-                            "Exploration"});
-                table3.AddRow(new string[] {
-                            "The Lunar Marauders",
-                            "Kai",
-                            "2023-07-29T13:00:00",
-                            "3",
-                            "EN, FR",
-                            "Hurston",
-                            "Stanton",
-                            "Ariel",
-                            "Lorville",
-                            "Lunar miners",
-                            "Mining"});
-                table3.AddRow(new string[] {
-                            "The Space Pioneers",
-                            "Eve",
-                            "2023-07-29T13:30:00",
-                            "6",
-                            "ES, PT",
-                            "Stanton",
-                            "Crusader",
-                            "Crusader",
-                            "Port Olisar",
-                            "Intergalactic pioneers",
-                            "Trade"});
-#line 5
-        testRunner.And("the following Crew Parties exist:", ((string)(null)), table3, "And ");
-#line hidden
-#line 11
-        testRunner.When("the player searches for Crew Parties created within the last hour", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "CrewPartyName",
@@ -213,8 +137,74 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Queries
                             "New Austin",
                             "Space explorers",
                             "Exploration"});
+                table4.AddRow(new string[] {
+                            "The Lunar Marauders",
+                            "Kai",
+                            "2023-07-29T13:00:00",
+                            "3",
+                            "EN, FR",
+                            "Hurston",
+                            "Stanton",
+                            "Ariel",
+                            "Lorville",
+                            "Lunar miners",
+                            "Mining"});
+                table4.AddRow(new string[] {
+                            "The Space Pioneers",
+                            "Eve",
+                            "2023-07-29T13:30:00",
+                            "6",
+                            "ES, PT",
+                            "Stanton",
+                            "Crusader",
+                            "Crusader",
+                            "Port Olisar",
+                            "Intergalactic pioneers",
+                            "Trade"});
+#line 5
+        testRunner.And("the following Crew Parties exist:", ((string)(null)), table4, "And ");
+#line hidden
+#line 11
+        testRunner.When("the player searches for Crew Parties created within the last hour", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "CrewPartyName",
+                            "CaptainHandle",
+                            "CreationTime",
+                            "MaxCrewSize",
+                            "Languages",
+                            "System",
+                            "PlanetarySystem",
+                            "PlanetMoon",
+                            "Location",
+                            "Description",
+                            "Activity"});
+                table5.AddRow(new string[] {
+                            "The Stellar Hunters",
+                            "Rowan",
+                            "2023-07-29T14:20:00",
+                            "4",
+                            "ES, EN",
+                            "Stanton",
+                            "Crusader",
+                            "Crusader",
+                            "Seraphim Station",
+                            "Elite bounty hunters",
+                            "Bounty Hunting"});
+                table5.AddRow(new string[] {
+                            "The Galactic Voyagers",
+                            "Ada",
+                            "2023-07-29T14:45:00",
+                            "5",
+                            "EN, DE",
+                            "Terra",
+                            "Sol",
+                            "Terra",
+                            "New Austin",
+                            "Space explorers",
+                            "Exploration"});
 #line 12
-        testRunner.Then("Allan should see the following Crew Parties:", ((string)(null)), table4, "Then ");
+        testRunner.Then("Allan should see the following Crew Parties:", ((string)(null)), table5, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

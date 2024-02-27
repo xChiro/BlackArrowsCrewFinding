@@ -5,7 +5,7 @@ namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
 public class CrewPartyCreatorTest
 {
     [Fact]
-    public void When_creating_a_crew_party_with_invalid_capitan_name_then_throw_exception()
+    public void Create_Crew_Party_With_Invalid_Captain_Name_Throws_Exception()
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
@@ -21,7 +21,7 @@ public class CrewPartyCreatorTest
     [Theory]
     [InlineData("Rowan", "Rowan's CrewParty")]
     [InlineData("James", "James' CrewParty")]
-    public void When_creating_crew_party_then_crew_name_is_correctly_formed(string captainName, string expectedCrewName)
+    public void Create_Crew_Party_Forms_Correct_Crew_Name(string captainName, string expectedCrewName)
     {
         // Arrange
         var createCrewPartyResultMock = CreatedCrewPartyUtilities.InitializeCreateCrewPartyResultMock();
@@ -35,7 +35,7 @@ public class CrewPartyCreatorTest
     }
 
     [Fact]
-    public void When_creating_a_crew_party_should_be_assigned_to_the_captain()
+    public void Create_Crew_Party_Assigns_Captain()
     {
         // Arrange
         const string captain = "Rowan";
@@ -52,7 +52,7 @@ public class CrewPartyCreatorTest
     }
 
     [Fact]
-    public void When_creating_a_crew_party_with_the_current_creation_date()
+    public void Create_Crew_Party_With_Current_Date()
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
@@ -64,9 +64,34 @@ public class CrewPartyCreatorTest
         // Assert
         createCrewPartyResultMock.CreationDate.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
     }
+    
+    [Fact]
+    public void Create_Crew_Party_With_Description_Assigns_Description()
+    {
+        // Arrange
+        const string description = "This is a description";
+        var createCrewPartyResultMock = new CrewPartyCommandsMock();
+        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
+
+        // Act
+        ExecuteCrewCreation(ref sut, "Rowan", 4, description);
+
+        // Assert
+        createCrewPartyResultMock.Activity!.Description.Should().Be(description);
+    }
+
+    private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew,
+        string description)
+    {
+        
+        var request = new CrewPartyCreatorRequest(captainName, totalCrew, Location.DefaultLocation(), 
+            Array.Empty<string>(), Activity.Default().Value, description);
+
+        sut.Create(request);
+    }
 
     private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew)
     {
-        sut.Create(captainName, totalCrew, Location.DefaultLocation(), Array.Empty<string>(), Activity.Default().Value);
+        ExecuteCrewCreation(ref sut, captainName, totalCrew, string.Empty);
     }
 }

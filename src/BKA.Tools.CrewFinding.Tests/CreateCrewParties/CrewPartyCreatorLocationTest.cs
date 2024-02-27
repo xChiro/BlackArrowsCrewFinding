@@ -1,11 +1,10 @@
 using System;
 
 namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
-
 public class CrewPartyCreatorLocationTest
 {
     [Fact]
-    public void When_creating_crew_party_without_location_then_uses_default_location()
+    public void Create_Crew_Party_Without_Location_Uses_Default()
     {
         // Arrange
         var expectedLocation = Location.DefaultLocation();
@@ -24,7 +23,7 @@ public class CrewPartyCreatorLocationTest
     [InlineData("Stanton", "Crusader", "Crusader", "Port Olisar")]
     [InlineData("Stanton", "MicroTech", "MicroTech", "New Babbage")]
     [InlineData("Pyro", "Pyro", "Pyro I", "Pyro I Station")]
-    public void When_creating_crew_party_with_locations_and_save_it_successfully(string system, string planetarySystem,
+    public void Create_Crew_Party_With_Location_Succeeds(string system, string planetarySystem,
         string planetMoon, string place)
     {
         // Arrange
@@ -41,6 +40,9 @@ public class CrewPartyCreatorLocationTest
 
     private static void ExecuteSut(ICrewPartyCreator sut, Location expectedLocation)
     {
-        sut.Create("Rowan", 4, expectedLocation, Array.Empty<string>(), Activity.Default().Value);
+        var request = new CrewPartyCreatorRequest("Rowan", 5, expectedLocation,
+            Array.Empty<string>(), Activity.Default().Value);
+        
+        sut.Create(request);
     }
 }

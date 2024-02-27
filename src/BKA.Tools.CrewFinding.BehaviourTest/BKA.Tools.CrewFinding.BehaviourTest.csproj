@@ -23,7 +23,46 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Steps\" />
+      <Compile Update="Features\Commands\CrewParties\Creators\CreateACrewParty.feature.cs">
+        <DependentUpon>CreateACrewParty.feature</DependentUpon>
+        <AutoGen>true</AutoGen>
+        <DesignTime>true</DesignTime>
+        <Visible>true</Visible>
+      </Compile>
+      <Compile Update="Features\Commands\CrewParties\CreateACrewParty.feature.cs">
+        <DependentUpon>CreateACrewParty.feature</DependentUpon>
+        <AutoGen>true</AutoGen>
+        <DesignTime>true</DesignTime>
+        <Visible>true</Visible>
+      </Compile>
+      <Compile Update="CrewParties\Features\Commands\CreateACrewParty.feature.cs">
+        <DependentUpon>CreateACrewParty.feature</DependentUpon>
+        <AutoGen>true</AutoGen>
+        <DesignTime>true</DesignTime>
+        <Visible>true</Visible>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BKA.Tools.CrewFinding\BKA.Tools.CrewFinding.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Features\Commands\CrewParties\CreateACrewParty.feature" />
+      <UpToDateCheckInput Remove="Features\Commands\CaptainDispandACrewParty.feature" />
+      <UpToDateCheckInput Remove="Features\Commands\HandlerCrewJoinRequests.feature" />
+      <UpToDateCheckInput Remove="Features\Commands\LeaveACrewParty.feature" />
+      <UpToDateCheckInput Remove="Features\Commands\RequestToJoinACrewParty.feature" />
+      <UpToDateCheckInput Remove="Features\Queries\ViewRecentlyCreatedCrewParties.feature" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckBuild Remove="Features\Commands\CrewParties\CreateACrewParty.feature.cs" />
+      <UpToDateCheckBuild Remove="Features\Commands\CaptainDispandACrewParty.feature.cs" />
+      <UpToDateCheckBuild Remove="Features\Commands\HandlerCrewJoinRequests.feature.cs" />
+      <UpToDateCheckBuild Remove="Features\Commands\LeaveACrewParty.feature.cs" />
+      <UpToDateCheckBuild Remove="Features\Commands\RequestToJoinACrewParty.feature.cs" />
+      <UpToDateCheckBuild Remove="Features\Queries\ViewRecentlyCreatedCrewParties.feature.cs" />
     </ItemGroup>
 
 </Project>

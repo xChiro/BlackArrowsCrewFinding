@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
+namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
 {
     using TechTalk.SpecFlow;
     using System;
@@ -24,7 +24,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private string[] _featureTags = ((string[])(null));
+        private static string[] featureTags = ((string[])(null));
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -40,7 +40,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Commands", "A player wants to create a crew party.", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CrewParties/Features/Commands", "A player wants to create a crew party.", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -50,27 +50,27 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
             testRunner = null;
         }
         
-        public virtual void TestInitialize()
+        public void TestInitialize()
         {
         }
         
-        public virtual void TestTearDown()
+        public void TestTearDown()
         {
             testRunner.OnScenarioEnd();
         }
         
-        public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+        public void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
             testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
-        public virtual void ScenarioStart()
+        public void ScenarioStart()
         {
             testRunner.OnScenarioStart();
         }
         
-        public virtual void ScenarioCleanup()
+        public void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
@@ -83,27 +83,18 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Successful creation of a Crew Party")]
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
         [Xunit.TraitAttribute("Description", "Successful creation of a Crew Party")]
-        [Xunit.InlineDataAttribute("Rowan", new string[0])]
-        public virtual void SuccessfulCreationOfACrewParty(string userName, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Rowan", "Rowan\'s Crew", new string[0])]
+        public void SuccessfulCreationOfACrewParty(string userName, string crewPartyDefaultName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successful creation of a Crew Party", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            argumentsOfScenario.Add("CrewPartyDefaultName", crewPartyDefaultName);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successful creation of a Crew Party", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
@@ -136,13 +127,33 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
                         "tails:", ((string)(null)), table1, "When ");
 #line hidden
 #line 8
-        testRunner.Then(string.Format("the Crew Party named {0}\'s Crew is successfully created with the specified detail" +
-                            "s", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then(string.Format("a Crew Party named {0} is successfully created", crewPartyDefaultName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 9
         testRunner.And(string.Format("{0} is designated as the Captain", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "MaxCrewSize",
+                            "Languages",
+                            "System",
+                            "PlanetarySystem",
+                            "Planet/Moon",
+                            "Location",
+                            "Description",
+                            "Activity"});
+                table2.AddRow(new string[] {
+                            "6",
+                            "ES, EN",
+                            "Stanton",
+                            "Crusader",
+                            "Crusader",
+                            "Seraphim Station",
+                            "Elite bounty hunters",
+                            "Bounty Hunting"});
 #line 10
+        testRunner.And("the Crew Party contains the following details:", ((string)(null)), table2, "And ");
+#line hidden
+#line 13
         testRunner.And("the creation date is the current date", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -154,40 +165,30 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("Description", "Creation of a Crew Party with default name")]
         [Xunit.InlineDataAttribute("Rowan", "\'Rowan\'s Crew\'", new string[0])]
         [Xunit.InlineDataAttribute("James", "\'James\' Crew\'", new string[0])]
-        public virtual void CreationOfACrewPartyWithDefaultName(string captainName, string expectedCrewName, string[] exampleTags)
+        public void CreationOfACrewPartyWithDefaultName(string captainName, string expectedCrewName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("CaptainName", captainName);
             argumentsOfScenario.Add("ExpectedCrewName", expectedCrewName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creation of a Crew Party with default name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 16
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creation of a Crew Party with default name", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 19
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
             else
             {
                 this.ScenarioStart();
-#line 17
+#line 20
         testRunner.Given(string.Format("a player named {0}", captainName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 18
+#line 21
         testRunner.When("the player creates a Crew Party with no name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 19
+#line 22
         testRunner.Then(string.Format("the Crew Party is successfully created with the default name {0}", expectedCrewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -198,45 +199,35 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
         [Xunit.TraitAttribute("Description", "Preventing the creation of multiple active Crew Parties")]
         [Xunit.InlineDataAttribute("Rowan", new string[0])]
-        public virtual void PreventingTheCreationOfMultipleActiveCrewParties(string userName, string[] exampleTags)
+        public void PreventingTheCreationOfMultipleActiveCrewParties(string userName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Preventing the creation of multiple active Crew Parties", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 26
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Preventing the creation of multiple active Crew Parties", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 29
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
             else
             {
                 this.ScenarioStart();
-#line 27
+#line 30
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 28
+#line 31
         testRunner.And("the player already has an active Crew Party", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 29
+#line 32
         testRunner.When("the player attempts to create a new Crew Party named \'The Stellar Hunters\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 30
+#line 33
         testRunner.Then("the creation of the new Crew Party is prevented", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 31
+#line 34
         testRunner.And("the player receives a message \'You cannot create a new Crew Party as you already " +
                         "have an active one.\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -248,53 +239,43 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
         [Xunit.TraitAttribute("Description", "Creation of a Crew Party with default location information")]
         [Xunit.InlineDataAttribute("Rowan", new string[0])]
-        public virtual void CreationOfACrewPartyWithDefaultLocationInformation(string userName, string[] exampleTags)
+        public void CreationOfACrewPartyWithDefaultLocationInformation(string userName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creation of a Crew Party with default location information", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 37
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creation of a Crew Party with default location information", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 40
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
             else
             {
                 this.ScenarioStart();
-#line 38
+#line 41
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                             "System",
                             "PlanetarySystem",
                             "Planet/Moon",
                             "Location"});
-                table2.AddRow(new string[] {
+                table3.AddRow(new string[] {
                             "Stanton",
                             "Crusader",
                             "Crusader",
                             "Seraphim Station"});
-#line 39
-        testRunner.And("the default location is the following", ((string)(null)), table2, "And ");
-#line hidden
 #line 42
+        testRunner.And("the default location is the following", ((string)(null)), table3, "And ");
+#line hidden
+#line 45
         testRunner.When("the player creates a Crew Party named \'The Stellar Hunters\' with missing location" +
                         " information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 43
+#line 46
         testRunner.Then(string.Format("the Crew Party named {0}\'s Crew is successfully created with the default location" +
                             " information", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -306,47 +287,37 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
         [Xunit.TraitAttribute("Description", "Preventing creation of a crew party with default activity information")]
         [Xunit.InlineDataAttribute("Rowan", "Trading", new string[0])]
-        public virtual void PreventingCreationOfACrewPartyWithDefaultActivityInformation(string userName, string defaultActivity, string[] exampleTags)
+        public void PreventingCreationOfACrewPartyWithDefaultActivityInformation(string userName, string defaultActivity, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
             argumentsOfScenario.Add("Default Activity", defaultActivity);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Preventing creation of a crew party with default activity information", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 49
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Preventing creation of a crew party with default activity information", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 52
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
             else
             {
                 this.ScenarioStart();
-#line 50
+#line 53
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 51
+#line 54
         testRunner.And("the default activity is <Trading>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 52
+#line 55
         testRunner.When("the player attempts to create a Crew Party named \'The Stellar Hunters\' with missi" +
                         "ng activity information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 53
+#line 56
         testRunner.Then("the creation of the Crew Party is prevented", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 54
+#line 57
         testRunner.And("the player receives a message \'Incomplete information provided. Crew Party not cr" +
                         "eated.\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -358,50 +329,40 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
         [Xunit.TraitAttribute("Description", "Creating a Crew Party with default crew size")]
         [Xunit.InlineDataAttribute("Rowan", "4", new string[0])]
-        public virtual void CreatingACrewPartyWithDefaultCrewSize(string userName, string defaultMaxCrewSize, string[] exampleTags)
+        public void CreatingACrewPartyWithDefaultCrewSize(string userName, string defaultMaxCrewSize, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
             argumentsOfScenario.Add("DefaultMaxCrewSize", defaultMaxCrewSize);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a Crew Party with default crew size", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 60
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a Crew Party with default crew size", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 63
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
             else
             {
                 this.ScenarioStart();
-#line 61
+#line 64
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 62
+#line 65
         testRunner.And(string.Format("the default MaxCrewSize is {0}", defaultMaxCrewSize), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 63
+#line 66
         testRunner.When("the player attempts to create a Crew Party named \'The Stellar Hunters\' with missi" +
                         "ng MaxCrewSize", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 64
+#line 67
         testRunner.Then(string.Format("the Crew Party named {0}\'s Crew is successfully created", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 65
+#line 68
         testRunner.And(string.Format("the MaxCrewSize is set to {0}", defaultMaxCrewSize), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 66
+#line 69
         testRunner.And(string.Format("{0} is designated as the Captain", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -412,50 +373,40 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
         [Xunit.TraitAttribute("Description", "Creating a Crew Party with default languages")]
         [Xunit.InlineDataAttribute("Rowan", "EN", new string[0])]
-        public virtual void CreatingACrewPartyWithDefaultLanguages(string userName, string defaultLanguage, string[] exampleTags)
+        public void CreatingACrewPartyWithDefaultLanguages(string userName, string defaultLanguage, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
             argumentsOfScenario.Add("DefaultLanguage", defaultLanguage);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a Crew Party with default languages", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 72
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a Crew Party with default languages", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 75
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
             else
             {
                 this.ScenarioStart();
-#line 73
+#line 76
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 74
+#line 77
         testRunner.And(string.Format("the default Language is {0}", defaultLanguage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 75
+#line 78
         testRunner.When("the player attempts to create a Crew Party named \'The Stellar Hunters\' with missi" +
                         "ng languages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 76
+#line 79
         testRunner.Then(string.Format("the Crew Party named {0}\'s Crew is successfully created", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 77
+#line 80
         testRunner.And(string.Format("the default Language is set to {0}", defaultLanguage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 78
+#line 81
         testRunner.And(string.Format("{0} is designated as the Captain", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }

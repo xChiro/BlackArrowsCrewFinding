@@ -2,5 +2,13 @@ namespace BKA.Tools.CrewFinding.CrewParties;
 
 public interface ICrewPartyCreator
 {
-    void Create(string captainName, int totalCrew, Location location, string[] languagesAbbrevs, string activityName);
+    public void Create(CrewPartyCreatorRequest request);
 }
+
+public record CrewPartyCreatorRequest(
+    string CaptainName,
+    int TotalCrew,
+    Location Location,
+    string[] LanguagesAbbrevs,
+    string ActivityName,
+    string Description = "");

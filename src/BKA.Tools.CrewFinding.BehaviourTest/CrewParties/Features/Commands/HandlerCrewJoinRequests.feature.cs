@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
+namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
 {
     using TechTalk.SpecFlow;
     using System;
@@ -24,7 +24,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private string[] _featureTags = ((string[])(null));
+        private static string[] featureTags = ((string[])(null));
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -40,7 +40,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Commands", "Captain manages join requests to the Crew Party.", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CrewParties/Features/Commands", "Captain manages join requests to the Crew Party.", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -50,27 +50,27 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
             testRunner = null;
         }
         
-        public virtual void TestInitialize()
+        public void TestInitialize()
         {
         }
         
-        public virtual void TestTearDown()
+        public void TestTearDown()
         {
             testRunner.OnScenarioEnd();
         }
         
-        public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+        public void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
             testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
-        public virtual void ScenarioStart()
+        public void ScenarioStart()
         {
             testRunner.OnScenarioStart();
         }
         
-        public virtual void ScenarioCleanup()
+        public void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
@@ -84,28 +84,18 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("FeatureTitle", "Captain manages join requests to the Crew Party.")]
         [Xunit.TraitAttribute("Description", "Captain approves a join request")]
         [Xunit.InlineDataAttribute("Rowan", "Allan", "Rowan\'s Crew Party", new string[0])]
-        public virtual void CaptainApprovesAJoinRequest(string captainHandle, string playerHandle, string crewPartyName, string[] exampleTags)
+        public void CaptainApprovesAJoinRequest(string captainHandle, string playerHandle, string crewPartyName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("CaptainHandle", captainHandle);
             argumentsOfScenario.Add("PlayerHandle", playerHandle);
             argumentsOfScenario.Add("CrewPartyName", crewPartyName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain approves a join request", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain approves a join request", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
@@ -138,28 +128,18 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("FeatureTitle", "Captain manages join requests to the Crew Party.")]
         [Xunit.TraitAttribute("Description", "Captain rejects a join request")]
         [Xunit.InlineDataAttribute("Rowan", "Allan", "Rowan\'s Crew Party", new string[0])]
-        public virtual void CaptainRejectsAJoinRequest(string captainHandle, string playerHandle, string crewPartyName, string[] exampleTags)
+        public void CaptainRejectsAJoinRequest(string captainHandle, string playerHandle, string crewPartyName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("CaptainHandle", captainHandle);
             argumentsOfScenario.Add("PlayerHandle", playerHandle);
             argumentsOfScenario.Add("CrewPartyName", crewPartyName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain rejects a join request", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain rejects a join request", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 15
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
@@ -193,7 +173,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("Description", "Captain does not respond to a join request in time")]
         [Xunit.InlineDataAttribute("Rowan", "Allan", "Rowan\'s Crew Party", "30", new string[0])]
         [Xunit.InlineDataAttribute("Rowan", "Allan", "Rowan\'s Crew Party", "40", new string[0])]
-        public virtual void CaptainDoesNotRespondToAJoinRequestInTime(string captainHandle, string playerHandle, string crewPartyName, string requestedAt, string[] exampleTags)
+        public void CaptainDoesNotRespondToAJoinRequestInTime(string captainHandle, string playerHandle, string crewPartyName, string requestedAt, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
@@ -201,21 +181,11 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
             argumentsOfScenario.Add("PlayerHandle", playerHandle);
             argumentsOfScenario.Add("CrewPartyName", crewPartyName);
             argumentsOfScenario.Add("RequestedAt", requestedAt);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain does not respond to a join request in time", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain does not respond to a join request in time", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 28
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }

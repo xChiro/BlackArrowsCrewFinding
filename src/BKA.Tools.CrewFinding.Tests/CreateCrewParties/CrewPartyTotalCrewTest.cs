@@ -8,8 +8,7 @@ public class CrewPartyTotalCrewTest
     [InlineData(-1, 2)]
     [InlineData(-2, 5)]
     [InlineData(-3, 7)]
-    public void When_creating_crew_party_with_max_crew_less_or_equal_to_0_then_use_default_max_crew(int userMaxCrew,
-        int expectedMaxCrew)
+    public void Create_Crew_Party_With_Negative_Max_Crew_Uses_Default(int userMaxCrew, int expectedMaxCrew)
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
@@ -26,8 +25,7 @@ public class CrewPartyTotalCrewTest
     [InlineData(5, 4)]
     [InlineData(6, 2)]
     [InlineData(7, 3)]
-    public void When_creating_crew_party_with_max_crew_greater_than_max_allowed_then_use_max_allowed(int userMaxCrew,
-        int maxCrewAllowed)
+    public void Create_Crew_Party_With_Max_Crew_Exceeding_Limit_Uses_Max_Allowed(int userMaxCrew, int maxCrewAllowed)
     {
         // Arrange
         var crewPartyCommandsMock = new CrewPartyCommandsMock();
@@ -41,7 +39,7 @@ public class CrewPartyTotalCrewTest
     }
 
     [Fact]
-    public void When_creating_a_crew_party_with_a_valid_total_crew_members_successfully()
+    public void Create_Crew_Party_With_Valid_Total_Crew_Succeeds()
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
@@ -58,6 +56,9 @@ public class CrewPartyTotalCrewTest
 
     private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew)
     {
-        sut.Create(captainName, totalCrew, Location.DefaultLocation(), Array.Empty<string>(), Activity.Default().Value);
+        var request = new CrewPartyCreatorRequest(captainName, totalCrew, Location.DefaultLocation(), 
+            Array.Empty<string>(), Activity.Default().Value);
+        
+        sut.Create(request);
     }
 }

@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
+namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
 {
     using TechTalk.SpecFlow;
     using System;
@@ -24,7 +24,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private string[] _featureTags = ((string[])(null));
+        private static string[] featureTags = ((string[])(null));
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -40,7 +40,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Commands", "A captain has the ability to disband a Crew Party.", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CrewParties/Features/Commands", "A captain has the ability to disband a Crew Party.", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -50,27 +50,27 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
             testRunner = null;
         }
         
-        public virtual void TestInitialize()
+        public void TestInitialize()
         {
         }
         
-        public virtual void TestTearDown()
+        public void TestTearDown()
         {
             testRunner.OnScenarioEnd();
         }
         
-        public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+        public void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
             testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
-        public virtual void ScenarioStart()
+        public void ScenarioStart()
         {
             testRunner.OnScenarioStart();
         }
         
-        public virtual void ScenarioCleanup()
+        public void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
@@ -84,27 +84,17 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("FeatureTitle", "A captain has the ability to disband a Crew Party.")]
         [Xunit.TraitAttribute("Description", "Captain disbands the Crew Party")]
         [Xunit.InlineDataAttribute("Rowan", "The Stellar Hunters", new string[0])]
-        public virtual void CaptainDisbandsTheCrewParty(string userName, string crewPartyName, string[] exampleTags)
+        public void CaptainDisbandsTheCrewParty(string userName, string crewPartyName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
             argumentsOfScenario.Add("CrewPartyName", crewPartyName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain disbands the Crew Party", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain disbands the Crew Party", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
@@ -135,27 +125,17 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Features.Commands
         [Xunit.TraitAttribute("FeatureTitle", "A captain has the ability to disband a Crew Party.")]
         [Xunit.TraitAttribute("Description", "Captain attempts to disband a non-existent Crew Party")]
         [Xunit.InlineDataAttribute("Rowan", "The Phantom Fleet", new string[0])]
-        public virtual void CaptainAttemptsToDisbandANon_ExistentCrewParty(string userName, string crewPartyName, string[] exampleTags)
+        public void CaptainAttemptsToDisbandANon_ExistentCrewParty(string userName, string crewPartyName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
             argumentsOfScenario.Add("CrewPartyName", crewPartyName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain attempts to disband a non-existent Crew Party", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain attempts to disband a non-existent Crew Party", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 14
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
