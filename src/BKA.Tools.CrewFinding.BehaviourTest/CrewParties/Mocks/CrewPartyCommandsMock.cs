@@ -2,14 +2,31 @@ using BKA.Tools.CrewFinding.CrewParties;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
-public class CrewPartyCommandsMock : ICrewPartyCommands
+public class CrewPartyCommandsMock : ICrewPartyCommandsMock
 {
-    public CrewParty CrewParty { get; private set; }
-    public Captain Captain { get; private set; }
+    private Captain? _captain;
+    private CrewParty? _crewParty;
     
     public void SaveCrewParty(Captain captain, CrewParty crewParty)
     {
-        Captain = captain;
-        CrewParty = crewParty;
+        _captain = captain;
+        _crewParty = crewParty;
     }
+
+    public Captain? GetCaptain()
+    {
+        return _captain;
+    }
+
+    public CrewParty? GetCrewParty()
+    {
+        return _crewParty;
+    }
+}
+
+public interface ICrewPartyCommandsMock : ICrewPartyCommands
+{
+    public Captain?  GetCaptain();
+    
+    public CrewParty? GetCrewParty();
 }

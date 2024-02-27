@@ -83,7 +83,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Successful creation of a Crew Party")]
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
         [Xunit.TraitAttribute("Description", "Successful creation of a Crew Party")]
-        [Xunit.InlineDataAttribute("Rowan", "Rowan\'s Crew", new string[0])]
+        [Xunit.InlineDataAttribute("Rowan", "Rowan\'s CrewParty", new string[0])]
         public void SuccessfulCreationOfACrewParty(string userName, string crewPartyDefaultName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -105,12 +105,12 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                            "MaxCrewSize",
+                            "CrewSize",
                             "Languages",
                             "System",
                             "PlanetarySystem",
                             "Planet/Moon",
-                            "Location",
+                            "Place",
                             "Description",
                             "Activity"});
                 table1.AddRow(new string[] {
@@ -133,12 +133,12 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         testRunner.And(string.Format("{0} is designated as the Captain", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                            "MaxCrewSize",
+                            "CrewSize",
                             "Languages",
                             "System",
                             "PlanetarySystem",
                             "Planet/Moon",
-                            "Location",
+                            "Place",
                             "Description",
                             "Activity"});
                 table2.AddRow(new string[] {

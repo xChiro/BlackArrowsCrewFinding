@@ -18,7 +18,7 @@ public class CrewPartyCreator : ICrewPartyCreator
 
         var crewName = new CrewName(request.CaptainName);
         var captain = new Captain(request.CaptainName);
-        var maxCrew = new MaxCrewNumber(request.TotalCrew, _maxCrewAllowed);
+        var maxCrew = new CrewNumber(request.TotalCrew, _maxCrewAllowed);
         var languageCollections = LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs);
         var activity = Activity.Create(request.ActivityName, request.Description);
         

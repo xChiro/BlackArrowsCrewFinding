@@ -4,7 +4,7 @@ namespace BKA.Tools.CrewFinding;
 
 public class LanguageCollections : IEnumerable<Language>
 {
-    public List<Language> Languages { get; }
+    private List<Language> Languages { get; }
 
     private LanguageCollections(IEnumerable<Language> languages)
     {

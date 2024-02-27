@@ -30,9 +30,7 @@ public class CrewPartyContext
 
     public CrewPartyCreatorRequest ToRequest(string captainName)
     {
-        var languages = Options.Languages.Split(',').ToList();
-        languages.ForEach(l => l.Trim());
-
+        var languages = Options.Languages.Split(',').Select(x => x.Trim()).ToArray();
         var location = new Location(Location.System, Location.PlanetarySystem, Location.PlanetOrMoon, Location.Place);
 
         return new CrewPartyCreatorRequest(captainName, Options.CrewSize, location, languages.ToArray(), Activity.Name,

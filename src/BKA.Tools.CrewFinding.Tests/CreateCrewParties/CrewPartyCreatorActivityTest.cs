@@ -8,7 +8,7 @@ public class CrewPartyCreatorActivityTest
     public void Create_Crew_Party_Without_Activity_Uses_Default()
     {
         // Arrange
-        var defaultActivities = Activity.Default().Value;
+        var defaultActivities = Activity.Default().Name;
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
         var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
 
@@ -16,7 +16,7 @@ public class CrewPartyCreatorActivityTest
         ExecuteCrewCreation(ref sut, "Rowan", 4, defaultActivities);
 
         // Assert
-        createCrewPartyResultMock.Activity!.Value.Should().BeEquivalentTo(defaultActivities);
+        createCrewPartyResultMock.Activity!.Name.Should().BeEquivalentTo(defaultActivities);
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public class CrewPartyCreatorActivityTest
         ExecuteCrewCreation(ref sut, "Rowan", 4, activity);
 
         // Assert
-        createCrewPartyResultMock.Activity!.Value.Should().BeEquivalentTo(activity);
+        createCrewPartyResultMock.Activity!.Name.Should().BeEquivalentTo(activity);
     }
 
     private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew,

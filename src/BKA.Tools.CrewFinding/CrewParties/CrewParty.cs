@@ -2,10 +2,10 @@ namespace BKA.Tools.CrewFinding.CrewParties;
 
 public class CrewParty
 {
-    public CrewParty(CrewName name, Location reunionPoint, LanguageCollections languages, MaxCrewNumber maxCrewNumber,
+    public CrewParty(CrewName name, Location reunionPoint, LanguageCollections languages, CrewNumber totalCrewNumber,
         Activity activity, DateTime creationDate)
     {
-        MaxCrewNumber = maxCrewNumber;
+        TotalCrewNumber = totalCrewNumber;
         Name = name;
         ReunionPoint = reunionPoint;
         Languages = languages;
@@ -21,7 +21,7 @@ public class CrewParty
 
     public Activity Activity { get; }
     
-    public MaxCrewNumber MaxCrewNumber { get;}
+    public CrewNumber TotalCrewNumber { get;}
     
     public DateTime CreationDate { get; }
 }

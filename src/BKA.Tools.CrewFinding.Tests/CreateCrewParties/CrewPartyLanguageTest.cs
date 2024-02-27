@@ -41,7 +41,7 @@ public class CrewPartyLanguageTest
         string[] languages)
     {
         var request = new CrewPartyCreatorRequest(captainName, totalCrew, Location.DefaultLocation(), 
-            languages, Activity.Default().Value);
+            languages, Activity.Default().Name);
 
         sut.Create(request);
     }

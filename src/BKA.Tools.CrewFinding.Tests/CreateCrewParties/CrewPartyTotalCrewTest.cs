@@ -57,7 +57,7 @@ public class CrewPartyTotalCrewTest
     private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew)
     {
         var request = new CrewPartyCreatorRequest(captainName, totalCrew, Location.DefaultLocation(), 
-            Array.Empty<string>(), Activity.Default().Value);
+            Array.Empty<string>(), Activity.Default().Name);
         
         sut.Create(request);
     }

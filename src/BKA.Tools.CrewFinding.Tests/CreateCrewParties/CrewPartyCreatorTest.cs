@@ -85,7 +85,7 @@ public class CrewPartyCreatorTest
     {
         
         var request = new CrewPartyCreatorRequest(captainName, totalCrew, Location.DefaultLocation(), 
-            Array.Empty<string>(), Activity.Default().Value, description);
+            Array.Empty<string>(), Activity.Default().Name, description);
 
         sut.Create(request);
     }

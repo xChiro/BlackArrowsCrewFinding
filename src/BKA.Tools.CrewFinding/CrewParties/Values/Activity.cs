@@ -1,6 +1,6 @@
 namespace BKA.Tools.CrewFinding.CrewParties;
 
-public record Activity(string Value, string Description)
+public record Activity(string Name, string Description)
 {
     public static Activity Default()
     {

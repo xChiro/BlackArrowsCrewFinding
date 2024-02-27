@@ -14,7 +14,7 @@ Feature: A player wants to create a crew party.
 
     Examples:
       | UserName | CrewPartyDefaultName |
-      | Rowan    | Rowan's Crew         |
+      | Rowan    | Rowan's CrewParty    |
 
     Scenario Outline: Creation of a Crew Party with default name
         Given a player named <CaptainName>

@@ -41,7 +41,7 @@ public class CrewPartyCreatorLocationTest
     private static void ExecuteSut(ICrewPartyCreator sut, Location expectedLocation)
     {
         var request = new CrewPartyCreatorRequest("Rowan", 5, expectedLocation,
-            Array.Empty<string>(), Activity.Default().Value);
+            Array.Empty<string>(), Activity.Default().Name);
         
         sut.Create(request);
     }
