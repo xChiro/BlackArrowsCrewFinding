@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace BKA.Tools.CrewFinding;
+namespace BKA.Tools.CrewFinding.Cultures;
 
 public class LanguageCollections : IEnumerable<Language>
 {

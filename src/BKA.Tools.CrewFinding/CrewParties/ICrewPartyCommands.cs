@@ -1,3 +1,5 @@
+using BKA.Tools.CrewFinding.CrewParties.Values;
+
 namespace BKA.Tools.CrewFinding.CrewParties;
 
 public interface ICrewPartyCommands

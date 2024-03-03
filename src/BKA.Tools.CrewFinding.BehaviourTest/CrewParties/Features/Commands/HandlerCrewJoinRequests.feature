@@ -13,7 +13,7 @@ Feature: Captain manages join requests to the Crew Party.
       | Rowan         | Allan        | Rowan's Crew Party |
 
     Scenario: Captain rejects a join request
-        
+
         Given a captain with username of <CaptainHandle>
         And a Crew Party named <CrewPartyName> with a captain of <CaptainHandle>
         And a join request from <PlayerHandle> for the Crew Party <CrewPartyName>
@@ -32,6 +32,6 @@ Feature: Captain manages join requests to the Crew Party.
         And a notification is sent to <PlayerHandle> saying Your request to join <CrewPartyName> has expired.
 
     Examples:
-      | CaptainHandle | PlayerHandle | CrewPartyName      | RequestedAt | 
-      | Rowan         | Allan        | Rowan's Crew Party | 30          | 
+      | CaptainHandle | PlayerHandle | CrewPartyName      | RequestedAt |
+      | Rowan         | Allan        | Rowan's Crew Party | 30          |
       | Rowan         | Allan        | Rowan's Crew Party | 40          |

@@ -11,7 +11,7 @@ public class PlayerSteps
     {
         _playerContext = playerContext;
     }
-    
+
     [Given(@"a player named (.*)")]
     public void When_givenAPlayerNamed(string userName)
     {

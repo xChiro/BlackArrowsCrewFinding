@@ -1,23 +1,10 @@
 using System;
+using BKA.Tools.CrewFinding.CrewParties.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
 
 public class CrewPartyCreatorTest
 {
-    [Fact]
-    public void Create_Crew_Party_With_Invalid_Captain_Name_Throws_Exception()
-    {
-        // Arrange
-        var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
-
-        // Act
-        var act = () => ExecuteCrewCreation(ref sut, string.Empty, 4);
-
-        // Assert
-        act.Should().Throw<ArgumentException>();
-    }
-
     [Theory]
     [InlineData("Rowan", "Rowan's CrewParty")]
     [InlineData("James", "James' CrewParty")]

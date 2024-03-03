@@ -1,6 +1,21 @@
-namespace BKA.Tools.CrewFinding.CrewParties;
+using BKA.Tools.CrewFinding.CrewParties.Values.Exceptions;
 
-public record Captain(string Name)
+namespace BKA.Tools.CrewFinding.CrewParties.Values;
+
+public record Captain
 {
-    public string Name { get; private set; } = Name;
+    public const int MaxLength = 30;
+
+    public Captain(string Name)
+    {
+        if (Name is "")
+                throw new CaptainNameEmptyException();
+
+        if(Name.Length > MaxLength)
+            throw new CaptainNameLengthException(MaxLength);
+        
+        this.Name = Name;
+    }
+
+    public string Name { get; }
 }

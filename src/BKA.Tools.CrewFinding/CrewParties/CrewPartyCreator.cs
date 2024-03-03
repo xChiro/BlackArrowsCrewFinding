@@ -1,3 +1,6 @@
+using BKA.Tools.CrewFinding.CrewParties.Values;
+using BKA.Tools.CrewFinding.Cultures;
+
 namespace BKA.Tools.CrewFinding.CrewParties;
 
 public class CrewPartyCreator : ICrewPartyCreator
@@ -13,9 +16,6 @@ public class CrewPartyCreator : ICrewPartyCreator
 
     public void Create(CrewPartyCreatorRequest request)
     {
-        if (request.CaptainName is "")
-            throw new ArgumentException("Captain name cannot be empty", nameof(request.CaptainName));
-
         var crewName = new CrewName(request.CaptainName);
         var captain = new Captain(request.CaptainName);
         var maxCrew = new CrewNumber(request.TotalCrew, _maxCrewAllowed);

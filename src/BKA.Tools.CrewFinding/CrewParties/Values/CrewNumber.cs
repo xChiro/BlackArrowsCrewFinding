@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.CrewParties;
+namespace BKA.Tools.CrewFinding.CrewParties.Values;
 public record CrewNumber
 {
     public int Value { get; }

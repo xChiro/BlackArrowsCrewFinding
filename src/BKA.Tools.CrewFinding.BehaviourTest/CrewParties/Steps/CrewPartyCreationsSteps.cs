@@ -12,7 +12,8 @@ public class CrewPartyCreationsSteps
     private readonly PlayerContext _playerContext;
     private readonly CreatePartyResultsContext _createPartyResultsContext;
 
-    public CrewPartyCreationsSteps(CrewPartyContext crewPartyContext, PlayerContext playerContext, CreatePartyResultsContext createPartyResultsContext)
+    public CrewPartyCreationsSteps(CrewPartyContext crewPartyContext, PlayerContext playerContext,
+        CreatePartyResultsContext createPartyResultsContext)
     {
         _crewPartyContext = crewPartyContext;
         _playerContext = playerContext;
@@ -24,12 +25,12 @@ public class CrewPartyCreationsSteps
         Table crewPartyDetails)
     {
         _crewPartyContext.FillData(crewPartyName, crewPartyDetails);
-        
+
         var crewPartyCreatorRequest = _crewPartyContext.ToRequest(_playerContext.UserName);
         _createPartyResultsContext.CrewPartyCommandsMock = new CrewPartyCommandsMock();
-        
+
         var crewPartyCreator = new CrewPartyCreator(_createPartyResultsContext.CrewPartyCommandsMock, 10);
-        
+
         crewPartyCreator.Create(crewPartyCreatorRequest);
     }
 }
