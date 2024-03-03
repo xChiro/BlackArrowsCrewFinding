@@ -1,5 +1,5 @@
 using System;
-using BKA.Tools.CrewFinding.CrewParties.Values;
+using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
 public class CrewPartyCreatorLocationTest

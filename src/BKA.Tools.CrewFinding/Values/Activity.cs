@@ -1,6 +1,6 @@
-using BKA.Tools.CrewFinding.CrewParties.Values.Exceptions;
+using BKA.Tools.CrewFinding.Values.Exceptions;
 
-namespace BKA.Tools.CrewFinding.CrewParties.Values;
+namespace BKA.Tools.CrewFinding.Values;
 
 public record Activity
 {

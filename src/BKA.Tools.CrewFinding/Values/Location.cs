@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding;
+namespace BKA.Tools.CrewFinding.Values;
 
 public record Location(string System, string PlanetarySystem, string PlanetMoon, string Place)
 {

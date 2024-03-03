@@ -92,7 +92,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             argumentsOfScenario.Add("CrewPartyName", crewPartyName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Requesting to join a Crew Party", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
-  this.ScenarioInitialize(scenarioInfo);
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -102,19 +102,19 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             {
                 this.ScenarioStart();
 #line 4
-    testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 5
-    testRunner.And(string.Format("a Crew Party named {0} exists", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("a Crew Party named {0} exists", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 6
-    testRunner.When(string.Format("the player requests to join {0}", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When(string.Format("the player requests to join {0}", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
-    testRunner.Then(string.Format("a join request is sent to the captain of {0} with creation date and time of now", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then(string.Format("a join request is sent to the captain of {0} with creation date and time of now", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
-    testRunner.And(string.Format("the player receives a notification Join request sent to the captain of {0}.", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("the player receives a notification Join request sent to the captain of {0}.", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -132,7 +132,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             argumentsOfScenario.Add("CrewPartyName", crewPartyName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Joining a Crew Party that is full", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 14
-  this.ScenarioInitialize(scenarioInfo);
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -142,22 +142,22 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             {
                 this.ScenarioStart();
 #line 15
-    testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 16
-    testRunner.And(string.Format("a Crew Party named {0} exists", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("a Crew Party named {0} exists", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 17
-    testRunner.And(string.Format("{0} has reached its maximum number of crew members", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("{0} has reached its maximum number of crew members", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 18
-    testRunner.When(string.Format("the player attempts to join {0}", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When(string.Format("the player attempts to join {0}", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 19
-    testRunner.Then("the player is not allowed to send a join request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then("the player is not allowed to send a join request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 20
-    testRunner.And(string.Format("the player receives a message Unable to request to join {0} as it is full.", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("the player receives a message Unable to request to join {0} as it is full.", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -175,7 +175,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             argumentsOfScenario.Add("CrewPartyName", crewPartyName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Attempting to join a non-existent Crew Party", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 26
-  this.ScenarioInitialize(scenarioInfo);
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -185,19 +185,19 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             {
                 this.ScenarioStart();
 #line 27
-    testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 28
-    testRunner.When(string.Format("the player attempts to join a Crew Party named {0}", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When(string.Format("the player attempts to join a Crew Party named {0}", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 29
-    testRunner.And(string.Format("{0} does not exist", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("{0} does not exist", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 30
-    testRunner.Then("the join request is not sent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then("the join request is not sent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 31
-    testRunner.And(string.Format("the player receives a message Crew Party {0} does not exist.", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("the player receives a message Crew Party {0} does not exist.", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -216,7 +216,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             argumentsOfScenario.Add("NewCrewParty", newCrewParty);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player in a Crew Party trying to join another", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 37
-  this.ScenarioInitialize(scenarioInfo);
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -226,19 +226,19 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             {
                 this.ScenarioStart();
 #line 38
-    testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 39
-    testRunner.And(string.Format("the player is already a member of a Crew Party named {0}", existingCrewParty), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("the player is already a member of a Crew Party named {0}", existingCrewParty), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 40
-    testRunner.When(string.Format("the player attempts to join another Crew Party named {0}", newCrewParty), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When(string.Format("the player attempts to join another Crew Party named {0}", newCrewParty), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 41
-    testRunner.Then(string.Format("the join request is not sent to {0}", newCrewParty), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then(string.Format("the join request is not sent to {0}", newCrewParty), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 42
-    testRunner.And(string.Format("the player receives a message You are already a member of {0}. Leave your current" +
+        testRunner.And(string.Format("the player receives a message You are already a member of {0}. Leave your current" +
                             " Crew Party to send another join request.", existingCrewParty), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }

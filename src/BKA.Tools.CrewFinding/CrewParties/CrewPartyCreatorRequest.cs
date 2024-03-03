@@ -1,3 +1,5 @@
+using BKA.Tools.CrewFinding.Values;
+
 namespace BKA.Tools.CrewFinding.CrewParties;
 
 public record CrewPartyCreatorRequest(

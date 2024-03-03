@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.CrewParties.Values.Exceptions;
+namespace BKA.Tools.CrewFinding.Values.Exceptions;
 
 public class ActivityDescriptionLengthException : Exception
 {

@@ -1,4 +1,5 @@
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
+using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
 
@@ -46,5 +47,13 @@ public class CrewPartyAssertionsSteps
     public void Then_IsDesignatedAsTheCaptain(string userName)
     {
         _createPartyResultsContext.CrewPartyCommandsMock.GetCaptain()!.Name.Should().Be(userName);
+    }
+
+    [Then(@"the Crew Party named (.*)'s Crew is successfully created with the default location information")]
+    public void When_thenTheCrewPartyNamedSCrewIsSuccessfullyCreatedWithTheDefaultLocationInformation(string userName)
+    {
+        var crewParty = _createPartyResultsContext.CrewPartyCommandsMock.GetCrewParty();
+        crewParty.Should().NotBeNull();
+        crewParty!.ReunionPoint.Should().BeEquivalentTo(Location.DefaultLocation());
     }
 }

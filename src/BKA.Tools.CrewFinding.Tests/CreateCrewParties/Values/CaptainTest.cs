@@ -1,6 +1,6 @@
 using System;
-using BKA.Tools.CrewFinding.CrewParties.Values;
-using BKA.Tools.CrewFinding.CrewParties.Values.Exceptions;
+using BKA.Tools.CrewFinding.Values;
+using BKA.Tools.CrewFinding.Values.Exceptions;
 
 namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties.Values;
 

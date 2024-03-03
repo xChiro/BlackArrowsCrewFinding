@@ -33,4 +33,14 @@ public class CrewPartyCreationsSteps
 
         crewPartyCreator.Create(crewPartyCreatorRequest);
     }
+
+    [When(@"the player creates a Crew Party named '(.*)' with missing location information")]
+    public void When_whenThePlayerCreatesACrewPartyNamedWithMissingLocationInformation(string p0)
+    {
+        _createPartyResultsContext.CrewPartyCommandsMock = new CrewPartyCommandsMock();
+        var crewPartyCreator = new CrewPartyCreator(_createPartyResultsContext.CrewPartyCommandsMock, 10);
+
+        var crewPartyCreatorRequest = CrewPartyFactory.CreateDefaultCrewPartyWithOutLocation(_playerContext.UserName);
+        crewPartyCreator.Create(crewPartyCreatorRequest);
+    }
 }

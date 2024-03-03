@@ -101,6 +101,72 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
 #line 4
         testRunner.Given("the current time is \"2023-07-29T15:00:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "CrewPartyName",
+                            "CaptainHandle",
+                            "CreationTime",
+                            "MaxCrewSize",
+                            "Languages",
+                            "System",
+                            "PlanetarySystem",
+                            "PlanetMoon",
+                            "Location",
+                            "Description",
+                            "Activity"});
+                table3.AddRow(new string[] {
+                            "The Stellar Hunters",
+                            "Rowan",
+                            "2023-07-29T14:20:00",
+                            "4",
+                            "ES, EN",
+                            "Stanton",
+                            "Crusader",
+                            "Crusader",
+                            "Seraphim Station",
+                            "Elite bounty hunters",
+                            "Bounty Hunting"});
+                table3.AddRow(new string[] {
+                            "The Galactic Voyagers",
+                            "Ada",
+                            "2023-07-29T14:45:00",
+                            "5",
+                            "EN, DE",
+                            "Terra",
+                            "Sol",
+                            "Terra",
+                            "New Austin",
+                            "Space explorers",
+                            "Exploration"});
+                table3.AddRow(new string[] {
+                            "The Lunar Marauders",
+                            "Kai",
+                            "2023-07-29T13:00:00",
+                            "3",
+                            "EN, FR",
+                            "Hurston",
+                            "Stanton",
+                            "Ariel",
+                            "Lorville",
+                            "Lunar miners",
+                            "Mining"});
+                table3.AddRow(new string[] {
+                            "The Space Pioneers",
+                            "Eve",
+                            "2023-07-29T13:30:00",
+                            "6",
+                            "ES, PT",
+                            "Stanton",
+                            "Crusader",
+                            "Crusader",
+                            "Port Olisar",
+                            "Intergalactic pioneers",
+                            "Trade"});
+#line 5
+        testRunner.And("the following Crew Parties exist:", ((string)(null)), table3, "And ");
+#line hidden
+#line 11
+        testRunner.When("the player searches for Crew Parties created within the last hour", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "CrewPartyName",
                             "CaptainHandle",
@@ -137,74 +203,8 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
                             "New Austin",
                             "Space explorers",
                             "Exploration"});
-                table4.AddRow(new string[] {
-                            "The Lunar Marauders",
-                            "Kai",
-                            "2023-07-29T13:00:00",
-                            "3",
-                            "EN, FR",
-                            "Hurston",
-                            "Stanton",
-                            "Ariel",
-                            "Lorville",
-                            "Lunar miners",
-                            "Mining"});
-                table4.AddRow(new string[] {
-                            "The Space Pioneers",
-                            "Eve",
-                            "2023-07-29T13:30:00",
-                            "6",
-                            "ES, PT",
-                            "Stanton",
-                            "Crusader",
-                            "Crusader",
-                            "Port Olisar",
-                            "Intergalactic pioneers",
-                            "Trade"});
-#line 5
-        testRunner.And("the following Crew Parties exist:", ((string)(null)), table4, "And ");
-#line hidden
-#line 11
-        testRunner.When("the player searches for Crew Parties created within the last hour", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                            "CrewPartyName",
-                            "CaptainHandle",
-                            "CreationTime",
-                            "MaxCrewSize",
-                            "Languages",
-                            "System",
-                            "PlanetarySystem",
-                            "PlanetMoon",
-                            "Location",
-                            "Description",
-                            "Activity"});
-                table5.AddRow(new string[] {
-                            "The Stellar Hunters",
-                            "Rowan",
-                            "2023-07-29T14:20:00",
-                            "4",
-                            "ES, EN",
-                            "Stanton",
-                            "Crusader",
-                            "Crusader",
-                            "Seraphim Station",
-                            "Elite bounty hunters",
-                            "Bounty Hunting"});
-                table5.AddRow(new string[] {
-                            "The Galactic Voyagers",
-                            "Ada",
-                            "2023-07-29T14:45:00",
-                            "5",
-                            "EN, DE",
-                            "Terra",
-                            "Sol",
-                            "Terra",
-                            "New Austin",
-                            "Space explorers",
-                            "Exploration"});
 #line 12
-        testRunner.Then("Allan should see the following Crew Parties:", ((string)(null)), table5, "Then ");
+        testRunner.Then("Allan should see the following Crew Parties:", ((string)(null)), table4, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
