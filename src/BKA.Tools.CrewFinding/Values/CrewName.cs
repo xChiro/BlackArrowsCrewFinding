@@ -6,6 +6,7 @@ public record CrewName
 
     public CrewName(string captainName)
     {
-        Value = captainName.EndsWith("s") ? $"{captainName}' CrewParty" : $"{captainName}'s CrewParty";
+        Value = $"Crew Party of {captainName}";
+            
     }
 }

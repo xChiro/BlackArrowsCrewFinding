@@ -3,11 +3,11 @@ using BKA.Tools.CrewFinding.BehaviourTest.Globals;
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 
 [Binding]
-public class PlayerSteps
+public class PlayerArrangeSteps
 {
     private readonly PlayerContext _playerContext;
 
-    public PlayerSteps(PlayerContext playerContext)
+    public PlayerArrangeSteps(PlayerContext playerContext)
     {
         _playerContext = playerContext;
     }

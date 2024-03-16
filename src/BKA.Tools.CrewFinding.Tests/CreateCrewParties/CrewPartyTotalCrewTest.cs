@@ -6,6 +6,7 @@ namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
 public class CrewPartyTotalCrewTest
 {
     [Theory]
+    [InlineData(0, 2)]
     [InlineData(-1, 2)]
     [InlineData(-2, 5)]
     [InlineData(-3, 7)]

@@ -5,6 +5,6 @@ public record CrewNumber
     
     public CrewNumber(int input, int maxAllowed)
     {
-        Value = input < 0 || input > maxAllowed ? maxAllowed : input;
+        Value = input <= 0 || input > maxAllowed ? maxAllowed : input;
     }
 }

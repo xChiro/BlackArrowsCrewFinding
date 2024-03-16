@@ -6,8 +6,8 @@ namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
 public class CrewPartyCreatorTest
 {
     [Theory]
-    [InlineData("Rowan", "Rowan's CrewParty")]
-    [InlineData("James", "James' CrewParty")]
+    [InlineData("Rowan", "Crew Party of Rowan")]
+    [InlineData("James", "Crew Party of James")]
     public void Create_Crew_Party_Forms_Correct_Crew_Name(string captainName, string expectedCrewName)
     {
         // Arrange
@@ -67,6 +67,11 @@ public class CrewPartyCreatorTest
         createCrewPartyResultMock.Activity!.Description.Should().Be(description);
     }
 
+    private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew)
+    {
+        ExecuteCrewCreation(ref sut, captainName, totalCrew, string.Empty);
+    }
+
     private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew,
         string description)
     {
@@ -75,10 +80,5 @@ public class CrewPartyCreatorTest
             Array.Empty<string>(), Activity.Default().Name, description);
 
         sut.Create(request);
-    }
-
-    private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew)
-    {
-        ExecuteCrewCreation(ref sut, captainName, totalCrew, string.Empty);
     }
 }

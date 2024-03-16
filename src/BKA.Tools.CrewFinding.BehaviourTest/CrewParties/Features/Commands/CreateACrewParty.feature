@@ -5,8 +5,7 @@ Feature: A player wants to create a crew party.
         When the player creates a Crew Party named 'The Stellar Hunters' with the following details:
           | CrewSize | Languages | System  | PlanetarySystem | Planet/Moon | Place            | Description          | Activity       |
           | 6        | ES, EN    | Stanton | Crusader        | Crusader    | Seraphim Station | Elite bounty hunters | Bounty Hunting |
-        Then a Crew Party named <CrewPartyDefaultName> is successfully created
-        And <UserName> is designated as the Captain
+        Then a Crew Party with default name is successfully created for the player <UserName>
         And the Crew Party contains the following details:
           | CrewSize | Languages | System  | PlanetarySystem | Planet/Moon | Place            | Description          | Activity       |
           | 6        | ES, EN    | Stanton | Crusader        | Crusader    | Seraphim Station | Elite bounty hunters | Bounty Hunting |
@@ -14,7 +13,7 @@ Feature: A player wants to create a crew party.
 
     Examples:
       | UserName | CrewPartyDefaultName |
-      | Rowan    | Rowan's CrewParty    |
+      | Rowan    | Crew  Rowan    |
 
     Scenario: Preventing the creation of multiple active Crew Parties
         Given a player named <UserName>
@@ -29,27 +28,27 @@ Feature: A player wants to create a crew party.
 
     Scenario: Creation of a Crew Party with default location information
         Given a player named <UserName>
-        When the player creates a Crew Party named 'The Stellar Hunters' with missing location information
-        Then the Crew Party named <UserName>'s Crew is successfully created with the default location information
+        When the player attempts to create a Crew Party with missing location information
+        Then the Crew Party is successfully created with the default location information
+
+    Examples:
+      | UserName | CrewPartyName       |
+      | Rowan    | The Stellar Hunters |
+
+    Scenario: Create a Crew Party with missing activity information, use default activity
+        Given a player named <UserName>
+        When the player attempts to create a Crew Party with missing activity information
+        Then the creation of the Crew Party is created with the default activity
 
     Examples:
       | UserName |
       | Rowan    |
 
-    Scenario: Create a Crew Party with missing activity information, use default activity
-        Given a player named <UserName>
-        When the player attempts to create a Crew Party named 'The Stellar Hunters' with missing activity information
-        Then the creation of the Crew Party is created with the default activity
-
-    Examples:
-      | UserName | 
-      | Rowan    | 
-
     Scenario: Creating a Crew Party with default crew size
         Given a player named <UserName>
         And the default MaxCrewSize is <DefaultMaxCrewSize>
-        When the player attempts to create a Crew Party named 'The Stellar Hunters' with missing MaxCrewSize
-        Then the Crew Party named <UserName>'s Crew is successfully created
+        When the player attempts to create a Crew Party with missing MaxCrewSize
+        Then the Crew Party of <UserName> is successfully created
         And the MaxCrewSize is set to <DefaultMaxCrewSize>
         And <UserName> is designated as the Captain
 
@@ -59,9 +58,8 @@ Feature: A player wants to create a crew party.
 
     Scenario: Creating a Crew Party with default languages
         Given a player named <UserName>
-        When the player attempts to create a Crew Party named 'The Stellar Hunters' with missing languages
-        Then the Crew Party named <UserName>'s Crew is successfully created
-        And the default Language are set to the Crew Party
+        When the player attempts to create a Crew Party with missing languages
+        Then the Crew Party is successfully created with the default languages
         And <UserName> is designated as the Captain
 
     Examples:
