@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.Cultures.Excepctions;
+namespace BKA.Tools.CrewFinding.Cultures.Exceptions;
 
 public class LanguageNameLengthException : Exception 
 {

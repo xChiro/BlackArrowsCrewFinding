@@ -9,11 +9,11 @@ public record Captain
     public Captain(string Name)
     {
         if (Name is "")
-                throw new CaptainNameEmptyException();
+            throw new CaptainNameEmptyException();
 
-        if(Name.Length > MaxLength)
+        if (Name.Length > MaxLength)
             throw new CaptainNameLengthException(MaxLength);
-        
+
         this.Name = Name;
     }
 

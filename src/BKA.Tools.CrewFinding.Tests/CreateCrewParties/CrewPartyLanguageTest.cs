@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Cultures;
+using BKA.Tools.CrewFinding.Tests.CreateCrewParties.Mocks;
 using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
@@ -14,7 +16,7 @@ public class CrewPartyLanguageTest
         var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
         
         // Act
-        ExecuteCrewCreation(ref sut, "Rowan", 4, Array.Empty<string>());
+        ExecuteCrewCreation(sut, "Rowan", 4, Array.Empty<string>());
 
         // Assert
         createCrewPartyResultMock.Languages.Should().BeEquivalentTo(LanguageCollections.Default());
@@ -33,13 +35,13 @@ public class CrewPartyLanguageTest
         var expectedLanguages = LanguageCollections.CreateFromAbbrevs(languagesAbbrevs);
 
         // Act
-        ExecuteCrewCreation(ref sut, "Rowan", 4, languagesAbbrevs);
+        ExecuteCrewCreation(sut, "Rowan", 4, languagesAbbrevs);
 
         // Assert
         createCrewPartyResultMock.Languages.Should().BeEquivalentTo(expectedLanguages);
     }
 
-    private static void ExecuteCrewCreation(ref ICrewPartyCreator sut, string captainName, int totalCrew,
+    private static void ExecuteCrewCreation(ICrewPartyCreator sut, string captainName, int totalCrew,
         string[] languages)
     {
         var request = new CrewPartyCreatorRequest(captainName, totalCrew, Location.DefaultLocation(), 

@@ -1,5 +1,6 @@
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 using BKA.Tools.CrewFinding.Cultures;
+using BKA.Tools.CrewFinding.Cultures.Exceptions;
 using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
@@ -7,24 +8,27 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
 [Binding]
 public class CrewPartyAssertSteps
 {
-    private readonly CreatePartyResultsContext _createPartyResultsContext;
+    private readonly MockRepositoriesContext _mockRepositoriesContext;
+    private readonly CrewPartyCreationResultsContext _crewPartyCreationResultsContext;
 
-    public CrewPartyAssertSteps(CreatePartyResultsContext createPartyResultsContext)
+    public CrewPartyAssertSteps(MockRepositoriesContext mockRepositoriesContext, 
+        CrewPartyCreationResultsContext crewPartyCreationResultsContext)
     {
-        _createPartyResultsContext = createPartyResultsContext;
+        _mockRepositoriesContext = mockRepositoriesContext;
+        _crewPartyCreationResultsContext = crewPartyCreationResultsContext;
     }
 
     [Then(@"a Crew Party with default name is successfully created for the player (.*)")]
-    public void TCrewPartyNamed_isSuccessfullyCreated(string playerName)
+    public void ThenACrewPartyWithDefaultNameIsSuccessfullyCreatedForThePlayer(string playerName)
     {
-        _createPartyResultsContext.CrewPartyCommandsMock.GetCrewParty()?.Name.Value.Should()
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()?.Name.Value.Should()
             .Be($"Crew Party of {playerName}");
     }
 
     [Then(@"the Crew Party contains the following details:")]
     public void ThenTheCrewPartyContainsTheFollowingDetails(Table table)
     {
-        var crewParty = _createPartyResultsContext.CrewPartyCommandsMock.GetCrewParty();
+        var crewParty = _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty();
         crewParty.Should().NotBeNull();
         crewParty!.Activity.Description.Should().Be(table.Rows[0]["Description"]);
         crewParty.Activity.Name.Should().Be(table.Rows[0]["Activity"]);
@@ -41,51 +45,41 @@ public class CrewPartyAssertSteps
     [Then(@"the creation date is the current date")]
     public void ThenTheCreationDateIsTheCurrentDate()
     {
-        _createPartyResultsContext.CrewPartyCommandsMock.GetCrewParty()?.CreationDate.Should()
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()?.CreationDate.Should()
             .BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
     }
 
     [Then(@"(.*) is designated as the Captain")]
     public void ThenIsDesignatedAsTheCaptain(string userName)
     {
-        _createPartyResultsContext.CrewPartyCommandsMock.GetCaptain()!.Name.Should().Be(userName);
-    }
-
-    [Then(@"the Crew Party is successfully created with the default location information")]
-    public void ThenTheCrewPartyIsSuccessfullyCreatedWithTheDefaultLocationInformation()
-    {
-        var crewParty = _createPartyResultsContext.CrewPartyCommandsMock.GetCrewParty();
-        crewParty!.ReunionPoint.Should().BeEquivalentTo(Location.DefaultLocation());
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCaptain()!.Name.Should().Be(userName);
     }
 
     [Then(@"the Crew Party of (.*) is successfully created")]
     public void ThenTheCrewPartyNamedSCrewIsSuccessfullyCreated(string captainName)
     {
-        _createPartyResultsContext.CrewPartyCommandsMock.GetCrewParty().Should().NotBeNull();
-        _createPartyResultsContext.CrewPartyCommandsMock.GetCrewParty()!.Name.Value.Should()
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty().Should().NotBeNull();
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()!.Name.Value.Should()
             .Be($"Crew Party of {captainName}");
     }
 
     [Then(@"the MaxCrewSize is set to (.*)")]
     public void ThenTheMaxCrewSizeIsSetTo(string defaultMaxCrewSize)
     {
-        _createPartyResultsContext.CrewPartyCommandsMock.GetCrewParty()!.TotalCrewNumber.Value.Should()
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()!.TotalCrewNumber.Value.Should()
             .Be(int.Parse(defaultMaxCrewSize));
     }
 
-    [Then(@"the Crew Party is successfully created with the default languages")]
-    public void ThenTheCrewPartyIsSuccessfullyCreatedWithTheDefaultLanguages()
+    [Then(@"the creation of the new Crew Party is prevented")]
+    public void ThenTheCreationOfTheNewCrewPartyIsPrevented()
     {
-        var crewParty = _createPartyResultsContext.CrewPartyCommandsMock.GetCrewParty();
-        var languageExpectation = LanguageCollections.Default().Select(language => language.LanguageCode);
-        crewParty!.Languages.Select(language => language.LanguageCode).Should()
-            .BeEquivalentTo(languageExpectation);
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty().Should().BeNull();
     }
 
-    [Then(@"the creation of the Crew Party is created with the default activity")]
-    public void ThenTheCreationOfTheCrewPartyIsCreatedWithTheDefaultActivity()
+    [Then(@"the player receives a message indicating that the player already has an active Crew Party")]
+    public void ThenThePlayerReceivesAMessageIndicatingThatThePlayerAlreadyHasAnActiveCrewParty()
     {
-        _createPartyResultsContext.CrewPartyCommandsMock.GetCrewParty()!.Activity.Name.Should()
-            .Be(Activity.Default().Name);
+        _crewPartyCreationResultsContext.Exception.GetType().Should().Be<CaptainMultiplePartiesException>();
+        _crewPartyCreationResultsContext.Exception.Message.Should().Be("A captain can only create one party at a time.");
     }
 }

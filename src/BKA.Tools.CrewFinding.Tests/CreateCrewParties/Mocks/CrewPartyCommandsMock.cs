@@ -1,8 +1,9 @@
 using System;
+using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
+namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties.Mocks;
 
 public class CrewPartyCommandsMock : ICrewPartyCommands
 {

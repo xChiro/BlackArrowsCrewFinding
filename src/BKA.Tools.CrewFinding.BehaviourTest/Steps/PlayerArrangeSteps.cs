@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Globals;
 
-namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
+namespace BKA.Tools.CrewFinding.BehaviourTest.Steps;
 
 [Binding]
 public class PlayerArrangeSteps

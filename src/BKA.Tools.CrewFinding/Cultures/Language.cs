@@ -1,4 +1,4 @@
-using BKA.Tools.CrewFinding.Cultures.Excepctions;
+using BKA.Tools.CrewFinding.Cultures.Exceptions;
 
 namespace BKA.Tools.CrewFinding.Cultures;
 

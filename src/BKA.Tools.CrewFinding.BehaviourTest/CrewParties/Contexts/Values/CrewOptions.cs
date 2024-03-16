@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
+namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts.Values;
 
 public class CrewOptions
 {

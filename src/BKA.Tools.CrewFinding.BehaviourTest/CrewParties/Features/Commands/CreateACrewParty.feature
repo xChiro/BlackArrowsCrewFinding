@@ -18,9 +18,9 @@ Feature: A player wants to create a crew party.
     Scenario: Preventing the creation of multiple active Crew Parties
         Given a player named <UserName>
         And the player already has an active Crew Party
-        When the player attempts to create a new Crew Party named 'The Stellar Hunters'
+        When the player attempts to create a new Crew Party
         Then the creation of the new Crew Party is prevented
-        And the player receives a message 'You cannot create a new Crew Party as you already have an active one.'
+        And the player receives a message indicating that the player already has an active Crew Party
 
     Examples:
       | UserName |

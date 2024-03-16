@@ -65,4 +65,10 @@
       <UpToDateCheckBuild Remove="Features\Queries\ViewRecentlyCreatedCrewParties.feature.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="specflow.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
