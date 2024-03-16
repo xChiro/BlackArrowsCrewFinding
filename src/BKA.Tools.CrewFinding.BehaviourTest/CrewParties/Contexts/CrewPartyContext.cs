@@ -9,6 +9,7 @@ public class CrewPartyContext
     public CrewOptions Options { get; set; }
     public PartyLocation Location { get; set; }
     public CrewActivity Activity { get; set; }
+    public int MaxPlayerAllowed { get; set; }
 
     public void FillData(string crewPartyName, Table crewPartyDetails)
     {

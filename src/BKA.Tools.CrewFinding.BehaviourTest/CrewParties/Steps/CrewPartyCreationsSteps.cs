@@ -21,7 +21,7 @@ public class CrewPartyCreationsSteps
     }
 
     [When(@"the player creates a Crew Party named '(.*)' with the following details:")]
-    public void When_whenThePlayerCreatesACrewPartyNamedWithTheFollowingDetails(string crewPartyName,
+    public void WhenThePlayerCreatesACrewPartyNamedWithTheFollowingDetails(string crewPartyName,
         Table crewPartyDetails)
     {
         _crewPartyContext.FillData(crewPartyName, crewPartyDetails);
@@ -35,12 +35,24 @@ public class CrewPartyCreationsSteps
     }
 
     [When(@"the player creates a Crew Party named '(.*)' with missing location information")]
-    public void When_whenThePlayerCreatesACrewPartyNamedWithMissingLocationInformation(string p0)
+    public void WhenThePlayerCreatesACrewPartyNamedWithMissingLocationInformation(string crewPartyName)
     {
         _createPartyResultsContext.CrewPartyCommandsMock = new CrewPartyCommandsMock();
         var crewPartyCreator = new CrewPartyCreator(_createPartyResultsContext.CrewPartyCommandsMock, 10);
 
         var crewPartyCreatorRequest = CrewPartyFactory.CreateDefaultCrewPartyWithOutLocation(_playerContext.UserName);
         crewPartyCreator.Create(crewPartyCreatorRequest);
+    }
+
+    [Given(@"the default MaxCrewSize is (.*)")]
+    public void GivenTheDefaultMaxCrewSizeIs(string defaultMaxCrewSize)
+    {
+        _crewPartyContext.MaxPlayerAllowed = int.Parse(defaultMaxCrewSize);
+    }
+
+    [When(@"the player attempts to create a Crew Party named '(.*)' with missing MaxCrewSize")]
+    public void WhenThePlayerAttemptsToCreateACrewPartyNamedWithMissingMaxCrewSize(string maxCrew)
+    {
+        ScenarioContext.StepIsPending();
     }
 }

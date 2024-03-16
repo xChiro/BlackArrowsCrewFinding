@@ -235,17 +235,16 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableTheoryAttribute(DisplayName="Preventing creation of a crew party with default activity information")]
+        [Xunit.SkippableTheoryAttribute(DisplayName="Create a Crew Party with missing activity information, use default activity")]
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
-        [Xunit.TraitAttribute("Description", "Preventing creation of a crew party with default activity information")]
-        [Xunit.InlineDataAttribute("Rowan", "Trading", new string[0])]
-        public void PreventingCreationOfACrewPartyWithDefaultActivityInformation(string userName, string defaultActivity, string[] exampleTags)
+        [Xunit.TraitAttribute("Description", "Create a Crew Party with missing activity information, use default activity")]
+        [Xunit.InlineDataAttribute("Rowan", new string[0])]
+        public void CreateACrewPartyWithMissingActivityInformationUseDefaultActivity(string userName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
-            argumentsOfScenario.Add("Default Activity", defaultActivity);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Preventing creation of a crew party with default activity information", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a Crew Party with missing activity information, use default activity", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 39
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -260,18 +259,11 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 41
-        testRunner.And("the default activity is <Trading>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 42
         testRunner.When("the player attempts to create a Crew Party named \'The Stellar Hunters\' with missi" +
                         "ng activity information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 43
-        testRunner.Then("the creation of the Crew Party is prevented", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 44
-        testRunner.And("the player receives a message \'Incomplete information provided. Crew Party not cr" +
-                        "eated.\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 42
+        testRunner.Then("the creation of the Crew Party is created with the default activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -288,7 +280,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             argumentsOfScenario.Add("UserName", userName);
             argumentsOfScenario.Add("DefaultMaxCrewSize", defaultMaxCrewSize);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a Crew Party with default crew size", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 50
+#line 48
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -298,23 +290,23 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             else
             {
                 this.ScenarioStart();
-#line 51
+#line 49
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 52
+#line 50
         testRunner.And(string.Format("the default MaxCrewSize is {0}", defaultMaxCrewSize), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 53
+#line 51
         testRunner.When("the player attempts to create a Crew Party named \'The Stellar Hunters\' with missi" +
                         "ng MaxCrewSize", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 54
+#line 52
         testRunner.Then(string.Format("the Crew Party named {0}\'s Crew is successfully created", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 55
+#line 53
         testRunner.And(string.Format("the MaxCrewSize is set to {0}", defaultMaxCrewSize), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 56
+#line 54
         testRunner.And(string.Format("{0} is designated as the Captain", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -332,7 +324,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             argumentsOfScenario.Add("UserName", userName);
             argumentsOfScenario.Add("DefaultLanguage", defaultLanguage);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a Crew Party with default languages", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 62
+#line 60
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -342,23 +334,20 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             else
             {
                 this.ScenarioStart();
-#line 63
+#line 61
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 64
-        testRunner.And(string.Format("the default Language is {0}", defaultLanguage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 65
+#line 62
         testRunner.When("the player attempts to create a Crew Party named \'The Stellar Hunters\' with missi" +
                         "ng languages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 66
+#line 63
         testRunner.Then(string.Format("the Crew Party named {0}\'s Crew is successfully created", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 67
-        testRunner.And(string.Format("the default Language is set to {0}", defaultLanguage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 64
+        testRunner.And("the default Language are set to the Crew Party", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 68
+#line 65
         testRunner.And(string.Format("{0} is designated as the Captain", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
