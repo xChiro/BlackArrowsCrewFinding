@@ -15,7 +15,8 @@ public class CrewPartyActSteps
     private readonly CrewPartyCreationResultsContext _crewPartyCreationResultsContext;
 
     public CrewPartyActSteps(CrewPartyContext crewPartyContext, PlayerContext playerContext,
-        MockRepositoriesContext mockRepositoriesContext, CrewPartyCreationResultsContext crewPartyCreationResultsContext)
+        MockRepositoriesContext mockRepositoriesContext,
+        CrewPartyCreationResultsContext crewPartyCreationResultsContext)
     {
         _crewPartyContext = crewPartyContext;
         _playerContext = playerContext;
@@ -24,12 +25,10 @@ public class CrewPartyActSteps
     }
 
     [When(@"the player attempts to create a Crew Party with missing location information")]
-    public async void WhenThePlayerCreatesACrewPartyNamedWithMissingLocationInformation()
+    public async void WhenThePlayerAttemptsToCreateACrewPartyWithMissingLocationInformation()
     {
-        var crewPartyCreator = InitializeCrewPartyCreator();
         var crewPartyCreatorRequest = CrewPartyFactory.CreateDefaultCrewPartyWithoutLocation(_playerContext.UserName);
-
-        await crewPartyCreator.Create(crewPartyCreatorRequest, new CrewPartyCreatorResponseMock());
+        await CreateCrewParty(crewPartyCreatorRequest);
     }
 
     [When(@"the player creates a Crew Party named '(.*)' with the following details:")]
@@ -41,50 +40,48 @@ public class CrewPartyActSteps
         var crewPartyCreatorRequest = _crewPartyContext.ToRequest(_playerContext.UserName);
         var crewPartyCreator = InitializeCrewPartyCreator();
 
-        await crewPartyCreator.Create(crewPartyCreatorRequest, new CrewPartyCreatorResponseMock());
+        await crewPartyCreator.Create(crewPartyCreatorRequest,
+            _crewPartyCreationResultsContext.CrewPartyCreatorResponseMock);
     }
 
     [When(@"the player attempts to create a Crew Party with missing MaxCrewSize")]
     public async void WhenThePlayerAttemptsToCreateACrewPartyWithMissingMaxCrewSize()
     {
-        var crewPartyCreator = InitializeCrewPartyCreator(_crewPartyContext.MaxPlayerAllowed);
         var crewPartyCreatorRequest = CrewPartyFactory.CreateCrewParty(_playerContext.UserName, 0);
+        await CreateCrewParty(crewPartyCreatorRequest);
+    }
 
-        await crewPartyCreator.Create(crewPartyCreatorRequest, new CrewPartyCreatorResponseMock());
+    private async Task CreateCrewParty(CrewPartyCreatorRequest crewPartyCreatorRequest)
+    {
+        var crewPartyCreator = InitializeCrewPartyCreator();
+
+        await crewPartyCreator.Create(crewPartyCreatorRequest,
+            _crewPartyCreationResultsContext.CrewPartyCreatorResponseMock);
     }
 
     [When(@"the player attempts to create a Crew Party with missing languages")]
     public async void WhenThePlayerAttemptsToCreateACrewPartyWithMissingLanguages()
     {
-        var crewPartyCreator = InitializeCrewPartyCreator();
         var crewPartyCreatorRequest = CrewPartyFactory.CreateCrewPartyWithMissingLanguages(_playerContext.UserName);
-
-        await crewPartyCreator.Create(crewPartyCreatorRequest, new CrewPartyCreatorResponseMock());
+        await CreateCrewParty(crewPartyCreatorRequest);
     }
 
     [When(@"the player attempts to create a Crew Party with missing activity information")]
     public async void WhenThePlayerAttemptsToCreateACrewPartyWithMissingActivityInformation()
     {
-        var crewPartyCreator = InitializeCrewPartyCreator();
-        var crewPartyCreatorRequest = new CrewPartyCreatorRequest(_playerContext.UserName, 1,
-            new Location("Stanton", "Hurston", "Arial", "Ground Station"), 
-            new[] {"EN"}, "",
-            "Hunt down the most dangerous criminals in the galaxy.");
-
-        await crewPartyCreator.Create(crewPartyCreatorRequest, new CrewPartyCreatorResponseMock());
+        var crewPartyCreatorRequest = CrewPartyFactory.CreateCrewParty(_playerContext.UserName, 1);
+        
+        await CreateCrewParty(crewPartyCreatorRequest);
     }
 
     [When(@"the player attempts to create a new Crew Party")]
     public async Task WhenThePlayerAttemptsToCreateANewCrewParty()
     {
-        var crewPartyCreator = InitializeCrewPartyCreator();
-        var crewPartyCreatorRequest = new CrewPartyCreatorRequest(_playerContext.UserName, 1,
-            new Location("Stanton", "Hurston", "Arial", "Ground Station"), new[] {"en"}, "",
-            "Hunt down the most dangerous criminals in the galaxy.");
-
+        var crewPartyCreatorRequest = CrewPartyFactory.CreateCrewParty(_playerContext.UserName, 1);
+        
         try
         {
-            await crewPartyCreator.Create(crewPartyCreatorRequest, new CrewPartyCreatorResponseMock());
+            await CreateCrewParty(crewPartyCreatorRequest);
         }
         catch (Exception ex)
         {
@@ -92,12 +89,12 @@ public class CrewPartyActSteps
         }
     }
 
-    private CrewPartyCreator InitializeCrewPartyCreator(int maxCrewAllowed = 10)
+    private CrewPartyCreator InitializeCrewPartyCreator()
     {
         _mockRepositoriesContext.CrewPartyCommandsMock = new CrewPartyCommandsMock();
 
-        return new CrewPartyCreator(_mockRepositoriesContext.CrewPartyCommandsMock, 
-            _mockRepositoriesContext.CrewPartyQueriesMocks, 
-            maxCrewAllowed);
+        return new CrewPartyCreator(_mockRepositoriesContext.CrewPartyCommandsMock,
+            _mockRepositoriesContext.CrewPartyQueriesMocks,
+            _crewPartyContext.MaxPlayerAllowed);
     }
 }

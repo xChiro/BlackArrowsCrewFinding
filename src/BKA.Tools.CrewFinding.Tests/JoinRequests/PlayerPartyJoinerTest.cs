@@ -17,6 +17,7 @@ public class PlayerPartyJoinerTest
         var player = "John Doe";
         
         // Act
+        
     }
 }
 

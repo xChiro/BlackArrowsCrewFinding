@@ -2,6 +2,7 @@ Feature: A player wants to create a crew party.
 
     Scenario: Successful creation of a Crew Party
         Given a player named <UserName>
+        And the default MaxCrewSize is 6
         When the player creates a Crew Party named 'The Stellar Hunters' with the following details:
           | CrewSize | Languages | System  | PlanetarySystem | Planet/Moon | Place            | Description          | Activity       |
           | 6        | ES, EN    | Stanton | Crusader        | Crusader    | Seraphim Station | Elite bounty hunters | Bounty Hunting |

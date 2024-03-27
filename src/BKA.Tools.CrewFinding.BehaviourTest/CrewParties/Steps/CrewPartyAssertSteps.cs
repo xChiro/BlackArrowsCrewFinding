@@ -35,9 +35,11 @@ public class CrewPartyAssertSteps
         crewParty.ReunionPoint.PlanetarySystem.Should().Be(table.Rows[0]["PlanetarySystem"]);
         crewParty.ReunionPoint.System.Should().Be(table.Rows[0]["System"]);
         crewParty.TotalCrewNumber.Value.Should().Be(int.Parse(table.Rows[0]["CrewSize"]));
-
+        
         var expectation = table.Rows[0]["Languages"].Split(',').Select(x => x.Trim()).ToList();
         crewParty.Languages.Select(language => language.LanguageCode).Should().BeEquivalentTo(expectation);
+
+        _crewPartyCreationResultsContext.CrewPartyCreatorResponseMock.Id.Should().NotBeNullOrEmpty();
     }
 
     [Then(@"the creation date is the current date")]
