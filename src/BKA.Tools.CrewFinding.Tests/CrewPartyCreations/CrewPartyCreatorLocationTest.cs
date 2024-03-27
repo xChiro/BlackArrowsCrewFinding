@@ -1,12 +1,16 @@
 using System;
-using BKA.Tools.CrewFinding.Tests.CreateCrewParties.Mocks;
+using System.Threading.Tasks;
+using BKA.Tools.CrewFinding.CrewParties.Creators;
+using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
+using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Utilities;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
+namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations;
+
 public class CrewPartyCreatorLocationTest
 {
     [Fact]
-    public void Create_Crew_Party_Without_Location_Uses_Default()
+    public async Task Create_Crew_Party_Without_Location_Uses_Default()
     {
         // Arrange
         var expectedLocation = Location.DefaultLocation();
@@ -14,7 +18,7 @@ public class CrewPartyCreatorLocationTest
         var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
 
         // Act
-        ExecuteSut(sut, expectedLocation);
+        await ExecuteSut(sut, expectedLocation);
 
         // Assert
         createCrewPartyResultMock.StartingPlace.Should().Be(expectedLocation);
@@ -25,7 +29,7 @@ public class CrewPartyCreatorLocationTest
     [InlineData("Stanton", "Crusader", "Crusader", "Port Olisar")]
     [InlineData("Stanton", "MicroTech", "MicroTech", "New Babbage")]
     [InlineData("Pyro", "Pyro", "Pyro I", "Pyro I Station")]
-    public void Create_Crew_Party_With_Location_Succeeds(string system, string planetarySystem,
+    public async Task Create_Crew_Party_With_Location_Succeeds(string system, string planetarySystem,
         string planetMoon, string place)
     {
         // Arrange
@@ -34,17 +38,14 @@ public class CrewPartyCreatorLocationTest
         var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
 
         // Act
-        ExecuteSut(sut, expectedLocation);
+        await ExecuteSut(sut, expectedLocation);
 
         // Assert
         createCrewPartyResultMock.StartingPlace.Should().Be(expectedLocation);
     }
 
-    private static void ExecuteSut(ICrewPartyCreator sut, Location expectedLocation)
-    {
-        var request = new CrewPartyCreatorRequest("Rowan", 5, expectedLocation,
-            Array.Empty<string>(), Activity.Default().Name);
-        
-        sut.Create(request);
+    private static async Task ExecuteSut(ICrewPartyCreator sut, Location expectedLocation)
+    {   
+        await ExecuteCrewCreationUtilities.ExecuteCrewCreation(sut, "Rowan", 2, "Mining", expectedLocation);
     }
 }

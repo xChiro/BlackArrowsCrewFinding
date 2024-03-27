@@ -83,14 +83,13 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Captain approves a join request")]
         [Xunit.TraitAttribute("FeatureTitle", "Captain manages join requests to the Crew Party.")]
         [Xunit.TraitAttribute("Description", "Captain approves a join request")]
-        [Xunit.InlineDataAttribute("Rowan", "Allan", "Rowan\'s Crew Party", new string[0])]
-        public void CaptainApprovesAJoinRequest(string captainHandle, string playerHandle, string crewPartyName, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Rowan", "Allan", new string[0])]
+        public void CaptainApprovesAJoinRequest(string captainHandle, string playerHandle, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("CaptainHandle", captainHandle);
             argumentsOfScenario.Add("PlayerHandle", playerHandle);
-            argumentsOfScenario.Add("CrewPartyName", crewPartyName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain approves a join request", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
     this.ScenarioInitialize(scenarioInfo);
@@ -106,19 +105,20 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         testRunner.Given(string.Format("a captain with username of {0}", captainHandle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 5
-        testRunner.And(string.Format("the captain has a not full Crew Party named {0}", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("the captain has a Crew Party with available slots", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 6
-        testRunner.And(string.Format("a join request from {0} for the Crew Party {1}", playerHandle, crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("a player with username of {0} wants to join the Crew Party of {1}", playerHandle, captainHandle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 7
         testRunner.When("the captain approves the join request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
-        testRunner.Then(string.Format("{0} is added to {1}", playerHandle, crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then(string.Format("{0} is added to Crew Party of {1}", playerHandle, captainHandle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 9
-        testRunner.And(string.Format("a notification is sent to {0} saying Your request to join {1} has been approved.", playerHandle, crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("a notification is sent to {0} saying Your request to join <CrewPartyName> has bee" +
+                            "n approved.", playerHandle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
 
-namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties.Mocks;
+namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
 
 public class CrewPartyQueriesMock(bool hasCreatedParty = false) : ICrewPartyQueries
 {

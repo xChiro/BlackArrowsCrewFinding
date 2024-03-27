@@ -1,12 +1,14 @@
 using System;
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Tests.CreateCrewParties.Mocks;
+using BKA.Tools.CrewFinding.CrewParties.Creators;
+using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
+using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Utilities;
 using BKA.Tools.CrewFinding.Values;
 using BKA.Tools.CrewFinding.Values.Exceptions;
 
-namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties.Values;
+namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Values;
 
-public class CaptainTest
+public class PlayerTest
 {
     [Fact]
     public async void Create_Crew_Party_With_Invalid_Captain_Name_Throws_Exception()
@@ -25,7 +27,7 @@ public class CaptainTest
     public void Try_To_Create_A_Captain_with_An_Invalid_Length_Then_Throw_An_Exception(string invalidName)
     {
         // Act
-        var act = () => new Captain(invalidName);
+        var act = () => new Player(invalidName);
 
         // Assert
         act.Should().Throw<CaptainNameLengthException>();
@@ -33,9 +35,6 @@ public class CaptainTest
 
     private static async Task ExecuteCrewCreation(ICrewPartyCreator sut, string captainName)
     {
-        var request = new CrewPartyCreatorRequest(captainName, 4, Location.DefaultLocation(),
-            Array.Empty<string>(), Activity.Default().Name, "This is a description");
-
-        await sut.Create(request);
+        await ExecuteCrewCreationUtilities.ExecuteCrewCreation(sut, captainName);
     }
 }

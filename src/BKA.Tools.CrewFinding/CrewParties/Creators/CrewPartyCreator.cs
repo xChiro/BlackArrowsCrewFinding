@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Cultures.Exceptions;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.CrewParties;
+namespace BKA.Tools.CrewFinding.CrewParties.Creators;
 
 public class CrewPartyCreator : ICrewPartyCreator
 {
@@ -18,19 +18,20 @@ public class CrewPartyCreator : ICrewPartyCreator
         _crewPartyQueries = crewPartyQueries;
     }
 
-    public async Task Create(CrewPartyCreatorRequest request)
+    public async Task Create(CrewPartyCreatorRequest request, ICrewPartyCreatorResponse crewPartyCreatorResponse)
     {
         if(await _crewPartyQueries.CaptainHasCreatedParty(request.CaptainName))
             throw new CaptainMultiplePartiesException();
         
         var crewName = new CrewName(request.CaptainName);
-        var captain = new Captain(request.CaptainName);
+        var captain = new Player(request.CaptainName);
         var maxCrew = new CrewNumber(request.TotalCrew, _maxCrewAllowed);
         var languageCollections = LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs);
         var activity = Activity.Create(request.ActivityName, request.Description);
         
         var crewParty = new CrewParty(crewName, request.Location, languageCollections, maxCrew, activity, DateTime.UtcNow);
-
-        _commands.SaveCrewParty(captain, crewParty);
+        var id = _commands.SaveCrewParty(captain, crewParty);
+        
+        crewPartyCreatorResponse.SetResponse(id);
     }
 }

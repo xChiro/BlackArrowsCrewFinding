@@ -1,7 +1,8 @@
+using BKA.Tools.CrewFinding.CrewParties.Creators;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
-using BKA.Tools.CrewFinding.Tests.CreateCrewParties.Mocks;
+using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
 
-namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties;
+namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Utilities;
 
 public static class CreatedCrewPartyUtilities
 {
@@ -19,7 +20,7 @@ public static class CreatedCrewPartyUtilities
 
         return sut;
     }
-    
+
     public static ICrewPartyCreator InitializeCrewPartyCreator(ICrewPartyQueries crewPartyQueries, int maxCrewAllowed)
     {
         var sut = new CrewPartyCreator(new CrewPartyCommandsMock(), crewPartyQueries, maxCrewAllowed);

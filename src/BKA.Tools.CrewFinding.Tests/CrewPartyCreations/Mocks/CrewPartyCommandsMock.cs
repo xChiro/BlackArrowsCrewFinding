@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.Tests.CreateCrewParties.Mocks;
+namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
 
 public class CrewPartyCommandsMock : ICrewPartyCommands
 {
@@ -12,10 +12,10 @@ public class CrewPartyCommandsMock : ICrewPartyCommands
     public LanguageCollections? Languages { get; private set; }
     public CrewNumber? MaxCrewNumber { get; private set; }
     public Activity? Activity { get; private set; }
-    public Captain? Captain { get; private set; }
+    public Player? Captain { get; private set; }
     public DateTime? CreationDate { get; private set; }
 
-    public void SaveCrewParty(Captain captain, CrewParty crewParty)
+    public string SaveCrewParty(Player captain, CrewParty crewParty)
     {
         Name = crewParty.Name;
         StartingPlace = crewParty.ReunionPoint;
@@ -24,5 +24,7 @@ public class CrewPartyCommandsMock : ICrewPartyCommands
         Activity = crewParty.Activity;
         Captain = captain;
         CreationDate = crewParty.CreationDate;
+        
+        return Guid.NewGuid().ToString();
     }
 }

@@ -4,18 +4,20 @@ using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
-public class CrewPartyCommandsMock : ICrewPartyCommandsMock
+public class CrewPartyCommandsMock : ICrewPartyCommands
 {
-    private Captain? _captain;
+    private Player? _captain;
     private CrewParty? _crewParty;
 
-    public void SaveCrewParty(Captain captain, CrewParty crewParty)
+    public string SaveCrewParty(Player captain, CrewParty crewParty)
     {
         _captain = captain;
         _crewParty = crewParty;
+
+        return Guid.NewGuid().ToString();
     }
 
-    public Captain? GetCaptain()
+    public Player? GetCaptain()
     {
         return _captain;
     }
@@ -24,11 +26,4 @@ public class CrewPartyCommandsMock : ICrewPartyCommandsMock
     {
         return _crewParty;
     }
-}
-
-public interface ICrewPartyCommandsMock : ICrewPartyCommands
-{
-    public Captain? GetCaptain();
-
-    public CrewParty? GetCrewParty();
 }

@@ -2,11 +2,11 @@ using BKA.Tools.CrewFinding.Values.Exceptions;
 
 namespace BKA.Tools.CrewFinding.Values;
 
-public record Captain
+public record Player
 {
     public const int MaxLength = 30;
 
-    public Captain(string Name)
+    public Player(string Name)
     {
         if (Name is "")
             throw new CaptainNameEmptyException();

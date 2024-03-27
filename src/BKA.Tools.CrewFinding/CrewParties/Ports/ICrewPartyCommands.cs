@@ -4,5 +4,5 @@ namespace BKA.Tools.CrewFinding.CrewParties.Ports;
 
 public interface ICrewPartyCommands
 {
-    public void SaveCrewParty(Captain captain, CrewParty crewParty);
+    public string SaveCrewParty(Player captain, CrewParty crewParty);
 }

@@ -2,15 +2,15 @@ Feature: Captain manages join requests to the Crew Party.
 
     Scenario: Captain approves a join request
         Given a captain with username of <CaptainHandle>
-        And the captain has a not full Crew Party named <CrewPartyName>
-        And a join request from <PlayerHandle> for the Crew Party <CrewPartyName>
+        And the captain has a Crew Party with available slots
+        And a player with username of <PlayerHandle> wants to join the Crew Party of <CaptainHandle>
         When the captain approves the join request
-        Then <PlayerHandle> is added to <CrewPartyName>
+        Then <PlayerHandle> is added to Crew Party of <CaptainHandle>
         And a notification is sent to <PlayerHandle> saying Your request to join <CrewPartyName> has been approved.
 
     Examples:
-      | CaptainHandle | PlayerHandle | CrewPartyName      |
-      | Rowan         | Allan        | Rowan's Crew Party |
+      | CaptainHandle | PlayerHandle |
+      | Rowan         | Allan        |
 
     Scenario: Captain rejects a join request
 
