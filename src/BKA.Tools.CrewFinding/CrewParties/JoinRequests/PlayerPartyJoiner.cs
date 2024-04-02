@@ -16,21 +16,31 @@ public class PlayerPartyJoiner : IPlayerPartyJoiner
 
     public async Task Join(string playerId, string crewPartyId)
     {
-        var crewParty = await _crewPartyQueries.GetCrewParty(crewPartyId);
+        var crewParty = await GetCrewParty(crewPartyId);
+        ValidateCrewParty(crewParty, crewPartyId);
 
-        if (crewParty == null)
-        {
-            throw new CrewPartyNotFoundException(crewPartyId);
-        }
-
-        if (crewParty.IsFull())
-            throw new CrewPartyFullException(crewPartyId);
-
-        if (await _crewPartyQueries.PlayerAlreadyInAParty(playerId))
+        if (await IsPlayerAlreadyInAParty(playerId))
         {
             throw new PlayerMultiplePartiesException();
         }
 
         await _crewPartyCommands.AddPlayerToCrewParty(playerId, crewPartyId);
+    }
+
+    private async Task<CrewParty> GetCrewParty(string crewPartyId)
+    {
+        return await _crewPartyQueries.GetCrewParty(crewPartyId) ??
+               throw new CrewPartyNotFoundException(crewPartyId);
+    }
+
+    private void ValidateCrewParty(CrewParty crewParty, string crewPartyId)
+    {
+        if (crewParty.IsFull())
+            throw new CrewPartyFullException(crewPartyId);
+    }
+
+    private async Task<bool> IsPlayerAlreadyInAParty(string playerId)
+    {
+        return await _crewPartyQueries.PlayerAlreadyInAParty(playerId);
     }
 }
