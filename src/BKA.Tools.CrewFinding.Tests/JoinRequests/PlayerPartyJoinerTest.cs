@@ -1,3 +1,5 @@
+using System;
+
 namespace BKA.Tools.CrewFinding.Tests.JoinRequests;
 
 public class PlayerPartyJoinerTest
@@ -10,20 +12,28 @@ public class PlayerPartyJoinerTest
      */
     
     [Fact]
-    public void Try_to_join_to_a_party_that_does_not_exist()
+    public void Attempt_To_Join_NonExisting_Party()
     {
         // Arrange
+        const string player = "John Doe";
+        
         var playerPartyJoiner = new PlayerPartyJoiner();
-        var player = "John Doe";
         
-        // Act
-        
+        // Act & Assert
+        //await Assert.ThrowsAsync<CrewPartyNotFoundException>(() => playerPartyJoiner.Join(player, "Captain"));
+    }
+}
+
+public class CrewPartyNotFoundException : Exception
+{
+    public CrewPartyNotFoundException(string id) : base($"Crew party not found with {id}")
+    {
     }
 }
 
 public class PlayerPartyJoiner : IPlayerPartyJoiner
 {
-    public void Join(string player, string partyCaptain)
+    public void Join(string player, string id)
     {
         throw new System.NotImplementedException();
     }

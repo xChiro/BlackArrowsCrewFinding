@@ -18,7 +18,7 @@ public class CrewPartyTotalCrewTest
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, expectedMaxCrew);
+        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, expectedMaxCrew);
 
         // Act
         await ExecuteCrewCreation(sut, "Rowan", userMaxCrew);
@@ -35,7 +35,7 @@ public class CrewPartyTotalCrewTest
     {
         // Arrange
         var crewPartyCommandsMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(crewPartyCommandsMock, maxCrewAllowed);
+        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, maxCrewAllowed);
 
         // Act
         await ExecuteCrewCreation(sut, "Rowan", userMaxCrew);
@@ -49,7 +49,7 @@ public class CrewPartyTotalCrewTest
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
+        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         const int totalCrew = 3;
 
@@ -62,6 +62,6 @@ public class CrewPartyTotalCrewTest
 
     private static async Task ExecuteCrewCreation(ICrewPartyCreator sut, string captainName, int totalCrew)
     {
-        await ExecuteCrewCreationUtilities.ExecuteCrewCreation(sut, captainName, totalCrew);
+        await CrewCreationExecutioner.ExecuteCrewCreation(sut, Guid.NewGuid().ToString(), totalCrew);
     }
 }

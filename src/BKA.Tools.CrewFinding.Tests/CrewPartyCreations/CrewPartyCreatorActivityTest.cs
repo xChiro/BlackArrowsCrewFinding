@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.Creators;
 using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
@@ -14,10 +15,10 @@ public class CrewPartyCreatorActivityTest
         // Arrange
         var defaultActivities = Activity.Default().Name;
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
+        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         // Act
-        await ExecuteCrewCreation(sut, "Rowan", 4, defaultActivities);
+        await ExecuteCrewCreation(sut, 4, defaultActivities);
 
         // Assert
         createCrewPartyResultMock.Activity!.Name.Should().BeEquivalentTo(defaultActivities);
@@ -29,18 +30,18 @@ public class CrewPartyCreatorActivityTest
         // Arrange
         const string activity = "Mining";
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
+        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         // Act
-        await ExecuteCrewCreation(sut, "Rowan", 4, activity);
+        await ExecuteCrewCreation(sut, 4, activity);
 
         // Assert
         createCrewPartyResultMock.Activity!.Name.Should().BeEquivalentTo(activity);
     }
 
-    private static async Task ExecuteCrewCreation(ICrewPartyCreator sut, string captainName, int totalCrew,
+    private static async Task ExecuteCrewCreation(ICrewPartyCreator sut, int totalCrew,
         string activity)
     {
-         await ExecuteCrewCreationUtilities.ExecuteCrewCreation(sut, captainName, totalCrew, activity);
+         await CrewCreationExecutioner.ExecuteCrewCreation(sut, Guid.NewGuid().ToString(), totalCrew, activity);
     }
 }

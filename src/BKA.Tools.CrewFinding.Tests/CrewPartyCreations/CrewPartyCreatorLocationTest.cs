@@ -15,7 +15,7 @@ public class CrewPartyCreatorLocationTest
         // Arrange
         var expectedLocation = Location.DefaultLocation();
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
+        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
 
         // Act
         await ExecuteSut(sut, expectedLocation);
@@ -35,7 +35,7 @@ public class CrewPartyCreatorLocationTest
         // Arrange
         var expectedLocation = new Location(system, planetarySystem, planetMoon, place);
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
+        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
 
         // Act
         await ExecuteSut(sut, expectedLocation);
@@ -46,6 +46,6 @@ public class CrewPartyCreatorLocationTest
 
     private static async Task ExecuteSut(ICrewPartyCreator sut, Location expectedLocation)
     {   
-        await ExecuteCrewCreationUtilities.ExecuteCrewCreation(sut, "Rowan", 2, "Mining", expectedLocation);
+        await CrewCreationExecutioner.ExecuteCrewCreation(sut, Guid.NewGuid().ToString(), 2, "Mining", expectedLocation);
     }
 }

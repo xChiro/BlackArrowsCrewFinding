@@ -14,10 +14,10 @@ public class CrewPartyLanguageTest
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
+        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
         
         // Act
-        ExecuteCrewCreation(sut, "Rowan", 4, Array.Empty<string>());
+        ExecuteCrewCreation(sut, 4, Array.Empty<string>());
 
         // Assert
         createCrewPartyResultMock.Languages.Should().BeEquivalentTo(LanguageCollections.Default());
@@ -31,21 +31,21 @@ public class CrewPartyLanguageTest
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyUtilities.InitializeCrewPartyCreator(createCrewPartyResultMock, 4);
+        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         var expectedLanguages = LanguageCollections.CreateFromAbbrevs(languagesAbbrevs);
 
         // Act
-        ExecuteCrewCreation(sut, "Rowan", 4, languagesAbbrevs);
+        ExecuteCrewCreation(sut, 4, languagesAbbrevs);
 
         // Assert
         createCrewPartyResultMock.Languages.Should().BeEquivalentTo(expectedLanguages);
     }
 
-    private static void ExecuteCrewCreation(ICrewPartyCreator sut, string captainName, int totalCrew,
+    private static void ExecuteCrewCreation(ICrewPartyCreator sut, int totalCrew,
         string[] languages)
     {
-        var request = new CrewPartyCreatorRequest(captainName, totalCrew, Location.DefaultLocation(), 
+        var request = new CrewPartyCreatorRequest(Guid.NewGuid().ToString(), totalCrew, Location.DefaultLocation(), 
             languages, Activity.Default().Name);
 
         sut.Create(request, new CrewPartyCreatorResponseMock());

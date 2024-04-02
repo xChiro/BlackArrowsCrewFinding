@@ -95,6 +95,7 @@ public class CrewPartyActSteps
 
         return new CrewPartyCreator(_mockRepositoriesContext.CrewPartyCommandsMock,
             _mockRepositoriesContext.CrewPartyQueriesMocks,
-            _crewPartyContext.MaxPlayerAllowed);
+            _crewPartyContext.MaxPlayerAllowed,
+            _mockRepositoriesContext.PlayerQueriesMock);
     }
 }

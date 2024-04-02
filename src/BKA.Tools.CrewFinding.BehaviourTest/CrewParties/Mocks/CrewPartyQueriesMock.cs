@@ -1,4 +1,5 @@
 using BKA.Tools.CrewFinding.CrewParties.Ports;
+using BKA.Tools.CrewFinding.Ports;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
@@ -11,7 +12,7 @@ public class CrewPartyQueriesMock : ICrewPartyQueries
         _hasCreatedParty = hasCreatedParty;
     }
     
-    public Task<bool> CaptainHasCreatedParty(string captainName)
+    public Task<bool> PlayerHasCreatedParty(string captainId)
     {
         return Task.FromResult(_hasCreatedParty);
     }

@@ -6,16 +6,19 @@ public record Player
 {
     public const int MaxLength = 30;
 
-    public Player(string Name)
+    public Player(string id, string name)
     {
-        if (Name is "")
-            throw new CaptainNameEmptyException();
+        if (name is "")
+            throw new NameEmptyException();
 
-        if (Name.Length > MaxLength)
-            throw new CaptainNameLengthException(MaxLength);
+        if (name.Length > MaxLength)
+            throw new NameLengthException(MaxLength);
 
-        this.Name = Name;
+        Name = name;
+        Id = id;
     }
+
+    public string Id { get; set; }
 
     public string Name { get; }
 }

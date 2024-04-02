@@ -6,4 +6,5 @@ public class MockRepositoriesContext
 {
     public CrewPartyCommandsMock CrewPartyCommandsMock { get; set; } = new();
     public CrewPartyQueriesMock CrewPartyQueriesMocks { get; set; } = new(false);
+    public PlayerQueriesMock PlayerQueriesMock { get; }
 }
