@@ -25,8 +25,8 @@ public class CrewPartyCreator : ICrewPartyCreator
 
     public async Task Create(CrewPartyCreatorRequest request, ICrewPartyCreatorResponse crewPartyCreatorResponse)
     {
-        var playerPartyTask = _crewPartyQueries.PlayerHasCreatedParty(request.captainId);
-        var playerTask = _playerQueries.GetPlayer(request.captainId);
+        var playerPartyTask = _crewPartyQueries.PlayerHasCreatedParty(request.CaptainId);
+        var playerTask = _playerQueries.GetPlayer(request.CaptainId);
 
         await Task.WhenAll(playerPartyTask, playerTask);
 
@@ -36,7 +36,7 @@ public class CrewPartyCreator : ICrewPartyCreator
         var captain = playerTask.Result;
 
         if (captain == null)
-            throw new PlayerNotFoundException(request.captainId);
+            throw new PlayerNotFoundException(request.CaptainId);
 
         var crewName = new CrewName(captain.Name);
         var maxCrew = new CrewNumber(request.TotalCrew, _maxCrewAllowed);

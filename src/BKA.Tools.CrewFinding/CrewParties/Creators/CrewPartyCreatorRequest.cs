@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.Values;
 namespace BKA.Tools.CrewFinding.CrewParties.Creators;
 
 public record CrewPartyCreatorRequest(
-    string captainId,
+    string CaptainId,
     int TotalCrew,
     Location Location,
     string[] LanguagesAbbrevs,
