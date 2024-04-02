@@ -7,7 +7,7 @@ using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.Tests.JoinRequests;
+namespace BKA.Tools.CrewFinding.Tests.JoinRequest;
 
 public class PlayerPartyJoinerTest
 {
