@@ -2,7 +2,7 @@ using System;
 using BKA.Tools.CrewFinding.CrewParties.Creators;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
-using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Utilities;
+using BKA.Tools.CrewFinding.Tests.Utilities;
 using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations;
@@ -14,7 +14,7 @@ public class CrewPartyLanguageTest
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
         
         // Act
         ExecuteCrewCreation(sut, 4, Array.Empty<string>());
@@ -31,7 +31,7 @@ public class CrewPartyLanguageTest
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         var expectedLanguages = LanguageCollections.CreateFromAbbrevs(languagesAbbrevs);
 

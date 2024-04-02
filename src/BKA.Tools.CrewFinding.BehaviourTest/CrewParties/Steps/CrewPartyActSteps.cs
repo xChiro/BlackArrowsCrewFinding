@@ -2,7 +2,6 @@ using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Globals;
 using BKA.Tools.CrewFinding.CrewParties.Creators;
-using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
 

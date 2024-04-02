@@ -1,10 +1,18 @@
 namespace BKA.Tools.CrewFinding.Values;
 public record CrewNumber
 {
-    public int Value { get; }
+    public int Current { get; }
     
-    public CrewNumber(int input, int maxAllowed)
+    public int MaxAllowed { get; }
+    
+    public CrewNumber(int current, int maxAllowed)
     {
-        Value = input <= 0 || input > maxAllowed ? maxAllowed : input;
+        MaxAllowed = maxAllowed;
+        Current = current <= 0 || current > maxAllowed ? maxAllowed : current;
+    }
+
+    public bool IsFull()
+    {
+        return Current == MaxAllowed;
     }
 }

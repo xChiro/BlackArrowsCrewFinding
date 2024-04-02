@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.Creators;
 using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
-using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Utilities;
+using BKA.Tools.CrewFinding.Tests.Utilities;
 using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations;
@@ -15,7 +15,7 @@ public class CrewPartyCreatorLocationTest
         // Arrange
         var expectedLocation = Location.DefaultLocation();
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
 
         // Act
         await ExecuteSut(sut, expectedLocation);
@@ -35,7 +35,7 @@ public class CrewPartyCreatorLocationTest
         // Arrange
         var expectedLocation = new Location(system, planetarySystem, planetMoon, place);
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
 
         // Act
         await ExecuteSut(sut, expectedLocation);

@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.CrewParties.Creators;
 using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Utilities;
+namespace BKA.Tools.CrewFinding.Tests.Utilities;
 
 public static class CrewCreationExecutioner
 {

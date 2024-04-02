@@ -2,8 +2,7 @@ using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.Creators;
 using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
-using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Utilities;
-using BKA.Tools.CrewFinding.Values;
+using BKA.Tools.CrewFinding.Tests.Utilities;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations;
 
@@ -18,13 +17,13 @@ public class CrewPartyTotalCrewTest
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, expectedMaxCrew);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, expectedMaxCrew);
 
         // Act
         await ExecuteCrewCreation(sut, "Rowan", userMaxCrew);
 
         // Assert
-        createCrewPartyResultMock.MaxCrewNumber!.Value.Should().Be(expectedMaxCrew);
+        createCrewPartyResultMock.MaxCrewNumber!.Current.Should().Be(expectedMaxCrew);
     }
 
     [Theory]
@@ -35,13 +34,13 @@ public class CrewPartyTotalCrewTest
     {
         // Arrange
         var crewPartyCommandsMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, maxCrewAllowed);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, maxCrewAllowed);
 
         // Act
         await ExecuteCrewCreation(sut, "Rowan", userMaxCrew);
 
         // Assert
-        crewPartyCommandsMock.MaxCrewNumber!.Value.Should().Be(maxCrewAllowed);
+        crewPartyCommandsMock.MaxCrewNumber!.Current.Should().Be(maxCrewAllowed);
     }
 
     [Fact]
@@ -49,7 +48,7 @@ public class CrewPartyTotalCrewTest
     {
         // Arrange
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         const int totalCrew = 3;
 
@@ -57,7 +56,7 @@ public class CrewPartyTotalCrewTest
         await ExecuteCrewCreation(sut, "Rowan", totalCrew);
 
         // Assert
-        createCrewPartyResultMock.MaxCrewNumber!.Value.Should().Be(totalCrew);
+        createCrewPartyResultMock.MaxCrewNumber!.Current.Should().Be(totalCrew);
     }
 
     private static async Task ExecuteCrewCreation(ICrewPartyCreator sut, string captainName, int totalCrew)

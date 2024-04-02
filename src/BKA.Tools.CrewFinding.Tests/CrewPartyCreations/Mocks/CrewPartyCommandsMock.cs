@@ -1,11 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
 
-public class CrewPartyCommandsMock : ICrewPartyCommands
+public class CrewPartyCommandsMock(string expectedCrewPartyId = "123412") : ICrewPartyCommands
 {
     public CrewName? Name { get; private set; }
     public Location? StartingPlace { get; private set; }
@@ -14,8 +15,9 @@ public class CrewPartyCommandsMock : ICrewPartyCommands
     public Activity? Activity { get; private set; }
     public Player? Captain { get; private set; }
     public DateTime? CreationDate { get; private set; }
+    public string AddedPlayerId { private set; get; }
 
-    public string SaveCrewParty(Player captain, CrewParty crewParty)
+    public Task<string> SaveCrewParty(Player captain, CrewParty crewParty)
     {
         Name = crewParty.Name;
         StartingPlace = crewParty.ReunionPoint;
@@ -25,6 +27,16 @@ public class CrewPartyCommandsMock : ICrewPartyCommands
         Captain = captain;
         CreationDate = crewParty.CreationDate;
         
-        return Guid.NewGuid().ToString();
+        return Task.FromResult(expectedCrewPartyId);
+    }
+
+    public Task AddPlayerToCrewParty(string playerId, string crewPartyId)
+    {
+        if (expectedCrewPartyId != crewPartyId)
+            throw new Exception("Unexpected crew party id");
+        
+        AddedPlayerId = playerId;
+        
+        return Task.CompletedTask;
     }
 }

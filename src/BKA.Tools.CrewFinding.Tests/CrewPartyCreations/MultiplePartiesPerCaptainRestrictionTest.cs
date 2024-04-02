@@ -1,9 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.Creators;
+using BKA.Tools.CrewFinding.CrewParties.Exceptions;
 using BKA.Tools.CrewFinding.Cultures.Exceptions;
 using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
-using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Utilities;
+using BKA.Tools.CrewFinding.Tests.Utilities;
 using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations;
@@ -18,12 +19,12 @@ public class MultiplePartiesPerCaptainRestrictionTest
         var captainId = Guid.NewGuid().ToString();
         var crewPartyQueriesMock = new CrewPartyQueriesMock(true);
 
-        var crewPartyCreator = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(crewPartyQueriesMock, 5);
+        var crewPartyCreator = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(crewPartyQueriesMock, 5);
         var request = new CrewPartyCreatorRequest(captainId, 5, Location.DefaultLocation(),
             ["EN"], "Activity");
 
         // Act & Assert
-        await Assert.ThrowsAsync<CaptainMultiplePartiesException>(() =>
+        await Assert.ThrowsAsync<PlayerMultiplePartiesException>(() =>
             crewPartyCreator.Create(request, new CrewPartyCreatorResponseMock()));
 
         // Assert

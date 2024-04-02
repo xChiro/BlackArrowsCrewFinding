@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.Creators;
 using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
-using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Utilities;
+using BKA.Tools.CrewFinding.Tests.Utilities;
 using BKA.Tools.CrewFinding.Values;
 using BKA.Tools.CrewFinding.Values.Exceptions;
 
@@ -19,7 +19,7 @@ public class CrewPartyCreatorTest
         var captainId = Guid.NewGuid().ToString();
         var crewPartyCommandsMock = new CrewPartyCommandsMock();
         var playerQueriesMock = new PlayerQueriesValidationMock(captainId, captainName);
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
 
         // Act
         await ExecuteCrewCreation(sut, captainId);
@@ -35,7 +35,7 @@ public class CrewPartyCreatorTest
         var captainId = Guid.NewGuid().ToString();
         var crewPartyCommandsMock = new CrewPartyCommandsMock();
         var playerQueriesMock = new PlayerQueriesValidationMock(captainId, "Rowan");
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
 
         // Act
         var act = async () => await ExecuteCrewCreation(sut, Guid.NewGuid().ToString());
@@ -52,7 +52,7 @@ public class CrewPartyCreatorTest
         const string captainName = "Rowan";
 
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock,
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock,
             captainName: captainName);
 
         // Act
@@ -70,7 +70,7 @@ public class CrewPartyCreatorTest
         // Arrange
         var captainId = Guid.NewGuid().ToString();
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         // Act
         await ExecuteCrewCreation(sut, captainId);
@@ -87,7 +87,7 @@ public class CrewPartyCreatorTest
         const string description = "This is a description";
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
         var crewPartyCreatorResponseMock = new CrewPartyCreatorResponseMock();
-        var sut = CreatedCrewPartyInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         // Act
         await ExecuteCrewCreation(sut, captainId, 4, description, crewPartyCreatorResponseMock);

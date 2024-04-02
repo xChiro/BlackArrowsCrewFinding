@@ -1,4 +1,5 @@
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
+using BKA.Tools.CrewFinding.CrewParties.Exceptions;
 using BKA.Tools.CrewFinding.Cultures.Exceptions;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
@@ -34,7 +35,7 @@ public class CrewPartyAssertSteps
         crewParty.ReunionPoint.PlanetMoon.Should().Be(table.Rows[0]["Planet/Moon"]);
         crewParty.ReunionPoint.PlanetarySystem.Should().Be(table.Rows[0]["PlanetarySystem"]);
         crewParty.ReunionPoint.System.Should().Be(table.Rows[0]["System"]);
-        crewParty.TotalCrewNumber.Value.Should().Be(int.Parse(table.Rows[0]["CrewSize"]));
+        crewParty.TotalCrewNumber.Current.Should().Be(int.Parse(table.Rows[0]["CrewSize"]));
         
         var expectation = table.Rows[0]["Languages"].Split(',').Select(x => x.Trim()).ToList();
         crewParty.Languages.Select(language => language.LanguageCode).Should().BeEquivalentTo(expectation);
@@ -66,7 +67,7 @@ public class CrewPartyAssertSteps
     [Then(@"the MaxCrewSize is set to (.*)")]
     public void ThenTheMaxCrewSizeIsSetTo(string defaultMaxCrewSize)
     {
-        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()!.TotalCrewNumber.Value.Should()
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()!.TotalCrewNumber.Current.Should()
             .Be(int.Parse(defaultMaxCrewSize));
     }
 
@@ -79,7 +80,7 @@ public class CrewPartyAssertSteps
     [Then(@"the player receives a message indicating that the player already has an active Crew Party")]
     public void ThenThePlayerReceivesAMessageIndicatingThatThePlayerAlreadyHasAnActiveCrewParty()
     {
-        _crewPartyCreationResultsContext.Exception.GetType().Should().Be<CaptainMultiplePartiesException>();
+        _crewPartyCreationResultsContext.Exception.GetType().Should().Be<PlayerMultiplePartiesException>();
         _crewPartyCreationResultsContext.Exception.Message.Should().Be("A captain can only create one party at a time.");
     }
 }

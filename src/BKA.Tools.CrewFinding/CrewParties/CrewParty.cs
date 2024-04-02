@@ -27,4 +27,9 @@ public class CrewParty
     public CrewNumber TotalCrewNumber { get;}
     
     public DateTime CreationDate { get; }
+
+    public bool IsFull()
+    {
+        return TotalCrewNumber.IsFull();
+    }
 }

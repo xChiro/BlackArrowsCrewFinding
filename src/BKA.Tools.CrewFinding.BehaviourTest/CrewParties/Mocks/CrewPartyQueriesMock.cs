@@ -1,5 +1,5 @@
+using BKA.Tools.CrewFinding.CrewParties;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
-using BKA.Tools.CrewFinding.Ports;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
@@ -12,8 +12,13 @@ public class CrewPartyQueriesMock : ICrewPartyQueries
         _hasCreatedParty = hasCreatedParty;
     }
     
-    public Task<bool> PlayerHasCreatedParty(string captainId)
+    public Task<bool> PlayerAlreadyInAParty(string captainId)
     {
         return Task.FromResult(_hasCreatedParty);
+    }
+
+    public Task<CrewParty?> GetCrewParty(string crewPartyId)
+    {
+        throw new NotImplementedException();
     }
 }

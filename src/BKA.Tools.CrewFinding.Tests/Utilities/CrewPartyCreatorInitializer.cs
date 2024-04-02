@@ -1,11 +1,10 @@
 using BKA.Tools.CrewFinding.CrewParties.Creators;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
-using BKA.Tools.CrewFinding.Ports;
 using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
 
-namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Utilities;
+namespace BKA.Tools.CrewFinding.Tests.Utilities;
 
-public static class CreatedCrewPartyInitializer
+public static class CrewPartyCreatorInitializer
 {
     public static ICrewPartyCreator InitializeCrewPartyCreator(ICrewPartyCommands crewPartyCommands,
         int maxCrewAllowed = 4, bool hasCreatedParty = false, string captainName = "Captain")
