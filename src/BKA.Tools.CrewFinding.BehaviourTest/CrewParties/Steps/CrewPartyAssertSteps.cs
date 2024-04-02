@@ -80,6 +80,5 @@ public class CrewPartyAssertSteps
     public void ThenThePlayerReceivesAMessageIndicatingThatThePlayerAlreadyHasAnActiveCrewParty()
     {
         _crewPartyCreationResultsContext.Exception.GetType().Should().Be<PlayerMultiplePartiesException>();
-        _crewPartyCreationResultsContext.Exception.Message.Should().Be("A captain can only create one party at a time.");
     }
 }

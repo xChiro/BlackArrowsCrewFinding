@@ -44,8 +44,8 @@ public class CrewPartyCreator : ICrewPartyCreator
 
         var crewParty = new CrewParty(crewName, request.Location, languageCollections, maxCrew, activity,
             DateTime.UtcNow);
+        
         var id = await _commands.SaveCrewParty(captain, crewParty);
-
         crewPartyCreatorResponse.SetResponse(id);
     }
 }
