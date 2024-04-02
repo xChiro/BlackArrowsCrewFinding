@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Values;
 using BKA.Tools.CrewFinding.Values.Exceptions;
 
-namespace BKA.Tools.CrewFinding.CrewParties.Creators;
+namespace BKA.Tools.CrewFinding.CrewParties.CreateRequests;
 
 public class CrewPartyCreator : ICrewPartyCreator
 {

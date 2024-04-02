@@ -33,7 +33,7 @@ public class PlayerPartyJoiner : IPlayerPartyJoiner
                throw new CrewPartyNotFoundException(crewPartyId);
     }
 
-    private void ValidateCrewParty(CrewParty crewParty, string crewPartyId)
+    private static void ValidateCrewParty(CrewParty crewParty, string crewPartyId)
     {
         if (crewParty.IsFull())
             throw new CrewPartyFullException(crewPartyId);
