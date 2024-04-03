@@ -101,7 +101,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             {
                 this.ScenarioStart();
 #line 4
-        testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 5
         testRunner.And("a Crew Party already exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -138,7 +138,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             {
                 this.ScenarioStart();
 #line 14
-        testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 15
         testRunner.And(string.Format("a Crew Party named {0} exists", crewPartyName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -178,7 +178,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             {
                 this.ScenarioStart();
 #line 25
-        testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 26
         testRunner.When("the player attempts to join a Crew Party that does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -211,7 +211,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             {
                 this.ScenarioStart();
 #line 34
-        testRunner.Given(string.Format("a player with a RSI Handle of {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 35
         testRunner.And("the player is already a member of a Crew Party", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
