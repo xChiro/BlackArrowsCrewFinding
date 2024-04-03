@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.CrewParties.CreateRequests;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
-using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
+using BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 
 namespace BKA.Tools.CrewFinding.Tests.Utilities;
 

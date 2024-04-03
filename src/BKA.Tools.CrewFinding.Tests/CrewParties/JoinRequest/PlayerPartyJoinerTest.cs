@@ -4,10 +4,10 @@ using BKA.Tools.CrewFinding.CrewParties.Exceptions;
 using BKA.Tools.CrewFinding.CrewParties.JoinRequests;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Cultures;
-using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
+using BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.Tests.JoinRequest;
+namespace BKA.Tools.CrewFinding.Tests.CrewParties.JoinRequest;
 
 public class PlayerPartyJoinerTest
 {

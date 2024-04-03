@@ -16,13 +16,16 @@ public class PlayerPartyJoiner : IPlayerPartyJoiner
 
     public async Task Join(string playerId, string crewPartyId)
     {
-        var crewParty = await GetCrewParty(crewPartyId);
+        var getCrewPartyTask = GetCrewParty(crewPartyId);
+        var isPlayerInPartyTask = IsPlayerAlreadyInAParty(playerId);
+
+        await Task.WhenAll(getCrewPartyTask, isPlayerInPartyTask);
+
+        var crewParty = getCrewPartyTask.Result;
         ValidateCrewParty(crewParty, crewPartyId);
 
-        if (await IsPlayerAlreadyInAParty(playerId))
-        {
+        if (isPlayerInPartyTask.Result)
             throw new PlayerMultiplePartiesException();
-        }
 
         await _crewPartyCommands.AddPlayerToCrewParty(playerId, crewPartyId);
     }

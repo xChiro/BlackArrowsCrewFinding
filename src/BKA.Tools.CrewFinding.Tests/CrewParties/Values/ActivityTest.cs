@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.Values;
 using BKA.Tools.CrewFinding.Values.Exceptions;
 
-namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Values;
+namespace BKA.Tools.CrewFinding.Tests.CrewParties.Values;
 
 public class ActivityTest
 {

@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.CreateRequests;
-using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
+using BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 using BKA.Tools.CrewFinding.Tests.Utilities;
 using BKA.Tools.CrewFinding.Values;
 using BKA.Tools.CrewFinding.Values.Exceptions;
 
-namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations;
+namespace BKA.Tools.CrewFinding.Tests.CrewParties.Creations;
 
 public class CrewPartyCreatorTest
 {

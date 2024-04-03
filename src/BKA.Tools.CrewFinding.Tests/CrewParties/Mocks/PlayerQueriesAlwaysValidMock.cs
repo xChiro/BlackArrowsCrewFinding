@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
+namespace BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 
 public class PlayerQueriesAlwaysValidMock(string captainName) : IPlayerQueries
 {

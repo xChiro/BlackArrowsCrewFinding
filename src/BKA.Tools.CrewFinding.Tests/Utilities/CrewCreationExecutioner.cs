@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.CreateRequests;
-using BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
+using BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.Utilities;

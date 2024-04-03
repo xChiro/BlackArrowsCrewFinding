@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.Tests.CrewPartyCreations.Mocks;
+namespace BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 
 public class CrewPartyCommandsMock(string expectedCrewPartyId = "123412") : ICrewPartyCommands
 {
