@@ -11,6 +11,7 @@ Feature: A player wants to create a crew party.
           | CrewSize | Languages | System  | PlanetarySystem | Planet/Moon | Place            | Description          | Activity       |
           | 6        | ES, EN    | Stanton | Crusader        | Crusader    | Seraphim Station | Elite bounty hunters | Bounty Hunting |
         And the creation date is the current date
+        And the player named <UserName> is designated as the Captain
 
     Examples:
       | UserName | CrewPartyDefaultName |

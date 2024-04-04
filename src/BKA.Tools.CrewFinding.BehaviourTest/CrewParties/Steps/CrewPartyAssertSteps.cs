@@ -49,8 +49,8 @@ public class CrewPartyAssertSteps
             .BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
     }
 
-    [Then(@"(.*) is designated as the Captain")]
-    public void ThenIsDesignatedAsTheCaptain(string userName)
+    [Then(@"the player named (.*) is designated as the Captain")]
+    public void ThenThePlayerNamedIsDesignatedAsTheCaptain(string userName)
     {
         _mockRepositoriesContext.CrewPartyCommandsMock.GetCaptain()!.Name.Should().Be(userName);
     }

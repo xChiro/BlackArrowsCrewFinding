@@ -6,12 +6,10 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
 public class CrewPartyCommandsMock : ICrewPartyCommands
 {
-    private Player? _captain;
     private CrewParty? _crewParty;
 
     public Task CreateCrewParty(CrewParty crewParty)
     {
-        _captain = crewParty.Captain;
         _crewParty = crewParty;
 
         return Task.CompletedTask;
@@ -24,7 +22,7 @@ public class CrewPartyCommandsMock : ICrewPartyCommands
 
     public Player? GetCaptain()
     {
-        return _captain;
+        return _crewParty?.Captain;
     }
 
     public CrewParty? GetCrewParty()
