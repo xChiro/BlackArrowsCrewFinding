@@ -15,16 +15,16 @@ public class CrewPartyCommandsMock(string expectedCrewPartyId = "123412") : ICre
     public Activity? Activity { get; private set; }
     public Player? Captain { get; private set; }
     public DateTime? CreationDate { get; private set; }
-    public string AddedPlayerId { private set; get; }
+    public string AddedPlayerId { private set; get; } = "";
 
-    public Task<string> SaveCrewParty(Player captain, CrewParty crewParty)
+    public Task CreateCrewParty(CrewParty crewParty)
     {
         Name = crewParty.Name;
         StartingPlace = crewParty.ReunionPoint;
         Languages = crewParty.Languages;
         MaxCrewNumber = crewParty.TotalCrewCapacity;
         Activity = crewParty.Activity;
-        Captain = captain;
+        Captain = crewParty.Captain;
         CreationDate = crewParty.CreationDate;
         
         return Task.FromResult(expectedCrewPartyId);

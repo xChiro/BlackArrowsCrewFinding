@@ -28,9 +28,8 @@ public class CrewPartyCreator : ICrewPartyCreator
         var captain = await GetCaptain(request.CaptainId);
         var crewParty = CreateCrewParty(captain, request);
 
-        var id = await _commands.SaveCrewParty(captain, crewParty);
-
-        crewPartyCreatorResponse.SetResponse(id);
+        await _commands.CreateCrewParty(crewParty);
+        crewPartyCreatorResponse.SetResponse(crewParty.Id);
     }
 
     private CrewParty CreateCrewParty(Player captain, CrewPartyCreatorRequest request)
@@ -41,7 +40,8 @@ public class CrewPartyCreator : ICrewPartyCreator
             LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs),
             new CrewCapacity(request.TotalCrew, _maxCrewAllowed),
             Activity.Create(request.ActivityName, request.Description),
-            DateTime.UtcNow);
+            DateTime.UtcNow,
+            captain);
     }
 
     private async Task<Player> GetCaptain(string captainId)

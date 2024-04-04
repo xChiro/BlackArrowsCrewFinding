@@ -28,7 +28,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "CaptainDispandACrewParty.feature"
+#line 1 "CaptainDisbandACrewParty.feature"
 #line hidden
         
         public ACaptainHasTheAbilityToDisbandACrewParty_Feature(ACaptainHasTheAbilityToDisbandACrewParty_Feature.FixtureData fixtureData, BKA_Tools_CrewFinding_BehaviourTest_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)

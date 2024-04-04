@@ -9,12 +9,12 @@ public class CrewPartyCommandsMock : ICrewPartyCommands
     private Player? _captain;
     private CrewParty? _crewParty;
 
-    public Task<string> SaveCrewParty(Player captain, CrewParty crewParty)
+    public Task CreateCrewParty(CrewParty crewParty)
     {
-        _captain = captain;
+        _captain = crewParty.Captain;
         _crewParty = crewParty;
 
-        return Task.FromResult(Guid.NewGuid().ToString());
+        return Task.CompletedTask;
     }
 
     public Task AddPlayerToCrewParty(string playerId, string crewPartyId)
