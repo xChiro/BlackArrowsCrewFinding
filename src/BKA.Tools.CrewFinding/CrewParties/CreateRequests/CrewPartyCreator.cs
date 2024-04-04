@@ -24,28 +24,37 @@ public class CrewPartyCreator : ICrewPartyCreator
 
     public async Task Create(CrewPartyCreatorRequest request, ICrewPartyCreatorResponse crewPartyCreatorResponse)
     {
-        var playerPartyTask = _crewPartyQueries.PlayerAlreadyInAParty(request.CaptainId);
-        var playerTask = _playerQueries.GetPlayer(request.CaptainId);
+        var captain = await ValidateAndGetCaptain(request.CaptainId);
+        var crewParty = CreateCrewParty(captain, request);
 
-        await Task.WhenAll(playerPartyTask, playerTask);
-
-        if (playerPartyTask.Result)
-            throw new PlayerMultiplePartiesException();
-
-        var captain = playerTask.Result;
-
-        if (captain == null)
-            throw new PlayerNotFoundException(request.CaptainId);
-
-        var crewName = new CrewName(captain.Name);
-        var maxCrew = new CrewNumber(request.TotalCrew, _maxCrewAllowed);
-        var languageCollections = LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs);
-        var activity = Activity.Create(request.ActivityName, request.Description);
-
-        var crewParty = new CrewParty(crewName, request.Location, languageCollections, maxCrew, activity,
-            DateTime.UtcNow);
-        
         var id = await _commands.SaveCrewParty(captain, crewParty);
+        
         crewPartyCreatorResponse.SetResponse(id);
+    }
+
+    private CrewParty CreateCrewParty(Player captain, CrewPartyCreatorRequest request)
+    {
+        return new CrewParty(
+            new CrewName(captain.Name),
+            request.Location,
+            LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs),
+            new CrewNumber(request.TotalCrew, _maxCrewAllowed),
+            Activity.Create(request.ActivityName, request.Description),
+            DateTime.UtcNow);
+    }
+
+    private async Task<Player> ValidateAndGetCaptain(string captainId)
+    {
+        var playerInPartyTask = _crewPartyQueries.PlayerAlreadyInAParty(captainId);
+        var captainTask = _playerQueries.GetPlayer(captainId);
+
+        await Task.WhenAll(playerInPartyTask, captainTask);
+
+        if (playerInPartyTask.Result)
+            throw new PlayerMultiplePartiesException();
+        if (captainTask.Result is null)
+            throw new PlayerNotFoundException(captainId);
+        
+        return captainTask.Result;
     }
 }
