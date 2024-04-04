@@ -1,5 +1,7 @@
 using BKA.Tools.CrewFinding.CrewParties.Exceptions;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
+using BKA.Tools.CrewFinding.Ports;
+using BKA.Tools.CrewFinding.Values.Exceptions;
 
 namespace BKA.Tools.CrewFinding.CrewParties.JoinRequests;
 
@@ -7,11 +9,14 @@ public class PlayerPartyJoiner : IPlayerPartyJoiner
 {
     private readonly ICrewPartyQueries _crewPartyQueries;
     private readonly ICrewPartyCommands _crewPartyCommands;
+    private readonly IPlayerQueries _playersQueries;
 
-    public PlayerPartyJoiner(ICrewPartyQueries crewPartyQueries, ICrewPartyCommands crewPartyCommands)
+    public PlayerPartyJoiner(ICrewPartyQueries crewPartyQueries, ICrewPartyCommands crewPartyCommands,
+        IPlayerQueries playersQueries)
     {
         _crewPartyQueries = crewPartyQueries;
         _crewPartyCommands = crewPartyCommands;
+        _playersQueries = playersQueries;
     }
 
     public async Task Join(string playerId, string crewPartyId)
@@ -27,7 +32,13 @@ public class PlayerPartyJoiner : IPlayerPartyJoiner
         if (isPlayerInPartyTask.Result)
             throw new PlayerMultiplePartiesException();
 
-        await _crewPartyCommands.AddPlayerToCrewParty(playerId, crewPartyId);
+        var player = await _playersQueries.GetPlayer(playerId);
+
+        if (player is null)
+            throw new PlayerNotFoundException(playerId);
+        
+        crewParty.AddMember(player);
+        _crewPartyCommands.UpdateMembers(crewPartyId, crewParty.Members);
     }
 
     private async Task<CrewParty> GetCrewParty(string crewPartyId)

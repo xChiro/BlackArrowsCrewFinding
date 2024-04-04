@@ -4,8 +4,10 @@ using BKA.Tools.CrewFinding.CrewParties.Exceptions;
 using BKA.Tools.CrewFinding.CrewParties.JoinRequests;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Cultures;
+using BKA.Tools.CrewFinding.Ports;
 using BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 using BKA.Tools.CrewFinding.Values;
+using BKA.Tools.CrewFinding.Values.Exceptions;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewParties.JoinRequest;
 
@@ -50,18 +52,33 @@ public class PlayerPartyJoinerTest
     }
 
     [Fact]
+    public async Task Attempt_To_Join_To_Party_With_Player_Does_Not_Exist()
+    {
+        // Arrange
+        var crewPartyQueries = new CrewPartyQueriesMock(false, CrewPartyId, CrewPartyCreator(1, 10));
+        var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries,
+            playerQueries: new PlayerQueriesValidationMock("1", "Rowan"));
+
+        // Act & Assert 
+        await ExecuteAndAssertException<PlayerNotFoundException>(
+            () => playerPartyJoiner.Join("412412", CrewPartyId), null);
+    }
+
+    [Fact]
     public async Task Join_To_Party_Successfully()
     {
         // Arrange
         var crewPartyQueries = new CrewPartyQueriesMock(false, CrewPartyId, CrewPartyCreator(1, 10));
         var crewPartyCommands = new CrewPartyCommandsMock(CrewPartyId);
-        var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommands);
+        var playerQueriesValidationMock = new PlayerQueriesValidationMock(PlayerId, "Rowan");
+        var playerPartyJoiner =
+            CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommands, playerQueriesValidationMock);
 
         // Act
         await playerPartyJoiner.Join(PlayerId, CrewPartyId);
 
         // Assert
-        crewPartyCommands.AddedPlayerId.Should().Be(PlayerId);
+        crewPartyCommands.Members.Should().Satisfy(member => member.Id == PlayerId);
     }
 
     private static CrewParty CrewPartyCreator(int currentCrewSize, int maxCrewSize)
@@ -70,8 +87,8 @@ public class PlayerPartyJoinerTest
             new CrewName("Crew Party of Rowan"),
             new Location("Stanton", "Crusader", "Crusader", "Seraphim Station"),
             LanguageCollections.Default(),
-            new CrewCapacity(currentCrewSize, maxCrewSize), 
-            Activity.Default(), 
+            new CrewCapacity(currentCrewSize, maxCrewSize),
+            Activity.Default(),
             DateTime.UtcNow,
             new Player("1", "Rowan"));
 
@@ -79,11 +96,12 @@ public class PlayerPartyJoinerTest
     }
 
     private static PlayerPartyJoiner CreatePlayerPartyJoiner(ICrewPartyQueries crewPartyQueries,
-        ICrewPartyCommands? crewPartyCommands = null)
+        ICrewPartyCommands? crewPartyCommands = null, IPlayerQueries? playerQueries = null)
     {
         crewPartyCommands ??= new CrewPartyCommandsMock();
 
-        return new PlayerPartyJoiner(crewPartyQueries, crewPartyCommands);
+        return new PlayerPartyJoiner(crewPartyQueries, crewPartyCommands,
+            playerQueries ?? new PlayerQueriesAlwaysValidMock("Rowan"));
     }
 
     private static async Task ExecuteAndAssertException<T>(Func<Task> act, string? expectedMessage)

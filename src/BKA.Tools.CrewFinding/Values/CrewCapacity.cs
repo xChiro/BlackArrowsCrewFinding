@@ -12,7 +12,7 @@ public record CrewCapacity
         Current = current <= 0 || current > maxAllowed ? maxAllowed : current;
     }
 
-    public bool IsFull()
+    public bool IsAtCapacity()
     {
         return Current == MaxAllowed;
     }

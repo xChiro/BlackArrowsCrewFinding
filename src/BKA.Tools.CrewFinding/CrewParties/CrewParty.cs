@@ -5,9 +5,10 @@ namespace BKA.Tools.CrewFinding.CrewParties;
 
 public class CrewParty
 {
+    private List<Player> _members = new();
+    
     public CrewParty(string id, CrewName name, Location reunionPoint, LanguageCollections languages,
-        CrewCapacity totalCrewCapacity,
-        Activity activity, DateTime creationDate, Player captain)
+        CrewCapacity totalCrewCapacity, Activity activity, DateTime creationDate, Player captain, List<Player> members)
     {
         TotalCrewCapacity = totalCrewCapacity;
         Name = name;
@@ -16,13 +17,14 @@ public class CrewParty
         Activity = activity;
         CreationDate = creationDate;
         Captain = captain;
+        _members = members;
         Id = id;
     }
 
     public CrewParty(CrewName name, Location reunionPoint, LanguageCollections languages,
-        CrewCapacity totalCrewCapacity,
-        Activity activity, DateTime creationDate, Player captain) : this(Guid.NewGuid().ToString(), name, reunionPoint,
-        languages, totalCrewCapacity, activity, creationDate, captain)
+        CrewCapacity totalCrewCapacity, Activity activity, DateTime creationDate, Player captain) : this(
+        Guid.NewGuid().ToString(), name, reunionPoint, languages, totalCrewCapacity, activity, creationDate, captain,
+        new List<Player>())
     {
     }
 
@@ -41,9 +43,16 @@ public class CrewParty
     public DateTime CreationDate { get; }
 
     public Player Captain { get; }
+    
+    public IReadOnlyList<Player> Members => _members.AsReadOnly();
 
     public bool IsFull()
     {
-        return TotalCrewCapacity.IsFull();
+        return TotalCrewCapacity.IsAtCapacity();
+    }
+
+    public void AddMember(Player player)
+    {
+        _members.Add(player);
     }
 }

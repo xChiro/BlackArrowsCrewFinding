@@ -1,18 +1,18 @@
 using BKA.Tools.CrewFinding.CrewParties;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
+using BKA.Tools.CrewFinding.Values;
 using Microsoft.Azure.Cosmos;
 
 namespace BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
 
 public class CrewPartyCommands(Container container) : ICrewPartyCommands
 {
-    public Task CreateCrewParty(CrewParty crewParty)
+    public async Task CreateCrewParty(CrewParty crewParty)
     {
-        container.CreateItemAsync(crewParty, new PartitionKey(crewParty.Id));
-        return Task.CompletedTask;
+        await container.CreateItemAsync(crewParty, new PartitionKey(crewParty.Id));
     }
 
-    public Task AddPlayerToCrewParty(string playerId, string crewPartyId)
+    public Task UpdateMembers(string crewPartyId, IReadOnlyList<Player> crewPartyMembers)
     {
         throw new NotImplementedException();
     }

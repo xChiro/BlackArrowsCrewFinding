@@ -17,7 +17,7 @@ public class CrewPartyCommandsMock : ICrewPartyCommands
         return Task.CompletedTask;
     }
 
-    public Task AddPlayerToCrewParty(string playerId, string crewPartyId)
+    public Task UpdateMembers(string crewPartyId, IReadOnlyList<Player> crewPartyMembers)
     {
         throw new NotImplementedException();
     }
