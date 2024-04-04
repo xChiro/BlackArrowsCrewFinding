@@ -5,10 +5,10 @@ namespace BKA.Tools.CrewFinding.CrewParties;
 
 public class CrewParty
 {
-    public CrewParty(CrewName name, Location reunionPoint, LanguageCollections languages, CrewNumber totalCrewNumber,
+    public CrewParty(CrewName name, Location reunionPoint, LanguageCollections languages, CrewCapacity totalCrewCapacity,
         Activity activity, DateTime creationDate)
     {
-        TotalCrewNumber = totalCrewNumber;
+        TotalCrewCapacity = totalCrewCapacity;
         Name = name;
         ReunionPoint = reunionPoint;
         Languages = languages;
@@ -24,12 +24,12 @@ public class CrewParty
 
     public Activity Activity { get; }
     
-    public CrewNumber TotalCrewNumber { get;}
+    public CrewCapacity TotalCrewCapacity { get;}
     
     public DateTime CreationDate { get; }
 
     public bool IsFull()
     {
-        return TotalCrewNumber.IsFull();
+        return TotalCrewCapacity.IsFull();
     }
 }

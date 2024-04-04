@@ -11,7 +11,7 @@ public class CrewPartyCommandsMock(string expectedCrewPartyId = "123412") : ICre
     public CrewName? Name { get; private set; }
     public Location? StartingPlace { get; private set; }
     public LanguageCollections? Languages { get; private set; }
-    public CrewNumber? MaxCrewNumber { get; private set; }
+    public CrewCapacity? MaxCrewNumber { get; private set; }
     public Activity? Activity { get; private set; }
     public Player? Captain { get; private set; }
     public DateTime? CreationDate { get; private set; }
@@ -22,7 +22,7 @@ public class CrewPartyCommandsMock(string expectedCrewPartyId = "123412") : ICre
         Name = crewParty.Name;
         StartingPlace = crewParty.ReunionPoint;
         Languages = crewParty.Languages;
-        MaxCrewNumber = crewParty.TotalCrewNumber;
+        MaxCrewNumber = crewParty.TotalCrewCapacity;
         Activity = crewParty.Activity;
         Captain = captain;
         CreationDate = crewParty.CreationDate;

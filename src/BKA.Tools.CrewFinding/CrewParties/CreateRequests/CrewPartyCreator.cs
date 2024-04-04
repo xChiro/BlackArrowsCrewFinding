@@ -38,7 +38,7 @@ public class CrewPartyCreator : ICrewPartyCreator
             new CrewName(captain.Name),
             request.Location,
             LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs),
-            new CrewNumber(request.TotalCrew, _maxCrewAllowed),
+            new CrewCapacity(request.TotalCrew, _maxCrewAllowed),
             Activity.Create(request.ActivityName, request.Description),
             DateTime.UtcNow);
     }

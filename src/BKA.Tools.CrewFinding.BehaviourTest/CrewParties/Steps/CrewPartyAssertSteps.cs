@@ -34,7 +34,7 @@ public class CrewPartyAssertSteps
         crewParty.ReunionPoint.PlanetMoon.Should().Be(table.Rows[0]["Planet/Moon"]);
         crewParty.ReunionPoint.PlanetarySystem.Should().Be(table.Rows[0]["PlanetarySystem"]);
         crewParty.ReunionPoint.System.Should().Be(table.Rows[0]["System"]);
-        crewParty.TotalCrewNumber.Current.Should().Be(int.Parse(table.Rows[0]["CrewSize"]));
+        crewParty.TotalCrewCapacity.Current.Should().Be(int.Parse(table.Rows[0]["CrewSize"]));
         
         var expectation = table.Rows[0]["Languages"].Split(',').Select(x => x.Trim()).ToList();
         crewParty.Languages.Select(language => language.LanguageCode).Should().BeEquivalentTo(expectation);
@@ -66,7 +66,7 @@ public class CrewPartyAssertSteps
     [Then(@"the MaxCrewSize is set to (.*)")]
     public void ThenTheMaxCrewSizeIsSetTo(string defaultMaxCrewSize)
     {
-        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()!.TotalCrewNumber.Current.Should()
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()!.TotalCrewCapacity.Current.Should()
             .Be(int.Parse(defaultMaxCrewSize));
     }
 
