@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.CrewParties.Ports;
+namespace BKA.Tools.CrewFinding.Ports;
 
 public interface IPlayerQueries
 {

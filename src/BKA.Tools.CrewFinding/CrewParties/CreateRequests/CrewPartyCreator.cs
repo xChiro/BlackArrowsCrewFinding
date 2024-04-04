@@ -1,6 +1,7 @@
 using BKA.Tools.CrewFinding.CrewParties.Exceptions;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Cultures;
+using BKA.Tools.CrewFinding.Ports;
 using BKA.Tools.CrewFinding.Values;
 using BKA.Tools.CrewFinding.Values.Exceptions;
 
@@ -24,11 +25,11 @@ public class CrewPartyCreator : ICrewPartyCreator
 
     public async Task Create(CrewPartyCreatorRequest request, ICrewPartyCreatorResponse crewPartyCreatorResponse)
     {
-        var captain = await ValidateAndGetCaptain(request.CaptainId);
+        var captain = await GetAndValidateCaptain(request.CaptainId);
         var crewParty = CreateCrewParty(captain, request);
 
         var id = await _commands.SaveCrewParty(captain, crewParty);
-        
+
         crewPartyCreatorResponse.SetResponse(id);
     }
 
@@ -43,18 +44,23 @@ public class CrewPartyCreator : ICrewPartyCreator
             DateTime.UtcNow);
     }
 
-    private async Task<Player> ValidateAndGetCaptain(string captainId)
+    private async Task<Player> GetAndValidateCaptain(string captainId)
     {
         var playerInPartyTask = _crewPartyQueries.PlayerAlreadyInAParty(captainId);
         var captainTask = _playerQueries.GetPlayer(captainId);
 
         await Task.WhenAll(playerInPartyTask, captainTask);
 
-        if (playerInPartyTask.Result)
-            throw new PlayerMultiplePartiesException();
-        if (captainTask.Result is null)
+        ValidatePlayer(captainId, playerInPartyTask.Result, captainTask.Result);
+
+        return captainTask.Result!;
+    }
+
+    private static void ValidatePlayer(string captainId, bool playerInPartyResult, Player? captainTaskResult)
+    {
+        if (captainTaskResult is null)
             throw new PlayerNotFoundException(captainId);
-        
-        return captainTask.Result;
+        if (playerInPartyResult)
+            throw new PlayerMultiplePartiesException();
     }
 }
