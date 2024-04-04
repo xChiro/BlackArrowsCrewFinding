@@ -25,7 +25,7 @@ public class CrewPartyCreator : ICrewPartyCreator
 
     public async Task Create(CrewPartyCreatorRequest request, ICrewPartyCreatorResponse crewPartyCreatorResponse)
     {
-        var captain = await GetAndValidateCaptain(request.CaptainId);
+        var captain = await GetCaptain(request.CaptainId);
         var crewParty = CreateCrewParty(captain, request);
 
         var id = await _commands.SaveCrewParty(captain, crewParty);
@@ -44,7 +44,7 @@ public class CrewPartyCreator : ICrewPartyCreator
             DateTime.UtcNow);
     }
 
-    private async Task<Player> GetAndValidateCaptain(string captainId)
+    private async Task<Player> GetCaptain(string captainId)
     {
         var playerInPartyTask = _crewPartyQueries.PlayerAlreadyInAParty(captainId);
         var captainTask = _playerQueries.GetPlayer(captainId);
