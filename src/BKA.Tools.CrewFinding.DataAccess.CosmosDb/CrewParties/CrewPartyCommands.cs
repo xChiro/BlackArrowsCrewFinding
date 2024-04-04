@@ -12,7 +12,7 @@ public class CrewPartyCommands(Container container) : ICrewPartyCommands
         await container.CreateItemAsync(crewParty, new PartitionKey(crewParty.Id));
     }
 
-    public Task UpdateMembers(string crewPartyId, IReadOnlyList<Player> crewPartyMembers)
+    public Task UpdateMembers(string crewPartyId, IEnumerable<Player> crewPartyMembers)
     {
         throw new NotImplementedException();
     }

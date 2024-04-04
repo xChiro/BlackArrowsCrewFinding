@@ -32,7 +32,7 @@ public class CrewPartyCommandsMock(string expectedCrewPartyId = "123412") : ICre
         return Task.FromResult(expectedCrewPartyId);
     }
 
-    public Task UpdateMembers(string crewPartyId, IReadOnlyList<Player> crewPartyMembers)
+    public Task UpdateMembers(string crewPartyId, IEnumerable<Player> crewPartyMembers)
     {
         Members = crewPartyMembers;
         

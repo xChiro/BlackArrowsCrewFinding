@@ -20,11 +20,15 @@ public class PlayerPartyJoinerTest
     public async Task Attempt_To_Join_NonExisting_Party()
     {
         // Arrange
-        var playerPartyJoiner = CreatePlayerPartyJoiner(new CrewPartyQueriesMock());
+        var crewPartyCommandsMock = new CrewPartyCommandsMock();
+        var playerPartyJoiner = CreatePlayerPartyJoiner(new CrewPartyQueriesMock(), crewPartyCommandsMock);
 
         // Act & Assert
         await ExecuteAndAssertException<CrewPartyNotFoundException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId),
             $"Crew party not found with {CrewPartyId}");
+        
+        // Assert
+        MembersShouldBeNull(crewPartyCommandsMock);
     }
 
     [Fact]
@@ -32,11 +36,15 @@ public class PlayerPartyJoinerTest
     {
         // Arrange
         var crewPartyQueries = new CrewPartyQueriesMock(false, CrewPartyId, CrewPartyCreator(10, 10));
-        var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries);
+        var crewPartyCommandsMock = new CrewPartyCommandsMock();
+        var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommandsMock);
 
         // Act & Assert
         await ExecuteAndAssertException<CrewPartyFullException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId),
             $"Crew party is full with {CrewPartyId}");
+        
+        // Assert
+        MembersShouldBeNull(crewPartyCommandsMock);
     }
 
     [Fact]
@@ -44,11 +52,16 @@ public class PlayerPartyJoinerTest
     {
         // Arrange
         var crewPartyQueries = new CrewPartyQueriesMock(true, CrewPartyId, CrewPartyCreator(1, 10));
-        var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries);
+        var crewPartyCommandsMock = new CrewPartyCommandsMock();
+
+        var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommandsMock);
 
         // Act & Assert 
         await ExecuteAndAssertException<PlayerMultiplePartiesException>(
             () => playerPartyJoiner.Join(PlayerId, CrewPartyId), null);
+
+        // Assert
+        MembersShouldBeNull(crewPartyCommandsMock);
     }
 
     [Fact]
@@ -56,12 +69,17 @@ public class PlayerPartyJoinerTest
     {
         // Arrange
         var crewPartyQueries = new CrewPartyQueriesMock(false, CrewPartyId, CrewPartyCreator(1, 10));
-        var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries,
-            playerQueries: new PlayerQueriesValidationMock("1", "Rowan"));
+        var crewPartyCommandsMock = new CrewPartyCommandsMock();
+
+        var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommandsMock,
+            new PlayerQueriesValidationMock("1", "Rowan"));
 
         // Act & Assert 
         await ExecuteAndAssertException<PlayerNotFoundException>(
             () => playerPartyJoiner.Join("412412", CrewPartyId), null);
+
+        // Assert
+        MembersShouldBeNull(crewPartyCommandsMock);
     }
 
     [Fact]
@@ -79,6 +97,11 @@ public class PlayerPartyJoinerTest
 
         // Assert
         crewPartyCommands.Members.Should().Satisfy(member => member.Id == PlayerId);
+    }
+
+    private static void MembersShouldBeNull(CrewPartyCommandsMock crewPartyCommandsMock)
+    {
+        crewPartyCommandsMock.Members.Should().BeNull();
     }
 
     private static CrewParty CrewPartyCreator(int currentCrewSize, int maxCrewSize)

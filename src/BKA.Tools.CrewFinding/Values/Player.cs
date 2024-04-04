@@ -18,7 +18,7 @@ public record Player
         Id = id;
     }
 
-    public string Id { get; set; }
+    public string Id { get; }
 
     public string Name { get; }
 }

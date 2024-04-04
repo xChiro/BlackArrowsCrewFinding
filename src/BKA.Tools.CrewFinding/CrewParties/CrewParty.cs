@@ -5,7 +5,7 @@ namespace BKA.Tools.CrewFinding.CrewParties;
 
 public class CrewParty
 {
-    private List<Player> _members = new();
+    private readonly List<Player> _members;
     
     public CrewParty(string id, CrewName name, Location reunionPoint, LanguageCollections languages,
         CrewCapacity totalCrewCapacity, Activity activity, DateTime creationDate, Player captain, List<Player> members)
@@ -44,7 +44,7 @@ public class CrewParty
 
     public Player Captain { get; }
     
-    public IReadOnlyList<Player> Members => _members.AsReadOnly();
+    public IEnumerable<Player> Members => _members.AsReadOnly();
 
     public bool IsFull()
     {
