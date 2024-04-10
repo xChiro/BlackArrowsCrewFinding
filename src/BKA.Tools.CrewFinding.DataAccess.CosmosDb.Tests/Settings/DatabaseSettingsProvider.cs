@@ -23,21 +23,50 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
 
     private async Task<Container> GetContainerCore()
     {
-        var primaryKey = await _keySecretsProvider.GetSecret(_configurationRoot["azureKeyName"] ?? string.Empty);
-
-        var cosmosClient = CreateCosmosClient(primaryKey);
-
-        var database = cosmosClient.GetDatabase(_configurationRoot["cosmosDB:database"]);
-        return database.GetContainer(_configurationRoot["cosmosDB:container"]);
+        var cosmosClient = await CreateCosmosClient();
+        var database = GetDatabase(cosmosClient);
+        
+        return GetContainer(database);
     }
 
-    private CosmosClient CreateCosmosClient(string primaryKey)
+    private async Task<CosmosClient> CreateCosmosClient()
     {
+        var primaryKey = await _keySecretsProvider.GetSecret(GetAzureKeyName());
         var serializerOptions = new CustomCosmosSerializer(new JsonSerializerOptions
             {PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
 
-        return new CosmosClientBuilder(_configurationRoot["cosmosDB:endpoint"], primaryKey)
+        return new CosmosClientBuilder(GetCosmosDbEndpoint(), primaryKey)
             .WithCustomSerializer(serializerOptions)
             .Build();
+    }
+
+    private Database GetDatabase(CosmosClient cosmosClient)
+    {
+        return cosmosClient.GetDatabase(GetCosmosDbDatabase());
+    }
+
+    private Container GetContainer(Database database)
+    {
+        return database.GetContainer(GetCosmosDbContainer());
+    }
+
+    private string GetAzureKeyName()
+    {
+        return _configurationRoot["azureKeyName"] ?? string.Empty;
+    }
+
+    private string GetCosmosDbEndpoint()
+    {
+        return _configurationRoot["cosmosDB:endpoint"] ?? string.Empty;
+    }
+
+    private string GetCosmosDbDatabase()
+    {
+        return _configurationRoot["cosmosDB:database"] ?? string.Empty;
+    }
+
+    private string GetCosmosDbContainer()
+    {
+        return _configurationRoot["cosmosDB:container"] ?? string.Empty;
     }
 }
