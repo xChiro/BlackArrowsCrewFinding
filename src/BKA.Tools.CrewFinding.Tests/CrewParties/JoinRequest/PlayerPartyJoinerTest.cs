@@ -106,14 +106,7 @@ public class PlayerPartyJoinerTest
 
     private static CrewParty CrewPartyCreator(int currentCrewSize, int maxCrewSize)
     {
-        var crewParty = new CrewParty(
-            new CrewName("Crew Party of Rowan"),
-            new Location("Stanton", "Crusader", "Crusader", "Seraphim Station"),
-            LanguageCollections.Default(),
-            new CrewCapacity(currentCrewSize, maxCrewSize),
-            Activity.Default(),
-            DateTime.UtcNow,
-            new Player("1", "Rowan"));
+        var crewParty = new CrewParty(new Player("1", "Rowan"), new CrewName("Crew Party of Rowan"), new Location("Stanton", "Crusader", "Crusader", "Seraphim Station"), LanguageCollections.Default(), new CrewCapacity(currentCrewSize, maxCrewSize), Activity.Default(), DateTime.UtcNow);
 
         return crewParty;
     }

@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKA.Tools.CrewFinding.API.F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKA.Tools.CrewFinding.DataAccess.CosmosDb", "BKA.Tools.CrewFinding.DataAccess.CosmosDb\BKA.Tools.CrewFinding.DataAccess.CosmosDb.csproj", "{421F4640-BF6F-4383-950C-C2F387464E34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests", "BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests\BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.csproj", "{8A63C0F6-18D6-497A-BA68-5D3180980A66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{421F4640-BF6F-4383-950C-C2F387464E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{421F4640-BF6F-4383-950C-C2F387464E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{421F4640-BF6F-4383-950C-C2F387464E34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A63C0F6-18D6-497A-BA68-5D3180980A66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A63C0F6-18D6-497A-BA68-5D3180980A66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A63C0F6-18D6-497A-BA68-5D3180980A66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A63C0F6-18D6-497A-BA68-5D3180980A66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

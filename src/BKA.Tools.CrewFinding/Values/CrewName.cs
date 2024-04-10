@@ -7,6 +7,5 @@ public record CrewName
     public CrewName(string captainName)
     {
         Value = $"Crew Party of {captainName}";
-            
     }
 }

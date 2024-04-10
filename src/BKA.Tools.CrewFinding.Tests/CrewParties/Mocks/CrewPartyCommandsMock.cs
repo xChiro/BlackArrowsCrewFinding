@@ -23,10 +23,10 @@ public class CrewPartyCommandsMock(string expectedCrewPartyId = "123412") : ICre
         Name = crewParty.Name;
         StartingPlace = crewParty.ReunionPoint;
         Languages = crewParty.Languages;
-        MaxCrewNumber = crewParty.TotalCrewCapacity;
+        MaxCrewNumber = crewParty.CrewCapacity;
         Activity = crewParty.Activity;
         Captain = crewParty.Captain;
-        CreationDate = crewParty.CreationDate;
+        CreationDate = crewParty.CreationAt;
         Members = crewParty.Members;
         
         return Task.FromResult(expectedCrewPartyId);

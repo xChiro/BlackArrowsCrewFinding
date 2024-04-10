@@ -4,5 +4,5 @@ namespace BKA.Tools.CrewFinding.Ports;
 
 public interface IPlayerQueries
 {
-    Task<Player?> GetPlayer(string playerId);
+    public Task<Player?> GetPlayer(string playerId);
 }
