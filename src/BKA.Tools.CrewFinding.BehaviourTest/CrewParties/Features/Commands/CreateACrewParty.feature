@@ -3,19 +3,19 @@ Feature: A player wants to create a crew party.
     Scenario: Successful creation of a Crew Party
         Given a player named <UserName>
         And the default MaxCrewSize is 6
-        When the player creates a Crew Party named 'The Stellar Hunters' with the following details:
+        When the player creates a Crew Party with the following details:
           | CrewSize | Languages | System  | PlanetarySystem | Planet/Moon | Place            | Description          | Activity       |
           | 6        | ES, EN    | Stanton | Crusader        | Crusader    | Seraphim Station | Elite bounty hunters | Bounty Hunting |
-        Then a Crew Party with default name is successfully created for the player <UserName>
+        Then a Crew Party named <CrewPartyDefaultName> is successfully created
         And the Crew Party contains the following details:
           | CrewSize | Languages | System  | PlanetarySystem | Planet/Moon | Place            | Description          | Activity       |
           | 6        | ES, EN    | Stanton | Crusader        | Crusader    | Seraphim Station | Elite bounty hunters | Bounty Hunting |
         And the creation date is the current date
-        And the player named <UserName> is designated as the Captain
+        And <UserName> is designated as the Captain
 
     Examples:
       | UserName | CrewPartyDefaultName |
-      | Rowan    | Crew  Rowan    |
+      | Rowan    | Crew Party of Rowan  |
 
     Scenario: Preventing the creation of multiple active Crew Parties
         Given a player named <UserName>

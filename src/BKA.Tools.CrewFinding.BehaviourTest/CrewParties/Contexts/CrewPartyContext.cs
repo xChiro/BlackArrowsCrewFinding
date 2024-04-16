@@ -6,15 +6,13 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 
 public class CrewPartyContext
 {
-    public string Name { get; set; }
     public CrewOptions Options { get; set; }
     public PartyLocation Location { get; set; }
     public CrewActivity Activity { get; set; }
     public int MaxPlayerAllowed { get; set; }
 
-    public void FillData(string crewPartyName, Table crewPartyDetails)
+    public void FillData(Table crewPartyDetails)
     {
-        Name = crewPartyName;
         Options = new CrewOptions
         {
             CrewSize = int.Parse(crewPartyDetails.Rows[0]["CrewSize"]),

@@ -16,11 +16,11 @@ public class CrewPartyAssertSteps
         _crewPartyCreationResultsContext = crewPartyCreationResultsContext;
     }
 
-    [Then(@"a Crew Party with default name is successfully created for the player (.*)")]
-    public void ThenACrewPartyWithDefaultNameIsSuccessfullyCreatedForThePlayer(string playerName)
+    [Then(@"a Crew Party named (.*) is successfully created")]
+    public void ThenACrewPartyNamedIsSuccessfullyCreated(string crewPartyName)
     {
         _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()?.Name.Value.Should()
-            .Be($"Crew Party of {playerName}");
+            .Be(crewPartyName);
     }
 
     [Then(@"the Crew Party contains the following details:")]
@@ -49,12 +49,6 @@ public class CrewPartyAssertSteps
             .BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
     }
 
-    [Then(@"the player named (.*) is designated as the Captain")]
-    public void ThenThePlayerNamedIsDesignatedAsTheCaptain(string userName)
-    {
-        _mockRepositoriesContext.CrewPartyCommandsMock.GetCaptain()!.Name.Should().Be(userName);
-    }
-
     [Then(@"the Crew Party of (.*) is successfully created")]
     public void ThenTheCrewPartyNamedSCrewIsSuccessfullyCreated(string captainName)
     {
@@ -80,5 +74,11 @@ public class CrewPartyAssertSteps
     public void ThenThePlayerReceivesAMessageIndicatingThatThePlayerAlreadyHasAnActiveCrewParty()
     {
         _crewPartyCreationResultsContext.Exception.GetType().Should().Be<PlayerMultiplePartiesException>();
+    }
+
+    [Then(@"(.*) is designated as the Captain")]
+    public void ThenIsDesignatedAsTheCaptain(string userName)
+    {
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCaptain()!.Name.Should().Be(userName);
     }
 }

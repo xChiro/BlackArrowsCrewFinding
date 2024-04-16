@@ -1,9 +1,9 @@
+using BKA.Tools.CrewFinding.API.Functions;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
-using BKA.Tools.CrewFinding.API.Functions.Functions;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 
-namespace BKA.Tools.CrewFinding.API.Functions.Functions
+namespace BKA.Tools.CrewFinding.API.Functions
 {
     public class Startup : FunctionsStartup
     {

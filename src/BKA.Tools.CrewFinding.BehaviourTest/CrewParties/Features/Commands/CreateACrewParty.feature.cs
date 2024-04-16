@@ -83,7 +83,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Successful creation of a Crew Party")]
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
         [Xunit.TraitAttribute("Description", "Successful creation of a Crew Party")]
-        [Xunit.InlineDataAttribute("Rowan", "Crew  Rowan", new string[0])]
+        [Xunit.InlineDataAttribute("Rowan", "Crew Party of Rowan", new string[0])]
         public void SuccessfulCreationOfACrewParty(string userName, string crewPartyDefaultName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -126,11 +126,10 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
                             "Elite bounty hunters",
                             "Bounty Hunting"});
 #line 6
-        testRunner.When("the player creates a Crew Party named \'The Stellar Hunters\' with the following de" +
-                        "tails:", ((string)(null)), table1, "When ");
+        testRunner.When("the player creates a Crew Party with the following details:", ((string)(null)), table1, "When ");
 #line hidden
 #line 9
-        testRunner.Then(string.Format("a Crew Party with default name is successfully created for the player {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then(string.Format("a Crew Party named {0} is successfully created", crewPartyDefaultName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                             "CrewSize",
@@ -157,7 +156,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         testRunner.And("the creation date is the current date", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 14
-        testRunner.And(string.Format("the player named {0} is designated as the Captain", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("{0} is designated as the Captain", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

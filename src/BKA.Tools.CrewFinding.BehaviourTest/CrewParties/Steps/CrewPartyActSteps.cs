@@ -29,10 +29,10 @@ public class CrewPartyActSteps
         return CreateAndStoreCrewParty(CrewPartyFactory.CreateDefaultCrewPartyWithoutLocation(_playerContext.PlayerId));
     }
 
-    [When(@"the player creates a Crew Party named '(.*)' with the following details:")]
-    public Task WhenThePlayerCreatesACrewPartyNamedWithTheFollowingDetails(string crewPartyName, Table crewPartyDetails)
+    [When(@"the player creates a Crew Party with the following details:")]
+    public Task WhenThePlayerCreatesACrewPartyWithTheFollowingDetails(Table crewPartyDetails)
     {
-        _crewPartyContext.FillData(crewPartyName, crewPartyDetails);
+        _crewPartyContext.FillData(crewPartyDetails);
         return CreateAndStoreCrewParty(_crewPartyContext.ToRequest(_playerContext.PlayerId));
     }
 
