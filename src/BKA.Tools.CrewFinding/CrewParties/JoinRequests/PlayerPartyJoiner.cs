@@ -1,8 +1,6 @@
 using BKA.Tools.CrewFinding.CrewParties.Exceptions;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
-using BKA.Tools.CrewFinding.Ports;
 using BKA.Tools.CrewFinding.Values;
-using BKA.Tools.CrewFinding.Values.Exceptions;
 
 namespace BKA.Tools.CrewFinding.CrewParties.JoinRequests;
 
@@ -10,22 +8,28 @@ public class PlayerPartyJoiner : IPlayerPartyJoiner
 {
     private readonly ICrewPartyQueries _crewPartyQueries;
     private readonly ICrewPartyCommands _crewPartyCommands;
-    private readonly IPlayerQueries _playersQueries;
 
-    public PlayerPartyJoiner(ICrewPartyQueries crewPartyQueries, ICrewPartyCommands crewPartyCommands,
-        IPlayerQueries playersQueries)
+    public PlayerPartyJoiner(ICrewPartyQueries crewPartyQueries, ICrewPartyCommands crewPartyCommands)
     {
         _crewPartyQueries = crewPartyQueries;
         _crewPartyCommands = crewPartyCommands;
-        _playersQueries = playersQueries;
     }
 
-    public async Task Join(string playerId, string crewPartyId)
+    public async Task Join(string playerId, string playerName, string crewPartyId)
     {
-        var crewParty = await GetValidCrewParty(crewPartyId);
-        var player = await GetValidPlayer(playerId);
+        var isPlayerInPartyTask = _crewPartyQueries.IsPlayerInAParty(playerId);
+        var validCrewPartyTask = GetValidCrewParty(crewPartyId);
 
+        await Task.WhenAll(isPlayerInPartyTask, validCrewPartyTask);
+
+        if (isPlayerInPartyTask.Result)
+            throw new PlayerMultiplePartiesException(playerId);
+        
+        var crewParty = validCrewPartyTask.Result;
+
+        var player = new Player(playerId, playerName);
         crewParty.AddMember(player);
+        
         await _crewPartyCommands.UpdateMembers(crewPartyId, crewParty.Members);
     }
 
@@ -34,29 +38,6 @@ public class PlayerPartyJoiner : IPlayerPartyJoiner
         var crewParty = await GetCrewParty(crewPartyId);
         ValidateCrewPartyIsNotFull(crewParty, crewPartyId);
         return crewParty;
-    }
-
-    private async Task<Player> GetValidPlayer(string playerId)
-    {
-        if (IsPlayerAlreadyInAParty(playerId))
-            throw new PlayerMultiplePartiesException();
-        
-        var player = await GetPlayer(playerId);
-        
-        if (IsAValidPlayer(player))
-            throw new PlayerNotFoundException(playerId);
-        
-        return player!;
-    }
-
-    private bool IsPlayerAlreadyInAParty(string playerId)
-    {
-        return _crewPartyQueries.PlayerAlreadyInAParty(playerId).Result;
-    }
-
-    private static bool IsAValidPlayer(Player? player)
-    {
-        return player is null;
     }
 
     private async Task<CrewParty> GetCrewParty(string crewPartyId)
@@ -68,10 +49,5 @@ public class PlayerPartyJoiner : IPlayerPartyJoiner
     {
         if (crewParty.IsFull())
             throw new CrewPartyFullException(crewPartyId);
-    }
-
-    private async Task<Player?> GetPlayer(string playerId)
-    {
-        return await _playersQueries.GetPlayer(playerId);
     }
 }

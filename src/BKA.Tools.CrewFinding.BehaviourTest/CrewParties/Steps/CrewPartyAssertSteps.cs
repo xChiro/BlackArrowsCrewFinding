@@ -16,11 +16,10 @@ public class CrewPartyAssertSteps
         _crewPartyCreationResultsContext = crewPartyCreationResultsContext;
     }
 
-    [Then(@"a Crew Party with default name is successfully created for the player (.*)")]
-    public void ThenACrewPartyWithDefaultNameIsSuccessfullyCreatedForThePlayer(string playerName)
+    [Then(@"a Crew Party named (.*) is successfully created")]
+    public void ThenACrewPartyNamedIsSuccessfullyCreated(string playerName)
     {
-        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()?.Name.Value.Should()
-            .Be($"Crew Party of {playerName}");
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCrewParty()?.Name.Value.Should().Be(playerName);
     }
 
     [Then(@"the Crew Party contains the following details:")]

@@ -12,7 +12,7 @@ public class CrewPartyQueriesMock : ICrewPartyQueries
         _hasCreatedParty = hasCreatedParty;
     }
     
-    public Task<bool> PlayerAlreadyInAParty(string captainId)
+    public Task<bool> IsPlayerInAParty(string playerId)
     {
         return Task.FromResult(_hasCreatedParty);
     }

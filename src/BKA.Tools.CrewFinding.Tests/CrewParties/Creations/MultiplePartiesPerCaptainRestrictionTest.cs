@@ -19,7 +19,7 @@ public class MultiplePartiesPerCaptainRestrictionTest
         var crewPartyQueriesMock = new CrewPartyQueriesMock(true);
 
         var crewPartyCreator = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(crewPartyQueriesMock, 5);
-        var request = new CrewPartyCreatorRequest(captainId, 5, Location.DefaultLocation(),
+        var request = new CrewPartyCreatorRequest(captainId, "Rowan", 5, Location.DefaultLocation(),
             ["EN"], "Activity");
 
         // Act & Assert

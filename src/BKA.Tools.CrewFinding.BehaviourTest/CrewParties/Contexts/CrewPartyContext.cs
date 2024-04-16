@@ -6,15 +6,13 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 
 public class CrewPartyContext
 {
-    public string Name { get; set; }
     public CrewOptions Options { get; set; }
     public PartyLocation Location { get; set; }
     public CrewActivity Activity { get; set; }
     public int MaxPlayerAllowed { get; set; }
 
-    public void FillData(string crewPartyName, Table crewPartyDetails)
+    public void FillData(Table crewPartyDetails)
     {
-        Name = crewPartyName;
         Options = new CrewOptions
         {
             CrewSize = int.Parse(crewPartyDetails.Rows[0]["CrewSize"]),
@@ -31,12 +29,12 @@ public class CrewPartyContext
         };
     }
 
-    public CrewPartyCreatorRequest ToRequest(string captainName)
+    public CrewPartyCreatorRequest ToRequest(string captainId, string captainName)
     {
         var languages = Options.Languages.Split(',').Select(x => x.Trim()).ToArray();
         var location = new Location(Location.System, Location.PlanetarySystem, Location.PlanetOrMoon, Location.Place);
 
-        return new CrewPartyCreatorRequest(captainName, Options.CrewSize, location, languages.ToArray(), Activity.Name,
+        return new CrewPartyCreatorRequest(captainId, captainName, Options.CrewSize, location, languages.ToArray(), Activity.Name,
             Activity.Description);
     }
 }

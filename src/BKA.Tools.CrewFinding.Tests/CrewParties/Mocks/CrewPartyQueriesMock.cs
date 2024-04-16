@@ -8,9 +8,9 @@ public class CrewPartyQueriesMock(bool playerInParty = false, string expectedCre
 {
     public string ReceivedCaptainId { get; private set; } = string.Empty;
 
-    public Task<bool> PlayerAlreadyInAParty(string captainId)
+    public Task<bool> IsPlayerInAParty(string playerId)
     {
-        ReceivedCaptainId = captainId;
+        ReceivedCaptainId = playerId;
         return Task.FromResult(playerInParty);
     }
 
