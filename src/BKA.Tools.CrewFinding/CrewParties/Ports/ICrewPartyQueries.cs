@@ -2,6 +2,6 @@ namespace BKA.Tools.CrewFinding.CrewParties.Ports;
 
 public interface ICrewPartyQueries
 {
-    public Task<bool> IsPlayerInAParty(string playerId);
+    public Task<bool> PlayerAlreadyInAParty(string captainId);
     public Task<CrewParty?> GetCrewParty(string crewPartyId);
 }

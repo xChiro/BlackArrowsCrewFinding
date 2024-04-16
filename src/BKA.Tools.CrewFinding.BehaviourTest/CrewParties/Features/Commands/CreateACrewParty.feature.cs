@@ -83,7 +83,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Successful creation of a Crew Party")]
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
         [Xunit.TraitAttribute("Description", "Successful creation of a Crew Party")]
-        [Xunit.InlineDataAttribute("Rowan", "Crew Party of Rowan", new string[0])]
+        [Xunit.InlineDataAttribute("Rowan", "Crew  Rowan", new string[0])]
         public void SuccessfulCreationOfACrewParty(string userName, string crewPartyDefaultName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -126,10 +126,11 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
                             "Elite bounty hunters",
                             "Bounty Hunting"});
 #line 6
-        testRunner.When("the player creates a Crew Party with the following details:", ((string)(null)), table1, "When ");
+        testRunner.When("the player creates a Crew Party named \'The Stellar Hunters\' with the following de" +
+                        "tails:", ((string)(null)), table1, "When ");
 #line hidden
 #line 9
-        testRunner.Then(string.Format("a Crew Party named {0} is successfully created", crewPartyDefaultName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then(string.Format("a Crew Party with default name is successfully created for the player {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                             "CrewSize",
@@ -205,12 +206,13 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Creation of a Crew Party with default location information")]
         [Xunit.TraitAttribute("FeatureTitle", "A player wants to create a crew party.")]
         [Xunit.TraitAttribute("Description", "Creation of a Crew Party with default location information")]
-        [Xunit.InlineDataAttribute("Rowan", new string[0])]
-        public void CreationOfACrewPartyWithDefaultLocationInformation(string userName, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Rowan", "The Stellar Hunters", new string[0])]
+        public void CreationOfACrewPartyWithDefaultLocationInformation(string userName, string crewPartyName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
+            argumentsOfScenario.Add("CrewPartyName", crewPartyName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creation of a Crew Party with default location information", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 31
     this.ScenarioInitialize(scenarioInfo);

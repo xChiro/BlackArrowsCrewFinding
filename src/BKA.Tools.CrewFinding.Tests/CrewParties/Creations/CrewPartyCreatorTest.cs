@@ -18,15 +18,32 @@ public class CrewPartyCreatorTest
         // Arrange
         var captainId = Guid.NewGuid().ToString();
         var crewPartyCommandsMock = new CrewPartyCommandsMock();
-        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock);
+        var playerQueriesMock = new PlayerQueriesValidationMock(captainId, captainName);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
 
         // Act
-        await ExecuteCrewCreation(sut, captainId, captainName);
+        await ExecuteCrewCreation(sut, captainId);
 
         // Assert
         crewPartyCommandsMock.Name!.Value.Should().Be(expectedCrewName);
     }
 
+    [Fact]
+    public async Task Try_To_Create_A_Crew_Party_But_Captain_Not_Was_Found()
+    {
+        // Arrange
+        var captainId = Guid.NewGuid().ToString();
+        var crewPartyCommandsMock = new CrewPartyCommandsMock();
+        var playerQueriesMock = new PlayerQueriesValidationMock(captainId, "Rowan");
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
+
+        // Act
+        var act = async () => await ExecuteCrewCreation(sut, Guid.NewGuid().ToString());
+
+        // Assert
+        await act.Should().ThrowAsync<PlayerNotFoundException>();
+    }
+    
     [Fact]
     public async Task Create_Crew_Party_Assigns_Captain()
     {
@@ -35,7 +52,8 @@ public class CrewPartyCreatorTest
         const string captainName = "Rowan";
 
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
-        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock,
+            captainName: captainName);
 
         // Act
         await ExecuteCrewCreation(sut, captainId);
@@ -51,8 +69,6 @@ public class CrewPartyCreatorTest
     {
         // Arrange
         var captainId = Guid.NewGuid().ToString();
-        const string captainName = "Rowan";
-        
         var createCrewPartyResultMock = new CrewPartyCommandsMock();
         var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
@@ -74,21 +90,22 @@ public class CrewPartyCreatorTest
         var sut = CrewPartyCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         // Act
-        await ExecuteCrewCreation(sut, captainId, "Rowan", 4, description, crewPartyCreatorResponseMock);
+        await ExecuteCrewCreation(sut, captainId, 4, description, crewPartyCreatorResponseMock);
 
         // Assert
         createCrewPartyResultMock.Activity!.Description.Should().Be(description);
         crewPartyCreatorResponseMock.Id.Should().NotBeNullOrEmpty();
     }
 
-    private static async Task ExecuteCrewCreation(ICrewPartyCreator sut, string captainId, string captainName = "Rowan")
+    private static async Task ExecuteCrewCreation(ICrewPartyCreator sut, string captainId)
     {
-        await ExecuteCrewCreation(sut, captainId, captainName, 4, string.Empty, new CrewPartyCreatorResponseMock());
+        await ExecuteCrewCreation(sut, captainId, 4, string.Empty, new CrewPartyCreatorResponseMock());
     }
 
-    private static async Task ExecuteCrewCreation(ICrewPartyCreator sut, string captainId, string captainName, int totalCrew,
+    private static async Task ExecuteCrewCreation(ICrewPartyCreator sut, string captainId, int totalCrew,
         string description, ICrewPartyCreatorResponse crewPartyCreatorResponse)
     {
-        await CrewCreationExecutioner.ExecuteCrewCreation(sut, crewPartyCreatorResponse, captainId: captainId, captainName: captainName, languages: Array.Empty<string>(), expectedLocation: Location.DefaultLocation(), activity: "Mining", totalCrew: totalCrew, description: description);
+        await CrewCreationExecutioner.ExecuteCrewCreation(sut, crewPartyCreatorResponse, captainId,
+            Array.Empty<string>(), Location.DefaultLocation(), "Mining", totalCrew, description);
     }
 }

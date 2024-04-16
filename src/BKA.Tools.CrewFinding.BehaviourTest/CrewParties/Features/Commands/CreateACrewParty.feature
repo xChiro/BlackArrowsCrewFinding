@@ -3,10 +3,10 @@ Feature: A player wants to create a crew party.
     Scenario: Successful creation of a Crew Party
         Given a player named <UserName>
         And the default MaxCrewSize is 6
-        When the player creates a Crew Party with the following details:
+        When the player creates a Crew Party named 'The Stellar Hunters' with the following details:
           | CrewSize | Languages | System  | PlanetarySystem | Planet/Moon | Place            | Description          | Activity       |
           | 6        | ES, EN    | Stanton | Crusader        | Crusader    | Seraphim Station | Elite bounty hunters | Bounty Hunting |
-        Then a Crew Party named <CrewPartyDefaultName> is successfully created
+        Then a Crew Party with default name is successfully created for the player <UserName>
         And the Crew Party contains the following details:
           | CrewSize | Languages | System  | PlanetarySystem | Planet/Moon | Place            | Description          | Activity       |
           | 6        | ES, EN    | Stanton | Crusader        | Crusader    | Seraphim Station | Elite bounty hunters | Bounty Hunting |
@@ -15,7 +15,7 @@ Feature: A player wants to create a crew party.
 
     Examples:
       | UserName | CrewPartyDefaultName |
-      | Rowan    | Crew Party of Rowan  |
+      | Rowan    | Crew  Rowan    |
 
     Scenario: Preventing the creation of multiple active Crew Parties
         Given a player named <UserName>
@@ -34,8 +34,8 @@ Feature: A player wants to create a crew party.
         Then the Crew Party is successfully created with the default location information
 
     Examples:
-      | UserName |
-      | Rowan    |
+      | UserName | CrewPartyName       |
+      | Rowan    | The Stellar Hunters |
 
     Scenario: Create a Crew Party with missing activity information, use default activity
         Given a player named <UserName>

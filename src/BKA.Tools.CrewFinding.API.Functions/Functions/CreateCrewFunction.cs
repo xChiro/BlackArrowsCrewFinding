@@ -15,7 +15,7 @@ public static class CreateCrewFunction
     public static async Task<IActionResult> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "CrewParties")] HttpRequest req, ILogger log)
     {
-        log.LogInformation("C# HTTP trigger functi on processed a request.");
+        log.LogInformation("C# HTTP trigger function processed a request.");
 
         string name = req.Query["name"];
 

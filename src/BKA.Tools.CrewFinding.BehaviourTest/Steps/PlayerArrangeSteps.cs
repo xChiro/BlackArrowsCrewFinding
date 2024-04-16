@@ -16,6 +16,6 @@ public class PlayerArrangeSteps
     public void When_givenAPlayerNamed(string userName)
     {
         _playerContext.PlayerId = Guid.NewGuid().ToString();
-        _playerContext.PlayerName = userName;
+        _playerContext.UserName = userName;
     }
 }
