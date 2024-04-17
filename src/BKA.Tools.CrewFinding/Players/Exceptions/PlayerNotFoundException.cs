@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.Values.Exceptions;
+namespace BKA.Tools.CrewFinding.Players.Exceptions;
 
 public class PlayerNotFoundException : Exception
 {

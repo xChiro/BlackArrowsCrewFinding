@@ -79,6 +79,6 @@ public class CrewPartyAssertSteps
     [Then(@"(.*) is designated as the Captain")]
     public void ThenIsDesignatedAsTheCaptain(string userName)
     {
-        _mockRepositoriesContext.CrewPartyCommandsMock.GetCaptain()!.Name.Should().Be(userName);
+        _mockRepositoriesContext.CrewPartyCommandsMock.GetCaptain()!.CitizenName.Should().Be(userName);
     }
 }

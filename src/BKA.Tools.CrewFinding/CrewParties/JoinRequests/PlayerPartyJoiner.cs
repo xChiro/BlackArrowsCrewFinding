@@ -1,8 +1,8 @@
 using BKA.Tools.CrewFinding.CrewParties.Exceptions;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
-using BKA.Tools.CrewFinding.Ports;
-using BKA.Tools.CrewFinding.Values;
-using BKA.Tools.CrewFinding.Values.Exceptions;
+using BKA.Tools.CrewFinding.Players;
+using BKA.Tools.CrewFinding.Players.Exceptions;
+using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.CrewParties.JoinRequests;
 

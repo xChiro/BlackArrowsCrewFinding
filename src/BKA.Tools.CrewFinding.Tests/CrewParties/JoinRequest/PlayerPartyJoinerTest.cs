@@ -4,10 +4,11 @@ using BKA.Tools.CrewFinding.CrewParties.Exceptions;
 using BKA.Tools.CrewFinding.CrewParties.JoinRequests;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Cultures;
-using BKA.Tools.CrewFinding.Ports;
+using BKA.Tools.CrewFinding.Players;
+using BKA.Tools.CrewFinding.Players.Exceptions;
+using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 using BKA.Tools.CrewFinding.Values;
-using BKA.Tools.CrewFinding.Values.Exceptions;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewParties.JoinRequest;
 
@@ -26,7 +27,7 @@ public class PlayerPartyJoinerTest
         // Act & Assert
         await ExecuteAndAssertException<CrewPartyNotFoundException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId),
             $"Crew party not found with {CrewPartyId}");
-        
+
         // Assert
         MembersShouldBeNull(crewPartyCommandsMock);
     }
@@ -42,7 +43,7 @@ public class PlayerPartyJoinerTest
         // Act & Assert
         await ExecuteAndAssertException<CrewPartyFullException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId),
             $"Crew party is full with {CrewPartyId}");
-        
+
         // Assert
         MembersShouldBeNull(crewPartyCommandsMock);
     }
@@ -106,7 +107,9 @@ public class PlayerPartyJoinerTest
 
     private static CrewParty CrewPartyCreator(int currentCrewSize, int maxCrewSize)
     {
-        var crewParty = new CrewParty(new Player("1", "Rowan"), new CrewName("Crew Party of Rowan"), new Location("Stanton", "Crusader", "Crusader", "Seraphim Station"), LanguageCollections.Default(), new CrewCapacity(currentCrewSize, maxCrewSize), Activity.Default(), DateTime.UtcNow);
+        var crewParty = new CrewParty(Player.Create("1", "Rowan"), new CrewName("Crew Party of Rowan"),
+            new Location("Stanton", "Crusader", "Crusader", "Seraphim Station"), LanguageCollections.Default(),
+            new CrewCapacity(currentCrewSize, maxCrewSize), Activity.Default(), DateTime.UtcNow);
 
         return crewParty;
     }

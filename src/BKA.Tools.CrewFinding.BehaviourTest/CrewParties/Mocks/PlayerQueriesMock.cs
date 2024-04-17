@@ -1,5 +1,5 @@
-using BKA.Tools.CrewFinding.Ports;
-using BKA.Tools.CrewFinding.Values;
+using BKA.Tools.CrewFinding.Players;
+using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
@@ -16,6 +16,6 @@ public class PlayerQueriesMock : IPlayerQueries
     
     public Task<Player?> GetPlayer(string playerId)
     {
-        return Task.FromResult(playerId == _expectedPlayerId ? new Player(playerId, _playerName) : null);
+        return Task.FromResult(playerId == _expectedPlayerId ? Player.Create(playerId, _playerName) : null);
     }
 }

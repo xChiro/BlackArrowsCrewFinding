@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.CrewParties;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
-using BKA.Tools.CrewFinding.Values;
+using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 

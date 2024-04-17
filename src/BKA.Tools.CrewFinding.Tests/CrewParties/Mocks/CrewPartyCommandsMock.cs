@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Cultures;
+using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 
-public class CrewPartyCommandsMock(string expectedCrewPartyId = "123412") : ICrewPartyCommands
+public class CrewPartyCommandsMock : ICrewPartyCommands
 {
+    private readonly string _expectedCrewPartyId;
+
+    public CrewPartyCommandsMock(string expectedCrewPartyId = "123412")
+    {
+        _expectedCrewPartyId = expectedCrewPartyId;
+    }
+
     public CrewName? Name { get; private set; }
     public Location? StartingPlace { get; private set; }
     public LanguageCollections? Languages { get; private set; }
@@ -29,7 +37,7 @@ public class CrewPartyCommandsMock(string expectedCrewPartyId = "123412") : ICre
         CreationDate = crewParty.CreationAt;
         Members = crewParty.Members;
         
-        return Task.FromResult(expectedCrewPartyId);
+        return Task.FromResult(_expectedCrewPartyId);
     }
 
     public Task UpdateMembers(string crewPartyId, IEnumerable<Player> crewPartyMembers)

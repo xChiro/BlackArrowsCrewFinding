@@ -1,9 +1,10 @@
 using BKA.Tools.CrewFinding.CrewParties.Exceptions;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Cultures;
-using BKA.Tools.CrewFinding.Ports;
+using BKA.Tools.CrewFinding.Players;
+using BKA.Tools.CrewFinding.Players.Exceptions;
+using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Values;
-using BKA.Tools.CrewFinding.Values.Exceptions;
 
 namespace BKA.Tools.CrewFinding.CrewParties.CreateRequests;
 
@@ -34,7 +35,7 @@ public class CrewPartyCreator : ICrewPartyCreator
 
     private CrewParty CreateCrewParty(Player captain, CrewPartyCreatorRequest request)
     {
-        return new CrewParty(captain, new CrewName(captain.Name), request.Location, LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), new CrewCapacity(request.TotalCrew, _maxCrewAllowed), Activity.Create(request.ActivityName, request.Description), DateTime.UtcNow);
+        return new CrewParty(captain, new CrewName(captain.CitizenName), request.Location, LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), new CrewCapacity(request.TotalCrew, _maxCrewAllowed), Activity.Create(request.ActivityName, request.Description), DateTime.UtcNow);
     }
 
     private async Task<Player> GetCaptain(string captainId)

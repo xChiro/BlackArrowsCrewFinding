@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.CrewParties.CreateRequests;
+using BKA.Tools.CrewFinding.Players.Exceptions;
 using BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 using BKA.Tools.CrewFinding.Tests.Utilities;
 using BKA.Tools.CrewFinding.Values;
-using BKA.Tools.CrewFinding.Values.Exceptions;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewParties.Creations;
 
@@ -60,7 +60,7 @@ public class CrewPartyCreatorTest
 
         // Assert
         createCrewPartyResultMock.Captain.Should().NotBeNull();
-        createCrewPartyResultMock.Captain!.Name.Should().Be(captainName);
+        createCrewPartyResultMock.Captain!.CitizenName.Should().Be(captainName);
         createCrewPartyResultMock.Captain!.Id.Should().NotBeNullOrEmpty();
     }
 

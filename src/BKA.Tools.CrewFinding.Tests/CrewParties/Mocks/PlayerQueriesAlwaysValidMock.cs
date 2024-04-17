@@ -1,13 +1,20 @@
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Ports;
-using BKA.Tools.CrewFinding.Values;
+using BKA.Tools.CrewFinding.Players;
+using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 
-public class PlayerQueriesAlwaysValidMock(string captainName) : IPlayerQueries
+public class PlayerQueriesAlwaysValidMock : IPlayerQueries
 {
+    private readonly string _captainName;
+
+    public PlayerQueriesAlwaysValidMock(string captainName)
+    {
+        _captainName = captainName;
+    }
+
     public Task<Player?> GetPlayer(string playerId)
     {
-        return Task.FromResult(new Player(playerId, captainName));
+        return Task.FromResult(Player.Create(playerId, _captainName));
     }
 }
