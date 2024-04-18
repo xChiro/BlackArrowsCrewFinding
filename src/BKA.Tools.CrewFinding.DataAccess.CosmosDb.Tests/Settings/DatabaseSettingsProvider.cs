@@ -19,14 +19,23 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
         _configurationRoot = configurationRoot ?? throw new ArgumentNullException(nameof(configurationRoot));
     }
 
-    public Container GetContainer() => GetContainerCore().GetAwaiter().GetResult();
+    public Container GetCrewPartyContainer() => BuildCrewPartyContainer().GetAwaiter().GetResult();
+    public Container GetPlayerContainer() => BuildPlayerContainer().GetAwaiter().GetResult();
 
-    private async Task<Container> GetContainerCore()
+    private async Task<Container> BuildPlayerContainer()
     {
         var cosmosClient = await CreateCosmosClient();
         var database = GetDatabase(cosmosClient);
         
-        return GetContainer(database);
+        return database.GetContainer(GetPlayerContainerName());
+    }
+
+    private async Task<Container> BuildCrewPartyContainer()
+    {
+        var cosmosClient = await CreateCosmosClient();
+        var database = GetDatabase(cosmosClient);
+        
+        return database.GetContainer(GetCrewPartiesContainerName());
     }
 
     private async Task<CosmosClient> CreateCosmosClient()
@@ -45,11 +54,6 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
         return cosmosClient.GetDatabase(GetCosmosDbDatabase());
     }
 
-    private Container GetContainer(Database database)
-    {
-        return database.GetContainer(GetCosmosDbContainer());
-    }
-
     private string GetAzureKeyName()
     {
         return _configurationRoot["azureKeyName"] ?? string.Empty;
@@ -65,8 +69,13 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
         return _configurationRoot["cosmosDB:database"] ?? string.Empty;
     }
 
-    private string GetCosmosDbContainer()
+    private string GetCrewPartiesContainerName()
     {
-        return _configurationRoot["cosmosDB:container"] ?? string.Empty;
+        return _configurationRoot["cosmosDB:crewPartyContainer"] ?? string.Empty;
+    }
+    
+    private string GetPlayerContainerName()
+    {
+        return _configurationRoot["cosmosDB:playerContainer"] ?? string.Empty;
     }
 }

@@ -1,4 +1,4 @@
-using BKA.Tools.CrewFinding.Azure.DataBase.Models;
+using BKA.Tools.CrewFinding.Azure.DataBase.Players;
 using BKA.Tools.CrewFinding.CrewParties;
 using BKA.Tools.CrewFinding.CrewParties.Ports;
 using BKA.Tools.CrewFinding.Players;

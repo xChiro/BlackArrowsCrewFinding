@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
-using BKA.Tools.CrewFinding.Azure.DataBase.Models;
 using BKA.Tools.CrewFinding.CrewParties;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
@@ -12,13 +11,13 @@ using FluentAssertions;
 using Microsoft.Azure.Cosmos;
 using Xunit;
 
-namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests;
+namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.CrewParties;
 
 public class CreateCrewPartyTests : IAsyncLifetime
 {
     private readonly IDatabaseSettingsProvider<Container> _databaseSettingsProvider;
     private Container? _container;
-    private CrewParty? _crewParty;
+    private string _crewPartyId = string.Empty;
 
     public CreateCrewPartyTests(IDatabaseSettingsProvider<Container> databaseSettingsProvider)
     {
@@ -27,7 +26,7 @@ public class CreateCrewPartyTests : IAsyncLifetime
 
     public Task InitializeAsync()
     {
-        _container = _databaseSettingsProvider.GetContainer();
+        _container = _databaseSettingsProvider.GetCrewPartyContainer();
         return Task.CompletedTask;
     }
 
@@ -36,13 +35,14 @@ public class CreateCrewPartyTests : IAsyncLifetime
     {
         // Arrange
         var sut = CreateCrewPartyCommand();
-        _crewParty = CreateCrewParty();
+        var crewParty = CreateCrewParty();
+        _crewPartyId = crewParty.Id;
 
         // Act
-        await sut.CreateCrewParty(_crewParty);
+        await sut.CreateCrewParty(crewParty);
 
         // Assert
-        await AssertCrewPartyWasCreatedSuccessfully(_crewParty);
+        await AssertCrewPartyWasCreatedSuccessfully(crewParty);
     }
 
     private CrewPartyCommands CreateCrewPartyCommand()
@@ -65,7 +65,7 @@ public class CreateCrewPartyTests : IAsyncLifetime
 
     private async Task AssertCrewPartyWasCreatedSuccessfully(CrewParty crewParty)
     {
-        var container = _databaseSettingsProvider.GetContainer();
+        var container = _databaseSettingsProvider.GetCrewPartyContainer();
         var crewPartyResponse =
             await container.ReadItemAsync<CrewPartyDocument>(crewParty.Id, new PartitionKey(crewParty.Id));
 
@@ -119,10 +119,10 @@ public class CreateCrewPartyTests : IAsyncLifetime
 
     private async Task CleanUpCrewParty()
     {
-        if (_crewParty is null)
+        if (_crewPartyId == string.Empty)
             return;
         
-        var container = _databaseSettingsProvider.GetContainer();
-        await container.DeleteItemAsync<CrewParty>(_crewParty.Id, new PartitionKey(_crewParty.Id));
+        var container = _databaseSettingsProvider.GetCrewPartyContainer();
+        await container.DeleteItemAsync<CrewParty>(_crewPartyId, new PartitionKey(_crewPartyId));
     }
 }

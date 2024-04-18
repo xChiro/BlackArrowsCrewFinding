@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
-using BKA.Tools.CrewFinding.Azure.DataBase.Models;
 using BKA.Tools.CrewFinding.CrewParties;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
@@ -11,14 +10,14 @@ using FluentAssertions;
 using Microsoft.Azure.Cosmos;
 using Xunit;
 
-namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests;
+namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.CrewParties;
 
 public class UpdateCrewPartMembersTests : IAsyncLifetime
 {
     private readonly IDatabaseSettingsProvider<Container> _databaseSettingsProvider;
     private Container? _container;
 
-    private CrewParty? _crewParty;
+    private string _crewPartyId = string.Empty;
 
     public UpdateCrewPartMembersTests(IDatabaseSettingsProvider<Container> databaseSettingsProvider)
     {
@@ -27,7 +26,7 @@ public class UpdateCrewPartMembersTests : IAsyncLifetime
 
     public Task InitializeAsync()
     {
-        _container =_databaseSettingsProvider.GetContainer();
+        _container =_databaseSettingsProvider.GetCrewPartyContainer();
         return Task.CompletedTask;
     }
 
@@ -36,16 +35,18 @@ public class UpdateCrewPartMembersTests : IAsyncLifetime
     {
         // Arrange
         var sut = new CrewPartyCommands(_container!);
-        _crewParty = CreateCrewParty();
-        await sut.CreateCrewParty(_crewParty);
+        var crewParty = CreateCrewParty();
+        _crewPartyId = crewParty.Id;
+        
+        await sut.CreateCrewParty(crewParty);
         var crewPartyMembers = new List<Player> {Player.Create("25", "John")};
 
         // Act
-        await sut.UpdateMembers(_crewParty.Id, crewPartyMembers);
+        await sut.UpdateMembers(crewParty.Id, crewPartyMembers);
 
         // Assert
         var crewPartyResponse =
-            await _container!.ReadItemAsync<CrewPartyDocument>(_crewParty.Id, new PartitionKey(_crewParty.Id));
+            await _container!.ReadItemAsync<CrewPartyDocument>(crewParty.Id, new PartitionKey(crewParty.Id));
         crewPartyResponse.Resource.Members.Should().BeEquivalentTo(crewPartyMembers);
     }
 
@@ -67,9 +68,9 @@ public class UpdateCrewPartMembersTests : IAsyncLifetime
 
     private async Task CleanUpCrewParty()
     {
-        if (_crewParty is null)
+        if (_crewPartyId == string.Empty)
             return;
 
-        await _container!.DeleteItemAsync<CrewParty>(_crewParty!.Id, new PartitionKey(_crewParty.Id));
+        await _container!.DeleteItemAsync<CrewParty>(_crewPartyId, new PartitionKey(_crewPartyId));
     }
 }

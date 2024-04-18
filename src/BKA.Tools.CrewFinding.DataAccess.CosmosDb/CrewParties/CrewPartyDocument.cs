@@ -1,6 +1,7 @@
+using BKA.Tools.CrewFinding.Azure.DataBase.Players;
 using BKA.Tools.CrewFinding.CrewParties;
 
-namespace BKA.Tools.CrewFinding.Azure.DataBase.Models;
+namespace BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
 
 public class CrewPartyDocument
 {
