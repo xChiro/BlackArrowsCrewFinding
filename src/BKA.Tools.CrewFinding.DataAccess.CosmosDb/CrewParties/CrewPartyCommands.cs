@@ -6,11 +6,11 @@ using Microsoft.Azure.Cosmos;
 
 namespace BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
 
-public class CrewPartyCommand : ICrewPartyCommands
+public class CrewPartyCommands : ICrewPartyCommands
 {
     private readonly Container _container;
 
-    public CrewPartyCommand(Container container)
+    public CrewPartyCommands(Container container)
     {
         _container = container;
     }
