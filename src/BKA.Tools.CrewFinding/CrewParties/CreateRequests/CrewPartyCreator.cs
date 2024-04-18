@@ -35,7 +35,7 @@ public class CrewPartyCreator : ICrewPartyCreator
 
     private CrewParty CreateCrewParty(Player captain, CrewPartyCreatorRequest request)
     {
-        return new CrewParty(captain, new CrewName(captain.CitizenName), request.Location, LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), new CrewCapacity(request.TotalCrew, _maxCrewAllowed), Activity.Create(request.ActivityName, request.Description), DateTime.UtcNow);
+        return new CrewParty(captain, new CrewName(captain.CitizenName), request.Location, LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), new CrewCapacity(request.TotalCrew, _maxCrewAllowed), Activity.Create(request.ActivityName, request.Description));
     }
 
     private async Task<Player> GetCaptain(string captainId)

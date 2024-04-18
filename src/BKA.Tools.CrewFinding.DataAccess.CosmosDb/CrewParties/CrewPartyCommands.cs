@@ -23,11 +23,13 @@ public class CrewPartyCommands : ICrewPartyCommands
 
     public async Task UpdateMembers(string crewPartyId, IEnumerable<Player> crewPartyMembers)
     {
+        var members = crewPartyMembers.Select(PlayerDocument.CreateFromPlayer).ToList();
+        
         var patchOperations = new List<PatchOperation>
         {
-            PatchOperation.Replace("/Members", crewPartyMembers)
+            PatchOperation.Replace("/members", members)
         };
         
-        await _container.PatchItemAsync<CrewParty>(crewPartyId, new PartitionKey(crewPartyId), patchOperations);
+        await _container.PatchItemAsync<CrewPartyDocument>(crewPartyId, new PartitionKey(crewPartyId), patchOperations);
     }
 }

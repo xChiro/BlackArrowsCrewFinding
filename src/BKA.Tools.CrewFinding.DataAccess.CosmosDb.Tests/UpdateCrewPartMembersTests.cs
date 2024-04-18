@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
@@ -46,7 +45,7 @@ public class UpdateCrewPartMembersTests : IAsyncLifetime
 
         // Assert
         var crewPartyResponse =
-            await _container.ReadItemAsync<CrewPartyDocument>(_crewParty.Id, new PartitionKey(_crewParty.Id));
+            await _container!.ReadItemAsync<CrewPartyDocument>(_crewParty.Id, new PartitionKey(_crewParty.Id));
         crewPartyResponse.Resource.Members.Should().BeEquivalentTo(crewPartyMembers);
     }
 
@@ -58,8 +57,7 @@ public class UpdateCrewPartMembersTests : IAsyncLifetime
             Location.DefaultLocation(),
             LanguageCollections.Default(),
             new CrewCapacity(10, 10),
-            Activity.Default(),
-            DateTime.UtcNow);
+            Activity.Default());
     }
 
     Task IAsyncLifetime.DisposeAsync()

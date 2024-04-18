@@ -62,6 +62,7 @@ public class CrewPartyCreatorTest
         createCrewPartyResultMock.Captain.Should().NotBeNull();
         createCrewPartyResultMock.Captain!.CitizenName.Should().Be(captainName);
         createCrewPartyResultMock.Captain!.Id.Should().NotBeNullOrEmpty();
+        createCrewPartyResultMock.Members.Should().BeEmpty();
     }
 
     [Fact]

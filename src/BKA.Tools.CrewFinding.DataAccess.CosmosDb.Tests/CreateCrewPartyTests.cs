@@ -52,14 +52,15 @@ public class CreateCrewPartyTests : IAsyncLifetime
 
     private static CrewParty CreateCrewParty()
     {
+        var captain = Player.Create("24", "Rowan");
+        
         return new CrewParty(
-            Player.Create("24", "Rowan"),
+            captain,
             new CrewName("Rowan"),
             Location.DefaultLocation(),
             LanguageCollections.Default(),
             new CrewCapacity(10, 10),
-            Activity.Default(),
-            DateTime.UtcNow);
+            Activity.Default());
     }
 
     private async Task AssertCrewPartyWasCreatedSuccessfully(CrewParty crewParty)

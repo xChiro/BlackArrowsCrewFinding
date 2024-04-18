@@ -9,9 +9,8 @@ namespace BKA.Tools.CrewFinding.Tests.Utilities;
 public static class CrewCreationExecutioner
 {
     public static async Task ExecuteCrewCreation(ICrewPartyCreator sut, ICrewPartyCreatorResponse responseMock,
-        string captainId = "1ASD34-344SDF", string[]? languages = null,
-        Location? expectedLocation = null, string activity = "Mining", int totalCrew = 2,
-        string description = "Description")
+        string captainId = "1ASD34-344SDF", string[]? languages = null, Location? expectedLocation = null, 
+        string activity = "Mining", int totalCrew = 2, string description = "Description")
     {
         var request = CrewPartyCreatorRequest(captainId, totalCrew,
             expectedLocation ?? Location.DefaultLocation(),

@@ -23,8 +23,8 @@ public class CrewParty : Entity
     }
 
     public CrewParty(Player captain, CrewName name, Location reunionPoint, LanguageCollections languages,
-        CrewCapacity crewCapacity, Activity activity, DateTime creationAt) : this(Guid.NewGuid().ToString(), captain,
-        name, reunionPoint, languages, crewCapacity, activity, creationAt, new List<Player>())
+        CrewCapacity crewCapacity, Activity activity) : this(Guid.NewGuid().ToString(), captain,
+        name, reunionPoint, languages, crewCapacity, activity, new DateTime(), new List<Player>())
     {
     }
 

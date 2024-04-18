@@ -22,7 +22,7 @@ public class CrewPartyDocument
 
     public DateTime CreationAt { get; set; }
 
-    public List<string> Members { get; set; }
+    public List<PlayerDocument> Members { get; set; }
 
     public string System { get; set; }
 
@@ -45,7 +45,7 @@ public class CrewPartyDocument
             Activity = crewParty.Activity.Name,
             Description = crewParty.Activity.Description,
             CreationAt = crewParty.CreationAt,
-            Members = crewParty.Members.Select(m => m.Id).ToList(),
+            Members = crewParty.Members.Select(PlayerDocument.CreateFromPlayer).ToList(),
             System = crewParty.ReunionPoint.System,
             PlanetarySystem = crewParty.ReunionPoint.PlanetarySystem,
             PlanetMoon = crewParty.ReunionPoint.PlanetMoon,

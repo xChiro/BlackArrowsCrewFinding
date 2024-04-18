@@ -109,7 +109,7 @@ public class PlayerPartyJoinerTest
     {
         var crewParty = new CrewParty(Player.Create("1", "Rowan"), new CrewName("Crew Party of Rowan"),
             new Location("Stanton", "Crusader", "Crusader", "Seraphim Station"), LanguageCollections.Default(),
-            new CrewCapacity(currentCrewSize, maxCrewSize), Activity.Default(), DateTime.UtcNow);
+            new CrewCapacity(currentCrewSize, maxCrewSize), Activity.Default());
 
         return crewParty;
     }
