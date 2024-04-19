@@ -87,7 +87,8 @@ public class PlayerPartyJoinerTest
     public async Task Join_To_Party_Successfully()
     {
         // Arrange
-        var crewPartyQueries = new CrewPartyQueriesMock(false, CrewPartyId, CrewPartyCreator(1, 10));
+        var crewPartyCreator = CrewPartyCreator(1, 10);
+        var crewPartyQueries = new CrewPartyQueriesMock(false, CrewPartyId, crewPartyCreator);
         var crewPartyCommands = new CrewPartyCommandsMock(CrewPartyId);
         var playerQueriesValidationMock = new PlayerQueriesValidationMock(PlayerId, "Rowan");
         var playerPartyJoiner =
@@ -98,6 +99,7 @@ public class PlayerPartyJoinerTest
 
         // Assert
         crewPartyCommands.Members.Should().Satisfy(member => member.Id == PlayerId);
+        crewPartyCreator.CrewCapacity.Current.Should().Be(2);
     }
 
     private static void MembersShouldBeNull(CrewPartyCommandsMock crewPartyCommandsMock)

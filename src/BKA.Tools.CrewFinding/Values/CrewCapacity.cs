@@ -16,4 +16,9 @@ public record CrewCapacity
     {
         return Current == MaxAllowed;
     }
+
+    public CrewCapacity PlusOne()
+    {
+        return new CrewCapacity(Current + 1, MaxAllowed);
+    }
 }

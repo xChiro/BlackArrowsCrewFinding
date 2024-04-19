@@ -1,4 +1,3 @@
-using BKA.Tools.CrewFinding.BehaviourTest.Globals;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Mocks;
 using BKA.Tools.CrewFinding.Players.Creation;
@@ -9,10 +8,13 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Steps;
 public class PlayerCreationActSteps
 {
     private readonly PlayerContext _playerContext;
+    private readonly PlayerRepositoryContext _playerRepositoryContext;
     private readonly PlayerResultsContext _playerResultsContext;
 
-    public PlayerCreationActSteps(PlayerContext playerContext, PlayerResultsContext playerResultsContext)
+    public PlayerCreationActSteps(PlayerContext playerContext, PlayerRepositoryContext playerRepositoryContext,
+        PlayerResultsContext playerResultsContext)
     {
+        _playerRepositoryContext = playerRepositoryContext;
         _playerResultsContext = playerResultsContext;
         _playerContext = playerContext;
     }
@@ -43,8 +45,8 @@ public class PlayerCreationActSteps
 
     private void ExecutePlayerCreation(string userId, string starCitizenHandle, int minLength = 3, int maxLength = 30)
     {
-        _playerResultsContext.PlayerCommandRepositoryMock = new PlayerCommandRepositoryMock();
-        var sut = new PlayerCreator(_playerResultsContext.PlayerCommandRepositoryMock, minLength, maxLength);
+        _playerRepositoryContext.PlayerCommandRepositoryMock = new PlayerCommandRepositoryMock();
+        var sut = new PlayerCreator(_playerRepositoryContext.PlayerCommandRepositoryMock, minLength, maxLength);
 
         try
         {

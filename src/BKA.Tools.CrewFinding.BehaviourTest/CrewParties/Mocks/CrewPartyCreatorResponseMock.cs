@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.CrewParties.CreateRequests;
 
-namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
+namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
 public class CrewPartyCreatorResponseMock : ICrewPartyCreatorResponse
 {

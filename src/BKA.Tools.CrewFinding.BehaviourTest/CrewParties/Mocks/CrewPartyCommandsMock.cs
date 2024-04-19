@@ -6,27 +6,30 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
 public class CrewPartyCommandsMock : ICrewPartyCommands
 {
-    private CrewParty? _crewParty;
-
+    private CrewParty? _crewPartyCreated;
+    public Player[] CrewPartyMembers { get; private set; }
+    
     public Task CreateCrewParty(CrewParty crewParty)
     {
-        _crewParty = crewParty;
+        _crewPartyCreated = crewParty;
 
         return Task.CompletedTask;
     }
 
     public Task UpdateMembers(string crewPartyId, IEnumerable<Player> crewPartyMembers)
     {
-        throw new NotImplementedException();
+        CrewPartyMembers = crewPartyMembers.ToArray();
+        
+        return Task.CompletedTask;
     }
 
     public Player? GetCaptain()
     {
-        return _crewParty?.Captain;
+        return _crewPartyCreated?.Captain;
     }
 
     public CrewParty? GetCrewParty()
     {
-        return _crewParty;
+        return _crewPartyCreated;
     }
 }

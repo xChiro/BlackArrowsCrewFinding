@@ -2,7 +2,7 @@ using BKA.Tools.CrewFinding.CrewParties;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
+namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps.Assertions;
 
 public class CrewPartyDefaultAssert
 {

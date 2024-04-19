@@ -1,6 +1,7 @@
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
-using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
-using BKA.Tools.CrewFinding.BehaviourTest.Globals;
+using BKA.Tools.CrewFinding.BehaviourTest.Helpers;
+using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
+using BKA.Tools.CrewFinding.BehaviourTest.Players.Mocks;
 using BKA.Tools.CrewFinding.CrewParties.CreateRequests;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
@@ -10,16 +11,20 @@ public class CrewPartyActSteps
 {
     private readonly CrewPartyContext _crewPartyContext;
     private readonly PlayerContext _playerContext;
-    private readonly MockRepositoriesContext _mockRepositoriesContext;
+    private readonly PlayerRepositoryContext _playerRepositoryContext;
+    private readonly CrewPartyRepositoriesContext _crewPartyRepositoriesContext;
     private readonly CrewPartyCreationResultsContext _crewPartyCreationResultsContext;
 
-    public CrewPartyActSteps(CrewPartyContext crewPartyContext, PlayerContext playerContext,
-        MockRepositoriesContext mockRepositoriesContext,
+    public CrewPartyActSteps(CrewPartyContext crewPartyContext, 
+        PlayerContext playerContext,
+        PlayerRepositoryContext playerRepositoryContext,
+        CrewPartyRepositoriesContext crewPartyRepositoriesContext,
         CrewPartyCreationResultsContext crewPartyCreationResultsContext)
     {
         _crewPartyContext = crewPartyContext;
         _playerContext = playerContext;
-        _mockRepositoriesContext = mockRepositoriesContext;
+        _playerRepositoryContext = playerRepositoryContext;
+        _crewPartyRepositoriesContext = crewPartyRepositoriesContext;
         _crewPartyCreationResultsContext = crewPartyCreationResultsContext;
     }
 
@@ -69,14 +74,14 @@ public class CrewPartyActSteps
 
     private async Task CreateAndStoreCrewParty(CrewPartyCreatorRequest crewPartyCreatorRequest)
     {
-        _mockRepositoriesContext.PlayerQueriesMock =
+        _playerRepositoryContext.PlayerQueriesMock =
             new PlayerQueriesMock(_playerContext.PlayerId, _playerContext.UserName);
-        
-        var crewPartyCreator = new CrewPartyCreator(_mockRepositoriesContext.CrewPartyCommandsMock,
-            _mockRepositoriesContext.CrewPartyQueriesMocks,
+
+        var crewPartyCreator = new CrewPartyCreator(_crewPartyRepositoriesContext.CrewPartyCommandsMock,
+            _crewPartyRepositoriesContext.CrewPartyQueriesMocks,
             _crewPartyContext.MaxPlayerAllowed,
-            _mockRepositoriesContext.PlayerQueriesMock);
-        
+            _playerRepositoryContext.PlayerQueriesMock);
+
         await crewPartyCreator.Create(crewPartyCreatorRequest,
             _crewPartyCreationResultsContext.CrewPartyCreatorResponseMock);
     }

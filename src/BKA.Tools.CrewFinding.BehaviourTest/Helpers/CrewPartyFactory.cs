@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.CrewParties.CreateRequests;
 using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.BehaviourTest.Globals;
+namespace BKA.Tools.CrewFinding.BehaviourTest.Helpers;
 
 public class CrewPartyFactory
 {

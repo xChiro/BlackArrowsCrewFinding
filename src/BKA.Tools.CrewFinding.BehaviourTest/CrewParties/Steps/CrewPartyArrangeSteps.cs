@@ -8,12 +8,12 @@ public class CrewPartyArrangeSteps
 
 {
     private readonly CrewPartyContext _crewPartyContext;
-    private readonly MockRepositoriesContext _mockRepositoriesContext;
+    private readonly CrewPartyRepositoriesContext _crewPartyRepositoriesContext;
 
-    public CrewPartyArrangeSteps(CrewPartyContext crewPartyContext, MockRepositoriesContext mockRepositoriesContext)
+    public CrewPartyArrangeSteps(CrewPartyContext crewPartyContext, CrewPartyRepositoriesContext crewPartyRepositoriesContext)
     {
         _crewPartyContext = crewPartyContext;
-        _mockRepositoriesContext = mockRepositoriesContext;
+        _crewPartyRepositoriesContext = crewPartyRepositoriesContext;
     }
 
     [Given(@"the default MaxCrewSize is (.*)")]
@@ -25,6 +25,6 @@ public class CrewPartyArrangeSteps
     [Given(@"the player already has an active Crew Party")]
     public void GivenThePlayerAlreadyHasAnActiveCrewParty()
     {
-        _mockRepositoriesContext.CrewPartyQueriesMocks = new CrewPartyQueriesMock(true);
+        _crewPartyRepositoriesContext.CrewPartyQueriesMocks = new CrewPartyQueriesMock(true);
     }
 }

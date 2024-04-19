@@ -36,7 +36,7 @@ public class CrewParty : Entity
 
     public Activity Activity { get; }
 
-    public CrewCapacity CrewCapacity { get; }
+    public CrewCapacity CrewCapacity { get; private set; }
 
     public DateTime CreationAt { get; }
 
@@ -51,6 +51,7 @@ public class CrewParty : Entity
 
     public void AddMember(Player player)
     {
+        CrewCapacity = CrewCapacity.PlusOne();
         _members.Add(player);
     }
 }

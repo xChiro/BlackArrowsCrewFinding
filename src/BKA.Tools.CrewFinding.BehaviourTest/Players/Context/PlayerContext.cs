@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.BehaviourTest.Globals;
+namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 
 public class PlayerContext
 {
