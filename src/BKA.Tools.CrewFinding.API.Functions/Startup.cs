@@ -1,5 +1,7 @@
 using BKA.Tools.CrewFinding.API.Functions;
+using BKA.Tools.CrewFinding.Crews.CreateRequests;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 
@@ -9,8 +11,7 @@ namespace BKA.Tools.CrewFinding.API.Functions
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            // Register your services here. For example:
-            // builder.Services.AddSingleton<IMyService, MyService>();
+            builder.Services.AddScoped<ICrewCreator>();
         }
     }
 }
