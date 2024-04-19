@@ -15,9 +15,9 @@ public class MultipleCrewsRestrictionTest
     {
         // Arrange
         var captainId = Guid.NewGuid().ToString();
-        var crewPartyQueriesMock = new CrewQueriesMock(true);
+        var crewPartyQueriesMock = new CrewCommandsMock();
 
-        var crewPartyCreator = CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyQueriesMock, 5);
+        var crewPartyCreator = CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyQueriesMock, 5, true);
         var request = new CrewCreatorRequest(captainId, 5, Location.DefaultLocation(), ["ES"], "Activity");
 
         // Act & Assert
@@ -25,6 +25,6 @@ public class MultipleCrewsRestrictionTest
             crewPartyCreator.Create(request, new CrewCreatorResponseMock()));
 
         // Assert
-        crewPartyQueriesMock.ReceivedCaptainId.Should().Be(captainId);
+        crewPartyQueriesMock.Name.Should().BeNull();
     }
 }

@@ -25,6 +25,7 @@ public class CrewCommandsMock : ICrewCommands
     public Player? Captain { get; private set; }
     public DateTime? CreationDate { get; private set; }
     public IEnumerable<Player>? Members { get; private set; }
+    public int MaxMembersAllowed { get; private set; }
 
     public Task CreateCrew(Crew crew)
     {
@@ -35,6 +36,7 @@ public class CrewCommandsMock : ICrewCommands
         Captain = crew.Captain;
         CreationDate = crew.CreationAt;
         Members = crew.Members;
+        MaxMembersAllowed = crew.Members.MaxAllowed;
         
         return Task.FromResult(_expectedCrewPartyId);
     }

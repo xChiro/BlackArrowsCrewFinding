@@ -204,7 +204,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         testRunner.Given("a player named Allan", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 23
-        testRunner.And("the player is already a member of a Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("the player already has an active Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 24
         testRunner.When("the player attempts to join the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

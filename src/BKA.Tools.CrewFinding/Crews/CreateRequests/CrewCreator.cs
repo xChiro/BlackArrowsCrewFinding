@@ -26,7 +26,7 @@ public class CrewCreator : ICrewCreator
 
     public async Task Create(CrewCreatorRequest request, ICrewCreatorResponse crewCreatorResponse)
     {
-        var captain = await GetCaptain(request.CaptainId);
+        var captain = await TryToGetValidCaptain(request.CaptainId);
         var crew = InitializeCrew(captain, request);
 
         await _commands.CreateCrew(crew);
@@ -40,9 +40,9 @@ public class CrewCreator : ICrewCreator
             Activity.Create(request.ActivityName, request.Description));
     }
 
-    private async Task<Player> GetCaptain(string captainId)
+    private async Task<Player> TryToGetValidCaptain(string captainId)
     {
-        var playerInCrewTask = _crewQueries.PlayerAlreadyInACrew(captainId);
+        var playerInCrewTask = _playerQueries.PlayerAlreadyInACrew(captainId);
         var captainTask = _playerQueries.GetPlayer(captainId);
 
         await Task.WhenAll(playerInCrewTask, captainTask);

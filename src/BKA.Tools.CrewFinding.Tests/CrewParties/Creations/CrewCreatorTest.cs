@@ -48,11 +48,14 @@ public class CrewCreatorTest
     public async Task Create_Crew_Assigns_Captain()
     {
         // Arrange
-        var captainId = Guid.NewGuid().ToString();
         const string captainName = "Rowan";
-
+        const int maxCrewAllowed = 5;
+        
+        var captainId = Guid.NewGuid().ToString();
         var createCrewPartyResultMock = new CrewCommandsMock();
+
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock,
+            maxCrewAllowed: maxCrewAllowed,
             captainName: captainName);
 
         // Act
@@ -63,6 +66,7 @@ public class CrewCreatorTest
         createCrewPartyResultMock.Captain!.CitizenName.Should().Be(captainName);
         createCrewPartyResultMock.Captain!.Id.Should().NotBeNullOrEmpty();
         createCrewPartyResultMock.Members.Should().BeEmpty();
+        createCrewPartyResultMock.MaxMembersAllowed.Should().Be(maxCrewAllowed);
     }
 
     [Fact]

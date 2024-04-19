@@ -7,16 +7,23 @@ namespace BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 public class PlayerQueriesValidationMock : IPlayerQueries
 {
     private readonly string _expectedPlayerId;
-    private readonly string _captainName;
+    private readonly string _playerName;
+    private readonly bool _playerAlreadyInAParty;
 
-    public PlayerQueriesValidationMock(string expectedPlayerId, string captainName)
+    public PlayerQueriesValidationMock(string expectedPlayerId, string playerName, bool playerAlreadyInAParty = false)
     {
         _expectedPlayerId = expectedPlayerId;
-        _captainName = captainName;
+        _playerName = playerName;
+        _playerAlreadyInAParty = playerAlreadyInAParty;
+    }
+
+    public Task<bool> PlayerAlreadyInACrew(string captainId)
+    {
+        return Task.FromResult(_playerAlreadyInAParty);
     }
 
     public Task<Player?> GetPlayer(string playerId)
     {
-        return Task.FromResult(playerId == _expectedPlayerId ? Player.Create(playerId, _captainName) : null);
+        return Task.FromResult(playerId == _expectedPlayerId ? Player.Create(playerId, _playerName) : null);
     }
 }

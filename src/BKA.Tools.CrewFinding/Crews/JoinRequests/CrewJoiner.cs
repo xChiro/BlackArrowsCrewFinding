@@ -51,7 +51,7 @@ public class CrewJoiner : ICrewJoiner
 
     private bool IsPlayerAlreadyInAParty(string playerId)
     {
-        return _crewQueries.PlayerAlreadyInACrew(playerId).Result;
+        return _playersQueries.PlayerAlreadyInACrew(playerId).Result;
     }
 
     private static bool IsAValidPlayer(Player? player)

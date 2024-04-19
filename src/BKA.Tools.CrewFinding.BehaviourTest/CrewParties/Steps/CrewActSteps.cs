@@ -64,7 +64,8 @@ public class CrewActSteps
     {
         try
         {
-            await CreateAndStoreCrew(CrewFactory.CreateCrew(_playerContext.PlayerId, 1));
+            var crewCreatorRequest = CrewFactory.CreateCrew(_playerContext.PlayerId, 1);
+            await CreateAndStoreCrew(crewCreatorRequest);
         }
         catch (Exception ex)
         {
@@ -74,9 +75,6 @@ public class CrewActSteps
 
     private async Task CreateAndStoreCrew(CrewCreatorRequest crewCreatorRequest)
     {
-        _playerRepositoryContext.PlayerQueriesMock =
-            new PlayerQueriesMock(_playerContext.PlayerId, _playerContext.UserName);
-
         var crewPartyCreator = new CrewCreator(_crewRepositoriesContext.CrewCommandsMock,
             _crewRepositoriesContext.CrewQueriesMocks,
             _crewContext.MaxPlayerAllowed,

@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Players;
 
-namespace BKA.Tools.CrewFinding.Azure.DataBase.Players;
+namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
 
 public class PlayerDocument
 {

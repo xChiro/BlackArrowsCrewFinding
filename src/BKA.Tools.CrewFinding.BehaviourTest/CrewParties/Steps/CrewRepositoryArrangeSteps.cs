@@ -42,12 +42,6 @@ public class CrewRepositoryArrangeSteps
         _crewRepositoriesContext.CrewQueriesMocks = new CrewNotFoundQueriesMock();
     }
 
-    [Given(@"the player is already a member of a Crew")]
-    public void GivenThePlayerIsAlreadyAMemberOfACrew()
-    {
-        _crewRepositoriesContext.CrewQueriesMocks = new CrewQueriesMock(true);
-    }
-
     [Given(@"an existing Crew at maximum capacity from other player")]
     public void GivenAnExistingCrewAtMaximumCapacityFromOtherPlayer()
     {

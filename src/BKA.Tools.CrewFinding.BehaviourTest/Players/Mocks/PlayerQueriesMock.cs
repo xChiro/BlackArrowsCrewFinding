@@ -5,8 +5,11 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Mocks;
 
 public class PlayerQueriesMock : IPlayerQueries
 {
-    public PlayerQueriesMock(string expectedPlayerId, string playerName)
+    private readonly bool _playerAlreadyOwnsAParty;
+    
+    public PlayerQueriesMock(string expectedPlayerId, string playerName, bool playerAlreadyOwnsAParty = false)
     {
+        _playerAlreadyOwnsAParty = playerAlreadyOwnsAParty;
         Players = new List<Player>
         {
             Player.Create(expectedPlayerId, playerName)
@@ -14,6 +17,11 @@ public class PlayerQueriesMock : IPlayerQueries
     }
 
     public List<Player> Players { get; }
+    
+    public Task<bool> PlayerAlreadyInACrew(string captainId)
+    {
+        return Task.FromResult(_playerAlreadyOwnsAParty);
+    }
 
     public Task<Player?> GetPlayer(string playerId)
     {

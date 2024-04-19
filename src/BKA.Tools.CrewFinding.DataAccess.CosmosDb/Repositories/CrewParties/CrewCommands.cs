@@ -1,10 +1,11 @@
-using BKA.Tools.CrewFinding.Azure.DataBase.Players;
+using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
+using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players;
 using Microsoft.Azure.Cosmos;
 
-namespace BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
+namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
 
 public class CrewCommands : ICrewCommands
 {

@@ -1,5 +1,8 @@
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
+using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
+using BKA.Tools.CrewFinding.BehaviourTest.Players.Mocks;
+using BKA.Tools.CrewFinding.Crews;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
 
@@ -8,12 +11,15 @@ public class CrewArrangeSteps
 
 {
     private readonly CrewContext _crewContext;
-    private readonly CrewRepositoriesContext _crewRepositoriesContext;
+    private readonly PlayerContext _playerContext;
+    private readonly PlayerRepositoryContext _playerRepositoryContext;
 
-    public CrewArrangeSteps(CrewContext crewContext, CrewRepositoriesContext crewRepositoriesContext)
+    public CrewArrangeSteps(CrewContext crewContext, PlayerContext playerContext,
+        PlayerRepositoryContext playerRepositoryContext)
     {
         _crewContext = crewContext;
-        _crewRepositoriesContext = crewRepositoriesContext;
+        _playerContext = playerContext;
+        _playerRepositoryContext = playerRepositoryContext;
     }
 
     [Given(@"the default MaxCrewSize is (.*)")]
@@ -25,6 +31,7 @@ public class CrewArrangeSteps
     [Given(@"the player already has an active Crew")]
     public void GivenThePlayerAlreadyHasAnActiveCrew()
     {
-        _crewRepositoriesContext.CrewQueriesMocks = new CrewQueriesMock(true);
+        _playerRepositoryContext.PlayerQueriesMock =
+            new PlayerQueriesMock(_playerContext.PlayerId, _playerContext.UserName, true);
     }
 }

@@ -6,22 +6,12 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 public class CrewQueriesMock : ICrewQueriesMock
 {
     private readonly Crew[] _crewParties;
-    private readonly bool _playerAlreadyOwnsAParty;
     
     public IReadOnlyList<Crew> StoredCrewParties => _crewParties;
 
-    public CrewQueriesMock(bool playerAlreadyOwnsAParty) : this(Array.Empty<Crew>(), playerAlreadyOwnsAParty)
-    { }
-
-    public CrewQueriesMock(Crew[] crewParties, bool playerAlreadyOwnsAParty = false)
+    public CrewQueriesMock(Crew[] crewParties)
     {
         _crewParties = crewParties;
-        _playerAlreadyOwnsAParty = playerAlreadyOwnsAParty;
-    }
-
-    public Task<bool> PlayerAlreadyInACrew(string captainId)
-    {
-        return Task.FromResult(_playerAlreadyOwnsAParty);
     }
 
     public Task<Crew?> GetCrewParty(string crewPartyId)

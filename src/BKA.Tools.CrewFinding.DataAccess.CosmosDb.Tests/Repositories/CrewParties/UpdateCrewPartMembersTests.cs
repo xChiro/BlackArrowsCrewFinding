@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
+using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
+using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
