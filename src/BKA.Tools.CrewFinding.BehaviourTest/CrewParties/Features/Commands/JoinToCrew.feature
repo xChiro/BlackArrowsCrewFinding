@@ -21,6 +21,5 @@ Feature: A player requests to join a Crew and awaits captain's approval.
     Scenario: Player in a Crew trying to join another
         Given a player named Allan
         And the player is already a member of a Crew
-        And an existing Crew from other player
-        When the player attempts to join another Crew
+        When the player attempts to join the Crew
         Then the player is not joined to the Crew

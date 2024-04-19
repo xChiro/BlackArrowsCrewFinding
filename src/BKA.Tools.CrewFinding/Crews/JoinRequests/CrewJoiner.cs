@@ -33,6 +33,7 @@ public class CrewJoiner : ICrewJoiner
     {
         var crewParty = await GetCrewParty(crewPartyId);
         ValidateCrewPartyIsNotFull(crewParty, crewPartyId);
+        
         return crewParty;
     }
 

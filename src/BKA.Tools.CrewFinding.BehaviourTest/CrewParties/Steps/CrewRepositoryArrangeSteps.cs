@@ -1,6 +1,7 @@
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 using BKA.Tools.CrewFinding.Crews;
+using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Values;
@@ -33,20 +34,19 @@ public class CrewRepositoryArrangeSteps
                 Activity.Default())
         };
 
-        _crewRepositoriesContext.CrewCommandsMock = new CrewCommandsMock();
         _crewRepositoriesContext.CrewQueriesMocks = new CrewQueriesMock(crewParties);
     }
 
     [Given(@"there is not a Crew")]
     public void GivenThereIsNotACrew()
     {
-        ScenarioContext.StepIsPending();
+        _crewRepositoriesContext.CrewQueriesMocks = new CrewNotFoundQueriesMock();
     }
 
     [Given(@"the player is already a member of a Crew")]
     public void GivenThePlayerIsAlreadyAMemberOfACrew()
     {
-        ScenarioContext.StepIsPending();
+        _crewRepositoriesContext.CrewQueriesMocks = new CrewQueriesMock(true);
     }
 
     [Given(@"an existing Crew at maximum capacity from other player")]
@@ -54,9 +54,9 @@ public class CrewRepositoryArrangeSteps
     {
         const string playerId = "playerId";
         const string citizenName = "playerName";
-        var members = Members.CreateSingle(Player.Create("1", "Rowan"), 1);
+        var members = Members.CreateSingle(Player.Create("3412343", "Rowan"), 1);
 
-        var crewParties = new Crew[]
+        var crews = new Crew[]
         {
             new(Player.Create(playerId, citizenName),
                 new CrewName(playerId),
@@ -67,6 +67,6 @@ public class CrewRepositoryArrangeSteps
         };
 
         _crewRepositoriesContext.CrewCommandsMock = new CrewCommandsMock();
-        _crewRepositoriesContext.CrewQueriesMocks = new CrewQueriesMock(crewParties);
+        _crewRepositoriesContext.CrewQueriesMocks = new CrewQueriesMock(crews);
     }
 }

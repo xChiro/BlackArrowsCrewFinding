@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
-public class CrewQueriesMock : ICrewQueries
+public class CrewQueriesMock : ICrewQueriesMock
 {
     private readonly Crew[] _crewParties;
     private readonly bool _playerAlreadyOwnsAParty;
@@ -28,4 +28,9 @@ public class CrewQueriesMock : ICrewQueries
     {
         return Task.FromResult(_crewParties.FirstOrDefault(p => p.Id == crewPartyId));
     }
+}
+
+public interface ICrewQueriesMock : ICrewQueries
+{
+    public IReadOnlyList<Crew> StoredCrewParties { get; }
 }

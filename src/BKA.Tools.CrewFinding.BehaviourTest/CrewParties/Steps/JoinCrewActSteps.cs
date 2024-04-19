@@ -29,14 +29,18 @@ public class JoinCrewActSteps
     }
 
     [When(@"the player attempts to join the Crew")]
-    public void WhenThePlayerAttemptsToJoinTheCrew()
+    public async Task WhenThePlayerAttemptsToJoinTheCrew()
     {
-        ScenarioContext.StepIsPending();
-    }
+        var sut = new CrewJoiner(_crewContext.CrewQueriesMocks,
+            _crewContext.CrewCommandsMock, _playerRepositoryContext.PlayerQueriesMock);
 
-    [When(@"the player attempts to join another Crew")]
-    public void WhenThePlayerAttemptsToJoinAnotherCrew()
-    {
-        ScenarioContext.StepIsPending();
+        try
+        {
+            await sut.Join(_playerContext.PlayerId, _crewContext.CrewQueriesMocks.StoredCrewParties[0].Id);
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
     }
 }

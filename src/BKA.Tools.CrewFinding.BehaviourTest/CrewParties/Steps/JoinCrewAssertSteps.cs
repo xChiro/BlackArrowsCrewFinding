@@ -26,6 +26,7 @@ public class JoinCrewAssertSteps
     [Then(@"the player is not joined to the Crew")]
     public void ThenThePlayerIsNotJoinedToTheCrew()
     {
-        ScenarioContext.StepIsPending();
+        _crewRepositoriesContext.CrewCommandsMock.CrewPartyMembers.Should()
+            .NotContain(player => _playerContext.PlayerId == player.Id);
     }
 }

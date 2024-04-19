@@ -7,8 +7,9 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 public class CrewCommandsMock : ICrewCommands
 {
     private Crew? _crewPartyCreated;
-    public Player[] CrewPartyMembers { get; private set; }
-    
+
+    public Player[] CrewPartyMembers { get; private set; } = Array.Empty<Player>();
+
     public Task CreateCrew(Crew crew)
     {
         _crewPartyCreated = crew;

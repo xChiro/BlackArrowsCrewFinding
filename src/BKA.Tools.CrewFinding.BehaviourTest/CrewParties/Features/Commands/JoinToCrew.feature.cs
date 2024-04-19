@@ -207,12 +207,9 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         testRunner.And("the player is already a member of a Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 24
-        testRunner.And("an existing Crew from other player", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.When("the player attempts to join the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 25
-        testRunner.When("the player attempts to join another Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 26
         testRunner.Then("the player is not joined to the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
