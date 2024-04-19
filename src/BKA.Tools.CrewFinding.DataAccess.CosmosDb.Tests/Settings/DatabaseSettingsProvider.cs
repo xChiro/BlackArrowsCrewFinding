@@ -15,8 +15,8 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
 
     public DatabaseSettingsProvider(IKeySecretsProvider keySecretsProvider, IConfigurationRoot configurationRoot)
     {
-        _keySecretsProvider = keySecretsProvider ?? throw new ArgumentNullException(nameof(keySecretsProvider));
-        _configurationRoot = configurationRoot ?? throw new ArgumentNullException(nameof(configurationRoot));
+        _keySecretsProvider = keySecretsProvider;
+        _configurationRoot = configurationRoot;
     }
 
     public Container GetCrewPartyContainer() => BuildCrewPartyContainer().GetAwaiter().GetResult();
@@ -56,7 +56,7 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
 
     private string GetAzureKeyName()
     {
-        return _configurationRoot["azureKeyName"] ?? string.Empty;
+        return _configurationRoot["cosmosDB:azureKeyName"] ?? string.Empty;
     }
 
     private string GetCosmosDbEndpoint()

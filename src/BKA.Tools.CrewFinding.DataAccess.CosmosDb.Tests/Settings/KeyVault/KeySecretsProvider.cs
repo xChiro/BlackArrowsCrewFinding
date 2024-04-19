@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Azure.Security.KeyVault.Secrets;
 
-namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
+namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings.KeyVault;
 
 public class KeySecretsProvider : IKeySecretsProvider
 {
@@ -14,6 +14,6 @@ public class KeySecretsProvider : IKeySecretsProvider
     
     public async Task<string> GetSecret(string secretName)
     {
-        return (await _secretClient.GetSecretAsync("DbCrewFindingPK")).Value.Value;
+        return (await _secretClient.GetSecretAsync(secretName)).Value.Value;
     }
 }

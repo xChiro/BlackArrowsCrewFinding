@@ -32,7 +32,6 @@ public class CrewJoiner : ICrewJoiner
     private async Task<Crew> GetValidCrewParty(string crewPartyId)
     {
         var crewParty = await GetCrewParty(crewPartyId);
-        ValidateCrewPartyIsNotFull(crewParty, crewPartyId);
         
         return crewParty;
     }
@@ -63,12 +62,6 @@ public class CrewJoiner : ICrewJoiner
     private async Task<Crew> GetCrewParty(string crewPartyId)
     {
         return await _crewQueries.GetCrewParty(crewPartyId) ?? throw new CrewNotFoundException(crewPartyId);
-    }
-
-    private static void ValidateCrewPartyIsNotFull(Crew crew, string crewPartyId)
-    {
-        if (crew.IsFull())
-            throw new CrewFullException(crewPartyId);
     }
 
     private async Task<Player?> GetPlayer(string playerId)

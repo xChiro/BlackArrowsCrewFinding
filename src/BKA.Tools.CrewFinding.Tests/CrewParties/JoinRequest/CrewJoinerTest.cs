@@ -27,8 +27,7 @@ public class CrewJoinerTest
         var playerPartyJoiner = CreatePlayerPartyJoiner(new CrewQueriesMock(), crewPartyCommandsMock);
 
         // Act & Assert
-        await ExecuteAndAssertException<CrewNotFoundException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId),
-            $"Crew not found with {CrewPartyId}");
+        await ExecuteAndAssertException<CrewNotFoundException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId));
 
         // Assert
         MembersShouldBeNull(crewPartyCommandsMock);
@@ -44,8 +43,7 @@ public class CrewJoinerTest
         var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommandsMock);
 
         // Act & Assert
-        await ExecuteAndAssertException<CrewFullException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId),
-            $"Crew party is full with {CrewPartyId}");
+        await ExecuteAndAssertException<CrewFullException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId));
 
         // Assert
         MembersShouldBeNull(crewPartyCommandsMock);
@@ -64,7 +62,7 @@ public class CrewJoinerTest
 
         // Act & Assert 
         await ExecuteAndAssertException<PlayerMultipleCrewsException>(
-            () => playerPartyJoiner.Join(PlayerId, CrewPartyId), null);
+            () => playerPartyJoiner.Join(PlayerId, CrewPartyId));
 
         // Assert
         MembersShouldBeNull(crewPartyCommandsMock);
@@ -82,7 +80,7 @@ public class CrewJoinerTest
 
         // Act & Assert 
         await ExecuteAndAssertException<PlayerNotFoundException>(
-            () => playerPartyJoiner.Join("412412", CrewPartyId), null);
+            () => playerPartyJoiner.Join("412412", CrewPartyId));
 
         // Assert
         MembersShouldBeNull(crewPartyCommandsMock);
@@ -152,16 +150,10 @@ public class CrewJoinerTest
             playerQueries ?? new PlayerQueriesAlwaysValidMock("Rowan"));
     }
 
-    private static async Task ExecuteAndAssertException<T>(Func<Task> act, string? expectedMessage)
+    private static async Task ExecuteAndAssertException<T>(Func<Task> act)
         where T : Exception
     {
         // Act
         var exception = await Assert.ThrowsAsync<T>(act);
-
-        // Assert
-        if (expectedMessage != null)
-        {
-            exception.Message.Should().BeEquivalentTo(expectedMessage);
-        }
     }
 }

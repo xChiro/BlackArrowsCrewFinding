@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Values;
@@ -39,11 +40,6 @@ public class Crew : Entity
     public DateTime CreationAt { get; }
 
     public Player Captain { get; }
-
-    public bool IsFull()
-    {
-        return Members.IsAtCapacity();
-    }
 
     public void AddMember(Player player)
     {

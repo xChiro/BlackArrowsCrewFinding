@@ -1,7 +1,9 @@
 using System;
+using Azure.Core;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
+using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings.KeyVault;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,9 +19,12 @@ public class Startup
             .AddJsonFile("appsettings.json", false, true)
             .Build();
         
-        services.AddTransient<IKeySecretsProvider, KeySecretsProvider>(_ =>
+        services.AddSingleton<IKeySecretsProvider, KeySecretsProvider>(_ =>
         {
-            var secretClient = new SecretClient(new Uri(config["KeyVault:endpoint"] ?? string.Empty), new DefaultAzureCredential());
+            var secretClientOptions = new SecretClientOptions();
+            secretClientOptions.AddPolicy(new KeyVaultProxyPolicy(), HttpPipelinePosition.PerCall);
+            var secretClient = new SecretClient(new Uri(config["KeyVault:endpoint"] ?? string.Empty), new DefaultAzureCredential(), secretClientOptions);
+            
             return new KeySecretsProvider(secretClient);
         });
         
