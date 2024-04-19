@@ -1,0 +1,42 @@
+using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
+using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
+using BKA.Tools.CrewFinding.Crews.JoinRequests;
+
+namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
+
+[Binding]
+public class JoinCrewActSteps
+{
+    private readonly CrewRepositoriesContext _crewContext;
+    private readonly PlayerContext _playerContext;
+    private readonly PlayerRepositoryContext _playerRepositoryContext;
+
+    public JoinCrewActSteps(PlayerContext playerContext, PlayerRepositoryContext playerRepositoryContext,
+        CrewRepositoriesContext crewRepositoriesContext)
+    {
+        _playerContext = playerContext;
+        _playerRepositoryContext = playerRepositoryContext;
+        _crewContext = crewRepositoriesContext;
+    }
+
+    [When(@"the player wants to join to the Crew")]
+    public async Task WhenThePlayerWantsToJoinToTheCrew()
+    {
+        var sut = new CrewJoiner(_crewContext.CrewQueriesMocks,
+            _crewContext.CrewCommandsMock, _playerRepositoryContext.PlayerQueriesMock);
+
+        await sut.Join(_playerContext.PlayerId, _crewContext.CrewQueriesMocks.StoredCrewParties[0].Id);
+    }
+
+    [When(@"the player attempts to join the Crew")]
+    public void WhenThePlayerAttemptsToJoinTheCrew()
+    {
+        ScenarioContext.StepIsPending();
+    }
+
+    [When(@"the player attempts to join another Crew")]
+    public void WhenThePlayerAttemptsToJoinAnotherCrew()
+    {
+        ScenarioContext.StepIsPending();
+    }
+}

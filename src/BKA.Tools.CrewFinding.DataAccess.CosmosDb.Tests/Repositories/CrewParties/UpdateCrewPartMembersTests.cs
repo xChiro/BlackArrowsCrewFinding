@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
-using BKA.Tools.CrewFinding.CrewParties;
+using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 using BKA.Tools.CrewFinding.Players;
@@ -34,11 +34,11 @@ public class UpdateCrewPartMembersTests : IAsyncLifetime
     public async Task Update_Crew_Party_Members_Successfully()
     {
         // Arrange
-        var sut = new CrewPartyCommands(_container!);
+        var sut = new CrewCommands(_container!);
         var crewParty = CreateCrewParty();
         _crewPartyId = crewParty.Id;
         
-        await sut.CreateCrewParty(crewParty);
+        await sut.CreateCrew(crewParty);
         var crewPartyMembers = new List<Player> {Player.Create("25", "John")};
 
         // Act
@@ -46,18 +46,18 @@ public class UpdateCrewPartMembersTests : IAsyncLifetime
 
         // Assert
         var crewPartyResponse =
-            await _container!.ReadItemAsync<CrewPartyDocument>(crewParty.Id, new PartitionKey(crewParty.Id));
+            await _container!.ReadItemAsync<CrewDocument>(crewParty.Id, new PartitionKey(crewParty.Id));
         crewPartyResponse.Resource.Members.Should().BeEquivalentTo(crewPartyMembers);
     }
 
-    private static CrewParty CreateCrewParty()
+    private static Crew CreateCrewParty()
     {
-        return new CrewParty(
+        return new Crew(
             Player.Create("24", "Rowan"),
             new CrewName("Rowan"),
             Location.DefaultLocation(),
             LanguageCollections.Default(),
-            new CrewCapacity(10, 10),
+            Members.CreateSingle(Player.Create("123412", "Adam"), 1),
             Activity.Default());
     }
 
@@ -71,6 +71,6 @@ public class UpdateCrewPartMembersTests : IAsyncLifetime
         if (_crewPartyId == string.Empty)
             return;
 
-        await _container!.DeleteItemAsync<CrewParty>(_crewPartyId, new PartitionKey(_crewPartyId));
+        await _container!.DeleteItemAsync<Crew>(_crewPartyId, new PartitionKey(_crewPartyId));
     }
 }

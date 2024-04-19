@@ -35,7 +35,7 @@
         <DesignTime>true</DesignTime>
         <Visible>true</Visible>
       </Compile>
-      <Compile Update="CrewParties\Features\Commands\CreateACrewParty.feature.cs">
+      <Compile Update="CrewParties\Features\Commands\CreateACrew.feature.cs">
         <DependentUpon>CreateACrewParty.feature</DependentUpon>
         <AutoGen>true</AutoGen>
         <DesignTime>true</DesignTime>
