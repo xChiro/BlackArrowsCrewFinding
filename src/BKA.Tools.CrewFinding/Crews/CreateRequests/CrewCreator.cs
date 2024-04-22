@@ -12,15 +12,15 @@ public class CrewCreator : ICrewCreator
 {
     private readonly int _maxCrewAllowed;
     private readonly IPlayerQueries _playerQueries;
-    private readonly ICrewCommands _commands;
+    private readonly ICrewCommandRepository _commandRepository;
     private readonly ICrewQueries _crewQueries;
 
-    public CrewCreator(ICrewCommands commands, ICrewQueries crewQueries, int maxCrewAllowed,
+    public CrewCreator(ICrewCommandRepository commandRepository, ICrewQueries crewQueries, int maxCrewAllowed,
         IPlayerQueries playerQueries)
     {
         _maxCrewAllowed = maxCrewAllowed;
         _playerQueries = playerQueries;
-        _commands = commands;
+        _commandRepository = commandRepository;
         _crewQueries = crewQueries;
     }
 
@@ -29,7 +29,7 @@ public class CrewCreator : ICrewCreator
         var captain = await TryToGetValidCaptain(request.CaptainId);
         var crew = InitializeCrew(captain, request);
 
-        await _commands.CreateCrew(crew);
+        await _commandRepository.CreateCrew(crew);
         crewCreatorResponse.SetResponse(crew.Id);
     }
 

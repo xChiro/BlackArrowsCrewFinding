@@ -15,6 +15,11 @@ public class Members : IEnumerable<Player>
         _players = players;
         MaxAllowed = maxAllowed;
     }
+    
+    public static Members Create(IEnumerable<Player> players, int maxAllowed)
+    {
+        return new Members(players.ToList(), maxAllowed);
+    }
 
     public static Members CreateSingle(Player player, int maxAllowed)
     {

@@ -14,7 +14,7 @@ public class CrewCreatorActivityTest
     {
         // Arrange
         var defaultActivities = Activity.Default().Name;
-        var createCrewPartyResultMock = new CrewCommandsMock();
+        var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         // Act
@@ -29,7 +29,7 @@ public class CrewCreatorActivityTest
     {
         // Arrange
         const string activity = "Mining";
-        var createCrewPartyResultMock = new CrewCommandsMock();
+        var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         // Act

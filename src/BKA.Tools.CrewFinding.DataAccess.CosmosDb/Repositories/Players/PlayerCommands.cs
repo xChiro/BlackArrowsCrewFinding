@@ -1,7 +1,6 @@
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Ports;
-using Microsoft.Azure.Cosmos;
 
 namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players;
 

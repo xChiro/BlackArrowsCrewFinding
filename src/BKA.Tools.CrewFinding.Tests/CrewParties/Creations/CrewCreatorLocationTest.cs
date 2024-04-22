@@ -14,7 +14,7 @@ public class CrewCreatorLocationTest
     {
         // Arrange
         var expectedLocation = Location.DefaultLocation();
-        var createCrewPartyResultMock = new CrewCommandsMock();
+        var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
 
         // Act
@@ -34,7 +34,7 @@ public class CrewCreatorLocationTest
     {
         // Arrange
         var expectedLocation = new Location(system, planetarySystem, planetMoon, place);
-        var createCrewPartyResultMock = new CrewCommandsMock();
+        var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock, 2);
 
         // Act

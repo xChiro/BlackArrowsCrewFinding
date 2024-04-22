@@ -10,9 +10,13 @@ namespace BKA.Tools.CrewFinding.API.Functions.Functions;
 
 public class CreateCrewFunction
 {
-    
+    public CreateCrewFunction()
+    {
+    }
+
     [FunctionName("CreateCrewFunction")]
-    public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "Crews")] HttpRequest req, ILogger log)
+    public async Task<IActionResult> RunAsync(
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "Crews")] HttpRequest req, ILogger log)
     {
         try
         {
@@ -23,6 +27,5 @@ public class CreateCrewFunction
             Console.WriteLine(e);
             throw;
         }
-        
     }
 }

@@ -9,14 +9,14 @@ namespace BKA.Tools.CrewFinding.Crews.JoinRequests;
 public class CrewJoiner : ICrewJoiner
 {
     private readonly ICrewQueries _crewQueries;
-    private readonly ICrewCommands _crewCommands;
+    private readonly ICrewCommandRepository _crewCommandRepository;
     private readonly IPlayerQueries _playersQueries;
 
-    public CrewJoiner(ICrewQueries crewQueries, ICrewCommands crewCommands,
+    public CrewJoiner(ICrewQueries crewQueries, ICrewCommandRepository crewCommandRepository,
         IPlayerQueries playersQueries)
     {
         _crewQueries = crewQueries;
-        _crewCommands = crewCommands;
+        _crewCommandRepository = crewCommandRepository;
         _playersQueries = playersQueries;
     }
 
@@ -26,7 +26,7 @@ public class CrewJoiner : ICrewJoiner
         var player = await GetValidPlayer(playerId);
 
         crewParty.AddMember(player);
-        await _crewCommands.UpdateMembers(crewPartyId, crewParty.Members);
+        await _crewCommandRepository.UpdateMembers(crewPartyId, crewParty.Members);
     }
 
     private async Task<Crew> GetValidCrewParty(string crewPartyId)

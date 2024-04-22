@@ -59,7 +59,7 @@ public class CrewRepositoryArrangeSteps
                 Activity.Default())
         };
 
-        _crewRepositoriesContext.CrewCommandsMock = new CrewCommandsMock();
+        _crewRepositoriesContext.CrewCommandRepositoryMock = new CrewCommandRepositoryMock();
         _crewRepositoriesContext.CrewQueriesMocks = new CrewQueriesMock(crews);
     }
 }

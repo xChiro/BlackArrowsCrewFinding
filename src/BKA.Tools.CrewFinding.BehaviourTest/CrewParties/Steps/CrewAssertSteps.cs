@@ -20,15 +20,15 @@ public class CrewAssertSteps
     public void ThenAnEmptyCrewNamedIsSuccessfullyCreated(string crewPartyName)
     {
 
-        _crewRepositoriesContext.CrewCommandsMock.GetStoredCrew()?.Members.Should().BeEmpty();
-        _crewRepositoriesContext.CrewCommandsMock.GetStoredCrew()?.Name.Value.Should()
+        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew()?.Members.Should().BeEmpty();
+        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew()?.Name.Value.Should()
             .Be(crewPartyName);
     }
 
     [Then(@"the Crew contains the following details:")]
     public void ThenTheCrewContainsTheFollowingDetails(Table table)
     {
-        var crew = _crewRepositoriesContext.CrewCommandsMock.GetStoredCrew();
+        var crew = _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew();
         
         crew.Should().NotBeNull();
         crew!.Activity.Description.Should().Be(table.Rows[0]["Description"]);
@@ -48,15 +48,15 @@ public class CrewAssertSteps
     [Then(@"the creation date is the current date")]
     public void ThenTheCreationDateIsTheCurrentDate()
     {
-        _crewRepositoriesContext.CrewCommandsMock.GetStoredCrew()?.CreationAt.Should()
+        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew()?.CreationAt.Should()
             .BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
     }
 
     [Then(@"the Crew of (.*) is successfully created")]
     public void ThenTheCrewOfIsSuccessfullyCreated(string captainName)
     {
-        _crewRepositoriesContext.CrewCommandsMock.GetStoredCrew().Should().NotBeNull();
-        _crewRepositoriesContext.CrewCommandsMock.GetStoredCrew()!.Name.Value.Should()
+        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew().Should().NotBeNull();
+        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew()!.Name.Value.Should()
             .Be($"Crew of {captainName}");
     }
 
@@ -65,13 +65,13 @@ public class CrewAssertSteps
     {
         var expected = int.Parse(defaultMaxCrewSize);
         
-        _crewRepositoriesContext.CrewCommandsMock.GetStoredCrew()!.Members.MaxAllowed.Should().Be(expected);
+        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew()!.Members.MaxAllowed.Should().Be(expected);
     }
 
     [Then(@"the creation of the new Crew is prevented")]
     public void ThenTheCreationOfTheNewCrewIsPrevented()
     {
-        _crewRepositoriesContext.CrewCommandsMock.GetStoredCrew().Should().BeNull();
+        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew().Should().BeNull();
     }
 
     [Then(@"the player receives a message indicating that the player already has an active Crew")]
@@ -83,6 +83,6 @@ public class CrewAssertSteps
     [Then(@"(.*) is designated as the Captain")]
     public void ThenIsDesignatedAsTheCaptain(string userName)
     {
-        _crewRepositoriesContext.CrewCommandsMock.GetCaptain()!.CitizenName.Should().Be(userName);
+        _crewRepositoriesContext.CrewCommandRepositoryMock.GetCaptain()!.CitizenName.Should().Be(userName);
     }
 }

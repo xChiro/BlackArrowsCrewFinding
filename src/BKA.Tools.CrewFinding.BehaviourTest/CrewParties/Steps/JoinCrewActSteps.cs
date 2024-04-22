@@ -23,7 +23,7 @@ public class JoinCrewActSteps
     public async Task WhenThePlayerWantsToJoinToTheCrew()
     {
         var sut = new CrewJoiner(_crewContext.CrewQueriesMocks,
-            _crewContext.CrewCommandsMock, _playerRepositoryContext.PlayerQueriesMock);
+            _crewContext.CrewCommandRepositoryMock, _playerRepositoryContext.PlayerQueriesMock);
 
         await sut.Join(_playerContext.PlayerId, _crewContext.CrewQueriesMocks.StoredCrewParties[0].Id);
     }
@@ -32,7 +32,7 @@ public class JoinCrewActSteps
     public async Task WhenThePlayerAttemptsToJoinTheCrew()
     {
         var sut = new CrewJoiner(_crewContext.CrewQueriesMocks,
-            _crewContext.CrewCommandsMock, _playerRepositoryContext.PlayerQueriesMock);
+            _crewContext.CrewCommandRepositoryMock, _playerRepositoryContext.PlayerQueriesMock);
 
         try
         {

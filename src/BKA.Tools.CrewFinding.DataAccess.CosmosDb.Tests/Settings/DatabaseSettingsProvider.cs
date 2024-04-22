@@ -19,7 +19,7 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
         _configurationRoot = configurationRoot;
     }
 
-    public Container GetCrewPartyContainer() => BuildCrewPartyContainer().GetAwaiter().GetResult();
+    public Container GetCrewContainer() => BuildCrewPartyContainer().GetAwaiter().GetResult();
     public Container GetPlayerContainer() => BuildPlayerContainer().GetAwaiter().GetResult();
 
     private async Task<Container> BuildPlayerContainer()

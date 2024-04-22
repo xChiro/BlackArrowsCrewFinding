@@ -19,14 +19,14 @@ public class JoinCrewAssertSteps
     [Then(@"the player is joined to the Crew successfully")]
     public void ThenThePlayerIsJoinedToTheCrewSuccessfully()
     {
-        _crewRepositoriesContext.CrewCommandsMock.CrewPartyMembers.Should()
+        _crewRepositoriesContext.CrewCommandRepositoryMock.CrewPartyMembers.Should()
             .Contain(player => player.Id == _playerContext.PlayerId);
     }
 
     [Then(@"the player is not joined to the Crew")]
     public void ThenThePlayerIsNotJoinedToTheCrew()
     {
-        _crewRepositoriesContext.CrewCommandsMock.CrewPartyMembers.Should()
+        _crewRepositoriesContext.CrewCommandRepositoryMock.CrewPartyMembers.Should()
             .NotContain(player => _playerContext.PlayerId == player.Id);
     }
 }

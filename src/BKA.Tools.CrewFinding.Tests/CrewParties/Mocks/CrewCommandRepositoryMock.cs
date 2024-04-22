@@ -9,11 +9,11 @@ using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 
-public class CrewCommandsMock : ICrewCommands
+public class CrewCommandRepositoryMock : ICrewCommandRepository
 {
     private readonly string _expectedCrewPartyId;
 
-    public CrewCommandsMock(string expectedCrewPartyId = "123412")
+    public CrewCommandRepositoryMock(string expectedCrewPartyId = "123412")
     {
         _expectedCrewPartyId = expectedCrewPartyId;
     }

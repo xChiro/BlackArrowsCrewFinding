@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
-public class CrewCommandsMock : ICrewCommands
+public class CrewCommandRepositoryMock : ICrewCommandRepository
 {
     private Crew? _crewPartyCreated;
 

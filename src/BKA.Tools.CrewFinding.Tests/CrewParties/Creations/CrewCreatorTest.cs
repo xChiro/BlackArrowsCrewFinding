@@ -17,7 +17,7 @@ public class CrewCreatorTest
     {
         // Arrange
         var captainId = Guid.NewGuid().ToString();
-        var crewPartyCommandsMock = new CrewCommandsMock();
+        var crewPartyCommandsMock = new CrewCommandRepositoryMock();
         var playerQueriesMock = new PlayerQueriesValidationMock(captainId, captainName);
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
 
@@ -33,7 +33,7 @@ public class CrewCreatorTest
     {
         // Arrange
         var captainId = Guid.NewGuid().ToString();
-        var crewPartyCommandsMock = new CrewCommandsMock();
+        var crewPartyCommandsMock = new CrewCommandRepositoryMock();
         var playerQueriesMock = new PlayerQueriesValidationMock(captainId, "Rowan");
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
 
@@ -52,7 +52,7 @@ public class CrewCreatorTest
         const int maxCrewAllowed = 5;
         
         var captainId = Guid.NewGuid().ToString();
-        var createCrewPartyResultMock = new CrewCommandsMock();
+        var createCrewPartyResultMock = new CrewCommandRepositoryMock();
 
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock,
             maxCrewAllowed: maxCrewAllowed,
@@ -74,7 +74,7 @@ public class CrewCreatorTest
     {
         // Arrange
         var captainId = Guid.NewGuid().ToString();
-        var createCrewPartyResultMock = new CrewCommandsMock();
+        var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         // Act
@@ -90,7 +90,7 @@ public class CrewCreatorTest
         // Arrange
         var captainId = Guid.NewGuid().ToString();
         const string description = "This is a description";
-        var createCrewPartyResultMock = new CrewCommandsMock();
+        var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var crewPartyCreatorResponseMock = new CrewCreatorResponseMock();
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 

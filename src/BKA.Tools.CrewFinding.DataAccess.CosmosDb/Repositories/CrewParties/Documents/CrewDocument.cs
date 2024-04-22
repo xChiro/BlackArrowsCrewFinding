@@ -1,5 +1,8 @@
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
 using BKA.Tools.CrewFinding.Crews;
+using BKA.Tools.CrewFinding.Cultures;
+using BKA.Tools.CrewFinding.Players;
+using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
 
@@ -9,19 +12,21 @@ public class CrewDocument
 
     public string CaptainId { get; set; }
 
+    public string CaptainName { get; set; }
+    
     public int MaxAllowed { get; set; }
 
     public string CrewName { get; set; }
 
     public string[] Language { get; set; }
 
-    public string Activity { get; set; }
+    public string ActivityName { get; set; }
 
-    public string Description { get; set; }
+    public string ActivityDescription { get; set; }
 
     public DateTime CreationAt { get; set; }
 
-    public List<PlayerDocument> Members { get; set; }
+    public List<PlayerDocument> Crew { get; set; }
 
     public string System { get; set; }
 
@@ -31,19 +36,21 @@ public class CrewDocument
 
     public string Place { get; set; }
 
+
     public static CrewDocument CreateFromCrew(Crew crew)
     {
         var document = new CrewDocument
         {
             Id = crew.Id,
             CaptainId = crew.Captain.Id,
+            CaptainName = crew.Captain.CitizenName,
             MaxAllowed = crew.Members.MaxAllowed,
             CrewName = crew.Name.Value,
             Language = crew.Languages.Select(l => l.LanguageCode).ToArray(),
-            Activity = crew.Activity.Name,
-            Description = crew.Activity.Description,
+            ActivityName = crew.Activity.Name,
+            ActivityDescription = crew.Activity.Description,
             CreationAt = crew.CreationAt,
-            Members = crew.Members.Select(PlayerDocument.CreateFromPlayer).ToList(),
+            Crew = crew.Members.Select(PlayerDocument.CreateFromPlayer).ToList(),
             System = crew.ReunionPoint.System,
             PlanetarySystem = crew.ReunionPoint.PlanetarySystem,
             PlanetMoon = crew.ReunionPoint.PlanetMoon,
@@ -51,5 +58,23 @@ public class CrewDocument
         };
 
         return document;
+    }
+
+    public Crew ToCrew()
+    {
+        var members = Crew.Select(m => Player.Create(m.Id, m.CitizenName)).ToList();
+
+        var crew = new Crew(
+            Id,
+             Player.Create(CaptainId, CaptainName),
+            new CrewName(CrewName),
+            new Location(System, PlanetarySystem, PlanetMoon, Place),
+            LanguageCollections.CreateFromAbbrevs(Language),
+            Members.Create(members, MaxAllowed),
+            Activity.Create(ActivityName, ActivityDescription),
+            CreationAt
+        );
+
+        return crew;
     }
 }

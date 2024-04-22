@@ -3,15 +3,14 @@ using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players;
-using Microsoft.Azure.Cosmos;
 
 namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
 
-public class CrewCommands : ICrewCommands
+public class CrewCommandRepository : ICrewCommandRepository
 {
     private readonly Container _container;
 
-    public CrewCommands(Container container)
+    public CrewCommandRepository(Container container)
     {
         _container = container;
     }
@@ -28,7 +27,7 @@ public class CrewCommands : ICrewCommands
         
         var patchOperations = new List<PatchOperation>
         {
-            PatchOperation.Replace("/members", members)
+            PatchOperation.Replace("/crew", members)
         };
         
         await _container.PatchItemAsync<CrewDocument>(crewPartyId, new PartitionKey(crewPartyId), patchOperations);

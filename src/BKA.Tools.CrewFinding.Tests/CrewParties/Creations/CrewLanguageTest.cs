@@ -13,7 +13,7 @@ public class CrewLanguageTest
     public void Create_Crew_Without_Languages_Uses_Default()
     {
         // Arrange
-        var createCrewPartyResultMock = new CrewCommandsMock();
+        var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
         
         // Act
@@ -30,7 +30,7 @@ public class CrewLanguageTest
     public void Create_Crew_With_Languages_Succeeds(params string[] languagesAbbrevs)
     {
         // Arrange
-        var createCrewPartyResultMock = new CrewCommandsMock();
+        var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
 
         var expectedLanguages = LanguageCollections.CreateFromAbbrevs(languagesAbbrevs);
