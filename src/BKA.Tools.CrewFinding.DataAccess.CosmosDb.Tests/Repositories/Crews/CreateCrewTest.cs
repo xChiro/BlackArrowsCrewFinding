@@ -1,27 +1,23 @@
 using System.Linq;
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
-using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
-using BKA.Tools.CrewFinding.Players;
-using BKA.Tools.CrewFinding.Values;
 using FluentAssertions;
 using Microsoft.Azure.Cosmos;
 using Xunit;
 
-namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.CrewParties;
+namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 
-public class CreateCrewPartyTest : IAsyncLifetime
+public class CreateCrewTest : IAsyncLifetime
 {
     private readonly ICrewCommandRepository _sut;
     private readonly IDatabaseSettingsProvider<Container> _databaseSettingsProvider;
     private Container? _crewContainer;
-    private string _crewPartyId = string.Empty;
+    private string _crewId = string.Empty;
 
-    public CreateCrewPartyTest(ICrewCommandRepository sut, IDatabaseSettingsProvider<Container>  databaseSettingsProvider)
+    public CreateCrewTest(ICrewCommandRepository sut, IDatabaseSettingsProvider<Container>  databaseSettingsProvider)
     {
         _sut = sut;
         _databaseSettingsProvider = databaseSettingsProvider;
@@ -34,38 +30,20 @@ public class CreateCrewPartyTest : IAsyncLifetime
     }
 
     [Fact]
-    public async Task Create_A_Crew_Party_Successfully()
+    public async Task Create_A_Crew_Successfully()
     {
         // Arrange
-        var crewParty = CreateCrewParty();
-        _crewPartyId = crewParty.Id;
+        var crew = CrewBuilder.CreateDefaultCrew();
+        _crewId = crew.Id;
 
         // Act
-        await _sut.CreateCrew(crewParty);
+        await _sut.CreateCrew(crew);
 
         // Assert
-        await AssertCrewPartyWasCreatedSuccessfully(crewParty);
+        await AssertCrewWasCreatedSuccessfully(crew);
     }
 
-    private CrewCommandRepository CreateCrewPartyCommand()
-    {
-        return new CrewCommandRepository(_crewContainer!);
-    }
-
-    private static Crew CreateCrewParty()
-    {
-        var captain = Player.Create("24", "Rowan");
-        
-        return new Crew(
-            captain,
-            new CrewName("Rowan"),
-            Location.DefaultLocation(),
-            LanguageCollections.Default(),
-            Members.CreateSingle(Player.Create("1", "wrerwerwe"), 1),
-            Activity.Default());
-    }
-
-    private async Task AssertCrewPartyWasCreatedSuccessfully(Crew crew)
+    private async Task AssertCrewWasCreatedSuccessfully(Crew crew)
     {
         var crewPartyResponse =
             await _crewContainer!.ReadItemAsync<CrewDocument>(crew.Id, new PartitionKey(crew.Id));
@@ -126,9 +104,9 @@ public class CreateCrewPartyTest : IAsyncLifetime
 
     private async Task CleanUpCrewParty()
     {
-        if (_crewPartyId == string.Empty)
+        if (_crewId == string.Empty)
             return;
         
-        await _crewContainer!.DeleteItemAsync<Crew>(_crewPartyId, new PartitionKey(_crewPartyId));
+        await _crewContainer!.DeleteItemAsync<Crew>(_crewId, new PartitionKey(_crewId));
     }
 }

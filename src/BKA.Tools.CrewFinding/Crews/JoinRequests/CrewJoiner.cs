@@ -8,14 +8,14 @@ namespace BKA.Tools.CrewFinding.Crews.JoinRequests;
 
 public class CrewJoiner : ICrewJoiner
 {
-    private readonly ICrewQueries _crewQueries;
+    private readonly ICrewQueryRepository _crewQueryRepository;
     private readonly ICrewCommandRepository _crewCommandRepository;
     private readonly IPlayerQueries _playersQueries;
 
-    public CrewJoiner(ICrewQueries crewQueries, ICrewCommandRepository crewCommandRepository,
+    public CrewJoiner(ICrewQueryRepository crewQueryRepository, ICrewCommandRepository crewCommandRepository,
         IPlayerQueries playersQueries)
     {
-        _crewQueries = crewQueries;
+        _crewQueryRepository = crewQueryRepository;
         _crewCommandRepository = crewCommandRepository;
         _playersQueries = playersQueries;
     }
@@ -61,7 +61,7 @@ public class CrewJoiner : ICrewJoiner
 
     private async Task<Crew> GetCrewParty(string crewPartyId)
     {
-        return await _crewQueries.GetCrewParty(crewPartyId) ?? throw new CrewNotFoundException(crewPartyId);
+        return await _crewQueryRepository.GetCrew(crewPartyId) ?? throw new CrewNotFoundException(crewPartyId);
     }
 
     private async Task<Player?> GetPlayer(string playerId)

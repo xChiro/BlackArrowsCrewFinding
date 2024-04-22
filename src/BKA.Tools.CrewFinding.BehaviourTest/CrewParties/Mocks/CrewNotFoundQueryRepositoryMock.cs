@@ -2,9 +2,9 @@ using BKA.Tools.CrewFinding.Crews;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
-public class CrewNotFoundQueriesMock : ICrewQueriesMock
+public class CrewNotFoundQueryRepositoryMock : ICrewQueryRepositoryMock
 {
-    public CrewNotFoundQueriesMock()
+    public CrewNotFoundQueryRepositoryMock()
     {
         StoredCrewParties = new List<Crew>();
     }
@@ -16,7 +16,7 @@ public class CrewNotFoundQueriesMock : ICrewQueriesMock
         return Task.FromResult(false);
     }
 
-    public Task<Crew?> GetCrewParty(string crewPartyId)
+    public Task<Crew?> GetCrew(string crewId)
     {
         return Task.FromResult<Crew?>(null);
     }

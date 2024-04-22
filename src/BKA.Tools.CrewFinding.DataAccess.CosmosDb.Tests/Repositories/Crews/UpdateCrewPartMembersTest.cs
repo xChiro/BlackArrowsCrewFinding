@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
@@ -12,7 +11,7 @@ using FluentAssertions;
 using Microsoft.Azure.Cosmos;
 using Xunit;
 
-namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.CrewParties;
+namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 
 public class UpdateCrewPartMembersTest : IAsyncLifetime
 {

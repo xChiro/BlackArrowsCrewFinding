@@ -58,10 +58,15 @@ public class Startup
     {
         services.AddTransient<IDatabaseSettingsProvider<Container>>(_ =>
             databaseSettingsProvider);
+
+        var crewContainer = databaseSettingsProvider.GetCrewContainer();
         services.AddTransient<ICrewCommandRepository>(_ =>
-            new CrewCommandRepository(databaseSettingsProvider.GetCrewContainer()));
+            new CrewCommandRepository(crewContainer));
 
         services.AddTransient<IPlayerCommandRepository>(_ =>
             new PlayerCommands(databaseSettingsProvider.GetPlayerContainer()));
+        
+        services.AddTransient<ICrewQueryRepository>(_ =>
+            new CrewQueryRepository(crewContainer));
     }
 }

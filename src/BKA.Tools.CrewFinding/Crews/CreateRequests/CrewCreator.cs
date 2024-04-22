@@ -13,15 +13,15 @@ public class CrewCreator : ICrewCreator
     private readonly int _maxCrewAllowed;
     private readonly IPlayerQueries _playerQueries;
     private readonly ICrewCommandRepository _commandRepository;
-    private readonly ICrewQueries _crewQueries;
+    private readonly ICrewQueryRepository _crewQueryRepository;
 
-    public CrewCreator(ICrewCommandRepository commandRepository, ICrewQueries crewQueries, int maxCrewAllowed,
+    public CrewCreator(ICrewCommandRepository commandRepository, ICrewQueryRepository crewQueryRepository, int maxCrewAllowed,
         IPlayerQueries playerQueries)
     {
         _maxCrewAllowed = maxCrewAllowed;
         _playerQueries = playerQueries;
         _commandRepository = commandRepository;
-        _crewQueries = crewQueries;
+        _crewQueryRepository = crewQueryRepository;
     }
 
     public async Task Create(CrewCreatorRequest request, ICrewCreatorResponse crewCreatorResponse)

@@ -3,24 +3,24 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
-public class CrewQueriesMock : ICrewQueriesMock
+public class CrewQueryRepositoryMock : ICrewQueryRepositoryMock
 {
     private readonly Crew[] _crewParties;
     
     public IReadOnlyList<Crew> StoredCrewParties => _crewParties;
 
-    public CrewQueriesMock(Crew[] crewParties)
+    public CrewQueryRepositoryMock(Crew[] crewParties)
     {
         _crewParties = crewParties;
     }
 
-    public Task<Crew?> GetCrewParty(string crewPartyId)
+    public Task<Crew?> GetCrew(string crewId)
     {
-        return Task.FromResult(_crewParties.FirstOrDefault(p => p.Id == crewPartyId));
+        return Task.FromResult(_crewParties.FirstOrDefault(p => p.Id == crewId));
     }
 }
 
-public interface ICrewQueriesMock : ICrewQueries
+public interface ICrewQueryRepositoryMock : ICrewQueryRepository
 {
     public IReadOnlyList<Crew> StoredCrewParties { get; }
 }

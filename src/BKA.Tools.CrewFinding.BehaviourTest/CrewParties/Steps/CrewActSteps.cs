@@ -76,7 +76,7 @@ public class CrewActSteps
     private async Task CreateAndStoreCrew(CrewCreatorRequest crewCreatorRequest)
     {
         var crewPartyCreator = new CrewCreator(_crewRepositoriesContext.CrewCommandRepositoryMock,
-            _crewRepositoriesContext.CrewQueriesMocks,
+            _crewRepositoriesContext.CrewQueryRepositoryMocks,
             _crewContext.MaxPlayerAllowed,
             _playerRepositoryContext.PlayerQueriesMock);
 
