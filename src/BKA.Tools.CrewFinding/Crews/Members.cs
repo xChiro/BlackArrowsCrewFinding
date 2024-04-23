@@ -40,6 +40,9 @@ public class Members : IEnumerable<Player>
     {
         if (IsAtCapacity())
             throw new CrewFullException();
+        
+        if (_players.Any(p => p.Id == player.Id))
+            throw new PlayerMultipleCrewsException();
 
         _players.Add(player);
     }

@@ -7,9 +7,6 @@ using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Values;
-using FluentAssertions;
-using Microsoft.Azure.Cosmos;
-using Xunit;
 
 namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 

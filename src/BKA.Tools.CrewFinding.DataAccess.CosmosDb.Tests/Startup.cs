@@ -8,7 +8,6 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings.KeyVault;
 using BKA.Tools.CrewFinding.Players.Ports;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

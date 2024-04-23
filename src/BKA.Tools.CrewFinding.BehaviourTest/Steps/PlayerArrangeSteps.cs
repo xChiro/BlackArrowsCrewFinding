@@ -19,9 +19,9 @@ public class PlayerArrangeSteps
     public void When_givenAPlayerNamed(string userName)
     {
         _playerContext.PlayerId = Guid.NewGuid().ToString();
-        _playerContext.UserName = userName;
+        _playerContext.PlayerName = userName;
         
-        _playerRepositoryContext.PlayerQueriesMock.Players.Add(
-            Player.Create(_playerContext.PlayerId, _playerContext.UserName));
+        _playerRepositoryContext.PlayerQueryRepositoryMock.Players.Add(
+            Player.Create(_playerContext.PlayerId, _playerContext.PlayerName));
     }
 }

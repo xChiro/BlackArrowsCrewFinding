@@ -7,7 +7,7 @@ namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 
 public static class CrewBuilder
 {
-    public static Crew CreateDefaultCrew()
+    public static Crew CreateDefaultCrew(int maxAllowed = 1)
     {
         var captain = Player.Create("24", "Rowan");
         
@@ -16,7 +16,7 @@ public static class CrewBuilder
             new CrewName("Rowan"),
             Location.DefaultLocation(),
             LanguageCollections.Default(),
-            Members.CreateSingle(Player.Create("1", "wrerwerwe"), 1),
+            Members.CreateSingle(Player.Create("1", "wrerwerwe"), maxAllowed),
             Activity.Default());
     }
 }

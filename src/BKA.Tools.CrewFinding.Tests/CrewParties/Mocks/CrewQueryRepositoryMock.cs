@@ -8,18 +8,22 @@ public class CrewQueryRepositoryMock : ICrewQueryRepository
 {
     private readonly string _expectedCrewPartyId;
     private readonly Crew? _crewParty;
+    private readonly bool _playerInCrew;
 
-    public CrewQueryRepositoryMock(string expectedCrewPartyId = "", Crew? crewParty = null)
+    public CrewQueryRepositoryMock(string expectedCrewPartyId = "", Crew? crewParty = null, bool playerInCrew = false)
     {
         _expectedCrewPartyId = expectedCrewPartyId;
         _crewParty = crewParty;
+        _playerInCrew = playerInCrew;
     }
 
-    public string ReceivedCaptainId { get; private set; } = string.Empty;
+    public Task<bool> IsPlayerInActiveCrew(string playerId)
+    {
+        return Task.FromResult(_playerInCrew);
+    }
 
     public Task<Crew?> GetCrew(string crewId)
     {
-        ReceivedCaptainId = crewId;
         return crewId == _expectedCrewPartyId ? Task.FromResult(_crewParty) : Task.FromResult<Crew?>(null);
     }
 }

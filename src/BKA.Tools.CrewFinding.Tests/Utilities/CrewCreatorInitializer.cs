@@ -9,16 +9,16 @@ public static class CrewCreatorInitializer
     public static ICrewCreator InitializeCrewPartyCreator(ICrewCommandRepository crewCommandRepository,
         int maxCrewAllowed = 4, bool hasCreatedParty = false, string captainName = "Captain")
     {
-        var sut = new CrewCreator(crewCommandRepository, new CrewQueryRepositoryMock(), maxCrewAllowed,
-            new PlayerQueriesAlwaysValidMock(captainName, hasCreatedParty));
+        var sut = new CrewCreator(crewCommandRepository, new CrewQueryRepositoryMock(playerInCrew: hasCreatedParty), maxCrewAllowed,
+            new PlayerQueryRepositoryAlwaysValidMock(captainName));
 
         return sut;
     }
 
     public static ICrewCreator InitializeCrewPartyCreator(ICrewCommandRepository crewCommandRepository,
-        PlayerQueriesValidationMock playerQueriesValidationMock)
+        PlayerQueryRepositoryValidationMock playerQueryRepositoryValidationMock)
     {
-        var sut = new CrewCreator(crewCommandRepository, new CrewQueryRepositoryMock(), 4, playerQueriesValidationMock);
+        var sut = new CrewCreator(crewCommandRepository, new CrewQueryRepositoryMock(), 4, playerQueryRepositoryValidationMock);
 
         return sut;
     }

@@ -26,6 +26,7 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository
     public DateTime? CreationDate { get; private set; }
     public IEnumerable<Player>? Members { get; private set; }
     public int MaxMembersAllowed { get; private set; }
+    public bool Active { get; set; }
 
     public Task CreateCrew(Crew crew)
     {

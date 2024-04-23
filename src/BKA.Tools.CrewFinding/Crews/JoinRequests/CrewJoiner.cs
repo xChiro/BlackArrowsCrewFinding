@@ -10,14 +10,14 @@ public class CrewJoiner : ICrewJoiner
 {
     private readonly ICrewQueryRepository _crewQueryRepository;
     private readonly ICrewCommandRepository _crewCommandRepository;
-    private readonly IPlayerQueries _playersQueries;
+    private readonly IPlayerQueryRepository _playersQueryRepository;
 
     public CrewJoiner(ICrewQueryRepository crewQueryRepository, ICrewCommandRepository crewCommandRepository,
-        IPlayerQueries playersQueries)
+        IPlayerQueryRepository playersQueryRepository)
     {
         _crewQueryRepository = crewQueryRepository;
         _crewCommandRepository = crewCommandRepository;
-        _playersQueries = playersQueries;
+        _playersQueryRepository = playersQueryRepository;
     }
 
     public async Task Join(string playerId, string crewPartyId)
@@ -38,7 +38,7 @@ public class CrewJoiner : ICrewJoiner
 
     private async Task<Player> GetValidPlayer(string playerId)
     {
-        if (IsPlayerAlreadyInAParty(playerId))
+        if (await IsPlayerAlreadyInAParty(playerId))
             throw new PlayerMultipleCrewsException();
         
         var player = await GetPlayer(playerId);
@@ -49,9 +49,9 @@ public class CrewJoiner : ICrewJoiner
         return player!;
     }
 
-    private bool IsPlayerAlreadyInAParty(string playerId)
+    private async Task<bool> IsPlayerAlreadyInAParty(string playerId)
     {
-        return _playersQueries.PlayerAlreadyInACrew(playerId).Result;
+        return await _crewQueryRepository.IsPlayerInActiveCrew(playerId);
     }
 
     private static bool IsAValidPlayer(Player? player)
@@ -66,6 +66,6 @@ public class CrewJoiner : ICrewJoiner
 
     private async Task<Player?> GetPlayer(string playerId)
     {
-        return await _playersQueries.GetPlayer(playerId);
+        return await _playersQueryRepository.GetPlayer(playerId);
     }
 }

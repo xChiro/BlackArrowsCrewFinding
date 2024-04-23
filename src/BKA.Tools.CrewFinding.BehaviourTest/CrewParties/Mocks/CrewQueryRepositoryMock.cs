@@ -1,26 +1,27 @@
 using BKA.Tools.CrewFinding.Crews;
-using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
 public class CrewQueryRepositoryMock : ICrewQueryRepositoryMock
 {
-    private readonly Crew[] _crewParties;
-    
-    public IReadOnlyList<Crew> StoredCrewParties => _crewParties;
+    private readonly Crew[] _crews;
+    private readonly bool _playerInCrew;
 
-    public CrewQueryRepositoryMock(Crew[] crewParties)
+    public IReadOnlyList<Crew> StoredCrews => _crews;
+
+    public CrewQueryRepositoryMock(Crew[] crews, bool playerInCrew = false)
     {
-        _crewParties = crewParties;
+        _crews = crews;
+        _playerInCrew = playerInCrew;
+    }
+
+    public Task<bool> IsPlayerInActiveCrew(string playerId)
+    {
+        return Task.FromResult(_playerInCrew);
     }
 
     public Task<Crew?> GetCrew(string crewId)
     {
-        return Task.FromResult(_crewParties.FirstOrDefault(p => p.Id == crewId));
+        return Task.FromResult(_crews.FirstOrDefault(p => p.Id == crewId));
     }
-}
-
-public interface ICrewQueryRepositoryMock : ICrewQueryRepository
-{
-    public IReadOnlyList<Crew> StoredCrewParties { get; }
 }

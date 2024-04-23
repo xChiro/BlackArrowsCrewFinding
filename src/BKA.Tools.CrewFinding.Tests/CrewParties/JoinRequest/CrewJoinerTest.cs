@@ -16,7 +16,7 @@ namespace BKA.Tools.CrewFinding.Tests.CrewParties.JoinRequest;
 
 public class CrewJoinerTest
 {
-    private readonly PlayerQueriesAlwaysValidMock _playerQueriesAlwaysValidMock = new("Rowan");
+    private readonly PlayerQueryRepositoryAlwaysValidMock _playerQueryRepositoryAlwaysValidMock = new("Rowan");
     private const string PlayerId = "1";
     private const string CrewPartyId = "2";
 
@@ -26,7 +26,7 @@ public class CrewJoinerTest
         // Arrange
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
         var playerPartyJoiner = CreatePlayerPartyJoiner(new CrewQueryRepositoryMock(), crewPartyCommandsMock,
-            _playerQueriesAlwaysValidMock);
+            _playerQueryRepositoryAlwaysValidMock);
 
         // Act & Assert
         await ExecuteAndAssertException<CrewNotFoundException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId));
@@ -42,7 +42,8 @@ public class CrewJoinerTest
         var members = Members.CreateSingle(Player.Create("1231412", "Allan"), 1);
         var crewPartyQueries = new CrewQueryRepositoryMock(CrewPartyId, CrewPartyCreator(members));
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
-        var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommandsMock, _playerQueriesAlwaysValidMock);
+        var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommandsMock,
+            _playerQueryRepositoryAlwaysValidMock);
 
         // Act & Assert
         await ExecuteAndAssertException<CrewFullException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId));
@@ -57,10 +58,10 @@ public class CrewJoinerTest
         // Arrange
         var crew = Members.CreateSingle(Player.Create(PlayerId, "Rowan"), 4);
 
-        var crewPartyQueries = new CrewQueryRepositoryMock(CrewPartyId, CrewPartyCreator(crew));
+        var crewPartyQueries = new CrewQueryRepositoryMock(CrewPartyId, CrewPartyCreator(crew), true);
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
 
-        var playerQueriesValidationMock = new PlayerQueriesValidationMock(PlayerId, "Rowan", true);
+        var playerQueriesValidationMock = new PlayerQueryRepositoryValidationMock(PlayerId, "Rowan");
         var playerPartyJoiner =
             CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommandsMock, playerQueriesValidationMock);
 
@@ -80,7 +81,7 @@ public class CrewJoinerTest
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
 
         var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommandsMock,
-            new PlayerQueriesValidationMock("1", "Rowan"));
+            new PlayerQueryRepositoryValidationMock("1", "Rowan"));
 
         // Act & Assert 
         await ExecuteAndAssertException<PlayerNotFoundException>(
@@ -97,7 +98,7 @@ public class CrewJoinerTest
         var crewPartyCreator = CrewPartyCreator(Members.CreateEmpty(4));
         var crewPartyQueries = new CrewQueryRepositoryMock(CrewPartyId, crewPartyCreator);
         var crewPartyCommands = new CrewCommandRepositoryMock(CrewPartyId);
-        var playerQueriesValidationMock = new PlayerQueriesValidationMock(PlayerId, "Rowan");
+        var playerQueriesValidationMock = new PlayerQueryRepositoryValidationMock(PlayerId, "Rowan");
         var playerPartyJoiner =
             CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommands, playerQueriesValidationMock);
 
@@ -121,7 +122,7 @@ public class CrewJoinerTest
         var crewPartyCreator = CrewPartyCreator(members);
         var crewPartyQueries = new CrewQueryRepositoryMock(CrewPartyId, crewPartyCreator);
         var crewPartyCommands = new CrewCommandRepositoryMock(CrewPartyId);
-        var playerQueriesValidationMock = new PlayerQueriesValidationMock(newMemberId, newMemberName);
+        var playerQueriesValidationMock = new PlayerQueryRepositoryValidationMock(newMemberId, newMemberName);
         var playerPartyJoiner =
             CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommands, playerQueriesValidationMock);
 
@@ -146,13 +147,12 @@ public class CrewJoinerTest
         return crewParty;
     }
 
-    private static CrewJoiner CreatePlayerPartyJoiner(ICrewQueryRepository crewQueryRepository, ICrewCommandRepository? crewPartyCommands,
-        IPlayerQueries playerQueries)
+    private static CrewJoiner CreatePlayerPartyJoiner(ICrewQueryRepository crewQueryRepository,
+        ICrewCommandRepository? crewPartyCommands, IPlayerQueryRepository playerQueryRepository)
     {
         crewPartyCommands ??= new CrewCommandRepositoryMock();
 
-        return new CrewJoiner(crewQueryRepository, crewPartyCommands,
-            playerQueries);
+        return new CrewJoiner(crewQueryRepository, crewPartyCommands, playerQueryRepository);
     }
 
     private static async Task ExecuteAndAssertException<T>(Func<Task> act)

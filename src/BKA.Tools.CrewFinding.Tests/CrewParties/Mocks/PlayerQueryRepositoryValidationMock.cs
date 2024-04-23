@@ -4,22 +4,15 @@ using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 
-public class PlayerQueriesValidationMock : IPlayerQueries
+public class PlayerQueryRepositoryValidationMock : IPlayerQueryRepository
 {
     private readonly string _expectedPlayerId;
     private readonly string _playerName;
-    private readonly bool _playerAlreadyInAParty;
 
-    public PlayerQueriesValidationMock(string expectedPlayerId, string playerName, bool playerAlreadyInAParty = false)
+    public PlayerQueryRepositoryValidationMock(string expectedPlayerId, string playerName)
     {
         _expectedPlayerId = expectedPlayerId;
         _playerName = playerName;
-        _playerAlreadyInAParty = playerAlreadyInAParty;
-    }
-
-    public Task<bool> PlayerAlreadyInACrew(string captainId)
-    {
-        return Task.FromResult(_playerAlreadyInAParty);
     }
 
     public Task<Player?> GetPlayer(string playerId)

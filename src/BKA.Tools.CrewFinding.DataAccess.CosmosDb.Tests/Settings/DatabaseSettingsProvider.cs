@@ -1,8 +1,6 @@
-using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Configuration;
 

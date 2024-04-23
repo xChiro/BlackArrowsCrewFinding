@@ -6,12 +6,12 @@ public class CrewNotFoundQueryRepositoryMock : ICrewQueryRepositoryMock
 {
     public CrewNotFoundQueryRepositoryMock()
     {
-        StoredCrewParties = new List<Crew>();
+        StoredCrews = new List<Crew>();
     }
 
-    public IReadOnlyList<Crew> StoredCrewParties { get; }
+    public IReadOnlyList<Crew> StoredCrews { get; }
 
-    public Task<bool> PlayerAlreadyInACrew(string captainId)
+    public Task<bool> IsPlayerInActiveCrew(string playerId)
     {
         return Task.FromResult(false);
     }

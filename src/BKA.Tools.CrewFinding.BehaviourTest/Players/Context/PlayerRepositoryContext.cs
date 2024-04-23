@@ -6,11 +6,11 @@ public class PlayerRepositoryContext
 {
     public PlayerCommandRepositoryMock PlayerCommandRepositoryMock { get; set; } 
     
-    public PlayerQueriesMock PlayerQueriesMock { get; set; }
+    public PlayerQueryRepositoryMock PlayerQueryRepositoryMock { get; set; }
 
     public PlayerRepositoryContext()
     {
         PlayerCommandRepositoryMock = new PlayerCommandRepositoryMock();
-        PlayerQueriesMock = new PlayerQueriesMock("1", "Rowan");
+        PlayerQueryRepositoryMock = new PlayerQueryRepositoryMock("1", "Rowan");
     }
 }

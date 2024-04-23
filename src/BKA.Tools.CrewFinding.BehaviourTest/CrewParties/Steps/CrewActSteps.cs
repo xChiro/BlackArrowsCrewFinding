@@ -1,7 +1,6 @@
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Helpers;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
-using BKA.Tools.CrewFinding.BehaviourTest.Players.Mocks;
 using BKA.Tools.CrewFinding.Crews.CreateRequests;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
@@ -78,7 +77,7 @@ public class CrewActSteps
         var crewPartyCreator = new CrewCreator(_crewRepositoriesContext.CrewCommandRepositoryMock,
             _crewRepositoriesContext.CrewQueryRepositoryMocks,
             _crewContext.MaxPlayerAllowed,
-            _playerRepositoryContext.PlayerQueriesMock);
+            _playerRepositoryContext.PlayerQueryRepositoryMock);
 
         await crewPartyCreator.Create(crewCreatorRequest,
             _crewCreationResultsContext.CrewCreatorResponseMock);

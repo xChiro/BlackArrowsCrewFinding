@@ -18,7 +18,7 @@ public class CrewCreatorTest
         // Arrange
         var captainId = Guid.NewGuid().ToString();
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
-        var playerQueriesMock = new PlayerQueriesValidationMock(captainId, captainName);
+        var playerQueriesMock = new PlayerQueryRepositoryValidationMock(captainId, captainName);
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
 
         // Act
@@ -34,7 +34,7 @@ public class CrewCreatorTest
         // Arrange
         var captainId = Guid.NewGuid().ToString();
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
-        var playerQueriesMock = new PlayerQueriesValidationMock(captainId, "Rowan");
+        var playerQueriesMock = new PlayerQueryRepositoryValidationMock(captainId, "Rowan");
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
 
         // Act
@@ -45,7 +45,7 @@ public class CrewCreatorTest
     }
     
     [Fact]
-    public async Task Create_Crew_Assigns_Captain()
+    public async Task Create_Crew_Assigns_Captain_Successfully()
     {
         // Arrange
         const string captainName = "Rowan";
@@ -67,6 +67,7 @@ public class CrewCreatorTest
         createCrewPartyResultMock.Captain!.Id.Should().NotBeNullOrEmpty();
         createCrewPartyResultMock.Members.Should().BeEmpty();
         createCrewPartyResultMock.MaxMembersAllowed.Should().Be(maxCrewAllowed);
+        createCrewPartyResultMock.Active = true;
     }
 
     [Fact]

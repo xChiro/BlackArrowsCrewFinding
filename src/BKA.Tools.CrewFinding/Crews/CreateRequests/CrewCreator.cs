@@ -11,15 +11,15 @@ namespace BKA.Tools.CrewFinding.Crews.CreateRequests;
 public class CrewCreator : ICrewCreator
 {
     private readonly int _maxCrewAllowed;
-    private readonly IPlayerQueries _playerQueries;
+    private readonly IPlayerQueryRepository _playerQueryRepository;
     private readonly ICrewCommandRepository _commandRepository;
     private readonly ICrewQueryRepository _crewQueryRepository;
 
     public CrewCreator(ICrewCommandRepository commandRepository, ICrewQueryRepository crewQueryRepository, int maxCrewAllowed,
-        IPlayerQueries playerQueries)
+        IPlayerQueryRepository playerQueryRepository)
     {
         _maxCrewAllowed = maxCrewAllowed;
-        _playerQueries = playerQueries;
+        _playerQueryRepository = playerQueryRepository;
         _commandRepository = commandRepository;
         _crewQueryRepository = crewQueryRepository;
     }
@@ -27,13 +27,13 @@ public class CrewCreator : ICrewCreator
     public async Task Create(CrewCreatorRequest request, ICrewCreatorResponse crewCreatorResponse)
     {
         var captain = await TryToGetValidCaptain(request.CaptainId);
-        var crew = InitializeCrew(captain, request);
+        var crew = InitializeNewCrew(captain, request);
 
         await _commandRepository.CreateCrew(crew);
         crewCreatorResponse.SetResponse(crew.Id);
     }
 
-    private Crew InitializeCrew(Player captain, CrewCreatorRequest request)
+    private Crew InitializeNewCrew(Player captain, CrewCreatorRequest request)
     {
         return new Crew(captain, new CrewName(captain.CitizenName), request.Location,
             LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), Members.CreateEmpty(_maxCrewAllowed),
@@ -42,8 +42,8 @@ public class CrewCreator : ICrewCreator
 
     private async Task<Player> TryToGetValidCaptain(string captainId)
     {
-        var playerInCrewTask = _playerQueries.PlayerAlreadyInACrew(captainId);
-        var captainTask = _playerQueries.GetPlayer(captainId);
+        var playerInCrewTask = _crewQueryRepository.IsPlayerInActiveCrew(captainId);
+        var captainTask = _playerQueryRepository.GetPlayer(captainId);
 
         await Task.WhenAll(playerInCrewTask, captainTask);
 

@@ -4,9 +4,6 @@ using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
-using FluentAssertions;
-using Microsoft.Azure.Cosmos;
-using Xunit;
 
 namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 

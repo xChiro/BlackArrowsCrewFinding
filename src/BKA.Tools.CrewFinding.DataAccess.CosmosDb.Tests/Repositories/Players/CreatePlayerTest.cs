@@ -1,13 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Ports;
-using FluentAssertions;
-using Microsoft.Azure.Cosmos;
-using Xunit;
 
 namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Players;
 

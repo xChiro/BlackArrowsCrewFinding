@@ -36,7 +36,6 @@ public class CrewDocument
 
     public string Place { get; set; }
 
-
     public static CrewDocument CreateFromCrew(Crew crew)
     {
         var document = new CrewDocument
@@ -72,8 +71,7 @@ public class CrewDocument
             LanguageCollections.CreateFromAbbrevs(Language),
             Members.Create(members, MaxAllowed),
             Activity.Create(ActivityName, ActivityDescription),
-            CreationAt
-        );
+            CreationAt);
 
         return crew;
     }
