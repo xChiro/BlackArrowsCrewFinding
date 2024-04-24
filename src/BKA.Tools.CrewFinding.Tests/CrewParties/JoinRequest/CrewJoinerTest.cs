@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.JoinRequests;
@@ -10,7 +11,6 @@ using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
-using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewParties.JoinRequest;
 
@@ -18,7 +18,6 @@ public class CrewJoinerTest
 {
     private readonly PlayerQueryRepositoryAlwaysValidMock _playerQueryRepositoryAlwaysValidMock = new("Rowan");
     private const string PlayerId = "1";
-    private const string CrewPartyId = "2";
 
     [Fact]
     public async Task Attempt_To_Join_NonExisting_Party()
@@ -29,7 +28,7 @@ public class CrewJoinerTest
             _playerQueryRepositoryAlwaysValidMock);
 
         // Act & Assert
-        await ExecuteAndAssertException<CrewNotFoundException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId));
+        await ExecuteAndAssertException<CrewNotFoundException>(() => playerPartyJoiner.Join(PlayerId, "1234"));
 
         // Assert
         MembersShouldBeNull(crewPartyCommandsMock);
@@ -39,14 +38,15 @@ public class CrewJoinerTest
     public async Task Attempt_To_Join_Full_Party()
     {
         // Arrange
-        var members = Members.CreateSingle(Player.Create("1231412", "Allan"), 1);
-        var crewPartyQueries = new CrewQueryRepositoryMock(CrewPartyId, CrewPartyCreator(members));
+        var members = PlayerCollection.CreateWithSingle(Player.Create("1231412", "Allan"), 1);
+        var crew = InitializeCrew(members);
+        var crewPartyQueries = new CrewQueryRepositoryMock(crew);
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
         var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommandsMock,
             _playerQueryRepositoryAlwaysValidMock);
 
         // Act & Assert
-        await ExecuteAndAssertException<CrewFullException>(() => playerPartyJoiner.Join(PlayerId, CrewPartyId));
+        await ExecuteAndAssertException<CrewFullException>(() => playerPartyJoiner.Join(PlayerId, crew.Id));
 
         // Assert
         MembersShouldBeNull(crewPartyCommandsMock);
@@ -56,9 +56,10 @@ public class CrewJoinerTest
     public async Task Attempt_To_Join_To_Party_With_Player_Already_In_A_Party_Then_The_Party_Have_Two_Members()
     {
         // Arrange
-        var crew = Members.CreateSingle(Player.Create(PlayerId, "Rowan"), 4);
+        var members = PlayerCollection.CreateWithSingle(Player.Create(PlayerId, "Rowan"), 4);
 
-        var crewPartyQueries = new CrewQueryRepositoryMock(CrewPartyId, CrewPartyCreator(crew), true);
+        var crew = InitializeCrew(members);
+        var crewPartyQueries = new CrewQueryRepositoryMock(crew, true);
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
 
         var playerQueriesValidationMock = new PlayerQueryRepositoryValidationMock(PlayerId, "Rowan");
@@ -67,17 +68,18 @@ public class CrewJoinerTest
 
         // Act & Assert 
         await ExecuteAndAssertException<PlayerMultipleCrewsException>(
-            () => playerPartyJoiner.Join(PlayerId, CrewPartyId));
+            () => playerPartyJoiner.Join(PlayerId, crew.Id));
 
         // Assert
         MembersShouldBeNull(crewPartyCommandsMock);
     }
 
     [Fact]
-    public async Task Attempt_To_Join_To_Party_With_Player_Does_Not_Exist()
+    public async Task Attempt_To_Join_A_Party_By_Non_Existing_Player()
     {
         // Arrange
-        var crewPartyQueries = new CrewQueryRepositoryMock(CrewPartyId, CrewPartyCreator(Members.CreateEmpty(4)));
+        var crew = InitializeCrew(PlayerCollection.CreateEmpty(4));
+        var crewPartyQueries = new CrewQueryRepositoryMock(crew);
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
 
         var playerPartyJoiner = CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommandsMock,
@@ -85,7 +87,7 @@ public class CrewJoinerTest
 
         // Act & Assert 
         await ExecuteAndAssertException<PlayerNotFoundException>(
-            () => playerPartyJoiner.Join("412412", CrewPartyId));
+            () => playerPartyJoiner.Join("412412", crew.Id));
 
         // Assert
         MembersShouldBeNull(crewPartyCommandsMock);
@@ -95,19 +97,19 @@ public class CrewJoinerTest
     public async Task Join_To_Party_Successfully()
     {
         // Arrange
-        var crewPartyCreator = CrewPartyCreator(Members.CreateEmpty(4));
-        var crewPartyQueries = new CrewQueryRepositoryMock(CrewPartyId, crewPartyCreator);
-        var crewPartyCommands = new CrewCommandRepositoryMock(CrewPartyId);
+        var crew = InitializeCrew(PlayerCollection.CreateEmpty(4));
+        var crewPartyQueries = new CrewQueryRepositoryMock(crew);
+        var crewPartyCommands = new CrewCommandRepositoryMock(crew.Id);
         var playerQueriesValidationMock = new PlayerQueryRepositoryValidationMock(PlayerId, "Rowan");
         var playerPartyJoiner =
             CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommands, playerQueriesValidationMock);
 
         // Act
-        await playerPartyJoiner.Join(PlayerId, CrewPartyId);
+        await playerPartyJoiner.Join(PlayerId, crew.Id);
 
         // Assert
         crewPartyCommands.Members.Should().Satisfy(member => member.Id == PlayerId);
-        crewPartyCreator.Members.Count().Should().Be(1);
+        crew.Players.Count().Should().Be(1);
     }
 
     [Fact]
@@ -118,19 +120,19 @@ public class CrewJoinerTest
         const string newMemberId = "NewMemberId";
         const string newMemberName = "NewMemberName";
 
-        var members = Members.CreateSingle(existingMember, 4);
-        var crewPartyCreator = CrewPartyCreator(members);
-        var crewPartyQueries = new CrewQueryRepositoryMock(CrewPartyId, crewPartyCreator);
-        var crewPartyCommands = new CrewCommandRepositoryMock(CrewPartyId);
+        var members = PlayerCollection.CreateWithSingle(existingMember, 4);
+        var crew = InitializeCrew(members);
+        var crewPartyQueries = new CrewQueryRepositoryMock(crew);
+        var crewPartyCommands = new CrewCommandRepositoryMock(crew.Id);
         var playerQueriesValidationMock = new PlayerQueryRepositoryValidationMock(newMemberId, newMemberName);
         var playerPartyJoiner =
             CreatePlayerPartyJoiner(crewPartyQueries, crewPartyCommands, playerQueriesValidationMock);
 
         // Act
-        await playerPartyJoiner.Join(newMemberId, CrewPartyId);
+        await playerPartyJoiner.Join(newMemberId, crew.Id);
 
         // Assert
-        crewPartyCreator.Members.Count().Should().Be(2);
+        crew.Players.Count().Should().Be(2);
     }
 
     private static void MembersShouldBeNull(CrewCommandRepositoryMock crewCommandRepositoryMock)
@@ -138,11 +140,11 @@ public class CrewJoinerTest
         crewCommandRepositoryMock.Members.Should().BeNull();
     }
 
-    private static Crew CrewPartyCreator(Members members)
+    private static Crew InitializeCrew(PlayerCollection playerCollection)
     {
         var crewParty = new Crew(Player.Create("1", "Rowan"), new CrewName("Crew Party of Rowan"),
             new Location("Stanton", "Crusader", "Crusader", "Seraphim Station"), LanguageCollections.Default(),
-            members, Activity.Default());
+            playerCollection, Activity.Default());
 
         return crewParty;
     }

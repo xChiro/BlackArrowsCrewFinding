@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
+using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews.CreateRequests;
 using BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
-using BKA.Tools.CrewFinding.Values;
 
-namespace BKA.Tools.CrewFinding.Tests.Utilities;
+namespace BKA.Tools.CrewFinding.Tests.CrewParties.Creations.Utilities;
 
 public static class CrewCreationExecutioner
 {

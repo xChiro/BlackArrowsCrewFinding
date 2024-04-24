@@ -1,4 +1,4 @@
-using BKA.Tools.CrewFinding.Values;
+using BKA.Tools.CrewFinding.Commons.Values;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts.Values;
 

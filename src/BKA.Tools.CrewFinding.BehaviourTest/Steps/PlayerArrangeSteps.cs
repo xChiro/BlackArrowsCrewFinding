@@ -16,6 +16,8 @@ public class PlayerArrangeSteps
     }
 
     [Given(@"a player named (.*)")]
+    [Given(@"a player named ""(.*)""")]
+    [Given(@"I am a player named ""(.*)""")]
     public void When_givenAPlayerNamed(string userName)
     {
         _playerContext.PlayerId = Guid.NewGuid().ToString();

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
-using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 
@@ -36,8 +36,8 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository
         Activity = crew.Activity;
         Captain = crew.Captain;
         CreationDate = crew.CreationAt;
-        Members = crew.Members;
-        MaxMembersAllowed = crew.Members.MaxAllowed;
+        Members = crew.Players;
+        MaxMembersAllowed = crew.Players.MaxAllowed;
         
         return Task.FromResult(_expectedCrewPartyId);
     }

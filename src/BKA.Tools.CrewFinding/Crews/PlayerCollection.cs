@@ -4,45 +4,45 @@ using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.Crews;
 
-public class Members : IEnumerable<Player>
+public class PlayerCollection : IEnumerable<Player>
 {
     private readonly List<Player> _players;
 
     public int MaxAllowed { get; }
 
-    private Members(List<Player> players, int maxAllowed)
+    private PlayerCollection(List<Player> players, int maxAllowed)
     {
         _players = players;
         MaxAllowed = maxAllowed;
     }
     
-    public static Members Create(IEnumerable<Player> players, int maxAllowed)
+    public static PlayerCollection Create(IEnumerable<Player> players, int maxAllowed)
     {
-        return new Members(players.ToList(), maxAllowed);
+        return new PlayerCollection(players.ToList(), maxAllowed);
     }
 
-    public static Members CreateSingle(Player player, int maxAllowed)
+    public static PlayerCollection CreateWithSingle(Player player, int maxAllowed)
     {
         var members = new List<Player>
         {
             player
         };
 
-        return new Members(members, maxAllowed);
+        return new PlayerCollection(members, maxAllowed);
     }
 
-    public static Members CreateEmpty(int maxAllowed)
+    public static PlayerCollection CreateEmpty(int maxAllowed)
     {
-        return new Members(new List<Player>(), maxAllowed);
+        return new PlayerCollection(new List<Player>(), maxAllowed);
     }
 
-    public void AddMember(Player player)
+    public void Add(Player player)
     {
         if (IsAtCapacity())
             throw new CrewFullException();
         
         if (_players.Any(p => p.Id == player.Id))
-            throw new PlayerMultipleCrewsException();
+            return;
 
         _players.Add(player);
     }

@@ -6,14 +6,12 @@ namespace BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 
 public class CrewQueryRepositoryMock : ICrewQueryRepository
 {
-    private readonly string _expectedCrewPartyId;
-    private readonly Crew? _crewParty;
+    private readonly Crew? _crew;
     private readonly bool _playerInCrew;
 
-    public CrewQueryRepositoryMock(string expectedCrewPartyId = "", Crew? crewParty = null, bool playerInCrew = false)
+    public CrewQueryRepositoryMock(Crew? crew = null, bool playerInCrew = false)
     {
-        _expectedCrewPartyId = expectedCrewPartyId;
-        _crewParty = crewParty;
+        _crew = crew;
         _playerInCrew = playerInCrew;
     }
 
@@ -24,6 +22,6 @@ public class CrewQueryRepositoryMock : ICrewQueryRepository
 
     public Task<Crew?> GetCrew(string crewId)
     {
-        return crewId == _expectedCrewPartyId ? Task.FromResult(_crewParty) : Task.FromResult<Crew?>(null);
+        return Task.FromResult(_crew?.Id == crewId ? _crew : null);
     }
 }

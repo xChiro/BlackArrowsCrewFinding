@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.Values.Exceptions;
+namespace BKA.Tools.CrewFinding.Commons.Values.Exceptions;
 
 public class UserIdInvalidException : Exception
 {

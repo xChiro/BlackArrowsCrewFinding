@@ -1,6 +1,6 @@
+using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Cultures;
-using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps.Assertions;
 

@@ -1,9 +1,9 @@
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts.Values;
+using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.CreateRequests;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
-using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 
@@ -49,7 +49,7 @@ public class CrewContext
             new CrewName("captainName"),
             CrewLocation.ToLocation(),
             LanguageCollections.Default(),
-            Members.CreateEmpty(MaxPlayerAllowed),
-            CrewFinding.Values.Activity.Default());
+            PlayerCollection.CreateEmpty(MaxPlayerAllowed),
+            Commons.Values.Activity.Default());
     }
 }

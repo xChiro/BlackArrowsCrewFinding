@@ -1,10 +1,10 @@
+using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 using BKA.Tools.CrewFinding.Players.Ports;
-using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Crews.CreateRequests;
 
@@ -36,7 +36,7 @@ public class CrewCreator : ICrewCreator
     private Crew InitializeNewCrew(Player captain, CrewCreatorRequest request)
     {
         return new Crew(captain, new CrewName(captain.CitizenName), request.Location,
-            LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), Members.CreateEmpty(_maxCrewAllowed),
+            LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), PlayerCollection.CreateEmpty(_maxCrewAllowed),
             Activity.Create(request.ActivityName, request.Description));
     }
 

@@ -2,7 +2,7 @@ using BKA.Tools.CrewFinding.Crews.CreateRequests;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Tests.CrewParties.Mocks;
 
-namespace BKA.Tools.CrewFinding.Tests.Utilities;
+namespace BKA.Tools.CrewFinding.Tests.CrewParties.Creations.Utilities;
 
 public static class CrewCreatorInitializer
 {

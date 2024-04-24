@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
+using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 using BKA.Tools.CrewFinding.Players;
-using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 
@@ -56,7 +56,7 @@ public class UpdateCrewPartMembersTest : IAsyncLifetime
             new CrewName("Rowan"),
             Location.DefaultLocation(),
             LanguageCollections.Default(),
-            Members.CreateSingle(Player.Create("123412", "Adam"), 1),
+            PlayerCollection.CreateWithSingle(Player.Create("123412", "Adam"), 1),
             Activity.Default());
     }
 

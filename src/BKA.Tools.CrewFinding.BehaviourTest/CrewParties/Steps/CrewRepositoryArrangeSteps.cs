@@ -1,9 +1,9 @@
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
+using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
-using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
 
@@ -29,7 +29,7 @@ public class CrewRepositoryArrangeSteps
                 new CrewName(playerId),
                 Location.DefaultLocation(),
                 LanguageCollections.Default(),
-                Members.CreateEmpty(4),
+                PlayerCollection.CreateEmpty(4),
                 Activity.Default())
         };
 
@@ -47,7 +47,7 @@ public class CrewRepositoryArrangeSteps
     {
         const string playerId = "playerId";
         const string citizenName = "playerName";
-        var members = Members.CreateSingle(Player.Create("3412343", "Rowan"), 1);
+        var members = PlayerCollection.CreateWithSingle(Player.Create("3412343", "Rowan"), 1);
 
         var crews = new Crew[]
         {

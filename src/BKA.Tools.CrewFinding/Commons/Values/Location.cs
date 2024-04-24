@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.Values;
+namespace BKA.Tools.CrewFinding.Commons.Values;
 
 public record Location
 {

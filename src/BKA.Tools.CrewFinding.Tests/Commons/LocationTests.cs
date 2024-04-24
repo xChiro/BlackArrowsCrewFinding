@@ -1,6 +1,6 @@
-using BKA.Tools.CrewFinding.Values;
+using BKA.Tools.CrewFinding.Commons.Values;
 
-namespace BKA.Tools.CrewFinding.Tests;
+namespace BKA.Tools.CrewFinding.Tests.Commons;
 
 public class LocationTests
 {

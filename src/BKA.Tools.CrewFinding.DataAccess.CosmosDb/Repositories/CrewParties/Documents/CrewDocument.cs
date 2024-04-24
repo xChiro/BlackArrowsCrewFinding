@@ -1,8 +1,8 @@
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
+using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
-using BKA.Tools.CrewFinding.Values;
 
 namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
 
@@ -43,13 +43,13 @@ public class CrewDocument
             Id = crew.Id,
             CaptainId = crew.Captain.Id,
             CaptainName = crew.Captain.CitizenName,
-            MaxAllowed = crew.Members.MaxAllowed,
+            MaxAllowed = crew.Players.MaxAllowed,
             CrewName = crew.Name.Value,
             Language = crew.Languages.Select(l => l.LanguageCode).ToArray(),
             ActivityName = crew.Activity.Name,
             ActivityDescription = crew.Activity.Description,
             CreationAt = crew.CreationAt,
-            Crew = crew.Members.Select(PlayerDocument.CreateFromPlayer).ToList(),
+            Crew = crew.Players.Select(PlayerDocument.CreateFromPlayer).ToList(),
             System = crew.ReunionPoint.System,
             PlanetarySystem = crew.ReunionPoint.PlanetarySystem,
             PlanetMoon = crew.ReunionPoint.PlanetMoon,
@@ -69,7 +69,7 @@ public class CrewDocument
             new CrewName(CrewName),
             new Location(System, PlanetarySystem, PlanetMoon, Place),
             LanguageCollections.CreateFromAbbrevs(Language),
-            Members.Create(members, MaxAllowed),
+            PlayerCollection.Create(members, MaxAllowed),
             Activity.Create(ActivityName, ActivityDescription),
             CreationAt);
 

@@ -1,22 +1,31 @@
 Feature: A captain has the ability to disband a Crew.
 
     Scenario: Captain disbands the Crew
-        Given a player named <UserName> is the captain of a Crew named <CrewName>
-        And the Crew has members
-        When <UserName> decides to disband <CrewName>
-        Then the Crew <CrewName> is disbanded
-        And <UserName> receives a confirmation message 'Crew <CrewName> has been successfully disbanded.'
+        Given I am a player named "<UserName>"
+        And I am the captain of an active Crew
+        When I attamp to disband the Crew
+        Then the Crew is disbanded successfully
 
     Examples:
-      | UserName | CrewName       |
-      | Rowan    | The Stellar Hunters |
+      | UserName |
+      | Rowan    |
 
     Scenario: Captain attempts to disband a non-existent Crew
-        Given a player named <UserName> is identified as the captain
-        And no Crew named <CrewName> exists
-        When <UserName> attempts to disband <CrewName>
-        Then the system does not find <CrewName> to disband
+        Given I am a player named "<UserName>"
+        And there is not a Crew
+        When I attamp to disband the Crew
+        Then the systen notifies me that there is no Crew to disband
 
     Examples:
-      | UserName | CrewName     |
-      | Rowan    | The Phantom Fleet |
+      | UserName |
+      | Rowan    |
+
+    Scenario: Captain attempts to disband that is not their own
+        Given I am a player named "<UserName>"
+        And there is an active crew created by another player
+        When I attamp to disband the Crew
+        Then the system does not allow me to disband the Crew
+
+    Examples:
+      | UserName |
+      | Rowan    |

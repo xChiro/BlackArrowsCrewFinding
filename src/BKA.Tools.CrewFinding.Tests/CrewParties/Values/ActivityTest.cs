@@ -1,5 +1,5 @@
-using BKA.Tools.CrewFinding.Values;
-using BKA.Tools.CrewFinding.Values.Exceptions;
+using BKA.Tools.CrewFinding.Commons.Values;
+using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
 
 namespace BKA.Tools.CrewFinding.Tests.CrewParties.Values;
 
