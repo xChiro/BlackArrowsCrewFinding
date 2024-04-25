@@ -11,8 +11,8 @@ public class KeySecretProvider : IKeySecretProvider
         _secretClient = secretClient;
     }
     
-    public async Task<string> GetSecret(string secretName)
+    public string GetSecret(string secretName)
     {
-        return (await _secretClient.GetSecretAsync(secretName)).Value.Value;
+        return _secretClient.GetSecret(secretName).Value.Value;
     }
 }

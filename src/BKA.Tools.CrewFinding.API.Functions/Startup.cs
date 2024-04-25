@@ -17,18 +17,18 @@ namespace BKA.Tools.CrewFinding.API.Functions;
 
 public class Startup : FunctionsStartup
 {
-    public override async void Configure(IFunctionsHostBuilder builder)
+    public override void Configure(IFunctionsHostBuilder builder)
     {
-        var containerBuilder = await CreateContainerBuilder();
+        var containerBuilder = CreateContainerBuilder();
 
         AddRepositories(builder, containerBuilder);
         AddServices(builder);
     }
 
-    private static async Task<ContainerBuilder> CreateContainerBuilder()
+    private static ContainerBuilder CreateContainerBuilder()
     {
         var keySecretsProvider = new KeySecretProviderBuilder(GetEnvironmentVariable("keyVaultEndpoint")).Build();
-        var azureKey = await keySecretsProvider.GetSecret(GetEnvironmentVariable("keyVaultAzureKeyName"));
+        var azureKey = keySecretsProvider.GetSecret(GetEnvironmentVariable("keyVaultAzureKeyName"));
 
         return new ContainerBuilder(GetEnvironmentVariable("cosmosDBEndpoint"), azureKey);
     }
@@ -51,9 +51,9 @@ public class Startup : FunctionsStartup
         builder.Services.AddScoped<ICrewCreator>(
             serviceProvider =>
                 new CrewCreator(
-                    serviceProvider.GetService<ICrewCommandRepository>(),
-                    serviceProvider.GetService<ICrewQueryRepository>(),
-                    serviceProvider.GetService<IPlayerQueryRepository>(),
+                    serviceProvider.GetRequiredService<ICrewCommandRepository>(),
+                    serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+                    serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
                     maxCrewSize));
     }
 

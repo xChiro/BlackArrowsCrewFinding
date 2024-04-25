@@ -29,15 +29,15 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
         return database.GetContainer(containerId);
     }
 
-    private async Task<CosmosClient> CreateCosmosClient()
+    private Task<CosmosClient> CreateCosmosClient()
     {
-        var primaryKey = await _keySecretProvider.GetSecret(GetAzureKeyName());
+        var primaryKey = _keySecretProvider.GetSecret(GetAzureKeyName());
         var serializerOptions = new CustomCosmosSerializer(new JsonSerializerOptions
             {PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
 
-        return new CosmosClientBuilder(GetCosmosDbEndpoint(), primaryKey)
+        return Task.FromResult(new CosmosClientBuilder(GetCosmosDbEndpoint(), primaryKey)
             .WithCustomSerializer(serializerOptions)
-            .Build();
+            .Build());
     }
 
     private Database GetDatabase(CosmosClient cosmosClient)
