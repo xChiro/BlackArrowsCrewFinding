@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web.Http;
+using BKA.Tools.CrewFinding.API.Functions.Models;
 using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
 using BKA.Tools.CrewFinding.Crews.CreateRequests;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
@@ -48,16 +49,16 @@ public class CreateCrewFunction
         catch (Exception e) when (e is ActivityDescriptionLengthException or ActivityNameLengthException
                                       or PlayerMultipleCrewsException)
         {
-            return new BadRequestErrorMessageResult(e.Message);
+            return new BadRequestObjectResult(new ErrorMessageResponse(e.Message));
         }
         catch(PlayerNotFoundException e)
         {
-            return new NotFoundObjectResult(new { e.Message });
+            return new NotFoundObjectResult(new ErrorMessageResponse(e.Message));
         }
         catch (Exception ex)
         {
             log.LogError(ex.Message, ex);
-            return new BadRequestResult();
+            return new InternalServerErrorResult();
         }
     }
 }
