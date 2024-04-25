@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Crews.CreateRequests;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Functions;
+namespace BKA.Tools.CrewFinding.API.Functions.Functions.CrewCreations;
 
 public class CrewCreatorResponse : ICrewCreatorResponse
 {

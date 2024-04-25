@@ -7,13 +7,13 @@ using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
 using BKA.Tools.CrewFinding.Crews.CreateRequests;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Players.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Functions;
+namespace BKA.Tools.CrewFinding.API.Functions.Functions.CrewCreations;
 
 public class CreateCrewFunction
 {
