@@ -32,4 +32,9 @@ public class CrewCommandRepository : ICrewCommandRepository
         
         await _container.PatchItemAsync<CrewDocument>(crewPartyId, new PartitionKey(crewPartyId), patchOperations);
     }
+
+    public Task Disband(string crewId)
+    {
+        throw new NotImplementedException();
+    }
 }

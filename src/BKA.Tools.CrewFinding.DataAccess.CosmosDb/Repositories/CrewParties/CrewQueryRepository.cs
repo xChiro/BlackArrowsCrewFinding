@@ -40,4 +40,9 @@ public class CrewQueryRepository : ICrewQueryRepository
             return null;
         }
     }
+
+    public Task<bool> IsActiveCrewOwnedBy(string crewId)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -24,4 +24,9 @@ public class CrewQueryRepositoryMock : ICrewQueryRepositoryMock
     {
         return Task.FromResult(_crews.FirstOrDefault(p => p.Id == crewId));
     }
+
+    public Task<bool> IsActiveCrewOwnedBy(string crewId)
+    {
+        throw new NotImplementedException();
+    }
 }

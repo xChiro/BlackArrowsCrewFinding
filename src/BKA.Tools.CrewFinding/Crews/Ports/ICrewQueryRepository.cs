@@ -5,4 +5,6 @@ public interface ICrewQueryRepository
     public Task<bool> IsPlayerInActiveCrew(string playerId);
     
     public Task<Crew?> GetCrew(string crewId);
+    
+    Task<bool> IsActiveCrewOwnedBy(string crewId);
 }

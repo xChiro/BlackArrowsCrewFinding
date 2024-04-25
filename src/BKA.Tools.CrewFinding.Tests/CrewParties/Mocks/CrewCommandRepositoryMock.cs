@@ -27,6 +27,7 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository
     public IEnumerable<Player>? Members { get; private set; }
     public int MaxMembersAllowed { get; private set; }
     public bool Active { get; set; }
+    public string DisbandedCrewId { get; private set; }
 
     public Task CreateCrew(Crew crew)
     {
@@ -45,6 +46,13 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository
     public Task UpdateMembers(string crewPartyId, IEnumerable<Player> crewPartyMembers)
     {
         Members = crewPartyMembers;
+        
+        return Task.CompletedTask;
+    }
+
+    public Task Disband(string crewId)
+    {
+        DisbandedCrewId = crewId;
         
         return Task.CompletedTask;
     }

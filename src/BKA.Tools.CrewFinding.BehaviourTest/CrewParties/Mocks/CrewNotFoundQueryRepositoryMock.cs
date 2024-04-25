@@ -20,4 +20,9 @@ public class CrewNotFoundQueryRepositoryMock : ICrewQueryRepositoryMock
     {
         return Task.FromResult<Crew?>(null);
     }
+
+    public Task<bool> IsActiveCrewOwnedBy(string crewId)
+    {
+        throw new NotImplementedException();
+    }
 }
