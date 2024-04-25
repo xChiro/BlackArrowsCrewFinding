@@ -39,9 +39,9 @@ public class Startup : FunctionsStartup
         var crewContainer = containerBuilder.Build(databaseId, GetEnvironmentVariable("cosmosDBCrewContainer"));
         var playerContainer = containerBuilder.Build(databaseId, GetEnvironmentVariable("cosmosDBPlayerContainer"));
 
-        builder.Services.AddScoped<ICrewCommandRepository>(_ => new CrewCommandRepository(crewContainer));
-        builder.Services.AddScoped<ICrewQueryRepository>(_ => new CrewQueryRepository(crewContainer));
-        builder.Services.AddScoped<IPlayerQueryRepository>(_ => new PlayerQueries(playerContainer));
+        builder.Services.AddSingleton<ICrewCommandRepository>(_ => new CrewCommandRepository(crewContainer));
+        builder.Services.AddSingleton<ICrewQueryRepository>(_ => new CrewQueryRepository(crewContainer));
+        builder.Services.AddSingleton<IPlayerQueryRepository>(_ => new PlayerQueries(playerContainer));
     }
 
     private static void AddServices(IFunctionsHostBuilder builder)
