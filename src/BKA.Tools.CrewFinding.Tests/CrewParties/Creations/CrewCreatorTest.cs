@@ -43,23 +43,22 @@ public class CrewCreatorTest
         // Assert
         await act.Should().ThrowAsync<PlayerNotFoundException>();
     }
-    
+
     [Fact]
     public async Task Create_Crew_Assigns_Captain_Successfully()
     {
         // Arrange
         const string captainName = "Rowan";
-        const int maxCrewAllowed = 5;
-        
+        const int maxCrewAllowed = 3;
+
         var captainId = Guid.NewGuid().ToString();
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
 
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock,
-            maxCrewAllowed: maxCrewAllowed,
             captainName: captainName);
 
         // Act
-        await ExecuteCrewCreation(sut, captainId);
+        await ExecuteCrewCreation(sut, captainId, maxCrewAllowed);
 
         // Assert
         createCrewPartyResultMock.Captain.Should().NotBeNull();
@@ -103,9 +102,26 @@ public class CrewCreatorTest
         crewPartyCreatorResponseMock.Id.Should().NotBeNullOrEmpty();
     }
 
-    private static async Task ExecuteCrewCreation(ICrewCreator sut, string captainId)
+    [Fact]
+    public async Task Create_Crew_With_Max_Crew_Size_Allowed_Then_Crew_Is_Created_With_Max_Crew_Allowed_By_System()
     {
-        await ExecuteCrewCreation(sut, captainId, 4, string.Empty, new CrewCreatorResponseMock());
+        // Arrange
+        var captainId = Guid.NewGuid().ToString();
+        const int maxCrewAllowed = 5;
+        var createCrewPartyResultMock = new CrewCommandRepositoryMock();
+        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock,
+            maxPlayersAllowed: maxCrewAllowed);
+        
+        // Act
+        await ExecuteCrewCreation(sut, captainId, 10);
+
+        // Assert
+        createCrewPartyResultMock.MaxMembersAllowed.Should().Be(maxCrewAllowed);
+    }
+
+    private static async Task ExecuteCrewCreation(ICrewCreator sut, string captainId, int totalCrew = 4)
+    {
+        await ExecuteCrewCreation(sut, captainId, totalCrew, string.Empty, new CrewCreatorResponseMock());
     }
 
     private static async Task ExecuteCrewCreation(ICrewCreator sut, string captainId, int totalCrew,

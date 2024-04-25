@@ -43,7 +43,7 @@ public class CrewActSteps
     [When(@"the player attempts to create a Crew with missing MaxCrewSize")]
     public Task WhenThePlayerAttemptsToCreateACrewWithMissingMaxCrewSize()
     {
-        return CreateAndStoreCrew(CrewFactory.CreateCrew(_playerContext.PlayerId, 0));
+        return CreateAndStoreCrew(CrewFactory.CreateCrew(_playerContext.PlayerId, _crewContext.MaxPlayerAllowed));
     }
 
     [When(@"the player attempts to create a Crew with missing languages")]
@@ -76,8 +76,8 @@ public class CrewActSteps
     {
         var crewPartyCreator = new CrewCreator(_crewRepositoriesContext.CrewCommandRepositoryMock,
             _crewRepositoriesContext.CrewQueryRepositoryMocks,
-            _crewContext.MaxPlayerAllowed,
-            _playerRepositoryContext.PlayerQueryRepositoryMock);
+            _playerRepositoryContext.PlayerQueryRepositoryMock,
+            10);
 
         await crewPartyCreator.Create(crewCreatorRequest,
             _crewCreationResultsContext.CrewCreatorResponseMock);

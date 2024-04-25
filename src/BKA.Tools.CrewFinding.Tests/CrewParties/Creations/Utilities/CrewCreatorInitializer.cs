@@ -6,11 +6,11 @@ namespace BKA.Tools.CrewFinding.Tests.CrewParties.Creations.Utilities;
 
 public static class CrewCreatorInitializer
 {
-    public static ICrewCreator InitializeCrewPartyCreator(ICrewCommandRepository crewCommandRepository,
-        int maxCrewAllowed = 4, bool hasCreatedParty = false, string captainName = "Captain")
+    public static ICrewCreator InitializeCrewPartyCreator(ICrewCommandRepository crewCommandRepository,        
+        bool hasCreatedParty = false, string captainName = "Captain", int maxPlayersAllowed = 4)
     {
-        var sut = new CrewCreator(crewCommandRepository, new CrewQueryRepositoryMock(playerInCrew: hasCreatedParty), maxCrewAllowed,
-            new PlayerQueryRepositoryAlwaysValidMock(captainName));
+        var sut = new CrewCreator(crewCommandRepository, new CrewQueryRepositoryMock(playerInCrew: hasCreatedParty),
+            new PlayerQueryRepositoryAlwaysValidMock(captainName), maxPlayersAllowed);
 
         return sut;
     }
@@ -18,7 +18,8 @@ public static class CrewCreatorInitializer
     public static ICrewCreator InitializeCrewPartyCreator(ICrewCommandRepository crewCommandRepository,
         PlayerQueryRepositoryValidationMock playerQueryRepositoryValidationMock)
     {
-        var sut = new CrewCreator(crewCommandRepository, new CrewQueryRepositoryMock(), 4, playerQueryRepositoryValidationMock);
+        var sut = new CrewCreator(crewCommandRepository, new CrewQueryRepositoryMock(),
+            playerQueryRepositoryValidationMock, 4);
 
         return sut;
     }

@@ -10,16 +10,16 @@ namespace BKA.Tools.CrewFinding.Crews.CreateRequests;
 
 public class CrewCreator : ICrewCreator
 {
-    private readonly int _maxCrewAllowed;
     private readonly IPlayerQueryRepository _playerQueryRepository;
     private readonly ICrewCommandRepository _commandRepository;
     private readonly ICrewQueryRepository _crewQueryRepository;
+    private readonly int _maxPlayersAllowed;
 
-    public CrewCreator(ICrewCommandRepository commandRepository, ICrewQueryRepository crewQueryRepository, int maxCrewAllowed,
-        IPlayerQueryRepository playerQueryRepository)
+    public CrewCreator(ICrewCommandRepository commandRepository, ICrewQueryRepository crewQueryRepository,
+        IPlayerQueryRepository playerQueryRepository, int maxPlayersAllowed)
     {
-        _maxCrewAllowed = maxCrewAllowed;
         _playerQueryRepository = playerQueryRepository;
+        _maxPlayersAllowed = maxPlayersAllowed;
         _commandRepository = commandRepository;
         _crewQueryRepository = crewQueryRepository;
     }
@@ -35,8 +35,11 @@ public class CrewCreator : ICrewCreator
 
     private Crew InitializeNewCrew(Player captain, CrewCreatorRequest request)
     {
+        var maxPlayersAllowed = request.TotalCrew > _maxPlayersAllowed ? _maxPlayersAllowed : request.TotalCrew;
+        
         return new Crew(captain, new CrewName(captain.CitizenName), request.Location,
-            LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), PlayerCollection.CreateEmpty(_maxCrewAllowed),
+            LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), 
+            PlayerCollection.CreateEmpty(maxPlayersAllowed),
             Activity.Create(request.ActivityName, request.Description));
     }
 
