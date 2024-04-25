@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Ports;
 
@@ -11,14 +12,20 @@ public class PlayerQueries : IPlayerQueryRepository
     {
         _container = container;
     }
-    
-    public Task<bool> PlayerAlreadyInACrew(string captainId)
-    {
-        throw new NotImplementedException();
-    }
 
-    public Task<Player?> GetPlayer(string playerId)
+    public async Task<Player?> GetPlayer(string playerId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var playerDocument = await _container.ReadItemAsync<PlayerDocument>(playerId, new PartitionKey(playerId));
+
+            return playerDocument.StatusCode == System.Net.HttpStatusCode.NotFound
+                ? null
+                : playerDocument.Resource.ToPlayer();
+        }
+        catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return null;
+        }
     }
 }

@@ -59,6 +59,8 @@ public class Startup
             databaseSettingsProvider);
 
         var crewContainer = databaseSettingsProvider.GetCrewContainer();
+        var playerContainer = databaseSettingsProvider.GetPlayerContainer();
+        
         services.AddTransient<ICrewCommandRepository>(_ =>
             new CrewCommandRepository(crewContainer));
 
@@ -67,5 +69,8 @@ public class Startup
         
         services.AddTransient<ICrewQueryRepository>(_ =>
             new CrewQueryRepository(crewContainer));
+        
+        services.AddTransient<IPlayerQueryRepository>(_ =>
+            new PlayerQueries(playerContainer));
     }
 }
