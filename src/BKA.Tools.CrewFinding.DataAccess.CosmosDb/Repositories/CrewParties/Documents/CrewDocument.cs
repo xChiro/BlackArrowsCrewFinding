@@ -43,7 +43,7 @@ public class CrewDocument
             Id = crew.Id,
             CaptainId = crew.Captain.Id,
             CaptainName = crew.Captain.CitizenName,
-            MaxAllowed = crew.Players.MaxAllowed,
+            MaxAllowed = crew.Players.MaxSize,
             CrewName = crew.Name.Value,
             Language = crew.Languages.Select(l => l.LanguageCode).ToArray(),
             ActivityName = crew.Activity.Name,

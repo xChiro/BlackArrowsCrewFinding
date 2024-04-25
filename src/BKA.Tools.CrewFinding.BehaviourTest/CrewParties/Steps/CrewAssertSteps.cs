@@ -37,7 +37,7 @@ public class CrewAssertSteps
         crew.ReunionPoint.PlanetMoon.Should().Be(table.Rows[0]["Planet/Moon"]);
         crew.ReunionPoint.PlanetarySystem.Should().Be(table.Rows[0]["PlanetarySystem"]);
         crew.ReunionPoint.System.Should().Be(table.Rows[0]["System"]);
-        crew.Players.MaxAllowed.Should().Be(int.Parse(table.Rows[0]["CrewSize"]));
+        crew.Players.MaxSize.Should().Be(int.Parse(table.Rows[0]["CrewSize"]));
         
         var expectation = table.Rows[0]["Languages"].Split(',').Select(x => x.Trim()).ToList();
         crew.Languages.Select(language => language.LanguageCode).Should().BeEquivalentTo(expectation);
@@ -65,7 +65,7 @@ public class CrewAssertSteps
     {
         var expected = int.Parse(defaultMaxCrewSize);
         
-        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew()!.Players.MaxAllowed.Should().Be(expected);
+        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew()!.Players.MaxSize.Should().Be(expected);
     }
 
     [Then(@"the creation of the new Crew is prevented")]

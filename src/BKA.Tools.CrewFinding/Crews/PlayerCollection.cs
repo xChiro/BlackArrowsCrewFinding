@@ -8,12 +8,12 @@ public class PlayerCollection : IEnumerable<Player>
 {
     private readonly List<Player> _players;
 
-    public int MaxAllowed { get; }
+    public int MaxSize { get; }
 
-    private PlayerCollection(List<Player> players, int maxAllowed)
+    private PlayerCollection(List<Player> players, int maxSize)
     {
         _players = players;
-        MaxAllowed = maxAllowed;
+        MaxSize = maxSize;
     }
     
     public static PlayerCollection Create(IEnumerable<Player> players, int maxAllowed)
@@ -49,7 +49,7 @@ public class PlayerCollection : IEnumerable<Player>
 
     private bool IsAtCapacity()
     {
-        return _players.Count == MaxAllowed;
+        return _players.Count == MaxSize;
     }
 
     public IEnumerator<Player> GetEnumerator()

@@ -1,13 +1,12 @@
-using System.Threading.Tasks;
 using Azure.Security.KeyVault.Secrets;
 
-namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings.KeyVault;
+namespace BKA.Tools.CrewFinding.KeyVault;
 
-public class KeySecretsProvider : IKeySecretsProvider
+public class KeySecretProvider : IKeySecretProvider
 {
     private readonly SecretClient _secretClient;
 
-    public KeySecretsProvider(SecretClient secretClient)
+    public KeySecretProvider(SecretClient secretClient)
     {
         _secretClient = secretClient;
     }

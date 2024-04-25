@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BKA.Tools.CrewFinding.DataAccess.CosmosDb\BKA.Tools.CrewFinding.DataAccess.CosmosDb.csproj" />
+      <ProjectReference Include="..\BKA.Tools.CrewFinding.KeyVault\BKA.Tools.CrewFinding.KeyVault.csproj" />
     </ItemGroup>
 
     <ItemGroup>

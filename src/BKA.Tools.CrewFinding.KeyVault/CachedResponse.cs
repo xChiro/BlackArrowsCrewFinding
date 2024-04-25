@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
 
-namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings.KeyVault;
+namespace BKA.Tools.CrewFinding.KeyVault;
 
 internal class CachedResponse : Response
 {

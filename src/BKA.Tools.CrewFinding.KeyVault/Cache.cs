@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Azure;
 
-namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings.KeyVault;
+namespace BKA.Tools.CrewFinding.KeyVault;
 
 internal class Cache : IDisposable
 {

@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase;
+using BKA.Tools.CrewFinding.KeyVault;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Configuration;
 
@@ -9,36 +10,28 @@ namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
 {
     private readonly IConfigurationRoot _configurationRoot;
-    private readonly IKeySecretsProvider _keySecretsProvider;
+    private readonly IKeySecretProvider _keySecretProvider;
 
-    public DatabaseSettingsProvider(IKeySecretsProvider keySecretsProvider, IConfigurationRoot configurationRoot)
+    public DatabaseSettingsProvider(IKeySecretProvider keySecretProvider, IConfigurationRoot configurationRoot)
     {
-        _keySecretsProvider = keySecretsProvider;
+        _keySecretProvider = keySecretProvider;
         _configurationRoot = configurationRoot;
     }
 
-    public Container GetCrewContainer() => BuildCrewPartyContainer().GetAwaiter().GetResult();
-    public Container GetPlayerContainer() => BuildPlayerContainer().GetAwaiter().GetResult();
+    public Container GetCrewContainer() => BuildContainer(GetCrewPartiesContainerName()).GetAwaiter().GetResult();
+    public Container GetPlayerContainer() => BuildContainer(GetPlayerContainerName()).GetAwaiter().GetResult();
 
-    private async Task<Container> BuildPlayerContainer()
+    private async Task<Container> BuildContainer(string containerId)
     {
         var cosmosClient = await CreateCosmosClient();
         var database = GetDatabase(cosmosClient);
         
-        return database.GetContainer(GetPlayerContainerName());
-    }
-
-    private async Task<Container> BuildCrewPartyContainer()
-    {
-        var cosmosClient = await CreateCosmosClient();
-        var database = GetDatabase(cosmosClient);
-        
-        return database.GetContainer(GetCrewPartiesContainerName());
+        return database.GetContainer(containerId);
     }
 
     private async Task<CosmosClient> CreateCosmosClient()
     {
-        var primaryKey = await _keySecretsProvider.GetSecret(GetAzureKeyName());
+        var primaryKey = await _keySecretProvider.GetSecret(GetAzureKeyName());
         var serializerOptions = new CustomCosmosSerializer(new JsonSerializerOptions
             {PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
 
@@ -54,7 +47,7 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
 
     private string GetAzureKeyName()
     {
-        return _configurationRoot["cosmosDB:azureKeyName"] ?? string.Empty;
+        return _configurationRoot["keyVault:azureKeyName"] ?? string.Empty;
     }
 
     private string GetCosmosDbEndpoint()
@@ -69,7 +62,7 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
 
     private string GetCrewPartiesContainerName()
     {
-        return _configurationRoot["cosmosDB:crewPartyContainer"] ?? string.Empty;
+        return _configurationRoot["cosmosDB:crewContainer"] ?? string.Empty;
     }
     
     private string GetPlayerContainerName()

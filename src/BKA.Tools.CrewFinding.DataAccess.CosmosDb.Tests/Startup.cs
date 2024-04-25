@@ -6,7 +6,7 @@ using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
-using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings.KeyVault;
+using BKA.Tools.CrewFinding.KeyVault;
 using BKA.Tools.CrewFinding.Players.Ports;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +33,7 @@ public class Startup
             .Build();
     }
 
-    private static KeySecretsProvider CreateKeySecretsProvider(IConfigurationRoot config)
+    private static KeySecretProvider CreateKeySecretsProvider(IConfigurationRoot config)
     {
         var secretClientOptions = new SecretClientOptions();
         secretClientOptions.AddPolicy(new KeyVaultProxyPolicy(), HttpPipelinePosition.PerCall);
@@ -41,14 +41,14 @@ public class Startup
             new DefaultAzureCredential(),
             secretClientOptions);
 
-        return new KeySecretsProvider(secretClient);
+        return new KeySecretProvider(secretClient);
     }
 
     private static DatabaseSettingsProvider CreateDatabaseSettingsProvider(
-        IKeySecretsProvider keySecretsProvider,
+        IKeySecretProvider keySecretProvider,
         IConfigurationRoot config)
     {
-        return new DatabaseSettingsProvider(keySecretsProvider, config);
+        return new DatabaseSettingsProvider(keySecretProvider, config);
     }
 
     private static void RegisterDependencies(

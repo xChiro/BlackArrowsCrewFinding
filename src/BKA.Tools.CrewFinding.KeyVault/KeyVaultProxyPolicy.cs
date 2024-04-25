@@ -1,9 +1,7 @@
-using System;
-using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
 
-namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings.KeyVault;
+namespace BKA.Tools.CrewFinding.KeyVault;
 
 public class KeyVaultProxyPolicy : HttpPipelinePolicy, IDisposable
 {

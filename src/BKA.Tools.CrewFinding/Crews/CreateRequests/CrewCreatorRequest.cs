@@ -4,7 +4,7 @@ namespace BKA.Tools.CrewFinding.Crews.CreateRequests;
 
 public record CrewCreatorRequest(
     string CaptainId,
-    int TotalCrew,
+    int CrewSize,
     Location Location,
     string[] LanguagesAbbrevs,
     string ActivityName,

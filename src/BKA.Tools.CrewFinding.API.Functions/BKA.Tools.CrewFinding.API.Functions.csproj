@@ -4,6 +4,7 @@
         <AzureFunctionsVersion>v4</AzureFunctionsVersion>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="Azure.Identity" Version="1.11.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
         <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.2.0"/>
     </ItemGroup>
@@ -17,6 +18,8 @@
         </None>
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\BKA.Tools.CrewFinding.DataAccess.CosmosDb\BKA.Tools.CrewFinding.DataAccess.CosmosDb.csproj" />
+      <ProjectReference Include="..\BKA.Tools.CrewFinding.KeyVault\BKA.Tools.CrewFinding.KeyVault.csproj" />
       <ProjectReference Include="..\BKA.Tools.CrewFinding\BKA.Tools.CrewFinding.csproj" />
     </ItemGroup>
 </Project>

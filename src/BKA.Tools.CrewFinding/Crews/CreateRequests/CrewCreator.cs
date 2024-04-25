@@ -35,7 +35,7 @@ public class CrewCreator : ICrewCreator
 
     private Crew InitializeNewCrew(Player captain, CrewCreatorRequest request)
     {
-        var maxPlayersAllowed = request.TotalCrew > _maxPlayersAllowed ? _maxPlayersAllowed : request.TotalCrew;
+        var maxPlayersAllowed = request.CrewSize > _maxPlayersAllowed ? _maxPlayersAllowed : request.CrewSize;
         
         return new Crew(captain, new CrewName(captain.CitizenName), request.Location,
             LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), 

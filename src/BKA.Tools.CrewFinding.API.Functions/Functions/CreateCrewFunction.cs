@@ -1,5 +1,8 @@
 using System;
+using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
+using BKA.Tools.CrewFinding.Crews.CreateRequests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -10,8 +13,11 @@ namespace BKA.Tools.CrewFinding.API.Functions.Functions;
 
 public class CreateCrewFunction
 {
-    public CreateCrewFunction()
+    private readonly ICrewCreator _crewCreator;
+
+    public CreateCrewFunction(ICrewCreator crewCreator)
     {
+        _crewCreator = crewCreator;
     }
 
     [FunctionName("CreateCrewFunction")]
@@ -20,7 +26,19 @@ public class CreateCrewFunction
     {
         try
         {
-            return new OkResult();
+            const string userId = "1ASD34-344SDF"; // This should be the authenticated user id
+            
+            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var crewFunctionRequest = JsonSerializer.Deserialize<CreateCrewFunctionRequest>(requestBody);
+
+            var crewCreatorResponse = new CrewCreatorResponse();
+
+            await _crewCreator.Create(crewFunctionRequest.ToCrewCreatorRequest(userId), crewCreatorResponse);
+            
+            return new OkObjectResult(new
+            {
+                crewCreatorResponse.CrewId
+            });
         }
         catch (Exception e)
         {

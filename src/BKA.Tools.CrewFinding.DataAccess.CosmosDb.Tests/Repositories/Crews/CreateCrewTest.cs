@@ -91,7 +91,7 @@ public class CreateCrewTest : IAsyncLifetime
     private static void ValidateCrewCapacity(Crew crew, Response<CrewDocument> crewPartyResponse)
     {
         crewPartyResponse.Resource.Crew.Count.Should().Be(crew.Players.Count());
-        crewPartyResponse.Resource.MaxAllowed.Should().Be(crew.Players.MaxAllowed);
+        crewPartyResponse.Resource.MaxAllowed.Should().Be(crew.Players.MaxSize);
     }
 
     public Task DisposeAsync()
