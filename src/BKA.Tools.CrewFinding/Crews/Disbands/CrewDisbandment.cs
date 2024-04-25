@@ -10,8 +10,8 @@ public class CrewDisbandment : ICrewDisbandment
     private readonly ICrewCommandRepository _crewCommandRepository;
     private readonly IUserSession _userSession;
 
-    public CrewDisbandment(ICrewQueryRepository crewQueryRepository,
-        ICrewCommandRepository crewCommandRepository, IUserSession userSession)
+    public CrewDisbandment(ICrewQueryRepository crewQueryRepository, ICrewCommandRepository crewCommandRepository,
+        IUserSession userSession)
     {
         _crewQueryRepository = crewQueryRepository;
         _crewCommandRepository = crewCommandRepository;
@@ -20,12 +20,23 @@ public class CrewDisbandment : ICrewDisbandment
 
     public async Task Disband(string crewId)
     {
-        var userId = _userSession.GetUserId();
-        var isActiveCrewOwnedByUser = await _crewQueryRepository.IsActiveCrewOwnedBy(userId);
+        var userId = GetUserIdFromSession();
+        await CheckIfActiveCrewOwnedByUser(userId);
 
+        await _crewCommandRepository.Disband(crewId);
+    }
+
+    private string GetUserIdFromSession()
+    {
+        var userId = _userSession.GetUserId();
+        return userId;
+    }
+
+    private async Task CheckIfActiveCrewOwnedByUser(string userId)
+    {
+        var isActiveCrewOwnedByUser = await _crewQueryRepository.IsActiveCrewOwnedBy(userId);
+        
         if (!isActiveCrewOwnedByUser)
             throw new CrewDisbandException();
-        
-        await _crewCommandRepository.Disband(crewId);
     }
 }
