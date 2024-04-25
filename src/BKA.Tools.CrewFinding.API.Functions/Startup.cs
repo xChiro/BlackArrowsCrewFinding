@@ -9,7 +9,6 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.KeyVault;
 using BKA.Tools.CrewFinding.Players.Ports;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 [assembly: FunctionsStartup(typeof(Startup))]
@@ -20,36 +19,34 @@ public class Startup : FunctionsStartup
 {
     public override async void Configure(IFunctionsHostBuilder builder)
     {
-        var config = builder.GetContext().Configuration;
-        var containerBuilder = await CreateContainerBuilder(config);
+        var containerBuilder = await CreateContainerBuilder();
 
-        AddRepositories(builder, containerBuilder, config);
-        AddServices(builder, config);
+        AddRepositories(builder, containerBuilder);
+        AddServices(builder);
     }
 
-    private static async Task<ContainerBuilder> CreateContainerBuilder(IConfiguration config)
+    private static async Task<ContainerBuilder> CreateContainerBuilder()
     {
-        var keySecretsProvider = new KeySecretProviderBuilder(config["KeyVault:endpoint"]).Build();
-        var azureKey = await keySecretsProvider.GetSecret(config["KeyVault:azureKeyName"]);
+        var keySecretsProvider = new KeySecretProviderBuilder(GetEnvironmentVariable("keyVaultEndpoint")).Build();
+        var azureKey = await keySecretsProvider.GetSecret(GetEnvironmentVariable("keyVaultAzureKeyName"));
 
-        return new ContainerBuilder(config["cosmosDB:endpoint"], azureKey);
+        return new ContainerBuilder(GetEnvironmentVariable("cosmosDBEndpoint"), azureKey);
     }
 
-    private static void AddRepositories(IFunctionsHostBuilder builder, ContainerBuilder containerBuilder,
-        IConfiguration config)
+    private static void AddRepositories(IFunctionsHostBuilder builder, ContainerBuilder containerBuilder)
     {
-        var databaseId = config["cosmosDB:database"];
-        var crewContainer = containerBuilder.Build(databaseId, config["cosmosDB:crewContainer"]);
-        var playerContainer = containerBuilder.Build(databaseId, config["cosmosDB:playerContainer"]);
+        var databaseId = GetEnvironmentVariable("cosmosDBDatabase");
+        var crewContainer = containerBuilder.Build(databaseId, GetEnvironmentVariable("cosmosDBCrewContainer"));
+        var playerContainer = containerBuilder.Build(databaseId, GetEnvironmentVariable("cosmosDBPlayerContainer"));
 
         builder.Services.AddScoped<ICrewCommandRepository>(_ => new CrewCommandRepository(crewContainer));
         builder.Services.AddScoped<ICrewQueryRepository>(_ => new CrewQueryRepository(crewContainer));
         builder.Services.AddScoped<IPlayerQueryRepository>(_ => new PlayerQueries(playerContainer));
     }
 
-    private static void AddServices(IFunctionsHostBuilder builder, IConfiguration config)
+    private static void AddServices(IFunctionsHostBuilder builder)
     {
-        var maxCrewSize = Convert.ToInt32(config["maxCrewSize"]);
+        var maxCrewSize = Convert.ToInt32(GetEnvironmentVariable("maxCrewSize"));
 
         builder.Services.AddScoped<ICrewCreator>(
             serviceProvider =>
@@ -58,5 +55,10 @@ public class Startup : FunctionsStartup
                     serviceProvider.GetService<ICrewQueryRepository>(),
                     serviceProvider.GetService<IPlayerQueryRepository>(),
                     maxCrewSize));
+    }
+
+    private static string GetEnvironmentVariable(string name)
+    {
+        return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process) ?? string.Empty;
     }
 }
