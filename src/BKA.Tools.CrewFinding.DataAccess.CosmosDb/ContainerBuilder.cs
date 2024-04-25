@@ -1,3 +1,6 @@
+using System.Text.Json;
+using Microsoft.Azure.Cosmos.Fluent;
+
 namespace BKA.Tools.CrewFinding.Azure.DataBase;
 
 public class ContainerBuilder
@@ -13,9 +16,19 @@ public class ContainerBuilder
     
     public Container Build(string databaseId, string containerId)
     {
-        var cosmosClient = new CosmosClient(_endPoint, _key);
+        var cosmosClient = CreateCosmosClient();
         var database = cosmosClient.GetDatabase(databaseId);
         
         return database.GetContainer(containerId);
+    }
+    
+    private CosmosClient CreateCosmosClient()
+    {
+        var serializerOptions = new CustomCosmosSerializer(new JsonSerializerOptions
+            {PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
+
+        return new CosmosClientBuilder(_endPoint, _key)
+            .WithCustomSerializer(serializerOptions)
+            .Build();
     }
 }

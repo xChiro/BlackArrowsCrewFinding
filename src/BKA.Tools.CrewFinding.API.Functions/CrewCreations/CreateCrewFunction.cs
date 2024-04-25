@@ -1,8 +1,7 @@
 using System;
-using System.IO;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web.Http;
+using BKA.Tools.CrewFinding.API.Functions.Authentications;
 using BKA.Tools.CrewFinding.API.Functions.Models;
 using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
 using BKA.Tools.CrewFinding.Crews.CreateRequests;
@@ -14,9 +13,9 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Functions.CrewCreations;
+namespace BKA.Tools.CrewFinding.API.Functions.CrewCreations;
 
-public class CreateCrewFunction
+public class CreateCrewFunction : FunctionBase
 {
     private readonly ICrewCreator _crewCreator;
 
@@ -32,14 +31,12 @@ public class CreateCrewFunction
     {
         try
         {
-            const string userId = "1ASD34-344SDF"; // This should be the authenticated user id
-
-            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var crewFunctionRequest = JsonSerializer.Deserialize<CreateCrewFunctionRequest>(requestBody);
+            var tokenDecoder = new TokenDecoder(req);
+            var crewFunctionRequest = await DeserializeBody<CreateCrewFunctionRequest>(req);
 
             var crewCreatorResponse = new CrewCreatorResponse();
 
-            await _crewCreator.Create(crewFunctionRequest.ToCrewCreatorRequest(userId), crewCreatorResponse);
+            await _crewCreator.Create(crewFunctionRequest.ToCrewCreatorRequest(tokenDecoder.GetUserId()), crewCreatorResponse);
 
             return new OkObjectResult(new
             {

@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews.CreateRequests;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Functions.CrewCreations;
+namespace BKA.Tools.CrewFinding.API.Functions.CrewCreations;
 
 public class CreateCrewFunctionRequest
 {
