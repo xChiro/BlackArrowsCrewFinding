@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
 using BKA.Tools.CrewFinding.Crews.Ports;
@@ -30,11 +31,28 @@ public class IsPlayerInActiveCrewTest : IAsyncLifetime
     public async Task Player_Is_In_Active_Crew()
     {
         // Arrange
-        const string playerId = "playerId";
+        var playerId = Guid.NewGuid().ToString();
         var crew = CrewBuilder.CreateDefaultCrew(4);
         crew.AddMember(Player.Create(playerId, "Allan"));
 
         await _crewContainer.CreateItemAsync(CrewDocument.CreateFromCrew(crew));
+        _crewIdToBeDeleted = crew.Id;
+
+        // Act
+        var isPlayerInActiveCrew = await _crewQueryRepository.IsPlayerInActiveCrew(playerId);
+
+        // Assert
+        isPlayerInActiveCrew.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task Player_Is_Captain_In_Active_Crew()
+    {
+        // Arrange
+        var playerId = Guid.NewGuid().ToString();
+        var crew = CrewBuilder.CreateDefaultCrew(4, playerId);
+        await _crewContainer!.CreateItemAsync(CrewDocument.CreateFromCrew(crew));
+        
         _crewIdToBeDeleted = crew.Id;
 
         // Act

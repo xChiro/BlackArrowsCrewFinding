@@ -15,7 +15,8 @@ public class CrewQueryRepository : ICrewQueryRepository
 
     public Task<bool> IsPlayerInActiveCrew(string playerId)
     {
-        const string queryString = "SELECT c.id FROM c JOIN m IN c.crew WHERE m.id = @playerId";
+        const string queryString =
+            "SELECT c.id FROM c WHERE c.captainId = @playerId OR ARRAY_CONTAINS(c.crew, { 'id': @playerId }, true)";
 
         var queryDefinition = new QueryDefinition(queryString)
             .WithParameter("@playerId", playerId);

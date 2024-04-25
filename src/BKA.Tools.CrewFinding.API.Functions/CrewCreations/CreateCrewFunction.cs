@@ -6,6 +6,7 @@ using BKA.Tools.CrewFinding.API.Functions.Models;
 using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
 using BKA.Tools.CrewFinding.Crews.CreateRequests;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
+using BKA.Tools.CrewFinding.Cultures.Exceptions;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,7 @@ public class CreateCrewFunction : FunctionBase
             });
         } 
         catch (Exception e) when (e is ActivityDescriptionLengthException or ActivityNameLengthException
-                                      or PlayerMultipleCrewsException)
+                                      or PlayerMultipleCrewsException or LanguageNameLengthException)
         {
             return new BadRequestObjectResult(new ErrorMessageResponse(e.Message));
         }
