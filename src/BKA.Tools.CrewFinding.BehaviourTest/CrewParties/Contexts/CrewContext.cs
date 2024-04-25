@@ -11,7 +11,7 @@ public class CrewContext
 {
     public CrewOptions Options { get; set; } = new();
     public CrewLocation CrewLocation { get; set; } = new();
-    public CrewActivity Activity { get; set; } = new();
+    public CrewActivity CrewActivity { get; set; } = new();
     public int MaxPlayerAllowed { get; set; } = 4;
 
     public void FillData(Table crewPartyDetails)
@@ -25,7 +25,7 @@ public class CrewContext
         CrewLocation = new CrewLocation(crewPartyDetails.Rows[0]["System"], crewPartyDetails.Rows[0]["PlanetarySystem"],
             crewPartyDetails.Rows[0]["Planet/Moon"], crewPartyDetails.Rows[0]["Place"]);
 
-        Activity = new CrewActivity
+        CrewActivity = new CrewActivity
         {
             Description = crewPartyDetails.Rows[0]["Description"],
             Name = crewPartyDetails.Rows[0]["Activity"]
@@ -37,8 +37,8 @@ public class CrewContext
         var languages = Options.Languages.Split(',').Select(x => x.Trim()).ToArray();
         var location = new Location(CrewLocation.System, CrewLocation.PlanetarySystem, CrewLocation.PlanetOrMoon, CrewLocation.Place);
 
-        return new CrewCreatorRequest(captainName, Options.CrewSize, location, languages.ToArray(), Activity.Name,
-            Activity.Description);
+        return new CrewCreatorRequest(captainName, Options.CrewSize, location, languages.ToArray(), CrewActivity.Name,
+            CrewActivity.Description);
     }
 
     public Crew ToCrew(string captainId, string captainName)
@@ -50,6 +50,6 @@ public class CrewContext
             CrewLocation.ToLocation(),
             LanguageCollections.Default(),
             PlayerCollection.CreateEmpty(MaxPlayerAllowed),
-            Commons.Values.Activity.Default());
+            Activity.Default());
     }
 }

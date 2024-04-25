@@ -6,13 +6,15 @@ public class CrewQueryRepositoryMock : ICrewQueryRepositoryMock
 {
     private readonly Crew[] _crews;
     private readonly bool _playerInCrew;
+    private readonly bool _playerIsOwner;
 
     public IReadOnlyList<Crew> StoredCrews => _crews;
 
-    public CrewQueryRepositoryMock(Crew[] crews, bool playerInCrew = false)
+    public CrewQueryRepositoryMock(Crew[] crews, bool playerInCrew = false, bool playerIsOwner = false)
     {
         _crews = crews;
         _playerInCrew = playerInCrew;
+        _playerIsOwner = playerIsOwner;
     }
 
     public Task<bool> IsPlayerInActiveCrew(string playerId)
@@ -27,6 +29,6 @@ public class CrewQueryRepositoryMock : ICrewQueryRepositoryMock
 
     public Task<bool> IsActiveCrewOwnedBy(string crewId)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(_playerIsOwner);
     }
 }

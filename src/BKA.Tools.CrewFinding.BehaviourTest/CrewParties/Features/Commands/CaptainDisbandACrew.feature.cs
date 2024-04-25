@@ -83,13 +83,12 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Captain disbands the Crew")]
         [Xunit.TraitAttribute("FeatureTitle", "A captain has the ability to disband a Crew.")]
         [Xunit.TraitAttribute("Description", "Captain disbands the Crew")]
-        [Xunit.InlineDataAttribute("Rowan", "The Stellar Hunters", new string[0])]
-        public void CaptainDisbandsTheCrew(string userName, string crewName, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Rowan", new string[0])]
+        public void CaptainDisbandsTheCrew(string userName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
-            argumentsOfScenario.Add("CrewName", crewName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain disbands the Crew", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
     this.ScenarioInitialize(scenarioInfo);
@@ -102,19 +101,16 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             {
                 this.ScenarioStart();
 #line 4
-        testRunner.Given(string.Format("a player named {0} is the captain of a Crew named {1}", userName, crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("I am a player named \"{0}\"", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 5
-        testRunner.And("the Crew has members", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("I am the captain of an active Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 6
-        testRunner.When(string.Format("{0} decides to disband {1}", userName, crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When("I disband the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
-        testRunner.Then(string.Format("the Crew {0} is disbanded", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 8
-        testRunner.And(string.Format("{0} receives a confirmation message \'Crew {1} has been successfully disbanded.\'", userName, crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.Then("the Crew is disbanded successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -123,15 +119,14 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Captain attempts to disband a non-existent Crew")]
         [Xunit.TraitAttribute("FeatureTitle", "A captain has the ability to disband a Crew.")]
         [Xunit.TraitAttribute("Description", "Captain attempts to disband a non-existent Crew")]
-        [Xunit.InlineDataAttribute("Rowan", "The Phantom Fleet", new string[0])]
-        public void CaptainAttemptsToDisbandANon_ExistentCrew(string userName, string crewName, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Rowan", new string[0])]
+        public void CaptainAttemptsToDisbandANon_ExistentCrew(string userName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
-            argumentsOfScenario.Add("CrewName", crewName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain attempts to disband a non-existent Crew", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 14
+#line 13
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -141,17 +136,53 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Commands
             else
             {
                 this.ScenarioStart();
+#line 14
+        testRunner.Given(string.Format("I am a player named \"{0}\"", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 15
-        testRunner.Given(string.Format("a player named {0} is identified as the captain", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.And("there is not a Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 16
-        testRunner.And(string.Format("no Crew named {0} exists", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.When("I attempt to disband the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 17
-        testRunner.When(string.Format("{0} attempts to disband {1}", userName, crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.Then("the system notifies me that there is no Crew to disband", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 18
-        testRunner.Then(string.Format("the system does not find {0} to disband", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableTheoryAttribute(DisplayName="Captain attempts to disband that is not their own")]
+        [Xunit.TraitAttribute("FeatureTitle", "A captain has the ability to disband a Crew.")]
+        [Xunit.TraitAttribute("Description", "Captain attempts to disband that is not their own")]
+        [Xunit.InlineDataAttribute("Rowan", new string[0])]
+        public void CaptainAttemptsToDisbandThatIsNotTheirOwn(string userName, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("UserName", userName);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain attempts to disband that is not their own", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 23
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 24
+        testRunner.Given(string.Format("I am a player named \"{0}\"", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 25
+        testRunner.And("there is an active crew created by another player", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 26
+        testRunner.When("I attempt to disband the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 27
+        testRunner.Then("the system does not allow me to disband the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

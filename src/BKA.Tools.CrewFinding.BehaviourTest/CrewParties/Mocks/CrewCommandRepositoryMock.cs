@@ -9,6 +9,7 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository
     private Crew? _crewPartyCreated;
 
     public Player[] CrewPartyMembers { get; private set; } = Array.Empty<Player>();
+    public string DisbandedCrewId { get; set; } = string.Empty;
 
     public Task CreateCrew(Crew crew)
     {
@@ -26,7 +27,9 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository
 
     public Task Disband(string crewId)
     {
-        throw new NotImplementedException();
+        DisbandedCrewId = crewId;
+
+        return Task.CompletedTask;
     }
 
     public Player? GetCaptain()

@@ -35,4 +35,25 @@ public class CrewArrangeSteps
                 new[] {crew},
                 true);
     }
+
+    [Given(@"I am the captain of an active Crew")]
+    public void GivenIAmTheCaptainOfAnActiveCrew()
+    {
+        var crew = _crewContext.ToCrew(_playerContext.PlayerId, _playerContext.PlayerName);
+        _crewRepositoriesContext.CrewQueryRepositoryMocks =
+            new CrewQueryRepositoryMock(
+                new[] {crew},
+                true,
+                playerIsOwner: true);
+    }
+
+    [Given(@"there is an active crew created by another player")]
+    public void GivenThereIsAnActiveCrewCreatedByAnotherPlayer()
+    {
+        var crew = _crewContext.ToCrew("anotherPlayerId", "anotherPlayerName");
+        _crewRepositoriesContext.CrewQueryRepositoryMocks =
+            new CrewQueryRepositoryMock(
+                new[] {crew},
+                true);
+    }
 }
