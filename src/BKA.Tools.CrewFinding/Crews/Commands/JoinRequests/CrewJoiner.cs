@@ -28,7 +28,7 @@ public class CrewJoiner : ICrewJoiner
         var player = await GetValidPlayer(playerId);
 
         crewParty.AddMember(player);
-        await _crewCommandRepository.UpdateMembers(crewPartyId, crewParty.Players);
+        await _crewCommandRepository.UpdateMembers(crewPartyId, crewParty.Members);
     }
 
     private async Task<Crew> GetValidCrewParty(string crewPartyId)

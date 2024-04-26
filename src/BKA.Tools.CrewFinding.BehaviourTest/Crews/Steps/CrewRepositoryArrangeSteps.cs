@@ -63,4 +63,27 @@ public class CrewRepositoryArrangeSteps
         _crewRepositoriesContext.CrewValidationRepositoryMocks = new CrewValidationRepositoryMock();
         _crewRepositoriesContext.CrewQueryRepositoryMock = new CrewQueryRepositoryMock(crews);
     }
+
+    [Given(@"there is the following crews in the system")]
+    public void GivenThereIsTheFollowingCrewsInTheSystem(Table table)
+    {
+        var crews = table.Rows.Select(row =>
+        {
+            var playerId = Guid.NewGuid().ToString();
+            var playerName = row["CaptainHandle"];
+            var maxCrewSize = int.Parse(row["MaxCrewSize"]);
+            var language = LanguageCollections.Default();
+            
+            var members = PlayerCollection.CreateWithSingle(Player.Create("3412343", "Rowan"), maxCrewSize);
+
+            return new Crew(Player.Create(playerId, playerName),
+                new CrewName(playerId),
+                new Location(row["System"], row["PlanetarySystem"], row["PlanetMoon"], row["Location"]),
+                language,
+                members,
+                Activity.Create(row["Activity"], row["Description"]));
+        }).ToArray();
+
+        _crewRepositoriesContext.CrewQueryRepositoryMock = new CrewQueryRepositoryMock(crews);
+    }
 }

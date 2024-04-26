@@ -1,7 +1,6 @@
-using BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
 using BKA.Tools.CrewFinding.Crews;
 
-namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
+namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
 
 public class CrewQueryRepositoryMock : ICrewQueryRepositryMock
 {
@@ -21,6 +20,6 @@ public class CrewQueryRepositoryMock : ICrewQueryRepositryMock
 
     public Task<Crew[]> GetCrews(DateTime from, DateTime to)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(_crews.Where(p => p.CreatedAt >= from && p.CreatedAt <= to).ToArray());
     }
 }

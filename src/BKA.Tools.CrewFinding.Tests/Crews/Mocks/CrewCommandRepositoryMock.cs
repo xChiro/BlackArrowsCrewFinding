@@ -37,8 +37,8 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository
         Activity = crew.Activity;
         Captain = crew.Captain;
         CreationDate = crew.CreatedAt;
-        Members = crew.Players;
-        MaxMembersAllowed = crew.Players.MaxSize;
+        Members = crew.Members;
+        MaxMembersAllowed = crew.Members.MaxSize;
         
         return Task.FromResult(_expectedCrewPartyId);
     }

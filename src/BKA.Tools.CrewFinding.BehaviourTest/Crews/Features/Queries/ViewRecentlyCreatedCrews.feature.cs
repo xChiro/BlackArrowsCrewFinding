@@ -105,11 +105,9 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
         testRunner.And("the system is configured to get the crews created in the last \"5\" hours", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                            "CrewPartyName",
                             "CaptainHandle",
                             "CreatedAgoHours",
                             "MaxCrewSize",
-                            "Languages",
                             "System",
                             "PlanetarySystem",
                             "PlanetMoon",
@@ -117,11 +115,9 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Description",
                             "Activity"});
                 table3.AddRow(new string[] {
-                            "The Stellar Hunters",
                             "Rowan",
                             "1",
                             "4",
-                            "ES, EN",
                             "Stanton",
                             "Crusader",
                             "Crusader",
@@ -129,11 +125,9 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Elite bounty hunters",
                             "Bounty Hunting"});
                 table3.AddRow(new string[] {
-                            "The Galactic Voyagers",
                             "Ada",
                             "3",
                             "5",
-                            "EN, DE",
                             "Terra",
                             "Sol",
                             "Terra",
@@ -141,11 +135,9 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Space explorers",
                             "Exploration"});
                 table3.AddRow(new string[] {
-                            "The Lunar Marauders",
                             "Kai",
                             "5",
                             "3",
-                            "EN, FR",
                             "Hurston",
                             "Stanton",
                             "Ariel",
@@ -153,11 +145,9 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Lunar miners",
                             "Mining"});
                 table3.AddRow(new string[] {
-                            "The Space Pioneers",
                             "Eve",
                             "6",
                             "6",
-                            "ES, PT",
                             "Stanton",
                             "Crusader",
                             "Crusader",
@@ -171,11 +161,9 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
         testRunner.When("I view the recently created crews", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                            "CrewPartyName",
                             "CaptainHandle",
                             "CreatedAgoHours",
                             "MaxCrewSize",
-                            "Languages",
                             "System",
                             "PlanetarySystem",
                             "PlanetMoon",
@@ -183,11 +171,9 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Description",
                             "Activity"});
                 table4.AddRow(new string[] {
-                            "The Stellar Hunters",
                             "Rowan",
                             "1",
                             "4",
-                            "ES, EN",
                             "Stanton",
                             "Crusader",
                             "Crusader",
@@ -195,11 +181,9 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Elite bounty hunters",
                             "Bounty Hunting"});
                 table4.AddRow(new string[] {
-                            "The Galactic Voyagers",
                             "Ada",
                             "3",
                             "5",
-                            "EN, DE",
                             "Terra",
                             "Sol",
                             "Terra",

@@ -104,7 +104,7 @@ public class CrewJoinerTest
 
         // Assert
         crewPartyCommands.Members.Should().Satisfy(member => member.Id == PlayerId);
-        crew.Players.Count().Should().Be(1);
+        crew.Members.Count().Should().Be(1);
     }
 
     [Fact]
@@ -128,7 +128,7 @@ public class CrewJoinerTest
         // Assert
         crewPartyCommands.Members.Should().Contain(member => member.Id == newMemberId);
         crewPartyCommands.Members.Should().Contain(member => member.CitizenName == newMemberName);
-        crew.Players.Count().Should().Be(2);
+        crew.Members.Count().Should().Be(2);
     }
 
     private static void MembersShouldBeNull(CrewCommandRepositoryMock crewCommandRepositoryMock)

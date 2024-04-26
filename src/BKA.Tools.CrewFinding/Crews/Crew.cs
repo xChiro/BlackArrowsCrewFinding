@@ -7,22 +7,22 @@ namespace BKA.Tools.CrewFinding.Crews;
 public class Crew : Entity
 {
     public Crew(string id, Player captain, CrewName name, Location reunionPoint, LanguageCollections languages,
-        PlayerCollection players, Activity activity, DateTime createdAt)
+        PlayerCollection members, Activity activity, DateTime createdAt)
     {
         Id = id;
-        Players = players;
+        Members = members;
         Name = name;
         ReunionPoint = reunionPoint;
         Languages = languages;
         Activity = activity;
         CreatedAt = createdAt;
         Captain = captain;
-        Players = players;
+        Members = members;
     }
 
     public Crew(Player captain, CrewName name, Location reunionPoint, LanguageCollections languages,
-        PlayerCollection players, Activity activity) : this(Guid.NewGuid().ToString(), captain,
-        name, reunionPoint, languages, players, activity, DateTime.UtcNow)
+        PlayerCollection members, Activity activity) : this(Guid.NewGuid().ToString(), captain,
+        name, reunionPoint, languages, members, activity, DateTime.UtcNow)
     {
     }
 
@@ -34,7 +34,7 @@ public class Crew : Entity
 
     public Activity Activity { get; }
 
-    public PlayerCollection Players { get; }
+    public PlayerCollection Members { get; }
 
     public DateTime CreatedAt { get; }
 
@@ -42,6 +42,6 @@ public class Crew : Entity
 
     public void AddMember(Player player)
     {
-        Players.Add(player);
+        Members.Add(player);
     }
 }
