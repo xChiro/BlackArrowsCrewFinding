@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Helpers;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
-using BKA.Tools.CrewFinding.Crews.CreateRequests;
+using BKA.Tools.CrewFinding.Crews.Commands.CreateRequests;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
 

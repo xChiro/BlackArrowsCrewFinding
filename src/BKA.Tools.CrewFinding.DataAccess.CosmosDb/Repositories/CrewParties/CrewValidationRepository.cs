@@ -42,7 +42,7 @@ public class CrewValidationRepository : ICrewValidationRepository, ICrewQueryRep
         }
     }
 
-    public Task<Crew[]> GetCrews()
+    public Task<Crew[]> GetCrews(DateTime from, DateTime to)
     {
         throw new NotImplementedException();
     }

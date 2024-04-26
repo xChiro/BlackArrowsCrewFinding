@@ -28,7 +28,7 @@ public class CrewValidationRepositoryMock : ICrewValidationRepositoryMock, ICrew
         return Task.FromResult(_crews.FirstOrDefault(p => p.Id == crewId));
     }
 
-    public Task<Crew[]> GetCrews()
+    public Task<Crew[]> GetCrews(DateTime from, DateTime to)
     {
         throw new NotImplementedException();
     }

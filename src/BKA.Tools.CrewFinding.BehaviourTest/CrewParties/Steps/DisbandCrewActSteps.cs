@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Commons.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
-using BKA.Tools.CrewFinding.Crews.Disbands;
+using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Steps;
 

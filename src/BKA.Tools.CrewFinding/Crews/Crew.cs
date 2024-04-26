@@ -7,7 +7,7 @@ namespace BKA.Tools.CrewFinding.Crews;
 public class Crew : Entity
 {
     public Crew(string id, Player captain, CrewName name, Location reunionPoint, LanguageCollections languages,
-        PlayerCollection players, Activity activity, DateTime creationAt)
+        PlayerCollection players, Activity activity, DateTime createdAt)
     {
         Id = id;
         Players = players;
@@ -15,7 +15,7 @@ public class Crew : Entity
         ReunionPoint = reunionPoint;
         Languages = languages;
         Activity = activity;
-        CreationAt = creationAt;
+        CreatedAt = createdAt;
         Captain = captain;
         Players = players;
     }
@@ -36,7 +36,7 @@ public class Crew : Entity
 
     public PlayerCollection Players { get; }
 
-    public DateTime CreationAt { get; }
+    public DateTime CreatedAt { get; }
 
     public Player Captain { get; }
 

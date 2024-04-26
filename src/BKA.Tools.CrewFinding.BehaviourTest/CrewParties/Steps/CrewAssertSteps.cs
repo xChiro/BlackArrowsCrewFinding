@@ -48,7 +48,7 @@ public class CrewAssertSteps
     [Then(@"the creation date is the current date")]
     public void ThenTheCreationDateIsTheCurrentDate()
     {
-        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew()?.CreationAt.Should()
+        _crewRepositoriesContext.CrewCommandRepositoryMock.GetStoredCrew()?.CreatedAt.Should()
             .BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
     }
 

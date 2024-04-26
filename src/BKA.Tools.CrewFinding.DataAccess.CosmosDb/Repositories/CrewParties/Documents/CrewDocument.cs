@@ -48,7 +48,7 @@ public class CrewDocument
             Language = crew.Languages.Select(l => l.LanguageCode).ToArray(),
             ActivityName = crew.Activity.Name,
             ActivityDescription = crew.Activity.Description,
-            CreationAt = crew.CreationAt,
+            CreationAt = crew.CreatedAt,
             Crew = crew.Players.Select(PlayerDocument.CreateFromPlayer).ToList(),
             System = crew.ReunionPoint.System,
             PlanetarySystem = crew.ReunionPoint.PlanetarySystem,

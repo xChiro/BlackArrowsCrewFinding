@@ -4,7 +4,7 @@ using System.Web.Http;
 using BKA.Tools.CrewFinding.API.Functions.Authentications;
 using BKA.Tools.CrewFinding.API.Functions.Models;
 using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
-using BKA.Tools.CrewFinding.Crews.CreateRequests;
+using BKA.Tools.CrewFinding.Crews.Commands.CreateRequests;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Cultures.Exceptions;
 using BKA.Tools.CrewFinding.Players.Exceptions;

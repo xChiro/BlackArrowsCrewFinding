@@ -1,4 +1,4 @@
-using BKA.Tools.CrewFinding.Crews.CreateRequests;
+using BKA.Tools.CrewFinding.Crews.Commands.CreateRequests;
 
 namespace BKA.Tools.CrewFinding.API.Functions.CrewCreations;
 

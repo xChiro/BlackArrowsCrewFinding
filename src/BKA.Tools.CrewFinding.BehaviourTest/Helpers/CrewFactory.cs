@@ -1,5 +1,5 @@
 using BKA.Tools.CrewFinding.Commons.Values;
-using BKA.Tools.CrewFinding.Crews.CreateRequests;
+using BKA.Tools.CrewFinding.Crews.Commands.CreateRequests;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Helpers;
 

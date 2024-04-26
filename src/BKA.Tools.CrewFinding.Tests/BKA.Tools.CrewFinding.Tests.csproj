@@ -27,4 +27,8 @@
       <ProjectReference Include="..\BKA.Tools.CrewFinding\BKA.Tools.CrewFinding.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Crews\Commands\" />
+    </ItemGroup>
+
 </Project>

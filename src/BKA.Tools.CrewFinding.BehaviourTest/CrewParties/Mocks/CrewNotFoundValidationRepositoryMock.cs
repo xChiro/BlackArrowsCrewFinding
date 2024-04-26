@@ -22,7 +22,7 @@ public class CrewNotFoundValidationRepositoryMock : ICrewValidationRepositoryMoc
         return Task.FromResult<Crew?>(null);
     }
 
-    public Task<Crew[]> GetCrews()
+    public Task<Crew[]> GetCrews(DateTime from, DateTime to)
     {
         throw new NotImplementedException();
     }
