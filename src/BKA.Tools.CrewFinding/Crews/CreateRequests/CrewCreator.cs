@@ -12,16 +12,16 @@ public class CrewCreator : ICrewCreator
 {
     private readonly IPlayerQueryRepository _playerQueryRepository;
     private readonly ICrewCommandRepository _commandRepository;
-    private readonly ICrewQueryRepository _crewQueryRepository;
+    private readonly ICrewValidationRepository _crewValidationRepository;
     private readonly int _maxPlayersAllowed;
 
-    public CrewCreator(ICrewCommandRepository commandRepository, ICrewQueryRepository crewQueryRepository,
+    public CrewCreator(ICrewCommandRepository commandRepository, ICrewValidationRepository crewValidationRepository,
         IPlayerQueryRepository playerQueryRepository, int maxPlayersAllowed)
     {
         _playerQueryRepository = playerQueryRepository;
         _maxPlayersAllowed = maxPlayersAllowed;
         _commandRepository = commandRepository;
-        _crewQueryRepository = crewQueryRepository;
+        _crewValidationRepository = crewValidationRepository;
     }
 
     public async Task Create(CrewCreatorRequest request, ICrewCreatorResponse crewCreatorResponse)
@@ -45,7 +45,7 @@ public class CrewCreator : ICrewCreator
 
     private async Task<Player> TryToGetValidCaptain(string captainId)
     {
-        var playerInCrewTask = _crewQueryRepository.IsPlayerInActiveCrew(captainId);
+        var playerInCrewTask = _crewValidationRepository.IsPlayerInActiveCrew(captainId);
         var captainTask = _playerQueryRepository.GetPlayer(captainId);
 
         await Task.WhenAll(playerInCrewTask, captainTask);

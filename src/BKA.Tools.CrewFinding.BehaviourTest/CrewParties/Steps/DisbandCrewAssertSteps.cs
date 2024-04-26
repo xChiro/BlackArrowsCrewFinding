@@ -19,7 +19,7 @@ public class DisbandCrewAssertSteps
     [Then(@"the Crew is disbanded successfully")]
     public void ThenTheCrewIsDisbandedSuccessfully()
     {
-        var isDisbandedCrewIdInStoredCrews = _crewRepositoriesContext.CrewQueryRepositoryMocks.StoredCrews
+        var isDisbandedCrewIdInStoredCrews = _crewRepositoriesContext.CrewValidationRepositoryMocks.StoredCrews
             .Any(crew => crew.Id == _crewRepositoriesContext.CrewCommandRepositoryMock.DisbandedCrewId);
 
         isDisbandedCrewIdInStoredCrews.Should().BeTrue();

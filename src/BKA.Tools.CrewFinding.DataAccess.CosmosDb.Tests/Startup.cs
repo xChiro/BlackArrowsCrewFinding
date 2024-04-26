@@ -64,12 +64,15 @@ public class Startup
         services.AddTransient<ICrewCommandRepository>(_ =>
             new CrewCommandRepository(crewContainer));
 
-        services.AddTransient<IPlayerCommandRepository>(_ =>
-            new PlayerCommands(databaseSettingsProvider.GetPlayerContainer()));
+        services.AddTransient<ICrewValidationRepository>(_ =>
+            new CrewValidationRepository(crewContainer));
         
         services.AddTransient<ICrewQueryRepository>(_ =>
-            new CrewQueryRepository(crewContainer));
+            new CrewValidationRepository(crewContainer));
         
+        services.AddTransient<IPlayerCommandRepository>(_ =>
+            new PlayerCommands(databaseSettingsProvider.GetPlayerContainer()));
+
         services.AddTransient<IPlayerQueryRepository>(_ =>
             new PlayerQueries(playerContainer));
     }

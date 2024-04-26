@@ -80,14 +80,14 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Viewing Crews created within the last hour")]
+        [Xunit.SkippableFactAttribute(DisplayName="View recently created crews")]
         [Xunit.TraitAttribute("FeatureTitle", "View recently created Crews")]
-        [Xunit.TraitAttribute("Description", "Viewing Crews created within the last hour")]
-        public void ViewingCrewsCreatedWithinTheLastHour()
+        [Xunit.TraitAttribute("Description", "View recently created crews")]
+        public void ViewRecentlyCreatedCrews()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Viewing Crews created within the last hour", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View recently created crews", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -99,12 +99,15 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
             {
                 this.ScenarioStart();
 #line 4
-        testRunner.Given("the current time is \"2023-07-29T15:00:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given("I am a player named \"Allan\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 5
+        testRunner.And("the system is configured to get the crews created in the last \"5\" hour", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                             "CrewPartyName",
                             "CaptainHandle",
-                            "CreationTime",
+                            "CreatedAgoHours",
                             "MaxCrewSize",
                             "Languages",
                             "System",
@@ -116,7 +119,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
                 table3.AddRow(new string[] {
                             "The Stellar Hunters",
                             "Rowan",
-                            "2023-07-29T14:20:00",
+                            "1",
                             "4",
                             "ES, EN",
                             "Stanton",
@@ -128,7 +131,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
                 table3.AddRow(new string[] {
                             "The Galactic Voyagers",
                             "Ada",
-                            "2023-07-29T14:45:00",
+                            "3",
                             "5",
                             "EN, DE",
                             "Terra",
@@ -140,7 +143,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
                 table3.AddRow(new string[] {
                             "The Lunar Marauders",
                             "Kai",
-                            "2023-07-29T13:00:00",
+                            "5",
                             "3",
                             "EN, FR",
                             "Hurston",
@@ -152,7 +155,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
                 table3.AddRow(new string[] {
                             "The Space Pioneers",
                             "Eve",
-                            "2023-07-29T13:30:00",
+                            "6",
                             "6",
                             "ES, PT",
                             "Stanton",
@@ -161,16 +164,16 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
                             "Port Olisar",
                             "Intergalactic pioneers",
                             "Trade"});
-#line 5
-        testRunner.And("the following Crew exist:", ((string)(null)), table3, "And ");
+#line 6
+        testRunner.And("there is the following crews in the system", ((string)(null)), table3, "And ");
 #line hidden
-#line 11
-        testRunner.When("the player searches for Crew created within the last hour", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 12
+        testRunner.When("I view the recently created crews", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "CrewPartyName",
                             "CaptainHandle",
-                            "CreationTime",
+                            "CreatedAgoHours",
                             "MaxCrewSize",
                             "Languages",
                             "System",
@@ -182,7 +185,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
                 table4.AddRow(new string[] {
                             "The Stellar Hunters",
                             "Rowan",
-                            "2023-07-29T14:20:00",
+                            "1",
                             "4",
                             "ES, EN",
                             "Stanton",
@@ -194,7 +197,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
                 table4.AddRow(new string[] {
                             "The Galactic Voyagers",
                             "Ada",
-                            "2023-07-29T14:45:00",
+                            "3",
                             "5",
                             "EN, DE",
                             "Terra",
@@ -203,8 +206,8 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Features.Queries
                             "New Austin",
                             "Space explorers",
                             "Exploration"});
-#line 12
-        testRunner.Then("Allan should see the following Crew Parties:", ((string)(null)), table4, "Then ");
+#line 13
+        testRunner.Then("I should see the following crews", ((string)(null)), table4, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

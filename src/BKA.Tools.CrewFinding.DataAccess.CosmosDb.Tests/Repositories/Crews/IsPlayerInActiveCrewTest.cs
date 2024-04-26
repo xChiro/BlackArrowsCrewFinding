@@ -9,15 +9,15 @@ namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 
 public class IsPlayerInActiveCrewTest : IAsyncLifetime
 {
-    private readonly ICrewQueryRepository _crewQueryRepository;
+    private readonly ICrewValidationRepository _crewValidationRepository;
     private readonly IDatabaseSettingsProvider<Container> _databaseSettingsProvider;
     private Container? _crewContainer;
     private string _crewIdToBeDeleted = string.Empty;
 
-    public IsPlayerInActiveCrewTest(ICrewQueryRepository crewQueryRepository,
+    public IsPlayerInActiveCrewTest(ICrewValidationRepository crewValidationRepository,
         IDatabaseSettingsProvider<Container> databaseSettingsProvider)
     {
-        _crewQueryRepository = crewQueryRepository;
+        _crewValidationRepository = crewValidationRepository;
         _databaseSettingsProvider = databaseSettingsProvider;
     }
 
@@ -39,7 +39,7 @@ public class IsPlayerInActiveCrewTest : IAsyncLifetime
         _crewIdToBeDeleted = crew.Id;
 
         // Act
-        var isPlayerInActiveCrew = await _crewQueryRepository.IsPlayerInActiveCrew(playerId);
+        var isPlayerInActiveCrew = await _crewValidationRepository.IsPlayerInActiveCrew(playerId);
 
         // Assert
         isPlayerInActiveCrew.Should().BeTrue();
@@ -56,7 +56,7 @@ public class IsPlayerInActiveCrewTest : IAsyncLifetime
         _crewIdToBeDeleted = crew.Id;
 
         // Act
-        var isPlayerInActiveCrew = await _crewQueryRepository.IsPlayerInActiveCrew(playerId);
+        var isPlayerInActiveCrew = await _crewValidationRepository.IsPlayerInActiveCrew(playerId);
 
         // Assert
         isPlayerInActiveCrew.Should().BeTrue();

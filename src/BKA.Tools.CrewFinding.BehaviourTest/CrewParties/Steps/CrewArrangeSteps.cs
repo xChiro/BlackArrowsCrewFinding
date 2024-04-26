@@ -30,8 +30,8 @@ public class CrewArrangeSteps
     public void GivenThePlayerAlreadyHasAnActiveCrew()
     {
         var crew = _crewContext.ToCrew(_playerContext.PlayerId, _playerContext.PlayerName);
-        _crewRepositoriesContext.CrewQueryRepositoryMocks =
-            new CrewQueryRepositoryMock(
+        _crewRepositoriesContext.CrewValidationRepositoryMocks =
+            new CrewValidationRepositoryMock(
                 new[] {crew},
                 true);
     }
@@ -40,8 +40,8 @@ public class CrewArrangeSteps
     public void GivenIAmTheCaptainOfAnActiveCrew()
     {
         var crew = _crewContext.ToCrew(_playerContext.PlayerId, _playerContext.PlayerName);
-        _crewRepositoriesContext.CrewQueryRepositoryMocks =
-            new CrewQueryRepositoryMock(
+        _crewRepositoriesContext.CrewValidationRepositoryMocks =
+            new CrewValidationRepositoryMock(
                 new[] {crew},
                 true,
                 playerIsOwner: true);
@@ -51,8 +51,8 @@ public class CrewArrangeSteps
     public void GivenThereIsAnActiveCrewCreatedByAnotherPlayer()
     {
         var crew = _crewContext.ToCrew("anotherPlayerId", "anotherPlayerName");
-        _crewRepositoriesContext.CrewQueryRepositoryMocks =
-            new CrewQueryRepositoryMock(
+        _crewRepositoriesContext.CrewValidationRepositoryMocks =
+            new CrewValidationRepositoryMock(
                 new[] {crew},
                 true);
     }

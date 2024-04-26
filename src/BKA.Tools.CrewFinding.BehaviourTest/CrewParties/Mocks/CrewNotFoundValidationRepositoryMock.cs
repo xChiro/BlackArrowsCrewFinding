@@ -1,10 +1,11 @@
 using BKA.Tools.CrewFinding.Crews;
+using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
-public class CrewNotFoundQueryRepositoryMock : ICrewQueryRepositoryMock
+public class CrewNotFoundValidationRepositoryMock : ICrewValidationRepositoryMock, ICrewQueryRepository
 {
-    public CrewNotFoundQueryRepositoryMock()
+    public CrewNotFoundValidationRepositoryMock()
     {
         StoredCrews = new List<Crew>();
     }
@@ -19,6 +20,11 @@ public class CrewNotFoundQueryRepositoryMock : ICrewQueryRepositoryMock
     public Task<Crew?> GetCrew(string crewId)
     {
         return Task.FromResult<Crew?>(null);
+    }
+
+    public Task<Crew[]> GetCrews()
+    {
+        throw new NotImplementedException();
     }
 
     public Task<bool> IsActiveCrewOwnedBy(string crewId)

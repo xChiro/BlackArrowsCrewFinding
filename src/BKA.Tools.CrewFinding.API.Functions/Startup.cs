@@ -41,7 +41,7 @@ public class Startup : FunctionsStartup
         var playerContainer = containerBuilder.Build(databaseId, GetEnvironmentVariable("cosmosDBPlayerContainer"));
 
         builder.Services.AddSingleton<ICrewCommandRepository>(_ => new CrewCommandRepository(crewContainer));
-        builder.Services.AddSingleton<ICrewQueryRepository>(_ => new CrewQueryRepository(crewContainer));
+        builder.Services.AddSingleton<ICrewValidationRepository>(_ => new CrewValidationRepository(crewContainer));
         builder.Services.AddSingleton<IPlayerQueryRepository>(_ => new PlayerQueries(playerContainer));
         builder.Services.AddSingleton<IPlayerCommandRepository>(_ => new PlayerCommands(playerContainer));
     }
@@ -54,7 +54,7 @@ public class Startup : FunctionsStartup
             serviceProvider =>
                 new CrewCreator(
                     serviceProvider.GetRequiredService<ICrewCommandRepository>(),
-                    serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+                    serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
                     maxCrewSize));
         

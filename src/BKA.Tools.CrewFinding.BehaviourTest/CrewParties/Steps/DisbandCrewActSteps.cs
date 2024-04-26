@@ -25,10 +25,10 @@ public class DisbandCrewActSteps
     {
         var userSessionMock = new UserSessionMock(_playerContext.PlayerId);
 
-        var sut = new CrewDisbandment(_crewRepositoriesContext.CrewQueryRepositoryMocks,
+        var sut = new CrewDisbandment(_crewRepositoriesContext.CrewValidationRepositoryMocks,
             _crewRepositoriesContext.CrewCommandRepositoryMock, userSessionMock);
 
-        await sut.Disband(_crewRepositoriesContext.CrewQueryRepositoryMocks.StoredCrews[0].Id);
+        await sut.Disband(_crewRepositoriesContext.CrewValidationRepositoryMocks.StoredCrews[0].Id);
     }
 
     [When(@"I attempt to disband the Crew")]
@@ -36,12 +36,12 @@ public class DisbandCrewActSteps
     {
         var userSessionMock = new UserSessionMock(_playerContext.PlayerId);
 
-        var sut = new CrewDisbandment(_crewRepositoriesContext.CrewQueryRepositoryMocks,
+        var sut = new CrewDisbandment(_crewRepositoriesContext.CrewValidationRepositoryMocks,
             _crewRepositoriesContext.CrewCommandRepositoryMock, userSessionMock);
 
         try
         {
-            await sut.Disband(_crewRepositoriesContext.CrewQueryRepositoryMocks.StoredCrews.FirstOrDefault()?.Id ??
+            await sut.Disband(_crewRepositoriesContext.CrewValidationRepositoryMocks.StoredCrews.FirstOrDefault()?.Id ??
                               string.Empty);
         }
         catch (Exception e)

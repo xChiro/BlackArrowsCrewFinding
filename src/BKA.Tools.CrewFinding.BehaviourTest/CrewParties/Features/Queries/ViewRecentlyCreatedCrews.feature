@@ -1,15 +1,16 @@
 Feature: View recently created Crews
 
-    Scenario: Viewing Crews created within the last hour
-        Given the current time is "2023-07-29T15:00:00"
-        And the following Crew exist:
-          | CrewPartyName         | CaptainHandle | CreationTime        | MaxCrewSize | Languages | System  | PlanetarySystem | PlanetMoon | Location         | Description            | Activity       |
-          | The Stellar Hunters   | Rowan         | 2023-07-29T14:20:00 | 4           | ES, EN    | Stanton | Crusader        | Crusader   | Seraphim Station | Elite bounty hunters   | Bounty Hunting |
-          | The Galactic Voyagers | Ada           | 2023-07-29T14:45:00 | 5           | EN, DE    | Terra   | Sol             | Terra      | New Austin       | Space explorers        | Exploration    |
-          | The Lunar Marauders   | Kai           | 2023-07-29T13:00:00 | 3           | EN, FR    | Hurston | Stanton         | Ariel      | Lorville         | Lunar miners           | Mining         |
-          | The Space Pioneers    | Eve           | 2023-07-29T13:30:00 | 6           | ES, PT    | Stanton | Crusader        | Crusader   | Port Olisar      | Intergalactic pioneers | Trade          |
-        When the player searches for Crew created within the last hour
-        Then Allan should see the following Crew Parties:
-          | CrewPartyName         | CaptainHandle | CreationTime        | MaxCrewSize | Languages | System  | PlanetarySystem | PlanetMoon | Location         | Description          | Activity       |
-          | The Stellar Hunters   | Rowan         | 2023-07-29T14:20:00 | 4           | ES, EN    | Stanton | Crusader        | Crusader   | Seraphim Station | Elite bounty hunters | Bounty Hunting |
-          | The Galactic Voyagers | Ada           | 2023-07-29T14:45:00 | 5           | EN, DE    | Terra   | Sol             | Terra      | New Austin       | Space explorers      | Exploration    |
+    Scenario: View recently created crews
+        Given I am a player named "Allan"
+        And the system is configured to get the crews created in the last "5" hour
+        And there is the following crews in the system
+          | CrewPartyName         | CaptainHandle | CreatedAgoHours | MaxCrewSize | Languages | System  | PlanetarySystem | PlanetMoon | Location         | Description            | Activity       |
+          | The Stellar Hunters   | Rowan         | 1               | 4           | ES, EN    | Stanton | Crusader        | Crusader   | Seraphim Station | Elite bounty hunters   | Bounty Hunting |
+          | The Galactic Voyagers | Ada           | 3               | 5           | EN, DE    | Terra   | Sol             | Terra      | New Austin       | Space explorers        | Exploration    |
+          | The Lunar Marauders   | Kai           | 5               | 3           | EN, FR    | Hurston | Stanton         | Ariel      | Lorville         | Lunar miners           | Mining         |
+          | The Space Pioneers    | Eve           | 6               | 6           | ES, PT    | Stanton | Crusader        | Crusader   | Port Olisar      | Intergalactic pioneers | Trade          |
+        When I view the recently created crews
+        Then I should see the following crews
+          | CrewPartyName         | CaptainHandle | CreatedAgoHours | MaxCrewSize | Languages | System  | PlanetarySystem | PlanetMoon | Location         | Description            | Activity       |
+          | The Stellar Hunters   | Rowan         | 1               | 4           | ES, EN    | Stanton | Crusader        | Crusader   | Seraphim Station | Elite bounty hunters   | Bounty Hunting |
+          | The Galactic Voyagers | Ada           | 3               | 5           | EN, DE    | Terra   | Sol             | Terra      | New Austin       | Space explorers        | Exploration    |

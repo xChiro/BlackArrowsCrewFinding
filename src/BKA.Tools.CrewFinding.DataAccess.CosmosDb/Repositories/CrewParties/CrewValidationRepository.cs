@@ -4,11 +4,11 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
 
-public class CrewQueryRepository : ICrewQueryRepository
+public class CrewValidationRepository : ICrewValidationRepository, ICrewQueryRepository
 {
     private readonly Container _container;
 
-    public CrewQueryRepository(Container container)
+    public CrewValidationRepository(Container container)
     {
         _container = container;
     }
@@ -40,6 +40,11 @@ public class CrewQueryRepository : ICrewQueryRepository
         {
             return null;
         }
+    }
+
+    public Task<Crew[]> GetCrews()
+    {
+        throw new NotImplementedException();
     }
 
     public Task<bool> IsActiveCrewOwnedBy(string crewId)

@@ -6,14 +6,14 @@ namespace BKA.Tools.CrewFinding.Crews.Disbands;
 
 public class CrewDisbandment : ICrewDisbandment
 {
-    private readonly ICrewQueryRepository _crewQueryRepository;
+    private readonly ICrewValidationRepository _crewValidationRepository;
     private readonly ICrewCommandRepository _crewCommandRepository;
     private readonly IUserSession _userSession;
 
-    public CrewDisbandment(ICrewQueryRepository crewQueryRepository, ICrewCommandRepository crewCommandRepository,
+    public CrewDisbandment(ICrewValidationRepository crewValidationRepository, ICrewCommandRepository crewCommandRepository,
         IUserSession userSession)
     {
-        _crewQueryRepository = crewQueryRepository;
+        _crewValidationRepository = crewValidationRepository;
         _crewCommandRepository = crewCommandRepository;
         _userSession = userSession;
     }
@@ -34,7 +34,7 @@ public class CrewDisbandment : ICrewDisbandment
 
     private async Task CheckIfActiveCrewOwnedByUser(string userId)
     {
-        var isActiveCrewOwnedByUser = await _crewQueryRepository.IsActiveCrewOwnedBy(userId);
+        var isActiveCrewOwnedByUser = await _crewValidationRepository.IsActiveCrewOwnedBy(userId);
         
         if (!isActiveCrewOwnedByUser)
             throw new CrewDisbandException();

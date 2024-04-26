@@ -1,8 +1,9 @@
 using BKA.Tools.CrewFinding.Crews;
+using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
-public class CrewQueryRepositoryMock : ICrewQueryRepositoryMock
+public class CrewValidationRepositoryMock : ICrewValidationRepositoryMock, ICrewQueryRepository
 {
     private readonly Crew[] _crews;
     private readonly bool _playerInCrew;
@@ -10,7 +11,7 @@ public class CrewQueryRepositoryMock : ICrewQueryRepositoryMock
 
     public IReadOnlyList<Crew> StoredCrews => _crews;
 
-    public CrewQueryRepositoryMock(Crew[] crews, bool playerInCrew = false, bool playerIsOwner = false)
+    public CrewValidationRepositoryMock(Crew[] crews, bool playerInCrew = false, bool playerIsOwner = false)
     {
         _crews = crews;
         _playerInCrew = playerInCrew;
@@ -25,6 +26,11 @@ public class CrewQueryRepositoryMock : ICrewQueryRepositoryMock
     public Task<Crew?> GetCrew(string crewId)
     {
         return Task.FromResult(_crews.FirstOrDefault(p => p.Id == crewId));
+    }
+
+    public Task<Crew[]> GetCrews()
+    {
+        throw new NotImplementedException();
     }
 
     public Task<bool> IsActiveCrewOwnedBy(string crewId)

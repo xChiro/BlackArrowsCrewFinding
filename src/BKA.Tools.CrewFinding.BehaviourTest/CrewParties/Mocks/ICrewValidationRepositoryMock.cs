@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.CrewParties.Mocks;
 
-public interface ICrewQueryRepositoryMock : ICrewQueryRepository
+public interface ICrewValidationRepositoryMock : ICrewValidationRepository, ICrewQueryRepository
 {
     public IReadOnlyList<Crew> StoredCrews { get; }
 }
