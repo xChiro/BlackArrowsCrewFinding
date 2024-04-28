@@ -7,7 +7,7 @@ using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Queries.Recents;
+namespace BKA.Tools.CrewFinding.Tests.Crews.Queries.Recent;
 
 public class RecentCrewsRetrievalTest
 {
