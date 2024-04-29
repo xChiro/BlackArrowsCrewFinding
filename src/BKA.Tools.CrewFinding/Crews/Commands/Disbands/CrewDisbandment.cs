@@ -7,14 +7,14 @@ namespace BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 public class CrewDisbandment : ICrewDisbandment
 {
     private readonly ICrewValidationRepository _crewValidationRepository;
-    private readonly ICrewCommandRepository _crewCommandRepository;
+    private readonly ICrewDisbandRepository _crewDisbandRepository;
     private readonly IUserSession _userSession;
 
-    public CrewDisbandment(ICrewValidationRepository crewValidationRepository, ICrewCommandRepository crewCommandRepository,
+    public CrewDisbandment(ICrewValidationRepository crewValidationRepository, ICrewDisbandRepository crewDisbandRepository,
         IUserSession userSession)
     {
         _crewValidationRepository = crewValidationRepository;
-        _crewCommandRepository = crewCommandRepository;
+        _crewDisbandRepository = crewDisbandRepository;
         _userSession = userSession;
     }
 
@@ -23,7 +23,7 @@ public class CrewDisbandment : ICrewDisbandment
         var userId = GetUserIdFromSession();
         await CheckIfActiveCrewOwnedByUser(userId);
 
-        await _crewCommandRepository.Disband(crewId);
+        await _crewDisbandRepository.Disband(crewId);
     }
 
     private string GetUserIdFromSession()

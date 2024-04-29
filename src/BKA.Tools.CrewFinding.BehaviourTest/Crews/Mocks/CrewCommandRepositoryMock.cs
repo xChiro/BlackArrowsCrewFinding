@@ -1,10 +1,11 @@
 using BKA.Tools.CrewFinding.Crews;
+using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
 
-public class CrewCommandRepositoryMock : ICrewCommandRepository
+public class CrewCommandRepositoryMock : ICrewCommandRepository, ICrewDisbandRepository
 {
     private Crew? _crewPartyCreated;
 

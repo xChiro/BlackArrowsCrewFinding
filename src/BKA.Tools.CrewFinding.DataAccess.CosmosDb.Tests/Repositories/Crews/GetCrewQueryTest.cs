@@ -6,23 +6,17 @@ using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 
 namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 
-public class GetCrewQueryTest : IAsyncLifetime
+public class GetCrewQueryTest(
+    ICrewQueryRepository crewQueryRepository,
+    IDatabaseSettingsProvider<Container> databaseSettingsProvider)
+    : IAsyncLifetime
 {
-    private readonly ICrewQueryRepository _crewQueryRepository;
-    private readonly IDatabaseSettingsProvider<Container> _databaseSettingsProvider;
     private Container? _container;
     private Crew? _crewDocument;
 
-    public GetCrewQueryTest(ICrewQueryRepository crewQueryRepository,
-        IDatabaseSettingsProvider<Container> databaseSettingsProvider)
-    {
-        _crewQueryRepository = crewQueryRepository;
-        _databaseSettingsProvider = databaseSettingsProvider;
-    }
-
     public Task InitializeAsync()
     {
-        _container = _databaseSettingsProvider.GetCrewContainer();
+        _container = databaseSettingsProvider.GetCrewContainer();
         return Task.CompletedTask;
     }
 
@@ -34,7 +28,7 @@ public class GetCrewQueryTest : IAsyncLifetime
         await CreateDocument(_crewDocument);
 
         // Act
-        var crew = await _crewQueryRepository.GetCrew(_crewDocument.Id);
+        var crew = await crewQueryRepository.GetCrew(_crewDocument.Id);
 
         // Assert
         crew.Should().NotBeNull();
@@ -48,7 +42,7 @@ public class GetCrewQueryTest : IAsyncLifetime
         const string notExistingId = "notExistingId";
 
         // Act
-        var crew = await _crewQueryRepository.GetCrew(notExistingId);
+        var crew = await crewQueryRepository.GetCrew(notExistingId);
 
         // Assert
         crew.Should().BeNull();

@@ -42,7 +42,7 @@ public class ServicesService
             serviceProvider =>
                 new CrewDisbandment(
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
-                    serviceProvider.GetRequiredService<ICrewCommandRepository>(),
+                    serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>()));
     }
 }

@@ -20,6 +20,7 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
 
     public Container GetCrewContainer() => BuildContainer(GetCrewPartiesContainerName()).GetAwaiter().GetResult();
     public Container GetPlayerContainer() => BuildContainer(GetPlayerContainerName()).GetAwaiter().GetResult();
+    public Container GetDisbandedCrewsContainer() => BuildContainer(GetDisbandedCrewsContainerName()).GetAwaiter().GetResult();
 
     private async Task<Container> BuildContainer(string containerId)
     {
@@ -64,7 +65,12 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
     {
         return _configurationRoot["cosmosDB:crewContainer"] ?? string.Empty;
     }
-    
+
+    private string GetDisbandedCrewsContainerName()
+    {
+        return _configurationRoot["cosmosDB:disbandedCrewsContainer"] ?? string.Empty;
+    }
+
     private string GetPlayerContainerName()
     {
         return _configurationRoot["cosmosDB:playerContainer"] ?? string.Empty;

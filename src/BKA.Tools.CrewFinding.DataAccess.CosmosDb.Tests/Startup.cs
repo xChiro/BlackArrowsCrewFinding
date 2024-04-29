@@ -60,20 +60,24 @@ public class Startup
 
         var crewContainer = databaseSettingsProvider.GetCrewContainer();
         var playerContainer = databaseSettingsProvider.GetPlayerContainer();
-        
+        var disbandedCrewsContainer = databaseSettingsProvider.GetDisbandedCrewsContainer();
+
         services.AddTransient<ICrewCommandRepository>(_ =>
             new CrewCommandRepository(crewContainer));
 
         services.AddTransient<ICrewValidationRepository>(_ =>
             new CrewValidationRepository(crewContainer));
-        
+
         services.AddTransient<ICrewQueryRepository>(_ =>
             new CrewValidationRepository(crewContainer));
-        
+
         services.AddTransient<IPlayerCommandRepository>(_ =>
             new PlayerCommands(databaseSettingsProvider.GetPlayerContainer()));
 
         services.AddTransient<IPlayerQueryRepository>(_ =>
             new PlayerQueries(playerContainer));
+        
+        services.AddTransient<ICrewDisbandRepository>(_ =>
+            new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));
     }
 }

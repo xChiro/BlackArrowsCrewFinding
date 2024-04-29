@@ -42,10 +42,10 @@ public class CrewDisbandmentTest
     private static CrewDisbandment SetupSut(bool playerIsOwner, CrewCommandRepositoryMock? crewCommandRepositoryMock = null)
     {
         ICrewValidationRepository crewValidationRepository = new CrewValidationRepositoryMock(playerOwnedCrew: playerIsOwner);
-        ICrewCommandRepository crewCommandRepository = crewCommandRepositoryMock ?? new CrewCommandRepositoryMock();
+        var crewDisbandRepository = crewCommandRepositoryMock ?? new CrewCommandRepositoryMock();
         var userSession = new UserSessionMock(UserId);
 
-        CrewDisbandment sut = new CrewDisbandment(crewValidationRepository, crewCommandRepository, userSession);
+        CrewDisbandment sut = new CrewDisbandment(crewValidationRepository, crewDisbandRepository, userSession);
         return sut;
     }
 }

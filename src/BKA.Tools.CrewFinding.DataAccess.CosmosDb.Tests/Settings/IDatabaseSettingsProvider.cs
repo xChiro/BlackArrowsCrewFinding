@@ -4,4 +4,5 @@ public interface IDatabaseSettingsProvider<out T> where T : class
 {
     public T GetCrewContainer();
     public T GetPlayerContainer();
+    public T GetDisbandedCrewsContainer();
 }

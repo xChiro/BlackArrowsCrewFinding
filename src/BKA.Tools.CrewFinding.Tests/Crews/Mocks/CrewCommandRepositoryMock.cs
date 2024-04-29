@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
+using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 
-public class CrewCommandRepositoryMock : ICrewCommandRepository
+public class CrewCommandRepositoryMock : ICrewCommandRepository, ICrewDisbandRepository
 {
     private readonly string _expectedCrewPartyId;
 
