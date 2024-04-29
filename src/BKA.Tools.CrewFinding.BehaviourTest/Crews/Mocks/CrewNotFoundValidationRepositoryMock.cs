@@ -20,7 +20,7 @@ public class CrewNotFoundValidationRepositoryMock : ICrewValidationRepository
         throw new NotImplementedException();
     }
 
-    public Task<bool> IsActiveCrewOwnedBy(string crewId)
+    public Task<bool> DoesUserOwnAnActiveCrew(string userId)
     {
         return Task.FromResult(false);
     }

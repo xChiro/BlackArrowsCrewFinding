@@ -34,7 +34,7 @@ public class CrewDisbandment : ICrewDisbandment
 
     private async Task CheckIfActiveCrewOwnedByUser(string userId)
     {
-        var isActiveCrewOwnedByUser = await _crewValidationRepository.IsActiveCrewOwnedBy(userId);
+        var isActiveCrewOwnedByUser = await _crewValidationRepository.DoesUserOwnAnActiveCrew(userId);
         
         if (!isActiveCrewOwnedByUser)
             throw new CrewDisbandException();

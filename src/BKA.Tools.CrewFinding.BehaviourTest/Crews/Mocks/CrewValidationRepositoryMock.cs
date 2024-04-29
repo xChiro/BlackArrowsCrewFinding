@@ -18,7 +18,7 @@ public class CrewValidationRepositoryMock : ICrewValidationRepository
         return Task.FromResult(_playerInCrew);
     }
 
-    public Task<bool> IsActiveCrewOwnedBy(string crewId)
+    public Task<bool> DoesUserOwnAnActiveCrew(string userId)
     {
         return Task.FromResult(_playerIsOwner);
     }

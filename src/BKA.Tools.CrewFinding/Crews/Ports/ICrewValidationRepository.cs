@@ -4,5 +4,5 @@ public interface ICrewValidationRepository
 {
     public Task<bool> IsPlayerInActiveCrew(string playerId);
 
-    public Task<bool> IsActiveCrewOwnedBy(string crewId);
+    public Task<bool> DoesUserOwnAnActiveCrew(string userId);
 }

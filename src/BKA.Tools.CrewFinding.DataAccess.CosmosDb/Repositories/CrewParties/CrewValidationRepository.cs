@@ -54,8 +54,15 @@ public class CrewValidationRepository : ICrewValidationRepository, ICrewQueryRep
         return query.ReadNextAsync().ContinueWith(task => task.Result.Select(c => c.ToCrew()).ToArray());
     }
 
-    public Task<bool> IsActiveCrewOwnedBy(string crewId)
+    public Task<bool> DoesUserOwnAnActiveCrew(string userId)
     {
-        throw new NotImplementedException();
+        const string queryString = "SELECT c.id FROM c WHERE c.captainId = @userId";
+
+        var queryDefinition = new QueryDefinition(queryString)
+            .WithParameter("@userId", userId);
+
+        var query = _container.GetItemQueryIterator<CrewDocument>(queryDefinition);
+
+        return query.ReadNextAsync().ContinueWith(task => task.Result.Count != 0);
     }
 }
