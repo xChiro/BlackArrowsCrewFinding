@@ -85,7 +85,7 @@ public class CreateCrewTest : IAsyncLifetime
     {
         crewPartyResponse.Resource.ActivityDescription.Should().BeEquivalentTo(crew.Activity.Description);
         crewPartyResponse.Resource.ActivityName.Should().BeEquivalentTo(crew.Activity.Name);
-        crewPartyResponse.Resource.CreationAt.Should().Be(crew.CreatedAt);
+        crewPartyResponse.Resource.CreatedAt.Should().Be(crew.CreatedAt);
     }
 
     private static void ValidateCrewCapacity(Crew crew, Response<CrewDocument> crewPartyResponse)

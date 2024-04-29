@@ -24,7 +24,7 @@ public class CrewDocument
 
     public string ActivityDescription { get; set; }
 
-    public DateTime CreationAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public List<PlayerDocument> Crew { get; set; }
 
@@ -48,7 +48,7 @@ public class CrewDocument
             Language = crew.Languages.Select(l => l.LanguageCode).ToArray(),
             ActivityName = crew.Activity.Name,
             ActivityDescription = crew.Activity.Description,
-            CreationAt = crew.CreatedAt,
+            CreatedAt = crew.CreatedAt,
             Crew = crew.Members.Select(PlayerDocument.CreateFromPlayer).ToList(),
             System = crew.ReunionPoint.System,
             PlanetarySystem = crew.ReunionPoint.PlanetarySystem,
@@ -71,7 +71,7 @@ public class CrewDocument
             LanguageCollections.CreateFromAbbrevs(Language),
             PlayerCollection.Create(members, MaxAllowed),
             Activity.Create(ActivityName, ActivityDescription),
-            CreationAt);
+            CreatedAt);
 
         return crew;
     }
