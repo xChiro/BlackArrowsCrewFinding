@@ -25,6 +25,6 @@ public class CrewQueriesRepositoryMock : ICrewQueryRepository
     public Task<Crew[]> GetCrews(DateTime from, DateTime to)
     {
         var crews = _crews?.Where(c => c.CreatedAt >= from && c.CreatedAt <= to).ToArray();
-        return Task.FromResult(crews ?? Array.Empty<Crew>());
+        return Task.FromResult(crews ?? []);
     }
 }

@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.Crews.Commands.CreateRequests;
+namespace BKA.Tools.CrewFinding.Crews.Commands.Creators;
 
 public interface ICrewCreatorResponse
 {

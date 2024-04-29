@@ -30,8 +30,8 @@ public class CrewArrangeSteps
     public void GivenThePlayerAlreadyHasAnActiveCrew()
     {
         var crew = _crewContext.ToCrew(_playerContext.PlayerId, _playerContext.PlayerName);
-        _crewRepositoriesContext.CrewValidationRepositoryMocks = new CrewValidationRepositoryMock(true);
-        _crewRepositoriesContext.CrewQueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
+        _crewRepositoriesContext.ValidationRepositoryMocks = new CrewValidationRepositoryMock(true);
+        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
     }
 
     [Given(@"I am the captain of an active Crew")]
@@ -39,16 +39,24 @@ public class CrewArrangeSteps
     {
         var crew = _crewContext.ToCrew(_playerContext.PlayerId, _playerContext.PlayerName);
 
-        _crewRepositoriesContext.CrewValidationRepositoryMocks =
+        _crewRepositoriesContext.ValidationRepositoryMocks =
             new CrewValidationRepositoryMock(true, playerIsOwner: true);
-        _crewRepositoriesContext.CrewQueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
+        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
     }
 
     [Given(@"there is an active crew created by another player")]
     public void GivenThereIsAnActiveCrewCreatedByAnotherPlayer()
     {
         var crew = _crewContext.ToCrew("anotherPlayerId", "anotherPlayerName");
-        _crewRepositoriesContext.CrewValidationRepositoryMocks = new CrewValidationRepositoryMock(true);
-        _crewRepositoriesContext.CrewQueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
+        _crewRepositoriesContext.ValidationRepositoryMocks = new CrewValidationRepositoryMock(true);
+        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
+    }
+
+    [Given(@"the player is the captain of a Crew")]
+    public void GivenThePlayerIsTheCaptainOfACrew()
+    {
+        var crew = _crewContext.ToCrew(_playerContext.PlayerId, _playerContext.PlayerName);
+        _crewRepositoriesContext.ValidationRepositoryMocks = new CrewValidationRepositoryMock(true, playerIsOwner: true);
+        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
     }
 }

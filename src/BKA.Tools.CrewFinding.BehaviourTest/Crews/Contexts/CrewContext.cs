@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts.Values;
 using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
-using BKA.Tools.CrewFinding.Crews.Commands.CreateRequests;
+using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
 
@@ -13,7 +13,8 @@ public class CrewContext
     public CrewLocation CrewLocation { get; set; } = new();
     public CrewActivity CrewActivity { get; set; } = new();
     public int MaxPlayerAllowed { get; set; } = 4;
-
+    public string CrewId { get; set; } = string.Empty;
+    
     public void FillData(Table crewPartyDetails)
     {
         Options = new CrewOptions
@@ -44,12 +45,16 @@ public class CrewContext
     public Crew ToCrew(string captainId, string captainName)
     {
         var captain = Player.Create(captainId, captainName);
+        var crewId = string.IsNullOrEmpty(CrewId) ? Guid.NewGuid().ToString() : CrewId;
         
-        return new Crew(captain, 
+        return new Crew(
+            crewId,
+            captain, 
             new CrewName("captainName"),
             CrewLocation.ToLocation(),
             LanguageCollections.Default(),
             PlayerCollection.CreateEmpty(MaxPlayerAllowed),
-            Activity.Default());
+            Activity.Default(),
+            DateTime.UtcNow);
     }
 }

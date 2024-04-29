@@ -1,9 +1,9 @@
 using BKA.Tools.CrewFinding.Commons.Values;
-using BKA.Tools.CrewFinding.Crews.Commands.CreateRequests;
+using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Helpers;
 
-public class CrewFactory
+public static class CrewCreatorRequestFactory
 {
     private const int DefaultTotalCrew = 4;
     private const string DefaultActivity = "Bounty Hunting";

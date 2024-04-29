@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Commons.Values;
-using BKA.Tools.CrewFinding.Crews.Commands.CreateRequests;
-using BKA.Tools.CrewFinding.Tests.Crews.Commands.Creations.Utilities;
+using BKA.Tools.CrewFinding.Crews.Commands.Creators;
+using BKA.Tools.CrewFinding.Tests.Crews.Commands.Creators.Utilities;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Creations;
+namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Creators;
 
 public class CrewCreatorLocationTest
 {

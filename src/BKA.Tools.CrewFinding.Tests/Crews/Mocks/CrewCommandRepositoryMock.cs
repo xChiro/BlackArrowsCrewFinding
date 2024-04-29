@@ -43,9 +43,9 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository
         return Task.FromResult(_expectedCrewPartyId);
     }
 
-    public Task UpdateMembers(string crewPartyId, IEnumerable<Player> crewPartyMembers)
+    public Task UpdateMembers(string crewId, IEnumerable<Player> crewMembers)
     {
-        Members = crewPartyMembers;
+        Members = crewMembers;
         
         return Task.CompletedTask;
     }

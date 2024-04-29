@@ -6,7 +6,7 @@ using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 using BKA.Tools.CrewFinding.Players.Ports;
 
-namespace BKA.Tools.CrewFinding.Crews.Commands.CreateRequests;
+namespace BKA.Tools.CrewFinding.Crews.Commands.Creators;
 
 public class CrewCreator : ICrewCreator
 {

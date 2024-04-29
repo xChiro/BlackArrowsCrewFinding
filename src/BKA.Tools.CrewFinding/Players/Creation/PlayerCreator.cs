@@ -17,7 +17,7 @@ public class PlayerCreator : IPlayerCreator
 
     public Task Create(string userId, string citizenName)
     {
-        var player = Player.Create(userId, citizenName, _minLength, _maxLength);
+        var player = Player.Create(userId, citizenName, minLength: _minLength, maxLength: _maxLength);
 
         return _playerCommandRepository.Create(player);
     }

@@ -18,9 +18,9 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository
         return Task.CompletedTask;
     }
 
-    public Task UpdateMembers(string crewPartyId, IEnumerable<Player> crewPartyMembers)
+    public Task UpdateMembers(string crewId, IEnumerable<Player> crewMembers)
     {
-        CrewPartyMembers = crewPartyMembers.ToArray();
+        CrewPartyMembers = crewMembers.ToArray();
         
         return Task.CompletedTask;
     }

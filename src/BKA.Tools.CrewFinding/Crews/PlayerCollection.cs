@@ -15,7 +15,7 @@ public class PlayerCollection : IEnumerable<Player>
         _players = players;
         MaxSize = maxSize;
     }
-    
+
     public static PlayerCollection Create(IEnumerable<Player> players, int maxAllowed)
     {
         return new PlayerCollection(players.ToList(), maxAllowed);
@@ -40,11 +40,17 @@ public class PlayerCollection : IEnumerable<Player>
     {
         if (IsAtCapacity())
             throw new CrewFullException();
-        
+
         if (_players.Any(p => p.Id == player.Id))
             return;
 
         _players.Add(player);
+    }
+
+    public bool Remove(string playerId)
+    {
+        var player = _players.FirstOrDefault(p => p.Id == playerId);
+        return player != null && _players.Remove(player);
     }
 
     private bool IsAtCapacity()

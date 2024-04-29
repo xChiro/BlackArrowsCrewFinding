@@ -44,4 +44,9 @@ public class Crew : Entity
     {
         Members.Add(player);
     }
+
+    public bool LeaveMember(string playerId)
+    {
+        return Members.Remove(playerId);
+    }
 }

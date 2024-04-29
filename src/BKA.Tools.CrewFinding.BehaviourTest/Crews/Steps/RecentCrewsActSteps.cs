@@ -22,7 +22,7 @@ public class RecentCrewsActSteps
     [When(@"I view the recently created crews")]
     public async Task WhenIViewTheRecentlyCreatedCrews()
     {
-        var sut = new RecentCrewsRetrieval(_crewRepositoriesContext.CrewQueryRepositoryMock,
+        var sut = new RecentCrewsRetrieval(_crewRepositoriesContext.QueryRepositoryMock,
             _systemSettingContext.LeastCrewTimeThreshold);
 
         await sut.Retrieve(_crewQueryResultContext);

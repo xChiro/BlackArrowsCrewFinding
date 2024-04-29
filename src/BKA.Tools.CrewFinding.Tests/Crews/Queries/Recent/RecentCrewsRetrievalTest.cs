@@ -17,7 +17,7 @@ public class RecentCrewsRetrievalTest
     public async void Given_There_Is_No_Recent_Crews_When_Retrieving_Recent_Crews_Then_Should_Return_Empty_List()
     {
         // Arrange
-        var sut = InitializeRecentCrewsRetrieval(Array.Empty<Crew>(), CrewAgeThresholdInHours);
+        var sut = InitializeRecentCrewsRetrieval([], CrewAgeThresholdInHours);
         var crewsRetrievalResponseMock = new CrewsResponseMock();
 
         // Act

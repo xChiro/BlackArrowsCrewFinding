@@ -83,13 +83,12 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Successful departure from a Crew")]
         [Xunit.TraitAttribute("FeatureTitle", "A player has the ability to leave a Crew.")]
         [Xunit.TraitAttribute("Description", "Successful departure from a Crew")]
-        [Xunit.InlineDataAttribute("Rowan", "The Stellar Hunters", new string[0])]
-        public void SuccessfulDepartureFromACrew(string userName, string crewName, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Rowan", new string[0])]
+        public void SuccessfulDepartureFromACrew(string userName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
-            argumentsOfScenario.Add("CrewName", crewName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successful departure from a Crew", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
     this.ScenarioInitialize(scenarioInfo);
@@ -105,16 +104,13 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Commands
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 5
-        testRunner.And(string.Format("the player is a member of a Crew named {0}", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("the player is a member of a Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 6
-        testRunner.When(string.Format("the player requests to leave {0}", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When("the player requests to leave the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
         testRunner.Then("the player is removed from the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 8
-        testRunner.And(string.Format("the player receives a confirmation message \"You have successfully left {0}.\"", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -123,15 +119,14 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Attempt to leave a Crew the player is not part of")]
         [Xunit.TraitAttribute("FeatureTitle", "A player has the ability to leave a Crew.")]
         [Xunit.TraitAttribute("Description", "Attempt to leave a Crew the player is not part of")]
-        [Xunit.InlineDataAttribute("Rowan", "The Galactic Voyagers", new string[0])]
-        public void AttemptToLeaveACrewThePlayerIsNotPartOf(string userName, string crewName, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Rowan", new string[0])]
+        public void AttemptToLeaveACrewThePlayerIsNotPartOf(string userName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
-            argumentsOfScenario.Add("CrewName", crewName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Attempt to leave a Crew the player is not part of", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 14
+#line 12
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -141,20 +136,51 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Commands
             else
             {
                 this.ScenarioStart();
-#line 15
+#line 13
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
+#line 14
+        testRunner.And("the player is not a member of any Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 15
+        testRunner.When("the player attempts to leave the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
 #line 16
-        testRunner.And(string.Format("the player is not a member of any Crew named {0}", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.Then("the player receives a message indicating the player is not a member of the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 17
-        testRunner.When(string.Format("the player attempts to leave {0}", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Attempt to leave a Crew that does not exist")]
+        [Xunit.TraitAttribute("FeatureTitle", "A player has the ability to leave a Crew.")]
+        [Xunit.TraitAttribute("Description", "Attempt to leave a Crew that does not exist")]
+        public void AttemptToLeaveACrewThatDoesNotExist()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Attempt to leave a Crew that does not exist", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 22
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
-#line 18
-        testRunner.Then(string.Format("the player remains not part of {0}", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 23
+        testRunner.Given("a player named <UserName>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 19
-        testRunner.And(string.Format("the player receives a message \"You are not a member of {0}.\"", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
+        testRunner.And("the player is not a member of any Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 25
+        testRunner.When("the player attempts to leave from non-existent Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 26
+        testRunner.Then("the player receives a message indicating the Crew does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -163,15 +189,14 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Commands
         [Xunit.SkippableTheoryAttribute(DisplayName="Captain attempts to leave the Crew")]
         [Xunit.TraitAttribute("FeatureTitle", "A player has the ability to leave a Crew.")]
         [Xunit.TraitAttribute("Description", "Captain attempts to leave the Crew")]
-        [Xunit.InlineDataAttribute("Rowan", "The Space Pioneers", new string[0])]
-        public void CaptainAttemptsToLeaveTheCrew(string userName, string crewName, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Rowan", new string[0])]
+        public void CaptainAttemptsToLeaveTheCrew(string userName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("UserName", userName);
-            argumentsOfScenario.Add("CrewName", crewName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Captain attempts to leave the Crew", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 25
+#line 28
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -181,21 +206,17 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Commands
             else
             {
                 this.ScenarioStart();
-#line 26
+#line 29
         testRunner.Given(string.Format("a player named {0}", userName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 27
-        testRunner.And(string.Format("the player is the captain of a Crew named {0}", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 28
-        testRunner.When(string.Format("the captain attempts to leave {0}", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 29
-        testRunner.Then("the captain is not removed from the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
 #line 30
-        testRunner.And(string.Format("the captain receives a message \"As the captain, you cannot leave {0}. You must di" +
-                            "sband the party first.\"", crewName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("the player is the captain of a Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 31
+        testRunner.When("the captain attempts to leave the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 32
+        testRunner.Then("the captain is not removed from the Crew", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

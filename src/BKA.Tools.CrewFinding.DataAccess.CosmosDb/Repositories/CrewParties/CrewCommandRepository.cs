@@ -21,16 +21,16 @@ public class CrewCommandRepository : ICrewCommandRepository
         await _container.CreateItemAsync(document, new PartitionKey(document.Id));
     }
 
-    public async Task UpdateMembers(string crewPartyId, IEnumerable<Player> crewPartyMembers)
+    public async Task UpdateMembers(string crewId, IEnumerable<Player> crewMembers)
     {
-        var members = crewPartyMembers.Select(PlayerDocument.CreateFromPlayer).ToList();
+        var members = crewMembers.Select(PlayerDocument.CreateFromPlayer).ToList();
         
         var patchOperations = new List<PatchOperation>
         {
             PatchOperation.Replace("/crew", members)
         };
         
-        await _container.PatchItemAsync<CrewDocument>(crewPartyId, new PartitionKey(crewPartyId), patchOperations);
+        await _container.PatchItemAsync<CrewDocument>(crewId, new PartitionKey(crewId), patchOperations);
     }
 
     public Task Disband(string crewId)

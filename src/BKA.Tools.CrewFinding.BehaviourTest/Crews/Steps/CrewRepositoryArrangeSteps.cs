@@ -33,13 +33,13 @@ public class CrewRepositoryArrangeSteps
                 Activity.Default())
         };
 
-        _crewRepositoriesContext.CrewQueryRepositoryMock = new CrewQueryRepositoryMock(crewParties);
+        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crewParties);
     }
 
     [Given(@"there is not a Crew")]
     public void GivenThereIsNotACrew()
     {
-        _crewRepositoriesContext.CrewValidationRepositoryMocks = new CrewNotFoundValidationRepositoryMock();
+        _crewRepositoriesContext.ValidationRepositoryMocks = new CrewNotFoundValidationRepositoryMock();
     }
 
     [Given(@"an existing Crew at maximum capacity from other player")]
@@ -59,9 +59,9 @@ public class CrewRepositoryArrangeSteps
                 Activity.Default())
         };
 
-        _crewRepositoriesContext.CrewCommandRepositoryMock = new CrewCommandRepositoryMock();
-        _crewRepositoriesContext.CrewValidationRepositoryMocks = new CrewValidationRepositoryMock();
-        _crewRepositoriesContext.CrewQueryRepositoryMock = new CrewQueryRepositoryMock(crews);
+        _crewRepositoriesContext.CommandRepositoryMock = new CrewCommandRepositoryMock();
+        _crewRepositoriesContext.ValidationRepositoryMocks = new CrewValidationRepositoryMock();
+        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crews);
     }
 
     [Given(@"there is the following crews in the system")]
@@ -84,6 +84,6 @@ public class CrewRepositoryArrangeSteps
                 Activity.Create(row["Activity"], row["Description"]));
         }).ToArray();
 
-        _crewRepositoriesContext.CrewQueryRepositoryMock = new CrewQueryRepositoryMock(crews);
+        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crews);
     }
 }
