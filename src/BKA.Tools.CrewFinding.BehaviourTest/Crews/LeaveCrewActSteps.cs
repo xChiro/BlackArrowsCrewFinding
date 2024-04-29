@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
-using BKA.Tools.CrewFinding.Crews.Leave;
+using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews;
 

@@ -14,6 +14,22 @@ public class ServicesService
     {
         var maxCrewSize = Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCrewSize"));
 
+        AddCrewServices(builder, maxCrewSize);
+        AddPlayerServices(builder);
+    }
+
+    private static void AddPlayerServices(IFunctionsHostBuilder builder)
+    {
+        builder.Services.AddScoped<IPlayerCreator>(
+            serviceProvider =>
+                new PlayerCreator(
+                    serviceProvider.GetRequiredService<IPlayerCommandRepository>(),
+                    Convert.ToInt32(Configuration.GetEnvironmentVariable("minCitizenNameLength")),
+                    Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCitizenNameLength"))));
+    }
+
+    private static void AddCrewServices(IFunctionsHostBuilder builder, int maxCrewSize)
+    {
         builder.Services.AddScoped<ICrewCreator>(
             serviceProvider =>
                 new CrewCreator(
@@ -21,12 +37,5 @@ public class ServicesService
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
                     maxCrewSize));
-
-        builder.Services.AddScoped<IPlayerCreator>(
-            serviceProvider =>
-                new PlayerCreator(
-                    serviceProvider.GetRequiredService<IPlayerCommandRepository>(),
-                    Convert.ToInt32(Configuration.GetEnvironmentVariable("minCitizenNameLength")),
-                    Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCitizenNameLength"))));
     }
 }
