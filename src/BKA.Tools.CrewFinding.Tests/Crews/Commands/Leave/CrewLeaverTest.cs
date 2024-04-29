@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.BehaviourTest.Crews.Leave;
 using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
+using BKA.Tools.CrewFinding.Crews.Leave;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;

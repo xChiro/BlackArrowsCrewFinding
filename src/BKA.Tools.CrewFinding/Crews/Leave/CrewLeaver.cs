@@ -1,8 +1,7 @@
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
-using BKA.Tools.CrewFinding.Tests.Crews.Commands.Leave;
 
-namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Leave;
+namespace BKA.Tools.CrewFinding.Crews.Leave;
 
 public class CrewLeaver : ICrewLeaver
 {

@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Leave;
+namespace BKA.Tools.CrewFinding.Crews.Leave;
 
 public interface ICrewLeaver
 {

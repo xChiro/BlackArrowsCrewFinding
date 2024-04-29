@@ -1,6 +1,4 @@
-using System;
-
-namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Leave;
+namespace BKA.Tools.CrewFinding.Crews.Exceptions;
 
 public class PlayerNotInCrewException : Exception
 {
