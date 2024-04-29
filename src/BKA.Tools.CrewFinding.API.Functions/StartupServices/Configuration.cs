@@ -1,5 +1,3 @@
-using System;
-
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
 
 public static class Configuration

@@ -1,6 +1,5 @@
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Queries;
-using BKA.Tools.CrewFinding.Tests.Crews.Queries;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 

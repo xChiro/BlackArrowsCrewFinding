@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "BKA.Tools.CrewFinding.APIs.Functions": {
+    "BKA.Tools.CrewFinding.API.Functions": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7143",
+      "commandLineArgs": "--port 7107",
       "launchBrowser": false
     }
   }

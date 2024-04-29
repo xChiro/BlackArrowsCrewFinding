@@ -1,6 +1,4 @@
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Authentications;
 
@@ -8,19 +6,24 @@ public class TokenDecoder
 {
     private readonly Token _token;
 
-    public TokenDecoder(HttpRequest request)
+    public TokenDecoder(HttpRequestData request)
     {
-        var authorizationHeader = request.Headers["Authorization"];
+        var authorizationHeader = request.Headers.GetValues("Authorization").FirstOrDefault();
 
-        _token = new Token(authorizationHeader);
+        _token = new Token(authorizationHeader ?? string.Empty);
+    }
+
+    public TokenDecoder(string userToken)
+    {
+        _token = new Token(userToken);
     }
 
     public string GetUserId()
     {
-        var jwtHandler = new JwtSecurityTokenHandler();
+        var securityTokenHandler = new JwtSecurityTokenHandler();
 
-        var jwtToken = jwtHandler.ReadJwtToken(_token.Value);
-        var userId = jwtToken.Claims.First(claim => claim.Type == "sub").Value;
+        var readToken = securityTokenHandler.ReadJwtToken(_token.Value);
+        var userId = readToken.Claims.First(claim => claim.Type == "sub").Value;
         
         return userId;
     }

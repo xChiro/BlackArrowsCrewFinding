@@ -1,26 +1,26 @@
-using System;
+using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
+using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players.Creation;
 using BKA.Tools.CrewFinding.Players.Ports;
-using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
 
 public class ServicesService
 {
-    public static void AddServices(IFunctionsHostBuilder builder)
+    public static void AddServices(IServiceCollection service)
     {
         var maxCrewSize = Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCrewSize"));
 
-        AddCrewServices(builder, maxCrewSize);
-        AddPlayerServices(builder);
+        AddCrewServices(service, maxCrewSize);
+        AddPlayerServices(service);
     }
 
-    private static void AddPlayerServices(IFunctionsHostBuilder builder)
+    private static void AddPlayerServices(IServiceCollection service)
     {
-        builder.Services.AddScoped<IPlayerCreator>(
+        service.AddScoped<IPlayerCreator>(
             serviceProvider =>
                 new PlayerCreator(
                     serviceProvider.GetRequiredService<IPlayerCommandRepository>(),
@@ -28,14 +28,21 @@ public class ServicesService
                     Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCitizenNameLength"))));
     }
 
-    private static void AddCrewServices(IFunctionsHostBuilder builder, int maxCrewSize)
+    private static void AddCrewServices(IServiceCollection service, int maxCrewSize)
     {
-        builder.Services.AddScoped<ICrewCreator>(
+        service.AddScoped<ICrewCreator>(
             serviceProvider =>
                 new CrewCreator(
                     serviceProvider.GetRequiredService<ICrewCommandRepository>(),
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
                     maxCrewSize));
+
+        service.AddScoped<ICrewDisbandment>(
+            serviceProvider =>
+                new CrewDisbandment(
+                    serviceProvider.GetRequiredService<ICrewValidationRepository>(),
+                    serviceProvider.GetRequiredService<ICrewCommandRepository>(),
+                    serviceProvider.GetRequiredService<IUserSession>()));
     }
 }

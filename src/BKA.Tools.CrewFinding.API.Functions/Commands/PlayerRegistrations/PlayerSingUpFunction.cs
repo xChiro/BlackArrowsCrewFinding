@@ -1,40 +1,23 @@
-using System;
-using System.IO;
-using System.Text.Json;
-using System.Threading.Tasks;
 using System.Web.Http;
 using BKA.Tools.CrewFinding.API.Functions.Authentications;
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
 using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
 using BKA.Tools.CrewFinding.Players.Creation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Extensions.Logging;
 
-namespace BKA.Tools.CrewFinding.API.Functions.PlayerRegistrations;
+namespace BKA.Tools.CrewFinding.API.Functions.Commands.PlayerRegistrations;
 
-public class PlayerSingUpFunction : FunctionBase
+public class PlayerSingUpFunction(IPlayerCreator playerCreator, ILogger<PlayerSingUpFunction> log)
+    : FunctionBase
 {
-    private readonly IPlayerCreator _playerCreator;
-
-    public PlayerSingUpFunction(IPlayerCreator playerCreator)
-    {
-        _playerCreator = playerCreator;
-    }
-
-    [FunctionName("PlayerSingUpFunction")]
+    [Function("PlayerSingUpFunction")]
     public async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "Players")]
-        HttpRequest req, ILogger log)
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "Players")] HttpRequestData req)
     {
         try
         {
             var tokenDecoder = new TokenDecoder(req);
             var player = await DeserializeBody<PLayerRequest>(req);
 
-            await _playerCreator.Create(tokenDecoder.GetUserId(), player.UserName);
+            await playerCreator.Create(tokenDecoder.GetUserId(), player.UserName);
 
             return new OkResult();
         }

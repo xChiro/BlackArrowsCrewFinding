@@ -1,12 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+        <TargetFramework>net8.0</TargetFramework>
+        <AzureFunctionsVersion>V4</AzureFunctionsVersion>
+        <OutputType>Exe</OutputType>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Azure.Identity" Version="1.11.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.WebApiCompatShim" Version="2.2.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
-        <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.2.0"/>
+        <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.19.0"/>
+        <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.1.0" />
+        <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.15.1"/>
+        <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.39" />
     </ItemGroup>
     <ItemGroup>
         <None Update="host.json">
@@ -21,11 +28,20 @@
         </None>
     </ItemGroup>
     <ItemGroup>
+        <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext"/>
+    </ItemGroup>
+    <ItemGroup>
       <ProjectReference Include="..\BKA.Tools.CrewFinding.DataAccess.CosmosDb\BKA.Tools.CrewFinding.DataAccess.CosmosDb.csproj" />
       <ProjectReference Include="..\BKA.Tools.CrewFinding.KeyVault\BKA.Tools.CrewFinding.KeyVault.csproj" />
       <ProjectReference Include="..\BKA.Tools.CrewFinding\BKA.Tools.CrewFinding.csproj" />
     </ItemGroup>
     <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions">
+        <HintPath>..\..\..\..\..\.AzureToolsForIntelliJ\AzureFunctionsCoreTools\v4\4.72.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.AspNetCore.Mvc.Core">
+        <HintPath>..\..\..\..\..\.AzureToolsForIntelliJ\AzureFunctionsCoreTools\v4\4.72.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
+      </Reference>
       <Reference Include="Microsoft.IdentityModel.Tokens">
         <HintPath>..\..\..\..\..\.AzureToolsForIntelliJ\AzureFunctionsCoreTools\v4\4.72.0\Microsoft.IdentityModel.Tokens.dll</HintPath>
       </Reference>
