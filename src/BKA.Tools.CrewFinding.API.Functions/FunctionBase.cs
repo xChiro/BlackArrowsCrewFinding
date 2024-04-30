@@ -15,6 +15,12 @@ public abstract class FunctionBase
         return crewFunctionRequest!;
     }
     
+    protected static HttpResponseData CreateSuccessfulResponse(HttpRequestData req)
+    {
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        return response;
+    }
+    
     protected static HttpResponseData CreateNotSuccessResponse(HttpRequestData req, HttpStatusCode statusCode, string message)
     {
         var response = req.CreateResponse(statusCode);

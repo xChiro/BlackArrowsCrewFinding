@@ -71,13 +71,13 @@ public class CrewLeaverTest
         return new CrewCommandRepositoryMock();
     }
 
-    private CrewLeaver InitializeCrewLeaver(string playerId)
+    private static CrewLeaver InitializeCrewLeaver(string playerId)
     {
         var player = CreatePlayer(playerId, PlayerName);
         return InitializeCrewLeaver(CreateCrewCommandRepositoryMock(), InitializeCrew(player, CrewId));
     }
 
-    private  CrewLeaver InitializeCrewLeaver(ICrewCommandRepository crewCommandMock, Crew crew)
+    private static CrewLeaver InitializeCrewLeaver(ICrewCommandRepository crewCommandMock, Crew crew)
     {
         var crewQueryRepository = new CrewQueriesRepositoryMock(crew: crew);
         return new CrewLeaver(crewQueryRepository, crewCommandMock, new UserSessionMock(PlayerId));
@@ -90,7 +90,8 @@ public class CrewLeaverTest
             new CrewName("Adam"),
             Location.DefaultLocation(),
             LanguageCollections.Default(),
-            PlayerCollection.CreateWithSingle(playerToLeave, 1), Activity.Default(),
+            PlayerCollection.CreateWithSingle(playerToLeave, 1), 
+            Activity.Default(),
             DateTime.UtcNow);
     }
 }

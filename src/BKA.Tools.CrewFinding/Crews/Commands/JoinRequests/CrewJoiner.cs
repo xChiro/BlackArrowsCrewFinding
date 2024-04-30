@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players;
@@ -6,29 +7,21 @@ using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 
-public class CrewJoiner : ICrewJoiner
+public class CrewJoiner(
+    ICrewValidationRepository crewValidationRepository,
+    ICrewQueryRepository crewQueryRepository,
+    ICrewCommandRepository crewCommandRepository,
+    IPlayerQueryRepository playersQueryRepository,
+    IUserSession userSession)
+    : ICrewJoiner
 {
-    private readonly ICrewValidationRepository _crewValidationRepository;
-    private readonly ICrewQueryRepository _crewQueryRepository;
-    private readonly ICrewCommandRepository _crewCommandRepository;
-    private readonly IPlayerQueryRepository _playersQueryRepository;
-
-    public CrewJoiner(ICrewValidationRepository crewValidationRepository, ICrewQueryRepository crewQueryRepository,
-        ICrewCommandRepository crewCommandRepository, IPlayerQueryRepository playersQueryRepository)
-    {
-        _crewValidationRepository = crewValidationRepository;
-        _crewQueryRepository = crewQueryRepository;
-        _crewCommandRepository = crewCommandRepository;
-        _playersQueryRepository = playersQueryRepository;
-    }
-
-    public async Task Join(string playerId, string crewPartyId)
+    public async Task Join(string crewPartyId)
     {
         var crewParty = await GetValidCrewParty(crewPartyId);
-        var player = await GetValidPlayer(playerId);
+        var player = await GetValidPlayer(userSession.GetUserId());
 
         crewParty.AddMember(player);
-        await _crewCommandRepository.UpdateMembers(crewPartyId, crewParty.Members);
+        await crewCommandRepository.UpdateMembers(crewPartyId, crewParty.Members);
     }
 
     private async Task<Crew> GetValidCrewParty(string crewPartyId)
@@ -53,7 +46,7 @@ public class CrewJoiner : ICrewJoiner
 
     private async Task<bool> IsPlayerAlreadyInAParty(string playerId)
     {
-        return await _crewValidationRepository.IsPlayerInActiveCrew(playerId);
+        return await crewValidationRepository.IsPlayerInActiveCrew(playerId);
     }
 
     private static bool IsAValidPlayer(Player? player)
@@ -63,11 +56,11 @@ public class CrewJoiner : ICrewJoiner
 
     private async Task<Crew> GetCrewParty(string crewPartyId)
     {
-        return await _crewQueryRepository.GetCrew(crewPartyId) ?? throw new CrewNotFoundException(crewPartyId);
+        return await crewQueryRepository.GetCrew(crewPartyId) ?? throw new CrewNotFoundException(crewPartyId);
     }
 
     private async Task<Player?> GetPlayer(string playerId)
     {
-        return await _playersQueryRepository.GetPlayer(playerId);
+        return await playersQueryRepository.GetPlayer(playerId);
     }
 }
