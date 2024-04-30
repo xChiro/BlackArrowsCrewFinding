@@ -32,6 +32,12 @@ public static class DomainService
 
     private static void AddCrewServices(IServiceCollection service, int maxCrewSize)
     {
+        service.AddScoped<IRecentCrewsRetrieval>(
+            serviceProvider =>
+                new RecentCrewsRetrieval(
+                    serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+                    Convert.ToInt32(Configuration.GetEnvironmentVariable("recentCrewsHoursThreshold"))));
+        
         service.AddScoped<ICrewCreator>(
             serviceProvider =>
                 new CrewCreator(
@@ -47,12 +53,6 @@ public static class DomainService
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>()));
 
-        var ageThresholdInHours = Convert.ToInt32(Configuration.GetEnvironmentVariable("recentCrewsHoursThreshold"));
-        service.AddScoped<IRecentCrewsRetrieval>(
-            serviceProvider =>
-                new RecentCrewsRetrieval(
-                    serviceProvider.GetRequiredService<ICrewQueryRepository>(),
-                    ageThresholdInHours));
 
         service.AddScoped<ICrewJoiner>(
             serviceProvider =>

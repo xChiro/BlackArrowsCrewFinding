@@ -11,7 +11,7 @@ public class LeaveCrewFunction(ICrewLeaver crewLeaver, ILoggerFactory loggerFact
     [Function("LeaveCrewFunction")]
     public async Task<HttpResponseData> Run(
         [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Crews/{id}/Members/Leave")] HttpRequestData req,
-        FunctionContext executionContext, string id)
+       string id)
     {
         try
         {

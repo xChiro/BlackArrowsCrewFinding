@@ -9,7 +9,8 @@ public class JoinCrewFunction(ICrewJoiner crewJoiner, ILoggerFactory loggerFacto
     private readonly ILogger _logger = loggerFactory.CreateLogger<JoinCrewFunction>();
 
     [Function("JoinCrewFunction")]
-    public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "put", Route = "Crews/{id}/Members")] HttpRequestData req,
+    public async Task<HttpResponseData> Run(
+        [HttpTrigger(AuthorizationLevel.Function, "put", Route = "Crews/{id}/Members")] HttpRequestData req,
         FunctionContext executionContext, string id)
     {
         try
@@ -26,6 +27,5 @@ public class JoinCrewFunction(ICrewJoiner crewJoiner, ILoggerFactory loggerFacto
             _logger.LogError(e.Message, e);
             return InternalServerErrorResponse(req);
         }
-        
     }
 }
