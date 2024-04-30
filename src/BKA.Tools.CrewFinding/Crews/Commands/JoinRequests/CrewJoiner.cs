@@ -15,13 +15,13 @@ public class CrewJoiner(
     IUserSession userSession)
     : ICrewJoiner
 {
-    public async Task Join(string crewPartyId)
+    public async Task Join(string crewId)
     {
-        var crewParty = await GetValidCrewParty(crewPartyId);
+        var crewParty = await GetValidCrewParty(crewId);
         var player = await GetValidPlayer(userSession.GetUserId());
 
         crewParty.AddMember(player);
-        await crewCommandRepository.UpdateMembers(crewPartyId, crewParty.Members);
+        await crewCommandRepository.UpdateMembers(crewId, crewParty.Members);
     }
 
     private async Task<Crew> GetValidCrewParty(string crewPartyId)

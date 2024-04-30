@@ -51,6 +51,7 @@ public class CrewCreator(
     {
         if (captainTaskResult is null)
             throw new PlayerNotFoundException(captainId);
+        
         if (playerInCrewResult)
             throw new PlayerMultipleCrewsException();
     }

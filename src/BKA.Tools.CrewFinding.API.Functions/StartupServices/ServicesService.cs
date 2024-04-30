@@ -2,6 +2,7 @@ using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Ports;
+using BKA.Tools.CrewFinding.Crews.Queries.Recents;
 using BKA.Tools.CrewFinding.Players.Creation;
 using BKA.Tools.CrewFinding.Players.Ports;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,5 +45,12 @@ public class ServicesService
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>()));
+        
+        var ageThresholdInHours = Convert.ToInt32(Configuration.GetEnvironmentVariable("recentCrewsHoursThreshold"));
+        service.AddScoped<IRecentCrewsRetrieval>(
+            serviceProvider =>
+                new RecentCrewsRetrieval(
+                    serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+                    ageThresholdInHours));
     }
 }

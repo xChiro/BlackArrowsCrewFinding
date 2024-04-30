@@ -15,13 +15,21 @@ public abstract class FunctionBase
         return crewFunctionRequest!;
     }
     
-    protected static HttpResponseData CreateSuccessfulResponse(HttpRequestData req)
+    protected static HttpResponseData OkResponse(HttpRequestData req)
     {
         var response = req.CreateResponse(HttpStatusCode.OK);
         return response;
     }
     
-    protected static HttpResponseData CreateNotSuccessResponse(HttpRequestData req, HttpStatusCode statusCode, string message)
+    protected static HttpResponseData OkResponse<T>(HttpRequestData req, T body)
+    {
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        response.WriteAsJsonAsync(body);
+        
+        return response;
+    }
+    
+    protected static HttpResponseData NotSuccessResponse(HttpRequestData req, HttpStatusCode statusCode, string message)
     {
         var response = req.CreateResponse(statusCode);
         response.WriteAsJsonAsync(new ErrorMessageResponse(message));

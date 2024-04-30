@@ -20,7 +20,7 @@ public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILoggerFactor
         }
         catch (Exception e) when (e is CrewNotFoundException or PlayerNotInCrewException)
         {
-            return CreateNotSuccessResponse(req, HttpStatusCode.NotFound, e.Message);
+            return NotSuccessResponse(req, HttpStatusCode.NotFound, e.Message);
         }
         catch (Exception ex)
         {
