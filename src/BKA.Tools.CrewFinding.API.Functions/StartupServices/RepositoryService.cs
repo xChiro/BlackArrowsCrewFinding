@@ -18,6 +18,7 @@ public class RepositoryService
             containerBuilder.Build(databaseId, Configuration.GetEnvironmentVariable("cosmosDBPlayerContainer"));
 
         service.AddSingleton<ICrewCommandRepository>(_ => new CrewCommandRepository(crewContainer));
+        service.AddSingleton<ICrewQueryRepository>(_ => new CrewValidationRepository(crewContainer));
         service.AddSingleton<ICrewValidationRepository>(_ => new CrewValidationRepository(crewContainer));
         service.AddSingleton<IPlayerQueryRepository>(_ => new PlayerQueries(playerContainer));
         service.AddSingleton<IPlayerCommandRepository>(_ => new PlayerCommands(playerContainer));

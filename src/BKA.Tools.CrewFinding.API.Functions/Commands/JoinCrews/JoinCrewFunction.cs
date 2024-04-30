@@ -9,12 +9,12 @@ public class JoinCrewFunction(ICrewJoiner crewJoiner, ILoggerFactory loggerFacto
     private readonly ILogger _logger = loggerFactory.CreateLogger<JoinCrewFunction>();
 
     [Function("JoinCrewFunction")]
-    public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Function, "update", Route = "Crews/{id}/Members")] HttpRequestData req,
+    public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "put", Route = "Crews/{id}/Members")] HttpRequestData req,
         FunctionContext executionContext, string id)
     {
         try
         {
-            crewJoiner.Join(id);
+            await crewJoiner.Join(id);
             return OkResponse(req);
         }
         catch (Exception e) when (e is CrewNotFoundException or PlayerMultipleCrewsException)

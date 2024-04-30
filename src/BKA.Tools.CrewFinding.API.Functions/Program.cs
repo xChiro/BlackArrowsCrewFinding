@@ -16,7 +16,7 @@ var host = new HostBuilder()
         service.AddScoped<IUserSessionFilter>(_ => userSession);
         service.AddHttpContextAccessor();
         RepositoryService.AddRepositories(service, containerBuilder);
-        ServicesService.AddServices(service);
+        DomainService.AddServices(service);
         service.AddLogging();
     })
     .Build();

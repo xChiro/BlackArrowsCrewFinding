@@ -1,6 +1,7 @@
 using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
+using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recents;
 using BKA.Tools.CrewFinding.Players.Creation;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
 
-public class ServicesService
+public static class DomainService
 {
     public static void AddServices(IServiceCollection service)
     {
@@ -45,12 +46,21 @@ public class ServicesService
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>()));
-        
+
         var ageThresholdInHours = Convert.ToInt32(Configuration.GetEnvironmentVariable("recentCrewsHoursThreshold"));
         service.AddScoped<IRecentCrewsRetrieval>(
             serviceProvider =>
                 new RecentCrewsRetrieval(
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     ageThresholdInHours));
+
+        service.AddScoped<ICrewJoiner>(
+            serviceProvider =>
+                new CrewJoiner(
+                    serviceProvider.GetRequiredService<ICrewValidationRepository>(),
+                    serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+                    serviceProvider.GetRequiredService<ICrewCommandRepository>(),
+                    serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
+                    serviceProvider.GetRequiredService<IUserSession>()));
     }
 }

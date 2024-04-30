@@ -1,8 +1,3 @@
 namespace BKA.Tools.CrewFinding.Crews.Exceptions;
 
-public class PlayerMultipleCrewsException : Exception
-{
-    public PlayerMultipleCrewsException(string message = "A player can only create one crew at a time.") :
-        base(message)
-    { }
-}
+public class PlayerMultipleCrewsException(string message = "Player is already in a crew") : Exception(message);
