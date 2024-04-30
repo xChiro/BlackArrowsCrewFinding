@@ -4,8 +4,10 @@ using BKA.Tools.CrewFinding.Crews.Exceptions;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Commands.CrewDisbands;
 
-public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILogger<CrewDisbandFunction> log) : FunctionBase
+public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILoggerFactory loggerFactory) : FunctionBase
 {
+    private readonly ILogger _logger = loggerFactory.CreateLogger<CrewDisbandFunction>();
+    
     [Function("CrewDisbandFunction")]
     public async Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Crews/{id}")] HttpRequestData req, string id)
@@ -22,7 +24,7 @@ public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILogger<CrewD
         }
         catch (Exception ex)
         {
-            log.LogError(ex.Message, ex);
+            _logger.LogError(ex.Message, ex);
             return InternalServerErrorResponse(req);
         }
     }

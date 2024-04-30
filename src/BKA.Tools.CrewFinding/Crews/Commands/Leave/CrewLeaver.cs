@@ -1,29 +1,23 @@
+using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Crews.Commands.Leave;
 
-public class CrewLeaver : ICrewLeaver
+public class CrewLeaver( ICrewQueryRepository crewQueriesRepository,  ICrewCommandRepository crewCommandMock,
+    IUserSession userSession)  : ICrewLeaver
 {
-    private readonly ICrewQueryRepository _crewQueriesRepository;
-    private readonly ICrewCommandRepository _crewCommandMock;
-
-    public CrewLeaver(ICrewQueryRepository crewQueriesRepository, ICrewCommandRepository crewCommandMock)
+    public async Task Leave(string crewId)
     {
-        _crewQueriesRepository = crewQueriesRepository;
-        _crewCommandMock = crewCommandMock;
-    }
+        var crew = await crewQueriesRepository.GetCrew(crewId);
 
-    public async Task Leave(string playerId, string crewId)
-    {
-        var crew = await _crewQueriesRepository.GetCrew(crewId);
-        
-        if(crew == null)
+        if (crew == null)
             throw new CrewNotFoundException(crewId);
         
-        if(!crew.LeaveMember(playerId))
+        var playerId = userSession.GetUserId();
+        if (!crew.LeaveMember(playerId))
             throw new PlayerNotInCrewException();
 
-        await _crewCommandMock.UpdateMembers(crewId, crew.Members);
+        await crewCommandMock.UpdateMembers(crewId, crew.Members);
     }
 }

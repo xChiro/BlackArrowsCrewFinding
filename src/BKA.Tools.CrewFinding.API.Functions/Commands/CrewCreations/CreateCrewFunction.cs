@@ -8,8 +8,10 @@ using BKA.Tools.CrewFinding.Players.Exceptions;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Commands.CrewCreations;
 
-public class CreateCrewFunction(ICrewCreator crewCreator, ILogger<CreateCrewFunction> log) : FunctionBase
+public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerFactory) : FunctionBase
 {
+    private readonly ILogger _logger = loggerFactory.CreateLogger<CreateCrewFunction>();
+    
     [Function("CreateCrewFunction")]
     public async Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "Crews")]
@@ -34,7 +36,7 @@ public class CreateCrewFunction(ICrewCreator crewCreator, ILogger<CreateCrewFunc
         }
         catch (Exception ex)
         {
-            log.LogError(ex.Message, ex);
+            _logger.LogError(ex.Message, ex);
             return InternalServerErrorResponse(req);
         }
     }

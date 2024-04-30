@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.BehaviourTest.Commons.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 using BKA.Tools.CrewFinding.Crews.Commands.Leave;
@@ -24,14 +25,14 @@ public class LeaveCrewActSteps
     private CrewLeaver CreateCrewLeaver()
     {
         return new CrewLeaver(_crewRepositoriesContext.QueryRepositoryMock,
-            _crewRepositoriesContext.CommandRepositoryMock);
+            _crewRepositoriesContext.CommandRepositoryMock, new UserSessionMock(_playerContext.PlayerId));
     }
 
     [When("the player requests to leave the Crew")]
     public async Task WhenThePlayerRequestsToLeaveTheCrew()
     {
         var sut = CreateCrewLeaver();
-        await sut.Leave(_playerContext.PlayerId, _crewContext.CrewId);
+        await sut.Leave(_crewContext.CrewId);
     }
 
     [When(@"the player attempts to leave the Crew")]
@@ -40,7 +41,7 @@ public class LeaveCrewActSteps
         var sut = CreateCrewLeaver();
         try
         {
-            await sut.Leave(_playerContext.PlayerId, _crewContext.CrewId);
+            await sut.Leave(_crewContext.CrewId);
         }
         catch (Exception e)
         {
@@ -54,7 +55,7 @@ public class LeaveCrewActSteps
         var sut = CreateCrewLeaver();
         try
         {
-            await sut.Leave(_playerContext.PlayerId, _crewContext.CrewId);
+            await sut.Leave(_crewContext.CrewId);
         }
         catch (Exception e)
         {
@@ -68,7 +69,7 @@ public class LeaveCrewActSteps
         var sut = CreateCrewLeaver();
         try
         {
-            await sut.Leave(_playerContext.PlayerId, Guid.NewGuid().ToString());
+            await sut.Leave(Guid.NewGuid().ToString());
         }
         catch (Exception e)
         {

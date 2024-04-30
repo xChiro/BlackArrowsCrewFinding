@@ -7,6 +7,7 @@ using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
+using BKA.Tools.CrewFinding.Tests.Commons.Mocks;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Leave;
@@ -24,7 +25,7 @@ public class CrewLeaverTest
         var sut = InitializeCrewLeaver(PlayerId);
 
         // Act
-        var func = () => sut.Leave(PlayerId, Guid.NewGuid().ToString());
+        var func = () => sut.Leave(Guid.NewGuid().ToString());
 
         // Assert
         func.Should().ThrowAsync<CrewNotFoundException>();
@@ -37,7 +38,7 @@ public class CrewLeaverTest
         var sut = InitializeCrewLeaver(PlayerId);
 
         // Act
-        var func = () => sut.Leave(PlayerId, CrewId);
+        var func = () => sut.Leave(CrewId);
 
         // Assert
         func.Should().ThrowAsync<PlayerNotInCrewException>();
@@ -53,7 +54,7 @@ public class CrewLeaverTest
         var sut = InitializeCrewLeaver(crewCommandMock, crew);
 
         // Act
-        await sut.Leave(PlayerId, CrewId);
+        await sut.Leave(CrewId);
 
         // Assert
         crewCommandMock.Members.Should().NotContain(player => player.Id == playerToLeave.Id);
@@ -70,16 +71,16 @@ public class CrewLeaverTest
         return new CrewCommandRepositoryMock();
     }
 
-    private static CrewLeaver InitializeCrewLeaver(string playerId)
+    private CrewLeaver InitializeCrewLeaver(string playerId)
     {
         var player = CreatePlayer(playerId, PlayerName);
         return InitializeCrewLeaver(CreateCrewCommandRepositoryMock(), InitializeCrew(player, CrewId));
     }
 
-    private static CrewLeaver InitializeCrewLeaver(ICrewCommandRepository crewCommandMock, Crew crew)
+    private  CrewLeaver InitializeCrewLeaver(ICrewCommandRepository crewCommandMock, Crew crew)
     {
         var crewQueryRepository = new CrewQueriesRepositoryMock(crew: crew);
-        return new CrewLeaver(crewQueryRepository, crewCommandMock);
+        return new CrewLeaver(crewQueryRepository, crewCommandMock, new UserSessionMock(PlayerId));
     }
 
     private static Crew InitializeCrew(Player playerToLeave, string crewId)

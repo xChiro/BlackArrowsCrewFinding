@@ -5,9 +5,10 @@ using BKA.Tools.CrewFinding.Players.Creation;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Commands.PlayerRegistrations;
 
-public class PlayerSingUpFunction(IPlayerCreator playerCreator, ILogger<PlayerSingUpFunction> log)
-    : FunctionBase
+public class PlayerSingUpFunction(IPlayerCreator playerCreator, ILoggerFactory loggerFactory) : FunctionBase
 {
+    private readonly ILogger _logger = loggerFactory.CreateLogger<PlayerSingUpFunction>();
+
     [Function("PlayerSingUpFunction")]
     public async Task<IActionResult> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "Players")] HttpRequestData req)
@@ -31,7 +32,7 @@ public class PlayerSingUpFunction(IPlayerCreator playerCreator, ILogger<PlayerSi
         }
         catch (Exception ex)
         {
-            log.LogError(ex.Message, ex);
+            _logger.LogError(ex.Message, ex);
             return new InternalServerErrorResult();
         }
     }
