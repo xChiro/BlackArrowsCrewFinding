@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.BehaviourTest.Commons.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Helpers;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
@@ -30,32 +31,32 @@ public class CrewActSteps
     [When(@"the player attempts to create a Crew with missing location information")]
     public Task WhenThePlayerAttemptsToCreateACrewWithMissingLocationInformation()
     {
-        return CreateAndStoreCrew(CrewCreatorRequestFactory.CreateDefaultCrewPartyWithoutLocation(_playerContext.PlayerId));
+        return CreateAndStoreCrew(CrewCreatorRequestFactory.CreateDefaultCrewPartyWithoutLocation());
     }
 
     [When(@"the player creates a Crew with the following details:")]
     public Task WhenThePlayerCreatesACrewWithTheFollowingDetails(Table crewPartyDetails)
     {
         _crewContext.FillData(crewPartyDetails);
-        return CreateAndStoreCrew(_crewContext.ToRequest(_playerContext.PlayerId));
+        return CreateAndStoreCrew(_crewContext.ToRequest());
     }
 
     [When(@"the player attempts to create a Crew with missing MaxCrewSize")]
     public Task WhenThePlayerAttemptsToCreateACrewWithMissingMaxCrewSize()
     {
-        return CreateAndStoreCrew(CrewCreatorRequestFactory.CreateCrew(_playerContext.PlayerId, _crewContext.MaxPlayerAllowed));
+        return CreateAndStoreCrew(CrewCreatorRequestFactory.CreateCrew(_crewContext.MaxPlayerAllowed));
     }
 
     [When(@"the player attempts to create a Crew with missing languages")]
     public Task WhenThePlayerAttemptsToCreateACrewWithMissingLanguages()
     {
-        return CreateAndStoreCrew(CrewCreatorRequestFactory.CreateCrewPartyWithMissingLanguages(_playerContext.PlayerId));
+        return CreateAndStoreCrew(CrewCreatorRequestFactory.CreateCrewPartyWithMissingLanguages());
     }
 
     [When(@"the player attempts to create a Crew with missing activity information")]
     public Task WhenThePlayerAttemptsToCreateACrewWithMissingActivityInformation()
     {
-        return CreateAndStoreCrew(CrewCreatorRequestFactory.CreateCrew(_playerContext.PlayerId, 1));
+        return CreateAndStoreCrew(CrewCreatorRequestFactory.CreateCrew(1));
     }
 
     [When(@"the player attempts to create a new Crew")]
@@ -63,7 +64,7 @@ public class CrewActSteps
     {
         try
         {
-            var crewCreatorRequest = CrewCreatorRequestFactory.CreateCrew(_playerContext.PlayerId, 1);
+            var crewCreatorRequest = CrewCreatorRequestFactory.CreateCrew(1);
             await CreateAndStoreCrew(crewCreatorRequest);
         }
         catch (Exception ex)
@@ -77,7 +78,7 @@ public class CrewActSteps
         var crewPartyCreator = new CrewCreator(_crewRepositoriesContext.CommandRepositoryMock,
             _crewRepositoriesContext.ValidationRepositoryMocks,
             _playerRepositoryContext.PlayerQueryRepositoryMock,
-            10);
+            new UserSessionMock(_playerContext.PlayerId), 10);
 
         await crewPartyCreator.Create(crewCreatorRequest,
             _crewCreationResultsContext.CrewCreatorResponseMock);

@@ -19,7 +19,8 @@ public class CrewCreatorTest
         var captainId = Guid.NewGuid().ToString();
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
         var playerQueriesMock = new PlayerQueryRepositoryValidationMock(captainId, captainName);
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
+        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock,
+            playerId: captainId);
 
         // Act
         await ExecuteCrewCreation(sut, captainId);
@@ -111,7 +112,7 @@ public class CrewCreatorTest
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock,
             maxPlayersAllowed: maxCrewAllowed);
-        
+
         // Act
         await ExecuteCrewCreation(sut, captainId, 10);
 

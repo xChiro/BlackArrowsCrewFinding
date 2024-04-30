@@ -9,10 +9,10 @@ namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Creators.Utilities;
 public static class CrewCreationExecutioner
 {
     public static async Task ExecuteCrewCreation(ICrewCreator sut, ICrewCreatorResponse responseMock,
-        string captainId = "1ASD34-344SDF", string[]? languages = null, Location? expectedLocation = null, 
+        string captainId = "1ASD34-344SDF", string[]? languages = null, Location? expectedLocation = null,
         string activity = "Mining", int totalCrew = 2, string description = "Description")
     {
-        var request = CrewPartyCreatorRequest(captainId, totalCrew,
+        var request = CrewPartyCreatorRequest(totalCrew,
             expectedLocation ?? Location.DefaultLocation(),
             languages ?? Array.Empty<string>(), activity, description);
 
@@ -28,12 +28,10 @@ public static class CrewCreationExecutioner
             activity: activity, totalCrew: totalCrew, description: description);
     }
 
-    private static CrewCreatorRequest CrewPartyCreatorRequest(string captainId, int totalCrew,
-        Location location,
-        string[] languages, string activity, string description)
+    private static CrewCreatorRequest CrewPartyCreatorRequest(int totalCrew, Location location, string[] languages,
+        string activity, string description)
     {
-        var request = new CrewCreatorRequest(captainId, totalCrew, location, languages, activity,
-            description);
+        var request = new CrewCreatorRequest(totalCrew, location, languages, activity, description);
 
         return request;
     }

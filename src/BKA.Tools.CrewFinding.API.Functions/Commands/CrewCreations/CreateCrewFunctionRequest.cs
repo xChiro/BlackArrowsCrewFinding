@@ -14,10 +14,9 @@ public class CreateCrewFunctionRequest
     public string ActivityName { get; set; }
     public string Description { get; set; }
 
-    public CrewCreatorRequest ToCrewCreatorRequest(string userId)
+    public CrewCreatorRequest ToCrewCreatorRequest()
     {
         return new CrewCreatorRequest(
-            userId,
             CrewSize,
             new Location(System, PlanetarySystem, PlanetMoon, Place),
             LanguagesAbbrevs,

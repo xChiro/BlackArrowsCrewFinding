@@ -33,13 +33,12 @@ public class CrewContext
         };
     }
 
-    public CrewCreatorRequest ToRequest(string captainName)
+    public CrewCreatorRequest ToRequest()
     {
         var languages = Options.Languages.Split(',').Select(x => x.Trim()).ToArray();
         var location = new Location(CrewLocation.System, CrewLocation.PlanetarySystem, CrewLocation.PlanetOrMoon, CrewLocation.Place);
 
-        return new CrewCreatorRequest(captainName, Options.CrewSize, location, languages.ToArray(), CrewActivity.Name,
-            CrewActivity.Description);
+        return new CrewCreatorRequest(Options.CrewSize, location, languages.ToArray(), CrewActivity.Name, CrewActivity.Description);
     }
 
     public Crew ToCrew(string captainId, string captainName)

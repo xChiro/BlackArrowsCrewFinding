@@ -36,7 +36,7 @@ public class ServicesService
                     serviceProvider.GetRequiredService<ICrewCommandRepository>(),
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
-                    maxCrewSize));
+                    serviceProvider.GetRequiredService<IUserSession>(), maxCrewSize));
 
         service.AddScoped<ICrewDisbandment>(
             serviceProvider =>

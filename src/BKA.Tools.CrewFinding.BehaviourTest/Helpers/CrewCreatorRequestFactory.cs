@@ -8,32 +8,31 @@ public static class CrewCreatorRequestFactory
     private const int DefaultTotalCrew = 4;
     private const string DefaultActivity = "Bounty Hunting";
     private const string DefaultDescription = "Hunt down the most dangerous criminals in the galaxy.";
-    private static readonly string[] DefaultLanguages = {"en"};
+    private static readonly string[] DefaultLanguages = ["en"];
     private static readonly Location DefaultLocation = new("Sol", "Sol", "Earth", "Paris");
     private static readonly Location EmptyLocation = new("", "", "", "");
 
-    public static CrewCreatorRequest CreateCrew(string captainId,
-        int totalCrew = DefaultTotalCrew)
+    public static CrewCreatorRequest CreateCrew(int totalCrew = DefaultTotalCrew)
     {
-        return CreateCrewPartyRequest(captainId, totalCrew, DefaultLocation, DefaultLanguages, DefaultActivity,
+        return CreateCrewPartyRequest(totalCrew, DefaultLocation, DefaultLanguages, DefaultActivity,
             DefaultDescription);
     }
 
-    public static CrewCreatorRequest CreateDefaultCrewPartyWithoutLocation(string captainId)
+    public static CrewCreatorRequest CreateDefaultCrewPartyWithoutLocation()
     {
-        return CreateCrewPartyRequest(captainId, DefaultTotalCrew, EmptyLocation, DefaultLanguages, DefaultActivity,
+        return CreateCrewPartyRequest(DefaultTotalCrew, EmptyLocation, DefaultLanguages, DefaultActivity,
             DefaultDescription);
     }
 
-    public static CrewCreatorRequest CreateCrewPartyWithMissingLanguages(string captainId)
+    public static CrewCreatorRequest CreateCrewPartyWithMissingLanguages()
     {
-        return CreateCrewPartyRequest(captainId, DefaultTotalCrew, DefaultLocation, Array.Empty<string>(),
+        return CreateCrewPartyRequest(DefaultTotalCrew, DefaultLocation, [],
             DefaultActivity, DefaultDescription);
     }
 
-    private static CrewCreatorRequest CreateCrewPartyRequest(string captainId, int totalCrew, Location location,
+    private static CrewCreatorRequest CreateCrewPartyRequest(int totalCrew, Location location,
         string[] languages, string activity, string description)
     {
-        return new CrewCreatorRequest(captainId, totalCrew, location, languages, activity, description);
+        return new CrewCreatorRequest(totalCrew, location, languages, activity, description);
     }
 }

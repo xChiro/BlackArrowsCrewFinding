@@ -45,7 +45,7 @@ public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerF
         CreateCrewFunctionRequest crewFunctionRequest)
     {
         var crewCreatorResponse = new CrewCreatorResponse();
-        await crewCreator.Create(crewFunctionRequest.ToCrewCreatorRequest(tokenDecoder.GetUserId()),
+        await crewCreator.Create(crewFunctionRequest.ToCrewCreatorRequest(),
             crewCreatorResponse);
         return crewCreatorResponse;
     }

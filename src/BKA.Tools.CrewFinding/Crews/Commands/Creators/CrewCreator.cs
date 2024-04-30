@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
@@ -8,34 +9,25 @@ using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.Crews.Commands.Creators;
 
-public class CrewCreator : ICrewCreator
+public class CrewCreator(
+    ICrewCommandRepository commandRepository,
+    ICrewValidationRepository crewValidationRepository,
+    IPlayerQueryRepository playerQueryRepository,
+    IUserSession userSession,
+    int playersAllowed) : ICrewCreator
 {
-    private readonly IPlayerQueryRepository _playerQueryRepository;
-    private readonly ICrewCommandRepository _commandRepository;
-    private readonly ICrewValidationRepository _crewValidationRepository;
-    private readonly int _maxPlayersAllowed;
-
-    public CrewCreator(ICrewCommandRepository commandRepository, ICrewValidationRepository crewValidationRepository,
-        IPlayerQueryRepository playerQueryRepository, int maxPlayersAllowed)
-    {
-        _playerQueryRepository = playerQueryRepository;
-        _maxPlayersAllowed = maxPlayersAllowed;
-        _commandRepository = commandRepository;
-        _crewValidationRepository = crewValidationRepository;
-    }
-
     public async Task Create(CrewCreatorRequest request, ICrewCreatorResponse crewCreatorResponse)
     {
-        var captain = await TryToGetValidCaptain(request.CaptainId);
+        var captain = await TryToGetValidCaptain(userSession.GetUserId());
         var crew = InitializeNewCrew(captain, request);
 
-        await _commandRepository.CreateCrew(crew);
+        await commandRepository.CreateCrew(crew);
         crewCreatorResponse.SetResponse(crew.Id);
     }
 
     private Crew InitializeNewCrew(Player captain, CrewCreatorRequest request)
     {
-        var maxPlayersAllowed = request.CrewSize > _maxPlayersAllowed ? _maxPlayersAllowed : request.CrewSize;
+        var maxPlayersAllowed = request.CrewSize > playersAllowed ? playersAllowed : request.CrewSize;
         
         return new Crew(captain, new CrewName(captain.CitizenName), request.Location,
             LanguageCollections.CreateFromAbbrevs(request.LanguagesAbbrevs), 
@@ -45,8 +37,8 @@ public class CrewCreator : ICrewCreator
 
     private async Task<Player> TryToGetValidCaptain(string captainId)
     {
-        var playerInCrewTask = _crewValidationRepository.IsPlayerInActiveCrew(captainId);
-        var captainTask = _playerQueryRepository.GetPlayer(captainId);
+        var playerInCrewTask = crewValidationRepository.IsPlayerInActiveCrew(captainId);
+        var captainTask = playerQueryRepository.GetPlayer(captainId);
 
         await Task.WhenAll(playerInCrewTask, captainTask);
 
