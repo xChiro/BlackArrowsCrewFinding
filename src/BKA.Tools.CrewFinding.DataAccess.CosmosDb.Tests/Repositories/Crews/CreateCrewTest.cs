@@ -7,22 +7,15 @@ using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 
 namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 
-public class CreateCrewTest : IAsyncLifetime
+public class CreateCrewTest(ICrewCommandRepository sut, IDatabaseSettingsProvider<Container> databaseSettingsProvider)
+    : IAsyncLifetime
 {
-    private readonly ICrewCommandRepository _sut;
-    private readonly IDatabaseSettingsProvider<Container> _databaseSettingsProvider;
     private Container? _crewContainer;
     private string _crewId = string.Empty;
 
-    public CreateCrewTest(ICrewCommandRepository sut, IDatabaseSettingsProvider<Container>  databaseSettingsProvider)
-    {
-        _sut = sut;
-        _databaseSettingsProvider = databaseSettingsProvider;
-    }
-
     public Task InitializeAsync()
     {
-        _crewContainer = _databaseSettingsProvider.GetCrewContainer();
+        _crewContainer = databaseSettingsProvider.GetCrewContainer();
         return Task.CompletedTask;
     }
 
@@ -34,7 +27,7 @@ public class CreateCrewTest : IAsyncLifetime
         _crewId = crew.Id;
 
         // Act
-        await _sut.CreateCrew(crew);
+        await sut.CreateCrew(crew);
 
         // Assert
         await AssertCrewWasCreatedSuccessfully(crew);
