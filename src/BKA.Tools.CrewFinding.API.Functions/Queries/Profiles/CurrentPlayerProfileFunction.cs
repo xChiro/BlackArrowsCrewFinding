@@ -1,25 +1,20 @@
-using System.Collections.Generic;
 using System.Net;
 using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Queries.Profiles;
 
-public class UserSessionProfileFunction(
+public class CurrentPlayerProfileFunction(
     IPlayerProfileViewer playerProfileViewer,
     IUserSession userSession,
     ILoggerFactory loggerFactory) : FunctionBase
 {
-    private readonly ILogger _logger = loggerFactory.CreateLogger<UserSessionProfileFunction>();
+    private readonly ILogger _logger = loggerFactory.CreateLogger<CurrentPlayerProfileFunction>();
 
-    [Function("UserSessionProfileFunction")]
+    [Function("CurrentPlayerProfileFunction")]
     public async Task<HttpResponseData> Run(
-        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "User/Profiles")]
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Players/Current/Profile")]
         HttpRequestData req,
         FunctionContext executionContext)
     {
@@ -27,7 +22,7 @@ public class UserSessionProfileFunction(
         {
             var player = await playerProfileViewer.View(userSession.GetUserId());
 
-            return OkResponse(req, UserSessionProfileResponse.FromPlayer(player));
+            return OkResponse(req, CurrentPlayerProfileResponse.FromPlayer(player));
         }
         catch (PlayerNotFoundException e)
         {
