@@ -1,28 +1,20 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Mocks;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
+using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Steps;
 
 [Binding]
-public class PlayerCreationActSteps
+public class PlayerCreationActSteps(
+    PlayerContext playerContext,
+    PlayerRepositoryContext playerRepositoryContext,
+    PlayerResultsContext playerResultsContext)
 {
-    private readonly PlayerContext _playerContext;
-    private readonly PlayerRepositoryContext _playerRepositoryContext;
-    private readonly PlayerResultsContext _playerResultsContext;
-
-    public PlayerCreationActSteps(PlayerContext playerContext, PlayerRepositoryContext playerRepositoryContext,
-        PlayerResultsContext playerResultsContext)
-    {
-        _playerRepositoryContext = playerRepositoryContext;
-        _playerResultsContext = playerResultsContext;
-        _playerContext = playerContext;
-    }
-
     [When(@"I attempt to create a new player profile with StarCitizen Handle ""(.*)""")]
     public void WhenIAttemptToCreateANewPlayerProfileWithUserIdAndStarCitizenHandle(string userName)
     {
-        ExecutePlayerCreation(_playerContext.PlayerId, userName);
+        ExecutePlayerCreation(playerContext.PlayerId, userName);
     }
 
     [When(@"I attempt to create a new player profile with a StarCitizen Handle ""(.*)""")]
@@ -34,19 +26,19 @@ public class PlayerCreationActSteps
     [When(@"I attempt to create a new player profile with an empty StarCitizen Handle")]
     public void WhenIAttemptToCreateANewPlayerProfileWithAnEmptyStarCitizenHandle()
     {
-        ExecutePlayerCreation(_playerContext.PlayerId, string.Empty);
+        ExecutePlayerCreation(playerContext.PlayerId, string.Empty);
     }
 
     [When(@"I attempt to create a new player profile with UserId ""(.*)"" and StarCitizen Handle ""(.*)""")]
     public void WhenIAttemptToCreateANewPlayerProfileWithUserIdAndStarCitizenHandle(string userId, string playerName)
     {
-        ExecutePlayerCreation(userId, playerName, _playerContext.MinLength, _playerContext.MaxLength);
+        ExecutePlayerCreation(userId, playerName, playerContext.MinLength, playerContext.MaxLength);
     }
 
     private void ExecutePlayerCreation(string userId, string starCitizenHandle, int minLength = 3, int maxLength = 30)
     {
-        _playerRepositoryContext.PlayerCommandRepositoryMock = new PlayerCommandRepositoryMock();
-        var sut = new PlayerCreator(_playerRepositoryContext.PlayerCommandRepositoryMock, minLength, maxLength);
+        playerRepositoryContext.PlayerCommandRepositoryMock = new PlayerCommandRepositoryMock();
+        var sut = new PlayerCreator(playerRepositoryContext.PlayerCommandRepositoryMock, minLength, maxLength);
 
         try
         {
@@ -54,7 +46,28 @@ public class PlayerCreationActSteps
         }
         catch (Exception ex)
         {
-            _playerResultsContext.Exception = ex;
+            playerResultsContext.Exception = ex;
+        }
+    }
+
+    [When(@"I get my profile")]
+    public async Task WhenIGetMyProfile()
+    {
+        var sut = new PlayerProfileViewer(playerRepositoryContext.PlayerQueryRepositoryMock);
+        playerResultsContext.Player = await sut.View(playerContext.PlayerId);
+    }
+
+    [When(@"I attempt get my profile")]
+    public async Task WhenIAttemptGetMyProfile()
+    {
+        try
+        {
+            var sut = new PlayerProfileViewer(playerRepositoryContext.PlayerQueryRepositoryMock);
+            await sut.View(playerContext.PlayerId);
+        }
+        catch (Exception e)
+        {
+            playerResultsContext.Exception = e;
         }
     }
 }

@@ -4,26 +4,36 @@ using BKA.Tools.CrewFinding.Players;
 namespace BKA.Tools.CrewFinding.BehaviourTest.Steps;
 
 [Binding]
-public class PlayerArrangeSteps
+public class PlayerArrangeSteps(PlayerContext playerContext, PlayerRepositoryContext playerRepositoryContext)
 {
-    private readonly PlayerContext _playerContext;
-    private readonly PlayerRepositoryContext _playerRepositoryContext;
-
-    public PlayerArrangeSteps(PlayerContext playerContext, PlayerRepositoryContext playerRepositoryContext)
-    {
-        _playerContext = playerContext;
-        _playerRepositoryContext = playerRepositoryContext;
-    }
-
     [Given(@"a player named (.*)")]
     [Given(@"a player named ""(.*)""")]
     [Given(@"I am a player named ""(.*)""")]
     public void When_givenAPlayerNamed(string userName)
     {
-        _playerContext.PlayerId = Guid.NewGuid().ToString();
-        _playerContext.PlayerName = userName;
+        playerContext.PlayerId = Guid.NewGuid().ToString();
+        playerContext.PlayerName = userName;
         
-        _playerRepositoryContext.PlayerQueryRepositoryMock.Players.Add(
-            Player.Create(_playerContext.PlayerId, _playerContext.PlayerName));
+        playerRepositoryContext.PlayerQueryRepositoryMock.Players.Add(
+            Player.Create(playerContext.PlayerId, playerContext.PlayerName));
+    }
+
+    [Given(@"the following players exist:")]
+    public void GivenTheFollowingPlayersExist(Table table)
+    {
+        foreach (var row in table.Rows)
+        {
+            var playerId = row["Id"];
+            var playerName = row["Name"];
+            
+            playerRepositoryContext.PlayerQueryRepositoryMock.Players.Add(
+                Player.Create(playerId, playerName));
+        }
+    }
+
+    [Given(@"I am a player logged in with id ""(.*)""")]
+    public void GivenIAmAPlayerLoggedInWithId(string playerId)
+    {
+        playerContext.PlayerId = playerId;
     }
 }

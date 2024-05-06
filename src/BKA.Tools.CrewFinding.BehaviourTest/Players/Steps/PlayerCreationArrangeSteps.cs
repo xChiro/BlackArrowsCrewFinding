@@ -3,15 +3,8 @@ using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Steps;
 
 [Binding]
-public class PlayerCreationArrangeSteps
+public class PlayerCreationArrangeSteps(PlayerContext playerContext)
 {
-    private readonly PlayerContext _playerContext;
-
-    public PlayerCreationArrangeSteps(PlayerContext playerContext)
-    {
-        _playerContext = playerContext;
-    }
-
     [Given(@"I am a player who does not have a player profile with the following UserId ""(.*)""")]
     public void GivenIAmAPlayerWithSpecificUserId(string userId)
     {
@@ -32,12 +25,12 @@ public class PlayerCreationArrangeSteps
 
     private void SetPlayerId(string userId)
     {
-        _playerContext.PlayerId = userId;
+        playerContext.PlayerId = userId;
     }
 
     private void SetHandleLength(string minLength, string maxLength)
     {
-        _playerContext.MaxLength = int.Parse(maxLength);
-        _playerContext.MinLength = int.Parse(minLength);
+        playerContext.MaxLength = int.Parse(maxLength);
+        playerContext.MinLength = int.Parse(minLength);
     }
 }
