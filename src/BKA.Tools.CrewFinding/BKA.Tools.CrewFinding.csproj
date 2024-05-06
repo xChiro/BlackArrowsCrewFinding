@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <Folder Include="Crews\Commands\" />
+      <Folder Include="Players\Commands\" />
     </ItemGroup>
 
 </Project>

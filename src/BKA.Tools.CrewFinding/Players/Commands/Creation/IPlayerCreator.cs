@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.Players.Creation;
+namespace BKA.Tools.CrewFinding.Players.Commands.Creation;
 
 public interface IPlayerCreator
 {

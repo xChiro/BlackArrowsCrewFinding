@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Players.Ports;
 
-namespace BKA.Tools.CrewFinding.Players.Creation;
+namespace BKA.Tools.CrewFinding.Players.Commands.Creation;
 
 public class PlayerCreator : IPlayerCreator
 {

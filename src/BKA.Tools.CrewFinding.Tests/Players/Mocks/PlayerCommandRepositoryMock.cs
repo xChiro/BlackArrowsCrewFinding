@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Ports;
 
-namespace BKA.Tools.CrewFinding.Tests.Players;
+namespace BKA.Tools.CrewFinding.Tests.Players.Mocks;
 
 public class PlayerCommandRepositoryMock : IPlayerCommandRepository
 {

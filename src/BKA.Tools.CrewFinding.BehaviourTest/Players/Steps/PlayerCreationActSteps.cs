@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Mocks;
-using BKA.Tools.CrewFinding.Players.Creation;
+using BKA.Tools.CrewFinding.Players.Commands.Creation;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Steps;
 

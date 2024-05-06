@@ -1,7 +1,7 @@
 using System.Web.Http;
 using BKA.Tools.CrewFinding.API.Functions.Authentications;
 using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
-using BKA.Tools.CrewFinding.Players.Creation;
+using BKA.Tools.CrewFinding.Players.Commands.Creation;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Commands.PlayerRegistrations;
 

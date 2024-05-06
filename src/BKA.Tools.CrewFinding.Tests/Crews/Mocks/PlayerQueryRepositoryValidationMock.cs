@@ -4,19 +4,10 @@ using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 
-public class PlayerQueryRepositoryValidationMock : IPlayerQueryRepository
+public class PlayerQueryRepositoryValidationMock(string expectedPlayerId, string playerName) : IPlayerQueryRepository
 {
-    private readonly string _expectedPlayerId;
-    private readonly string _playerName;
-
-    public PlayerQueryRepositoryValidationMock(string expectedPlayerId, string playerName)
-    {
-        _expectedPlayerId = expectedPlayerId;
-        _playerName = playerName;
-    }
-
     public Task<Player?> GetPlayer(string playerId)
     {
-        return Task.FromResult(playerId == _expectedPlayerId ? Player.Create(playerId, _playerName) : null);
+        return Task.FromResult(playerId == expectedPlayerId ? Player.Create(playerId, playerName) : null);
     }
 }

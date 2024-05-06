@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recents;
-using BKA.Tools.CrewFinding.Players.Creation;
+using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Ports;
 using Microsoft.Extensions.DependencyInjection;
 

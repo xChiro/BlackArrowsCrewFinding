@@ -1,10 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
-using BKA.Tools.CrewFinding.Players.Creation;
+using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Ports;
+using BKA.Tools.CrewFinding.Tests.Players.Mocks;
 
-namespace BKA.Tools.CrewFinding.Tests.Players;
+namespace BKA.Tools.CrewFinding.Tests.Players.Commands;
 
 public class PlayerCreatorTests
 {
