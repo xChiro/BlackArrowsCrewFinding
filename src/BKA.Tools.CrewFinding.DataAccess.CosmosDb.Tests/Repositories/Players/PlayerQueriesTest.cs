@@ -7,24 +7,15 @@ using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Players;
 
-public class PlayerQueriesTest : IAsyncLifetime
+public class PlayerQueriesTest(IPlayerQueryRepository queryRepository,
+    IDatabaseSettingsProvider<Container> databaseSettingsProvider) : IAsyncLifetime
 {
-    private readonly IDatabaseSettingsProvider<Container> _databaseSettingsProvider;
-    private readonly IPlayerQueryRepository _queryRepository;
     private Container? _playerContainer;
-    private readonly string _playerId;
-
-    public PlayerQueriesTest(IPlayerQueryRepository queryRepository,
-        IDatabaseSettingsProvider<Container> databaseSettingsProvider)
-    {
-        _playerId = Guid.NewGuid().ToString();
-        _queryRepository = queryRepository;
-        _databaseSettingsProvider = databaseSettingsProvider;
-    }
+    private string _playerToDeleteId = string.Empty;
 
     public Task InitializeAsync()
     {
-        _playerContainer = _databaseSettingsProvider.GetPlayerContainer();
+        _playerContainer = databaseSettingsProvider.GetPlayerContainer();
         return Task.CompletedTask;
     }
     
@@ -32,11 +23,12 @@ public class PlayerQueriesTest : IAsyncLifetime
     public async Task Get_Player_Successfully()
     {
         // Arrange
-        var player = Player.Create(_playerId, "Zyanya");
+        _playerToDeleteId = Guid.NewGuid().ToString();
+        var player = Player.Create(_playerToDeleteId, "Zyanya");
         await _playerContainer!.CreateItemAsync(PlayerDocument.CreateFromPlayer(player), new PartitionKey(player.Id));
 
         // Act
-        var playerResponse = await _queryRepository.GetPlayer(_playerId);
+        var playerResponse = await queryRepository.GetPlayer(_playerToDeleteId);
 
         // Assert
         playerResponse.Should().NotBeNull();
@@ -44,10 +36,20 @@ public class PlayerQueriesTest : IAsyncLifetime
         playerResponse.CitizenName.Should().Be(player.CitizenName);
     }
 
+    [Fact]
+    public async Task Attempt_To_Get_Player_With_Empty_Id_Should_Return_Null()
+    {
+        // Act
+        var playerResponse = await queryRepository.GetPlayer( string.Empty);
+
+        // Assert
+        playerResponse.Should().BeNull();
+    }
+
     public Task DisposeAsync()
     {
-        return _playerId == string.Empty
+        return _playerToDeleteId == string.Empty
             ? Task.CompletedTask
-            : _playerContainer!.DeleteItemAsync<Player>(_playerId, new PartitionKey(_playerId));
+            : _playerContainer!.DeleteItemAsync<Player>(_playerToDeleteId, new PartitionKey(_playerToDeleteId));
     }
 }

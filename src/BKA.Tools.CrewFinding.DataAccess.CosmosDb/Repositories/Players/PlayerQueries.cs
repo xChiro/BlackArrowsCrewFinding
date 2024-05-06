@@ -23,7 +23,8 @@ public class PlayerQueries : IPlayerQueryRepository
                 ? null
                 : playerDocument.Resource.ToPlayer();
         }
-        catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+        catch (CosmosException ex) when (ex.StatusCode is System.Net.HttpStatusCode.NotFound
+                                             or System.Net.HttpStatusCode.BadRequest)
         {
             return null;
         }

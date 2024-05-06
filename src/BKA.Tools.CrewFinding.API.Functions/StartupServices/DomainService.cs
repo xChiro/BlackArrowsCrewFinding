@@ -6,6 +6,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recents;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Ports;
+using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
@@ -28,6 +29,11 @@ public static class DomainService
                     serviceProvider.GetRequiredService<IPlayerCommandRepository>(),
                     Convert.ToInt32(Configuration.GetEnvironmentVariable("minCitizenNameLength")),
                     Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCitizenNameLength"))));
+        
+        service.AddScoped<IPlayerProfileViewer>(
+            serviceProvider =>
+                new PlayerProfileViewer(
+                    serviceProvider.GetRequiredService<IPlayerQueryRepository>()));
     }
 
     private static void AddCrewServices(IServiceCollection service, int maxCrewSize)

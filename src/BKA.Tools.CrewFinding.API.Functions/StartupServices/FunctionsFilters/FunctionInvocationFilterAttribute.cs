@@ -12,6 +12,10 @@ public class UserSessionWorkerMiddleware(IUserSessionFilter userSession) : IFunc
         {
             userSession.Initialize(userToken);
         }
+        else
+        {
+            userSession.Clear();
+        }
 
         return next(context);
     }
