@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Exceptions;

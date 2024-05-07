@@ -1,4 +1,4 @@
-using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
+using BKA.Tools.CrewFinding.Crews.Exceptions;
 
 namespace BKA.Tools.CrewFinding.Crews;
 

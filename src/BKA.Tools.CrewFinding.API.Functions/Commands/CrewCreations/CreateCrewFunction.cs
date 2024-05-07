@@ -1,6 +1,5 @@
 using System.Net;
 using BKA.Tools.CrewFinding.API.Functions.Authentications;
-using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Cultures.Exceptions;

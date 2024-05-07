@@ -1,7 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
+using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
+using BKA.Tools.CrewFinding.Players.Exceptions;
 using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Tests.Players.Mocks;
 

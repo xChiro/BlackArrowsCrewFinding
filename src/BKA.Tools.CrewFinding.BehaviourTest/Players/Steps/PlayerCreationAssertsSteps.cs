@@ -1,5 +1,5 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
-using BKA.Tools.CrewFinding.Commons.Values.Exceptions;
+using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Steps;

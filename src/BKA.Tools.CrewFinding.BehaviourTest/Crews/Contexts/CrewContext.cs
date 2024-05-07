@@ -1,5 +1,4 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts.Values;
-using BKA.Tools.CrewFinding.Commons.Values;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Cultures;
