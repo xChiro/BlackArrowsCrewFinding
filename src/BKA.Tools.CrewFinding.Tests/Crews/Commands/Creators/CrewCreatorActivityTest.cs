@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Commons.Values;
+using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Tests.Crews.Commands.Creators.Utilities;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks;

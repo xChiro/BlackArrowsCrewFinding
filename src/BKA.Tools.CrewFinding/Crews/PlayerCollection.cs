@@ -33,7 +33,7 @@ public class PlayerCollection : IEnumerable<Player>
 
     public static PlayerCollection CreateEmpty(int maxAllowed)
     {
-        return new PlayerCollection(new List<Player>(), maxAllowed);
+        return new PlayerCollection([], maxAllowed);
     }
 
     public void Add(Player player)
