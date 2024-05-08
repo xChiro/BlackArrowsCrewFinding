@@ -15,7 +15,7 @@ public record CrewCreatorRequest(
     {
         var maxPlayersAllowed = CrewSize > playersAllowed ? playersAllowed : CrewSize;
         
-        return new Crew(captain, new CrewName(captain.CitizenName), Location,
+        return new Crew(captain, Location,
             LanguageCollections.CreateFromAbbrevs(LanguagesAbbrevs), 
             PlayerCollection.CreateEmpty(maxPlayersAllowed),
             Activity.Create(ActivityName, Description));

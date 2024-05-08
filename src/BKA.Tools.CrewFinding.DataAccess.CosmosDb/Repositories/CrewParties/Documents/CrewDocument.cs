@@ -65,7 +65,6 @@ public class CrewDocument
         var crew = new Crew(
             Id,
              Player.Create(CaptainId, CaptainName),
-            new CrewName(CrewName),
             new Location(System, PlanetarySystem, PlanetMoon, Place),
             LanguageCollections.CreateFromAbbrevs(Language),
             PlayerCollection.Create(members, MaxAllowed),

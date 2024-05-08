@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Queries.Recents;
 using BKA.Tools.CrewFinding.Cultures;
@@ -30,8 +31,8 @@ public class RecentCrewsRetrievalTest
     public async void Given_There_Are_Only_Old_Crews_When_Retrieving_Recent_Crews_Then_Should_Return_Empty_List()
     {
         // Arrange
-        var crews = GenerateOldCrews(CrewAgeThresholdInHours);
-        
+        var crews = new[] {GenerateOldCrew(10)};
+
         var sut = InitializeRecentCrewsRetrieval(crews, CrewAgeThresholdInHours);
         var crewsRetrievalResponseMock = new CrewsResponseMock();
 
@@ -41,15 +42,15 @@ public class RecentCrewsRetrievalTest
         // Assert
         crewsRetrievalResponseMock.RecentCrews.Should().BeEmpty();
     }
-    
+
     [Fact]
     public async void Given_There_Are_Recent_Crews_When_Retrieving_Recent_Crews_Then_Should_Return_Recent_Crews()
     {
         // Arrange
-        var expectedCrew = new Crew("312412", Player.Create("1", "Adam"), new CrewName("Adam"), Location.DefaultLocation(),
+        var expectedCrew = new Crew(Guid.NewGuid().ToString(), Player.Create("1", "Adam"), Location.DefaultLocation(),
             LanguageCollections.Default(), PlayerCollection.CreateEmpty(3), Activity.Default(), DateTime.UtcNow);
         var recentCrews = GenerateCrews(expectedCrew, CrewAgeThresholdInHours);
-        
+
         var sut = InitializeRecentCrewsRetrieval(recentCrews, CrewAgeThresholdInHours);
         var crewsRetrievalResponseMock = new CrewsResponseMock();
 
@@ -58,14 +59,21 @@ public class RecentCrewsRetrievalTest
 
         // Assert
         crewsRetrievalResponseMock.RecentCrews.Should().Contain(crew => crew.Id == expectedCrew.Id);
+        crewsRetrievalResponseMock.RecentCrews!.Single(crew => crew.Id == expectedCrew.Id).Should()
+            .BeEquivalentTo(expectedCrew);
     }
 
-    private static Crew[] GenerateCrews(Crew recentCrew, int crewAgeThresholdInHours)
+    private static Crew[] GenerateCrews(Crew recentCrew, int crewAgeThresholdInHours, int totalOldCrews = 2)
     {
         var crews = new List<Crew>();
-        crews.AddRange(GenerateOldCrews(crewAgeThresholdInHours));
+
+        for (var i = 0; i < totalOldCrews; i++)
+        {
+            crews.Add(GenerateOldCrew(crewAgeThresholdInHours));
+        }
+
         crews.Add(recentCrew);
-        
+
         return crews.ToArray();
     }
 
@@ -76,16 +84,17 @@ public class RecentCrewsRetrievalTest
         return recentCrewsRetrieval;
     }
 
-    private static Crew[] GenerateOldCrews(int crewAgeThresholdInHours)
+    private static Crew GenerateOldCrew(int crewAgeThresholdInHours)
     {
-        Crew[] crews = [
-            new Crew("23", Player.Create("1", "Adam"), new CrewName("Adam"), Location.DefaultLocation(),
-                LanguageCollections.Default(), PlayerCollection.CreateEmpty(3), Activity.Default(),
-                DateTime.UtcNow.AddHours(-crewAgeThresholdInHours)),
-            new Crew("23", Player.Create("1", "Adam"), new CrewName("Adam"), Location.DefaultLocation(),
-                LanguageCollections.Default(), PlayerCollection.CreateEmpty(3), Activity.Default(),
-                DateTime.UtcNow.AddHours(-(crewAgeThresholdInHours + 2)))
-        ];
-        return crews;
+        var randomId = Guid.NewGuid().ToString();
+        var randomCaptainId = Guid.NewGuid().ToString();
+        const string citizenName = "Adam";
+
+        var oldCrew = new Crew(randomId, Player.Create(randomCaptainId, citizenName),
+            Location.DefaultLocation(),
+            LanguageCollections.Default(), PlayerCollection.CreateEmpty(3), Activity.Default(),
+            DateTime.UtcNow.AddHours(-crewAgeThresholdInHours - 1));
+
+        return oldCrew;
     }
 }

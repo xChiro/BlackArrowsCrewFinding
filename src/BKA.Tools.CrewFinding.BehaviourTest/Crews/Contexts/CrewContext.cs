@@ -47,8 +47,7 @@ public class CrewContext
         
         return new Crew(
             crewId,
-            captain, 
-            new CrewName("captainName"),
+            captain,
             CrewLocation.ToLocation(),
             LanguageCollections.Default(),
             PlayerCollection.CreateEmpty(MaxPlayerAllowed),

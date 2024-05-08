@@ -7,13 +7,17 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
 
-public class RepositoryService
+public static class RepositoryService
 {
     public static void AddRepositories(IServiceCollection service, ContainerBuilder containerBuilder)
     {
         var databaseId = Configuration.GetEnvironmentVariable("cosmosDBDatabase");
         var crewContainer =
             containerBuilder.Build(databaseId, Configuration.GetEnvironmentVariable("cosmosDBCrewContainer"));
+
+        var disbandedCrewsContainer =
+            containerBuilder.Build(databaseId, Configuration.GetEnvironmentVariable("cosmosDBDisbandedCrewsContainer"));
+
         var playerContainer =
             containerBuilder.Build(databaseId, Configuration.GetEnvironmentVariable("cosmosDBPlayerContainer"));
 
@@ -22,5 +26,7 @@ public class RepositoryService
         service.AddSingleton<ICrewValidationRepository>(_ => new CrewValidationRepository(crewContainer));
         service.AddSingleton<IPlayerQueryRepository>(_ => new PlayerQueries(playerContainer));
         service.AddSingleton<IPlayerCommandRepository>(_ => new PlayerCommands(playerContainer));
+        service.AddSingleton<ICrewDisbandRepository>(_ =>
+            new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));
     }
 }

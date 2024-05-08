@@ -2,5 +2,5 @@ namespace BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 
 public interface ICrewJoiner
 {
-    Task Join(string crewId);
+    public Task Join(string crewId);
 }

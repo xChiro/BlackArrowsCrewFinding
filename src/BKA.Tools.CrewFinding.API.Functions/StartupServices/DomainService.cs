@@ -55,7 +55,7 @@ public static class DomainService
         service.AddScoped<ICrewDisbandment>(
             serviceProvider =>
                 new CrewDisbandment(
-                    serviceProvider.GetRequiredService<ICrewValidationRepository>(),
+                    serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>()));
 

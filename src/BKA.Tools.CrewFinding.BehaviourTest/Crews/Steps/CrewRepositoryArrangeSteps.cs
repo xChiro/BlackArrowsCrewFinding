@@ -25,7 +25,6 @@ public class CrewRepositoryArrangeSteps
         var crewParties = new Crew[]
         {
             new(Player.Create(playerId, citizenName),
-                new CrewName(playerId),
                 Location.DefaultLocation(),
                 LanguageCollections.Default(),
                 PlayerCollection.CreateEmpty(4),
@@ -51,7 +50,6 @@ public class CrewRepositoryArrangeSteps
         var crews = new Crew[]
         {
             new(Player.Create(playerId, citizenName),
-                new CrewName(playerId),
                 Location.DefaultLocation(),
                 LanguageCollections.Default(),
                 members,
@@ -76,7 +74,6 @@ public class CrewRepositoryArrangeSteps
             var members = PlayerCollection.CreateWithSingle(Player.Create("3412343", "Rowan"), maxCrewSize);
 
             return new Crew(Player.Create(playerId, playerName),
-                new CrewName(playerId),
                 new Location(row["System"], row["PlanetarySystem"], row["PlanetMoon"], row["Location"]),
                 language,
                 members,

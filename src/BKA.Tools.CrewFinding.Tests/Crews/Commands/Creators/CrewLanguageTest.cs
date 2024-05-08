@@ -14,7 +14,7 @@ public class CrewLanguageTest
     {
         // Arrange
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock);
         
         // Act
         ExecuteCrewCreation(sut, 4, Array.Empty<string>());
@@ -31,7 +31,7 @@ public class CrewLanguageTest
     {
         // Arrange
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock);
 
         var expectedLanguages = LanguageCollections.CreateFromAbbrevs(languagesAbbrevs);
 

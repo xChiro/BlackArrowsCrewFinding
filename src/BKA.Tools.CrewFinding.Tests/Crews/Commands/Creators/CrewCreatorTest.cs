@@ -19,7 +19,7 @@ public class CrewCreatorTest
         var captainId = Guid.NewGuid().ToString();
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
         var playerQueriesMock = new PlayerQueryRepositoryValidationMock(captainId, captainName);
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock,
+        var sut = CrewCreatorBuilder.Build(crewPartyCommandsMock, playerQueriesMock,
             playerId: captainId);
 
         // Act
@@ -36,7 +36,7 @@ public class CrewCreatorTest
         var captainId = Guid.NewGuid().ToString();
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
         var playerQueriesMock = new PlayerQueryRepositoryValidationMock(captainId, "Rowan");
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyCommandsMock, playerQueriesMock);
+        var sut = CrewCreatorBuilder.Build(crewPartyCommandsMock, playerQueriesMock);
 
         // Act
         var act = async () => await ExecuteCrewCreation(sut, Guid.NewGuid().ToString());
@@ -55,7 +55,7 @@ public class CrewCreatorTest
         var captainId = Guid.NewGuid().ToString();
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
 
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock,
+        var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock,
             captainName: captainName);
 
         // Act
@@ -76,7 +76,7 @@ public class CrewCreatorTest
         // Arrange
         var captainId = Guid.NewGuid().ToString();
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock);
 
         // Act
         await ExecuteCrewCreation(sut, captainId);
@@ -93,7 +93,7 @@ public class CrewCreatorTest
         const string description = "This is a description";
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var crewPartyCreatorResponseMock = new CrewCreatorResponseMock();
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock);
 
         // Act
         await ExecuteCrewCreation(sut, captainId, 4, description, crewPartyCreatorResponseMock);
@@ -110,7 +110,7 @@ public class CrewCreatorTest
         var captainId = Guid.NewGuid().ToString();
         const int maxCrewAllowed = 5;
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock,
+        var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock,
             maxPlayersAllowed: maxCrewAllowed);
 
         // Act
@@ -128,7 +128,7 @@ public class CrewCreatorTest
     private static async Task ExecuteCrewCreation(ICrewCreator sut, string captainId, int totalCrew,
         string description, ICrewCreatorResponse crewCreatorResponse)
     {
-        await CrewCreationExecutioner.ExecuteCrewCreation(sut, crewCreatorResponse, captainId,
+        await CrewCreatorExecutioner.Execute(sut, crewCreatorResponse,
             Array.Empty<string>(), Location.DefaultLocation(), "Mining", totalCrew, description);
     }
 }

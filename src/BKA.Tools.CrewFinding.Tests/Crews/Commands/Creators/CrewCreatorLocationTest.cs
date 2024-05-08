@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
@@ -15,7 +14,7 @@ public class CrewCreatorLocationTest
         // Arrange
         var expectedLocation = Location.DefaultLocation();
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock);
 
         // Act
         await ExecuteSut(sut, expectedLocation);
@@ -35,7 +34,7 @@ public class CrewCreatorLocationTest
         // Arrange
         var expectedLocation = new Location(system, planetarySystem, planetMoon, place);
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock);
 
         // Act
         await ExecuteSut(sut, expectedLocation);
@@ -46,6 +45,6 @@ public class CrewCreatorLocationTest
 
     private static async Task ExecuteSut(ICrewCreator sut, Location expectedLocation)
     {   
-        await CrewCreationExecutioner.ExecuteCrewCreation(sut, Guid.NewGuid().ToString(), 2, "Mining", expectedLocation);
+        await CrewCreatorExecutioner.Execute(sut, 2, "Mining", expectedLocation);
     }
 }

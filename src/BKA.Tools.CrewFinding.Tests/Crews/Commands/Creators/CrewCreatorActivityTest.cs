@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
@@ -15,7 +14,7 @@ public class CrewCreatorActivityTest
         // Arrange
         var defaultActivities = Activity.Default().Name;
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock);
 
         // Act
         await ExecuteCrewCreation(sut, 4, defaultActivities);
@@ -30,7 +29,7 @@ public class CrewCreatorActivityTest
         // Arrange
         const string activity = "Mining";
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
-        var sut = CrewCreatorInitializer.InitializeCrewPartyCreator(createCrewPartyResultMock);
+        var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock);
 
         // Act
         await ExecuteCrewCreation(sut, 4, activity);
@@ -42,6 +41,6 @@ public class CrewCreatorActivityTest
     private static async Task ExecuteCrewCreation(ICrewCreator sut, int totalCrew,
         string activity)
     {
-         await CrewCreationExecutioner.ExecuteCrewCreation(sut, Guid.NewGuid().ToString(), totalCrew, activity);
+         await CrewCreatorExecutioner.Execute(sut, totalCrew, activity);
     }
 }

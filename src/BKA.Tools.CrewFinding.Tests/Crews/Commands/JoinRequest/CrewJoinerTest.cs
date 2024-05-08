@@ -142,7 +142,7 @@ public class CrewJoinerTest
 
     private static Crew InitializeCrew(PlayerCollection playerCollection)
     {
-        var crewParty = new Crew(Player.Create("1", "Rowan"), new CrewName("Crew Party of Rowan"),
+        var crewParty = new Crew(Player.Create("1", "Rowan"),
             new Location("Stanton", "Crusader", "Crusader", "Seraphim Station"), LanguageCollections.Default(),
             playerCollection, Activity.Default());
 

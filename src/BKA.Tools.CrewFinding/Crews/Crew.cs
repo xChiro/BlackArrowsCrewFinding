@@ -5,12 +5,12 @@ namespace BKA.Tools.CrewFinding.Crews;
 
 public class Crew : Entity
 {
-    public Crew(string id, Player captain, CrewName name, Location reunionPoint, LanguageCollections languages,
+    public Crew(string id, Player captain, Location reunionPoint, LanguageCollections languages,
         PlayerCollection members, Activity activity, DateTime createdAt)
     {
         Id = id;
         Members = members;
-        Name = name;
+        Name = new CrewName(captain.CitizenName);
         ReunionPoint = reunionPoint;
         Languages = languages;
         Activity = activity;
@@ -19,9 +19,9 @@ public class Crew : Entity
         Members = members;
     }
 
-    public Crew(Player captain, CrewName name, Location reunionPoint, LanguageCollections languages,
-        PlayerCollection members, Activity activity) : this(Guid.NewGuid().ToString(), captain,
-        name, reunionPoint, languages, members, activity, DateTime.UtcNow)
+    public Crew(Player captain, Location reunionPoint, LanguageCollections languages,
+        PlayerCollection members, Activity activity) : this(Guid.NewGuid().ToString(), captain, reunionPoint, languages,
+        members, activity, DateTime.UtcNow)
     {
     }
 

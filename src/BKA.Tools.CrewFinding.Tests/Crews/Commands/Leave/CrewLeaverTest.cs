@@ -86,7 +86,6 @@ public class CrewLeaverTest
     {
         return new Crew(crewId,
             playerToLeave,
-            new CrewName("Adam"),
             Location.DefaultLocation(),
             LanguageCollections.Default(),
             PlayerCollection.CreateWithSingle(playerToLeave, 1), 

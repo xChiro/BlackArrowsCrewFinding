@@ -12,7 +12,6 @@ public static class CrewBuilder
         
         return new Crew(
             captain,
-            new CrewName("Rowan"),
             Location.DefaultLocation(),
             LanguageCollections.Default(),
             PlayerCollection.CreateEmpty(maxAllowed),

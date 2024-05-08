@@ -18,7 +18,7 @@ public class MultipleCrewsRestrictionTest
         var crewPartyQueriesMock = new CrewCommandRepositoryMock();
 
         var crewPartyCreator =
-            CrewCreatorInitializer.InitializeCrewPartyCreator(crewPartyQueriesMock, true, playerId: captainId);
+            CrewCreatorBuilder.Build(crewPartyQueriesMock, true, playerId: captainId);
         
         var request = new CrewCreatorRequest(5, Location.DefaultLocation(), ["ES"], "Activity");
 

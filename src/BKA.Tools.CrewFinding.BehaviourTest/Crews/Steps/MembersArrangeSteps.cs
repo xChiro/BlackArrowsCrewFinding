@@ -45,7 +45,6 @@ public class MembersArrangeSteps
         
         return new Crew(
             Player.Create("4312412", captainName),
-            new CrewName(captainName),
             Location.DefaultLocation(),
             LanguageCollections.Default(),
             PlayerCollection.CreateEmpty(4),
