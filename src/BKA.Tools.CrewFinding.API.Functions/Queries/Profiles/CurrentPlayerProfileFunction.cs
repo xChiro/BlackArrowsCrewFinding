@@ -26,7 +26,7 @@ public class CurrentPlayerProfileFunction(
         }
         catch (PlayerNotFoundException e)
         {
-            return NotSuccessResponse(req, HttpStatusCode.NotFound, e.Message);
+            return await NotSuccessResponseAsync(req, HttpStatusCode.NotFound, e.Message);
         }
         catch (Exception e)
         {

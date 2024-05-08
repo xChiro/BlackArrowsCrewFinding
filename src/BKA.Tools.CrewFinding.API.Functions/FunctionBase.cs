@@ -29,11 +29,12 @@ public abstract class FunctionBase
         return response;
     }
     
-    protected static HttpResponseData NotSuccessResponse(HttpRequestData req, HttpStatusCode statusCode, string message)
+    protected static async Task<HttpResponseData> NotSuccessResponseAsync(HttpRequestData req, HttpStatusCode statusCode, string message)
     {
-        var response = req.CreateResponse(statusCode);
-        response.WriteAsJsonAsync(new ErrorMessageResponse(message));
-        
+        var response = req.CreateResponse();
+        await response.WriteAsJsonAsync(new ErrorMessageResponse(message));
+        response.StatusCode = statusCode;
+
         return response;
     }
     

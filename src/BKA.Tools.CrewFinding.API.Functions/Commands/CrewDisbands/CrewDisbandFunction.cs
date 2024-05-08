@@ -18,9 +18,9 @@ public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILoggerFactor
 
             return req.CreateResponse(HttpStatusCode.OK);
         }
-        catch (Exception e) when (e is CrewNotFoundException or PlayerNotInCrewException)
+        catch (Exception e) when (e is CrewDisbandException)
         {
-            return NotSuccessResponse(req, HttpStatusCode.NotFound, e.Message);
+            return await NotSuccessResponseAsync(req, HttpStatusCode.NotFound, e.Message);
         }
         catch (Exception ex)
         {

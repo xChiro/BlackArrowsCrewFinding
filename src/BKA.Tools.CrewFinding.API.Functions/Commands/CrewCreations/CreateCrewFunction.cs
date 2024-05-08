@@ -27,11 +27,11 @@ public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerF
         catch (Exception e) when (e is ActivityDescriptionLengthException or ActivityNameLengthException
                                       or PlayerMultipleCrewsException or LanguageNameLengthException)
         {
-            return NotSuccessResponse(req, HttpStatusCode.NotFound, e.Message);
+            return await NotSuccessResponseAsync(req, HttpStatusCode.NotFound, e.Message);
         }
         catch (PlayerNotFoundException e)
         {
-            return NotSuccessResponse(req, HttpStatusCode.NotFound, e.Message);
+            return await NotSuccessResponseAsync(req, HttpStatusCode.NotFound, e.Message);
         }
         catch (Exception ex)
         {

@@ -1,6 +1,7 @@
 using System.Net;
 using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
+using BKA.Tools.CrewFinding.Players.Exceptions;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Commands.JoinCrews;
 
@@ -18,9 +19,13 @@ public class JoinCrewFunction(ICrewJoiner crewJoiner, ILoggerFactory loggerFacto
             await crewJoiner.Join(id);
             return OkResponse(req);
         }
-        catch (Exception e) when (e is CrewNotFoundException or PlayerMultipleCrewsException)
+        catch (Exception e) when (e is CrewNotFoundException or PlayerNotFoundException)
         {
-            return NotSuccessResponse(req, HttpStatusCode.NotFound, e.Message);
+            return await NotSuccessResponseAsync(req, HttpStatusCode.NotFound, e.Message);
+        }
+        catch (Exception e) when (e is PlayerMultipleCrewsException)
+        {
+            return await NotSuccessResponseAsync(req, HttpStatusCode.Conflict, e.Message);
         }
         catch (Exception e)
         {

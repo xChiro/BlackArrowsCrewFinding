@@ -5,10 +5,10 @@ namespace BKA.Tools.CrewFinding.API.Functions.Queries.RecentCrews;
 
 public class RecentCrewsFunctionResponse : ICrewsResponse
 {
-    public Crew[] Crews { get; private set; }
+    public RecentCrewResponse[] Crews { get; private set; } = [];
     
     public void SetRecentCrews(Crew[] recentCrews)
     {
-        Crews = recentCrews;
+        Crews = recentCrews.Select(RecentCrewResponse.CreateFrom).ToArray();
     }
 }
