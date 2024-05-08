@@ -64,22 +64,35 @@ public class CrewRepositoryArrangeSteps
     [Given(@"there is the following crews in the system")]
     public void GivenThereIsTheFollowingCrewsInTheSystem(Table table)
     {
-        var crews = table.Rows.Select(row =>
-        {
-            var playerId = Guid.NewGuid().ToString();
-            var playerName = row["CaptainHandle"];
-            var maxCrewSize = int.Parse(row["MaxCrewSize"]);
-            var language = LanguageCollections.Default();
-            
-            var members = PlayerCollection.CreateWithSingle(Player.Create("3412343", "Rowan"), maxCrewSize);
-
-            return new Crew(Player.Create(playerId, playerName),
-                new Location(row["System"], row["PlanetarySystem"], row["PlanetMoon"], row["Location"]),
-                language,
-                members,
-                Activity.Create(row["Activity"], row["Description"]));
-        }).ToArray();
-
+        var crews = table.Rows.Select(CreateCrewFromRow).ToArray();
         _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crews);
+    }
+
+    private static Crew CreateCrewFromRow(TableRow row)
+    {
+        var playerId = Guid.NewGuid().ToString();
+        var playerName = row["CaptainHandle"];
+        var maxCrewSize = int.Parse(row["MaxCrewSize"]);
+        var language = LanguageCollections.Default();
+
+        var members = CreateMembers(maxCrewSize, Convert.ToInt32(row["CurrentCrewSize"]));
+
+        var location = new Location(row["System"], row["PlanetarySystem"], row["PlanetMoon"], row["Location"]);
+        var activity = Activity.Create(row["Activity"], row["Description"]);
+
+        return new Crew(Player.Create(playerId, playerName), location, language, members, activity);
+    }
+
+    private static PlayerCollection CreateMembers(int maxCrewSize, int totalMembers)
+    {
+        var members = PlayerCollection.CreateEmpty(maxCrewSize);
+
+        for (var i = 0; i < totalMembers; i++)
+        {
+            var memberId = Guid.NewGuid().ToString();
+            members.Add(Player.Create(memberId, "Member"));
+        }
+
+        return members;
     }
 }

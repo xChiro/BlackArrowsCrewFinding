@@ -25,7 +25,8 @@ public class RecentCrewsAssertSteps
                               c.ReunionPoint.System == row["System"] &&
                               c.ReunionPoint.Place == row["Location"] &&
                               c.ReunionPoint.PlanetarySystem == row["PlanetarySystem"] &&
-                              c.ReunionPoint.PlanetMoon == row["PlanetMoon"]
+                              c.ReunionPoint.PlanetMoon == row["PlanetMoon"] &&
+                              c.Members.Count() == Convert.ToInt32(row["CrewSize"])
                 );
         }
     }

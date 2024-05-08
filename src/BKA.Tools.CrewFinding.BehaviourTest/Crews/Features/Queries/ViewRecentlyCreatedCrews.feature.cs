@@ -113,7 +113,8 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "PlanetMoon",
                             "Location",
                             "Description",
-                            "Activity"});
+                            "Activity",
+                            "CurrentCrewSize"});
                 table3.AddRow(new string[] {
                             "Rowan",
                             "1",
@@ -123,7 +124,8 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Crusader",
                             "Seraphim Station",
                             "Elite bounty hunters",
-                            "Bounty Hunting"});
+                            "Bounty Hunting",
+                            "4"});
                 table3.AddRow(new string[] {
                             "Ada",
                             "3",
@@ -133,7 +135,8 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Terra",
                             "New Austin",
                             "Space explorers",
-                            "Exploration"});
+                            "Exploration",
+                            "3"});
                 table3.AddRow(new string[] {
                             "Kai",
                             "5",
@@ -143,7 +146,8 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Ariel",
                             "Lorville",
                             "Lunar miners",
-                            "Mining"});
+                            "Mining",
+                            "2"});
                 table3.AddRow(new string[] {
                             "Eve",
                             "6",
@@ -153,7 +157,8 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Crusader",
                             "Port Olisar",
                             "Intergalactic pioneers",
-                            "Trade"});
+                            "Trade",
+                            "5"});
 #line 6
         testRunner.And("there is the following crews in the system", ((string)(null)), table3, "And ");
 #line hidden
@@ -163,6 +168,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "CaptainHandle",
                             "CreatedAgoHours",
+                            "CrewSize",
                             "MaxCrewSize",
                             "System",
                             "PlanetarySystem",
@@ -174,6 +180,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Rowan",
                             "1",
                             "4",
+                            "4",
                             "Stanton",
                             "Crusader",
                             "Crusader",
@@ -182,6 +189,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Bounty Hunting"});
                 table4.AddRow(new string[] {
                             "Ada",
+                            "3",
                             "3",
                             "5",
                             "Terra",

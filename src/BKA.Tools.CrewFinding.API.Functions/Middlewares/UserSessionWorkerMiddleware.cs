@@ -1,6 +1,7 @@
+using BKA.Tools.CrewFinding.API.Functions.StartupServices.FunctionsFilters;
 using Microsoft.Azure.Functions.Worker.Middleware;
 
-namespace BKA.Tools.CrewFinding.API.Functions.StartupServices.FunctionsFilters;
+namespace BKA.Tools.CrewFinding.API.Functions.Middlewares;
 
 public class UserSessionWorkerMiddleware(IUserSessionFilter userSession) : IFunctionsWorkerMiddleware
 {
