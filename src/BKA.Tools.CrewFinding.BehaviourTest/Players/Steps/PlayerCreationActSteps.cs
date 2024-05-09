@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Mocks;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
@@ -9,6 +10,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Steps;
 public class PlayerCreationActSteps(
     PlayerContext playerContext,
     PlayerRepositoryContext playerRepositoryContext,
+    CrewRepositoriesContext crewRepositoriesContext,
     PlayerResultsContext playerResultsContext)
 {
     [When(@"I attempt to create a new player profile with StarCitizen Handle ""(.*)""")]
@@ -53,8 +55,10 @@ public class PlayerCreationActSteps(
     [When(@"I get my profile")]
     public async Task WhenIGetMyProfile()
     {
-        var sut = new PlayerProfileViewer(playerRepositoryContext.PlayerQueryRepositoryMock);
-        playerResultsContext.Player = await sut.View(playerContext.PlayerId);
+        var sut = new PlayerProfileViewer(playerRepositoryContext.PlayerQueryRepositoryMock,
+            crewRepositoriesContext.QueryRepositoryMock);
+
+        await sut.View(playerContext.PlayerId, new PlayerProfileResponseMock(playerResultsContext));
     }
 
     [When(@"I attempt get my profile")]
@@ -62,8 +66,9 @@ public class PlayerCreationActSteps(
     {
         try
         {
-            var sut = new PlayerProfileViewer(playerRepositoryContext.PlayerQueryRepositoryMock);
-            await sut.View(playerContext.PlayerId);
+            var sut = new PlayerProfileViewer(playerRepositoryContext.PlayerQueryRepositoryMock,
+                crewRepositoriesContext.QueryRepositoryMock);
+            await sut.View(playerContext.PlayerId, new PlayerProfileResponseMock(playerResultsContext));
         }
         catch (Exception e)
         {

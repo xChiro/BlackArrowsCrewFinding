@@ -16,4 +16,9 @@ public class CrewQueryRepositoryEmptyMock : ICrewQueryRepository
     {
         return Task.FromResult(Array.Empty<Crew>());
     }
+
+    public Task<Crew?> GetActiveCrewByPlayerId(string playerId)
+    {
+        return Task.FromResult<Crew?>(null);
+    }
 }

@@ -18,6 +18,7 @@ public class Player : Entity
     {
         (id, citizenName) = NormalizeInput(id, citizenName);
         ValidateInput(id, citizenName, minLength, maxLength);
+        
         return new Player(id, citizenName);
     }
 

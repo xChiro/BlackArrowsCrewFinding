@@ -95,14 +95,14 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Get player profile")]
+        [Xunit.SkippableFactAttribute(DisplayName="Get player profile without Crew")]
         [Xunit.TraitAttribute("FeatureTitle", "Get players profile")]
-        [Xunit.TraitAttribute("Description", "Get player profile")]
-        public void GetPlayerProfile()
+        [Xunit.TraitAttribute("Description", "Get player profile without Crew")]
+        public void GetPlayerProfileWithoutCrew()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get player profile", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get player profile without Crew", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 9
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -135,14 +135,14 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Get player profile when the player does not exist")]
+        [Xunit.SkippableFactAttribute(DisplayName="Get player profile who is a member of a Crew")]
         [Xunit.TraitAttribute("FeatureTitle", "Get players profile")]
-        [Xunit.TraitAttribute("Description", "Get player profile when the player does not exist")]
-        public void GetPlayerProfileWhenThePlayerDoesNotExist()
+        [Xunit.TraitAttribute("Description", "Get player profile who is a member of a Crew")]
+        public void GetPlayerProfileWhoIsAMemberOfACrew()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get player profile when the player does not exist", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get player profile who is a member of a Crew", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 16
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -157,12 +157,106 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
     this.FeatureBackground();
 #line hidden
 #line 17
-        testRunner.Given("I am a player logged in with id \"999\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given("I am a player logged in with id \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 18
-        testRunner.When("I attempt get my profile", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.And("I am a member of the crew with id \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 19
+        testRunner.When("I get my profile", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "Name",
+                            "CrewId",
+                            "CrewName"});
+                table7.AddRow(new string[] {
+                            "1",
+                            "Rowan",
+                            "1",
+                            "Crew of Rowan"});
+#line 20
+        testRunner.Then("I should see my profile details:", ((string)(null)), table7, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Get player profile who is the captain of a Crew")]
+        [Xunit.TraitAttribute("FeatureTitle", "Get players profile")]
+        [Xunit.TraitAttribute("Description", "Get player profile who is the captain of a Crew")]
+        public void GetPlayerProfileWhoIsTheCaptainOfACrew()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get player profile who is the captain of a Crew", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 24
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 4
+    this.FeatureBackground();
+#line hidden
+#line 25
+        testRunner.Given("I am a player logged in with id \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 26
+        testRunner.And("I am the captain of an active Crew with id \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 27
+        testRunner.When("I get my profile", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "Name",
+                            "CrewId",
+                            "CrewName"});
+                table8.AddRow(new string[] {
+                            "1",
+                            "Rowan",
+                            "1",
+                            "Crew of Rowan"});
+#line 28
+        testRunner.Then("I should see my profile details:", ((string)(null)), table8, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Get player profile when the player does not exist")]
+        [Xunit.TraitAttribute("FeatureTitle", "Get players profile")]
+        [Xunit.TraitAttribute("Description", "Get player profile when the player does not exist")]
+        public void GetPlayerProfileWhenThePlayerDoesNotExist()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get player profile when the player does not exist", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 32
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 4
+    this.FeatureBackground();
+#line hidden
+#line 33
+        testRunner.Given("I am a player logged in with id \"999\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 34
+        testRunner.When("I attempt get my profile", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 35
         testRunner.Then("I should receive an error message that the player profile does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

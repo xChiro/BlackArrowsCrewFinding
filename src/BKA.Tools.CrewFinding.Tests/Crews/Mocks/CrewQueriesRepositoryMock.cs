@@ -7,7 +7,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 
-public class CrewQueriesRepositoryMock(Crew? crew = null, IEnumerable<Crew>? crews = null) : ICrewQueryRepository
+public class CrewQueriesRepositoryMock(Crew? crew = null, IEnumerable<Crew>? crews = null, string expectedPlayerId = "") : ICrewQueryRepository
 {
     public Task<Crew?> GetCrew(string crewId)
     {
@@ -18,5 +18,10 @@ public class CrewQueriesRepositoryMock(Crew? crew = null, IEnumerable<Crew>? cre
     {
         var crews1 = crews?.Where(c => c.CreatedAt >= from && c.CreatedAt <= to).ToArray();
         return Task.FromResult(crews1 ?? []);
+    }
+
+    public Task<Crew?> GetActiveCrewByPlayerId(string playerId)
+    {
+        return expectedPlayerId == playerId ? Task.FromResult(crew) : Task.FromResult<Crew?>(null);
     }
 }

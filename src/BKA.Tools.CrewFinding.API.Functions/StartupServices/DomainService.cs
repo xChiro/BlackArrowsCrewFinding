@@ -29,11 +29,12 @@ public static class DomainService
                     serviceProvider.GetRequiredService<IPlayerCommandRepository>(),
                     Convert.ToInt32(Configuration.GetEnvironmentVariable("minCitizenNameLength")),
                     Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCitizenNameLength"))));
-        
+
         service.AddScoped<IPlayerProfileViewer>(
             serviceProvider =>
                 new PlayerProfileViewer(
-                    serviceProvider.GetRequiredService<IPlayerQueryRepository>()));
+                    serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
+                    serviceProvider.GetRequiredService<ICrewQueryRepository>()));
     }
 
     private static void AddCrewServices(IServiceCollection service, int maxCrewSize)
@@ -43,7 +44,7 @@ public static class DomainService
                 new RecentCrewsRetrieval(
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     Convert.ToInt32(Configuration.GetEnvironmentVariable("recentCrewsHoursThreshold"))));
-        
+
         service.AddScoped<ICrewCreator>(
             serviceProvider =>
                 new CrewCreator(

@@ -20,9 +20,10 @@ public class CurrentPlayerProfileFunction(
     {
         try
         {
-            var player = await playerProfileViewer.View(userSession.GetUserId());
+            var response = new CurrentPlayerProfileResponse();
+            await playerProfileViewer.View(userSession.GetUserId(), response);
 
-            return OkResponse(req, CurrentPlayerProfileResponse.FromPlayer(player));
+            return OkResponse(req, response);
         }
         catch (PlayerNotFoundException e)
         {

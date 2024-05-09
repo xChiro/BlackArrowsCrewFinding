@@ -49,4 +49,12 @@ public class CrewArrangeSteps(
         crewRepositoriesContext.ValidationRepositoryMocks = new CrewValidationRepositoryMock(true, playerIsOwner: true);
         crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
     }
+
+    [Given(@"I am a member of the crew with id ""(.*)""")]
+    public void GivenIAmAMemberOfTheCrewWithIdAndName(string crewId)
+    {
+        var crew = crewContext.ToCrew(crewId, playerContext.PlayerName);
+        crewRepositoriesContext.ValidationRepositoryMocks = new CrewValidationRepositoryMock(true);
+        crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
+    }
 }
