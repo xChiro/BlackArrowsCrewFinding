@@ -8,15 +8,9 @@ using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 
-public class CrewCommandRepositoryMock : ICrewCommandRepository, ICrewDisbandRepository
+public class CrewCommandRepositoryMock(string expectedCrewPartyId = "123412")
+    : ICrewCommandRepository, ICrewDisbandRepository
 {
-    private readonly string _expectedCrewPartyId;
-
-    public CrewCommandRepositoryMock(string expectedCrewPartyId = "123412")
-    {
-        _expectedCrewPartyId = expectedCrewPartyId;
-    }
-
     public CrewName? Name { get; private set; }
     public Location? StartingPlace { get; private set; }
     public LanguageCollections? Languages { get; private set; }
@@ -26,7 +20,7 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository, ICrewDisbandRep
     public IEnumerable<Player>? Members { get; private set; }
     public int MaxMembersAllowed { get; private set; }
     public bool Active { get; set; }
-    public string DisbandedCrewId { get; private set; }
+    public string DisbandedCrewId { get; private set; } = string.Empty;
 
     public Task CreateCrew(Crew crew)
     {
@@ -39,7 +33,7 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository, ICrewDisbandRep
         Members = crew.Members;
         MaxMembersAllowed = crew.Members.MaxSize;
         
-        return Task.FromResult(_expectedCrewPartyId);
+        return Task.FromResult(expectedCrewPartyId);
     }
 
     public Task UpdateMembers(string crewId, IEnumerable<Player> crewMembers)

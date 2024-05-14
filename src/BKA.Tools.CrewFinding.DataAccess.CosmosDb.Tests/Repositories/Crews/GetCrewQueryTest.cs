@@ -8,8 +8,7 @@ namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 
 public class GetCrewQueryTest(
     ICrewQueryRepository crewQueryRepository,
-    IDatabaseSettingsProvider<Container> databaseSettingsProvider)
-    : IAsyncLifetime
+    IDatabaseSettingsProvider<Container> databaseSettingsProvider) : IAsyncLifetime
 {
     private Container? _container;
     private Crew? _crewDocument;

@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.Crews;
+namespace BKA.Tools.CrewFinding.Commons;
 
 public class Entity
 {

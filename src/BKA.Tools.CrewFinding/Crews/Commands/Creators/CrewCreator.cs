@@ -14,13 +14,13 @@ public class CrewCreator(
     IUserSession userSession,
     int playersAllowed) : ICrewCreator
 {
-    public async Task Create(CrewCreatorRequest request, ICrewCreatorResponse crewCreatorResponse)
+    public async Task Create(CrewCreatorRequest request, ICrewCreatorResponse output)
     {
         var captain = await TryToGetValidCaptain(userSession.GetUserId());
         var crew =  request.ToCrew(captain, playersAllowed);
 
         await commandRepository.CreateCrew(crew);
-        crewCreatorResponse.SetResponse(crew.Id);
+        output.SetResponse(crew.Id);
     }
     
     private async Task<Player> TryToGetValidCaptain(string captainId)
