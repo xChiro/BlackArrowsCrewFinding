@@ -22,7 +22,7 @@ public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerF
             var crewFunctionRequest = await DeserializeBody<CreateCrewFunctionRequest>(req);
             var crewCreatorResponse = await CreateCrew(tokenDecoder, crewFunctionRequest);
 
-            return HandleSuccessfulResponse(req, crewCreatorResponse.CrewId);
+            return OkResponse(req, crewCreatorResponse);
         }
         catch (Exception e) when (e is ActivityDescriptionLengthException or ActivityNameLengthException
                                       or PlayerMultipleCrewsException or LanguageNameLengthException)
@@ -47,14 +47,5 @@ public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerF
         await crewCreator.Create(crewFunctionRequest.ToCrewCreatorRequest(),
             crewCreatorResponse);
         return crewCreatorResponse;
-    }
-
-    private static HttpResponseData HandleSuccessfulResponse(HttpRequestData req, string crewId)
-    {
-        var response = req.CreateResponse(HttpStatusCode.OK);
-        var result = new {CrewId = crewId};
-        response.WriteAsJsonAsync(result);
-        
-        return response;
     }
 }

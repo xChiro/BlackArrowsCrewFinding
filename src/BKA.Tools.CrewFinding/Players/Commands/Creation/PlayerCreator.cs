@@ -2,23 +2,13 @@ using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.Players.Commands.Creation;
 
-public class PlayerCreator : IPlayerCreator
+public class PlayerCreator(IPlayerCommandRepository playerCommandRepository, int minLength, int maxLength)
+    : IPlayerCreator
 {
-    private readonly IPlayerCommandRepository _playerCommandRepository;
-    private readonly int _minLength;
-    private readonly int _maxLength;
-
-    public PlayerCreator(IPlayerCommandRepository playerCommandRepository, int minLength, int maxLength)
-    {
-        _playerCommandRepository = playerCommandRepository;
-        _minLength = minLength;
-        _maxLength = maxLength;
-    }
-
     public Task Create(string userId, string citizenName)
     {
-        var player = Player.Create(userId, citizenName, minLength: _minLength, maxLength: _maxLength);
+        var player = Player.Create(userId, citizenName, minLength: minLength, maxLength: maxLength);
 
-        return _playerCommandRepository.Create(player);
+        return playerCommandRepository.Create(player);
     }
 }
