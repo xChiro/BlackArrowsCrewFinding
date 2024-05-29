@@ -6,74 +6,54 @@ using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews;
 
 [Binding]
-public class LeaveCrewActSteps
+public class LeaveCrewActSteps(
+    PlayerContext playerContext,
+    CrewRepositoriesContext crewRepositoriesContext,
+    ExceptionResultContext exceptionResultContext)
 {
-    private readonly PlayerContext _playerContext;
-    private readonly CrewContext _crewContext;
-    private readonly CrewRepositoriesContext _crewRepositoriesContext;
-    private readonly ExceptionResultContext _exceptionResultContext;
-
-    public LeaveCrewActSteps(PlayerContext playerContext, CrewContext crewContext,
-        CrewRepositoriesContext crewRepositoriesContext, ExceptionResultContext exceptionResultContext)
-    {
-        _playerContext = playerContext;
-        _crewContext = crewContext;
-        _crewRepositoriesContext = crewRepositoriesContext;
-        _exceptionResultContext = exceptionResultContext;
-    }
-
     private CrewLeaver CreateCrewLeaver()
     {
-        return new CrewLeaver(_crewRepositoriesContext.QueryRepositoryMock,
-            _crewRepositoriesContext.CommandRepositoryMock, new UserSessionMock(_playerContext.PlayerId));
+        return new CrewLeaver(crewRepositoriesContext.QueryRepositoryMock,
+            crewRepositoriesContext.CommandRepositoryMock, new UserSessionMock(playerContext.PlayerId));
+    }
+
+    private async Task ExecuteLeaveRequest(Func<Task> action)
+    {
+        try
+        {
+            await action.Invoke();
+        }
+        catch (Exception e)
+        {
+            exceptionResultContext.Exception = e;
+        }
     }
 
     [When("the player requests to leave the Crew")]
-    public async Task WhenThePlayerRequestsToLeaveTheCrew()
+    public Task WhenThePlayerRequestsToLeaveTheCrew()
     {
         var sut = CreateCrewLeaver();
-        await sut.Leave(_crewContext.CrewId);
+        return ExecuteLeaveRequest(() => sut.Leave());
     }
 
     [When(@"the player attempts to leave the Crew")]
-    public async Task WhenThePlayerAttemptsToLeaveTheCrew()
+    public Task WhenThePlayerAttemptsToLeaveTheCrew()
     {
         var sut = CreateCrewLeaver();
-        try
-        {
-            await sut.Leave(_crewContext.CrewId);
-        }
-        catch (Exception e)
-        {
-            _exceptionResultContext.Exception = e;
-        }
+        return ExecuteLeaveRequest(() => sut.Leave());
     }
 
     [When(@"the captain attempts to leave the Crew")]
-    public async Task WhenTheCaptainAttemptsToLeaveTheCrew()
+    public Task WhenTheCaptainAttemptsToLeaveTheCrew()
     {
         var sut = CreateCrewLeaver();
-        try
-        {
-            await sut.Leave(_crewContext.CrewId);
-        }
-        catch (Exception e)
-        {
-            _exceptionResultContext.Exception = e;
-        }
+        return ExecuteLeaveRequest(() => sut.Leave());
     }
 
     [When(@"the player attempts to leave from non-existent Crew")]
-    public async Task WhenThePlayerAttemptsToLeaveFromNonExistentCrew()
+    public Task WhenThePlayerAttemptsToLeaveFromNonExistentCrew()
     {
         var sut = CreateCrewLeaver();
-        try
-        {
-            await sut.Leave(Guid.NewGuid().ToString());
-        }
-        catch (Exception e)
-        {
-            _exceptionResultContext.Exception = e;
-        }
+        return ExecuteLeaveRequest(() => sut.Leave());
     }
 }

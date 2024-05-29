@@ -2,6 +2,7 @@ using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
+using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recents;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
@@ -59,8 +60,7 @@ public static class DomainService
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>()));
-
-
+        
         service.AddScoped<ICrewJoiner>(
             serviceProvider =>
                 new CrewJoiner(
@@ -69,5 +69,10 @@ public static class DomainService
                     serviceProvider.GetRequiredService<ICrewCommandRepository>(),
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>()));
+
+        service.AddScoped<ICrewLeaver>(serviceProvider =>
+            new CrewLeaver(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+                serviceProvider.GetRequiredService<ICrewCommandRepository>(),
+                serviceProvider.GetRequiredService<IUserSession>()));
     }
 }

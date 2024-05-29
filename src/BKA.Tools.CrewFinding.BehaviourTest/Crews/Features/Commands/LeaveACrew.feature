@@ -19,12 +19,6 @@ Feature: A player has the ability to leave a Crew.
       | UserName |
       | Rowan    |
       
-    Scenario: Attempt to leave a Crew that does not exist
-        Given a player named <UserName>
-        And the player is not a member of any Crew
-        When the player attempts to leave from non-existent Crew
-        Then the player receives a message indicating the Crew does not exist
-
     Scenario: Captain attempts to leave the Crew
         Given a player named <UserName>
         And the player is the captain of a Crew

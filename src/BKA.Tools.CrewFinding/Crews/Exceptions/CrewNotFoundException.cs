@@ -1,7 +1,5 @@
 namespace BKA.Tools.CrewFinding.Crews.Exceptions;
 
-public class CrewNotFoundException : Exception
+public class CrewNotFoundException(string id) : Exception($"Crew not found with {id}")
 {
-    public CrewNotFoundException(string id) : base($"Crew not found with {id}")
-    { }
 }

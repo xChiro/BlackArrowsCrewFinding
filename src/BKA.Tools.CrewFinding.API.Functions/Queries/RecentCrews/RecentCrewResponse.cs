@@ -6,6 +6,7 @@ namespace BKA.Tools.CrewFinding.API.Functions.Queries.RecentCrews;
 public class RecentCrewResponse(
     string id,
     string name,
+    string captainId,
     Activity activity,
     Location reunionPoint,
     LanguageCollections languages,
@@ -14,6 +15,7 @@ public class RecentCrewResponse(
 {
     public string Id { get; set; } = id;
     public string Name { get; set; } = name;
+    public string CaptainId { get; set; } = captainId;
     public string Activity { get; set; } = activity.Name;
     public string Description { get; set; } = activity.Description;
     public Location ReunionPoint { get; set; } = reunionPoint;
@@ -26,6 +28,7 @@ public class RecentCrewResponse(
         return new RecentCrewResponse(
             crew.Id,
             crew.Name.Value,
+            crew.Captain.Id,
             crew.Activity,
             crew.ReunionPoint,
             crew.Languages,
