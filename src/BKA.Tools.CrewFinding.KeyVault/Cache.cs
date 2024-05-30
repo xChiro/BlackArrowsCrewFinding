@@ -5,7 +5,6 @@ namespace BKA.Tools.CrewFinding.KeyVault;
 internal class Cache : IDisposable
 {
     private readonly Dictionary<string, CachedResponse> _cache = new(StringComparer.OrdinalIgnoreCase);
-
     private SemaphoreSlim? _lock = new(1, 1);
 
     public void Dispose()
