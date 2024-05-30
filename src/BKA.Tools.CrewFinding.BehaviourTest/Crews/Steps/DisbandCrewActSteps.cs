@@ -19,7 +19,7 @@ public class DisbandCrewActSteps(
         var sut = new CrewDisbandment(crewRepositoriesContext.QueryRepositoryMock,
             crewRepositoriesContext.CommandRepositoryMock, userSessionMock);
 
-        await sut.Disband(crewRepositoriesContext.QueryRepositoryMock.StoredCrews[0].Id);
+        await sut.Disband();
     }
 
     [When(@"I attempt to disband the Crew")]
@@ -32,8 +32,7 @@ public class DisbandCrewActSteps(
 
         try
         {
-            await sut.Disband(crewRepositoriesContext.QueryRepositoryMock.StoredCrews.FirstOrDefault()?.Id ??
-                              string.Empty);
+            await sut.Disband();
         }
         catch (Exception e)
         {

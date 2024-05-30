@@ -10,11 +10,10 @@ internal class Cache : IDisposable
 
     public void Dispose()
     {
-        if (_lock is { })
-        {
-            _lock.Dispose();
-            _lock = null;
-        }
+        if (_lock is null) return;
+        
+        _lock.Dispose();
+        _lock = null;
     }
     
     internal async ValueTask<Response> GetOrAddAsync(bool isAsync, string uri, TimeSpan ttl,
@@ -39,11 +38,10 @@ internal class Cache : IDisposable
             }
 
             var response = await action().ConfigureAwait(false);
-            if (response is {Status: 200, ContentStream: not null})
-            {
-                cachedResponse = await CachedResponse.CreateAsync(isAsync, response, ttl).ConfigureAwait(false);
-                _cache[uri] = cachedResponse;
-            }
+            if (response is not {Status: 200, ContentStream: not null}) return response;
+            
+            cachedResponse = await CachedResponse.CreateAsync(isAsync, response, ttl).ConfigureAwait(false);
+            _cache[uri] = cachedResponse;
 
             return response;
         }
@@ -70,9 +68,7 @@ internal class Cache : IDisposable
 
     private void ThrowIfDisposed()
     {
-        if (_lock is null)
-        {
-            throw new ObjectDisposedException(nameof(_lock));
-        }
+        if (_lock is not null) return;
+        throw new ObjectDisposedException(nameof(_lock));
     }
 }

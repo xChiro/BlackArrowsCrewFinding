@@ -10,12 +10,11 @@ public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILoggerFactor
     
     [Function("CrewDisbandFunction")]
     public async Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Crews/{id}")] HttpRequestData req, string id)
+        [HttpTrigger(AuthorizationLevel.Function, "DELETE", Route = "Crews/Disband")] HttpRequestData req)
     {
         try
         {
-            await crewDisbandment.Disband(id);
-
+            await crewDisbandment.Disband();
             return req.CreateResponse(HttpStatusCode.OK);
         }
         catch (Exception e) when (e is CrewDisbandException)

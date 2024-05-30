@@ -7,14 +7,14 @@ namespace BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 public class CrewDisbandment(
     ICrewQueryRepository crewQueryRepository,
     ICrewDisbandRepository crewDisbandRepository,
-    IUserSession userSession)
-    : ICrewDisbandment
+    IUserSession userSession) : ICrewDisbandment
 {
-    public async Task Disband(string crewId)
+    public async Task Disband()
     {
         var userId = GetUserIdFromSession();
+        var crewId = await IsCrewOwnedByUserAsync(userId);
 
-        if (!await IsCrewOwnedByUserAsync(userId, crewId))
+        if (crewId is null)
             throw new CrewDisbandException();
 
         await crewDisbandRepository.Disband(crewId);
@@ -27,10 +27,9 @@ public class CrewDisbandment(
         return userId;
     }
 
-    private async Task<bool> IsCrewOwnedByUserAsync(string userId, string crewId)
+    private async Task<string?> IsCrewOwnedByUserAsync(string userId)
     {
-        var crew = await crewQueryRepository.GetCrew(crewId);
-
-        return crew?.Captain.Id == userId;
+        var crew = await crewQueryRepository.GetActiveCrewByPlayerId(userId);
+        return crew?.Id;
     }
 }

@@ -17,10 +17,10 @@ public class CrewDisbandmentTest
     public async Task Attempt_To_Disband_Crew_That_Is_Not_Owned_By_Player_Should_Throw_Exception_Async()
     {
         // Arrange
-        var sut = SetupSut(null);
+        var sut = SetupSutNotOwner(Player.Create(Guid.NewGuid().ToString(), "Adam"));
 
         // Act
-        var act = async () => await sut.Disband(CrewId);
+        var act = async () => await sut.Disband();
 
         // Assert
         await act.Should().ThrowAsync<CrewDisbandException>();
@@ -31,24 +31,45 @@ public class CrewDisbandmentTest
     {
         // Arrange
         var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
-        var sut = SetupSut(Player.Create(Guid.NewGuid().ToString(), "Adam"), crewCommandRepositoryMock);
+        var sut = SetupSutOwner(Player.Create(Guid.NewGuid().ToString(), "Adam"), crewCommandRepositoryMock);
 
         // Act
-        await sut.Disband(CrewId);
+        await sut.Disband();
 
         // Assert
         crewCommandRepositoryMock.DisbandedCrewId.Should().Be(CrewId);
     }
 
-    private static CrewDisbandment SetupSut(Player? player, CrewCommandRepositoryMock? crewCommandRepositoryMock = null)
+    private static CrewDisbandment SetupSutOwner(Player player, CrewCommandRepositoryMock crewCommandRepositoryMock)
     {
-        var captain = player ?? Player.Create(Guid.NewGuid().ToString(), "Allan");
-        var userSession = new UserSessionMock(player?.Id ?? Guid.NewGuid().ToString());
-        var crew = CrewBuilder.Build(CrewId, captain);
-        var crewValidationRepository = new CrewQueriesRepositoryMock(crew);
-        var crewDisbandRepository = crewCommandRepositoryMock ?? new CrewCommandRepositoryMock();
+        var userSession = CreateUserSessionMock(player);
+        var crew = CrewBuilder.Build(CrewId, player);
+        var crewValidationRepository = new CrewQueriesRepositoryMock(crew, expectedPlayerId: player.Id);
+        var sut = CreateCrewDisbandment(crewValidationRepository, crewCommandRepositoryMock, userSession);
 
+        return sut;
+    }
+
+    private static CrewDisbandment SetupSutNotOwner(Player player)
+    {
+        var userSession = CreateUserSessionMock(player);
+        var crewValidationRepository = new CrewQueriesRepositoryMock();
+        var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
+        var sut = CreateCrewDisbandment(crewValidationRepository, crewCommandRepositoryMock, userSession);
+
+        return sut;
+    }
+
+    private static CrewDisbandment CreateCrewDisbandment(CrewQueriesRepositoryMock crewValidationRepository,
+        CrewCommandRepositoryMock crewDisbandRepository, UserSessionMock userSession)
+    {
         var sut = new CrewDisbandment(crewValidationRepository, crewDisbandRepository, userSession);
         return sut;
+    }
+
+    private static UserSessionMock CreateUserSessionMock(Player player)
+    {
+        var userSession = new UserSessionMock(player.Id);
+        return userSession;
     }
 }

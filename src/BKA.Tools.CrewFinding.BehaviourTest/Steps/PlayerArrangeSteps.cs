@@ -9,7 +9,7 @@ public class PlayerArrangeSteps(PlayerContext playerContext, PlayerRepositoryCon
     [Given(@"a player named (.*)")]
     [Given(@"a player named ""(.*)""")]
     [Given(@"I am a player named ""(.*)""")]
-    public void When_givenAPlayerNamed(string userName)
+    public void GivenAPlayerNamed(string userName)
     {
         playerContext.PlayerId = Guid.NewGuid().ToString();
         playerContext.PlayerName = userName;

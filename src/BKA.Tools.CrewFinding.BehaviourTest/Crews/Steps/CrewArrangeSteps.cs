@@ -31,7 +31,7 @@ public class CrewArrangeSteps(
 
         crewRepositoriesContext.ValidationRepositoryMocks =
             new CrewValidationRepositoryMock(true, playerIsOwner: true);
-        crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
+        crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew}, playerContext.PlayerId);
     }
 
     [Given(@"there is an active crew created by another player")]
