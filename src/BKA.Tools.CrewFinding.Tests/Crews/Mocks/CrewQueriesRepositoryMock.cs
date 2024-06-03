@@ -7,11 +7,11 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 
-public class CrewQueriesRepositoryMock(Crew? crew = null, IEnumerable<Crew>? crews = null, string expectedPlayerId = "") : ICrewQueryRepository
+public class CrewQueriesRepositoryMock(IEnumerable<Crew>? crews = null, string expectedPlayerId = "") : ICrewQueryRepository
 {
     public Task<Crew?> GetCrew(string crewId)
     {
-        return Task.FromResult(crew?.Id == crewId ? crew : null);
+        return Task.FromResult(crews?.FirstOrDefault(c => c.Id == crewId));
     }
 
     public Task<Crew[]> GetCrews(DateTime from, DateTime to)
@@ -22,6 +22,6 @@ public class CrewQueriesRepositoryMock(Crew? crew = null, IEnumerable<Crew>? cre
 
     public Task<Crew?> GetActiveCrewByPlayerId(string playerId)
     {
-        return expectedPlayerId == playerId ? Task.FromResult(crew) : Task.FromResult<Crew?>(null);
+        return expectedPlayerId == playerId ? Task.FromResult(crews?.FirstOrDefault()) : Task.FromResult<Crew?>(null);
     }
 }

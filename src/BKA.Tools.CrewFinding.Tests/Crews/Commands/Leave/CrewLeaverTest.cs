@@ -78,7 +78,7 @@ public class CrewLeaverTest
 
     private static CrewLeaver InitializeCrewLeaver(ICrewCommandRepository crewCommandMock, Crew crew)
     {
-        var crewQueryRepository = new CrewQueriesRepositoryMock(crew: crew, expectedPlayerId: PlayerId);
+        var crewQueryRepository = new CrewQueriesRepositoryMock(crews: [crew], expectedPlayerId: PlayerId);
         return new CrewLeaver(crewQueryRepository, crewCommandMock, new UserSessionMock(PlayerId));
     }
 

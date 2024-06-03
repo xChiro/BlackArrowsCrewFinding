@@ -79,14 +79,14 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
         {
 #line 4
     #line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name"});
-            table5.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "1",
                         "Rowan"});
 #line 5
-        testRunner.Given("the following players exist:", ((string)(null)), table5, "Given ");
+        testRunner.Given("the following players exist:", ((string)(null)), table8, "Given ");
 #line hidden
         }
         
@@ -122,14 +122,14 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
 #line 11
         testRunner.When("I get my profile", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "Name"});
-                table6.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "1",
                             "Rowan"});
 #line 12
-        testRunner.Then("I should see my profile details:", ((string)(null)), table6, "Then ");
+        testRunner.Then("I should see my profile details:", ((string)(null)), table9, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -165,18 +165,18 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
 #line 19
         testRunner.When("I get my profile", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "Name",
                             "CrewId",
                             "CrewName"});
-                table7.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "1",
                             "Rowan",
                             "1",
                             "Crew of Rowan"});
 #line 20
-        testRunner.Then("I should see my profile details:", ((string)(null)), table7, "Then ");
+        testRunner.Then("I should see my profile details:", ((string)(null)), table10, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -212,18 +212,18 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
 #line 27
         testRunner.When("I get my profile", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "Name",
                             "CrewId",
                             "CrewName"});
-                table8.AddRow(new string[] {
+                table11.AddRow(new string[] {
                             "1",
                             "Rowan",
                             "1",
                             "Crew of Rowan"});
 #line 28
-        testRunner.Then("I should see my profile details:", ((string)(null)), table8, "Then ");
+        testRunner.Then("I should see my profile details:", ((string)(null)), table11, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

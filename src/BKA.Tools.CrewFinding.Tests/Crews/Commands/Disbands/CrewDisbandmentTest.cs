@@ -44,7 +44,7 @@ public class CrewDisbandmentTest
     {
         var userSession = CreateUserSessionMock(player);
         var crew = CrewBuilder.Build(CrewId, player);
-        var crewValidationRepository = new CrewQueriesRepositoryMock(crew, expectedPlayerId: player.Id);
+        var crewValidationRepository = new CrewQueriesRepositoryMock(crews: [crew], expectedPlayerId: player.Id);
         var sut = CreateCrewDisbandment(crewValidationRepository, crewCommandRepositoryMock, userSession);
 
         return sut;
