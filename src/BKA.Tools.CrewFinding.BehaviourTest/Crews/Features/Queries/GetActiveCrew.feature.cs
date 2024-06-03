@@ -138,7 +138,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
         testRunner.Given("there is the following crews in the system", ((string)(null)), table3, "Given ");
 #line hidden
 #line 8
-        testRunner.When("I want to obtain the crew with identification code 1234", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When("I want to obtain the crew with identification code \"1234\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "CrewId",
@@ -229,7 +229,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
         testRunner.Given("there is the following crews in the system", ((string)(null)), table5, "Given ");
 #line hidden
 #line 18
-        testRunner.When("I want to obtain the crew with identification code 9999", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When("I attempt to obtain the crew with identification code \"999999\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 19
         testRunner.Then("I should get an error message indicating that the crew does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

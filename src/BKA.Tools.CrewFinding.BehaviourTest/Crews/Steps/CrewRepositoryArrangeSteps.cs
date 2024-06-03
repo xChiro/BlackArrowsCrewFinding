@@ -7,65 +7,56 @@ using BKA.Tools.CrewFinding.Players;
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 
 [Binding]
-public class CrewRepositoryArrangeSteps
+public class CrewRepositoryArrangeSteps(CrewRepositoriesContext crewRepositoriesContext)
 {
-    private readonly CrewRepositoriesContext _crewRepositoriesContext;
-
-    public CrewRepositoryArrangeSteps(CrewRepositoriesContext crewRepositoriesContext)
-    {
-        _crewRepositoriesContext = crewRepositoriesContext;
-    }
+    private const string PlayerId = "playerId";
+    private const string CitizenName = "playerName";
 
     [Given(@"an existing Crew from other player")]
     public void GivenAnExistingCrewFromOtherPlayer()
     {
-        const string playerId = "playerId";
-        const string citizenName = "playerName";
-
         var crewParties = new Crew[]
         {
-            new(Player.Create(playerId, citizenName),
+            new(Player.Create(PlayerId, CitizenName),
                 Location.DefaultLocation(),
                 LanguageCollections.Default(),
                 PlayerCollection.CreateEmpty(4),
                 Activity.Default())
         };
 
-        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crewParties);
+        crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crewParties);
     }
 
     [Given(@"there is not a Crew")]
     public void GivenThereIsNotACrew()
     {
-        _crewRepositoriesContext.ValidationRepositoryMocks = new CrewNotFoundValidationRepositoryMock();
+        crewRepositoriesContext.ValidationRepositoryMocks = new CrewNotFoundValidationRepositoryMock();
     }
 
     [Given(@"an existing Crew at maximum capacity from other player")]
     public void GivenAnExistingCrewAtMaximumCapacityFromOtherPlayer()
     {
-        const string playerId = "playerId";
-        const string citizenName = "playerName";
-        var members = PlayerCollection.CreateWithSingle(Player.Create("3412343", "Rowan"), 1);
+        var members = PlayerCollection.CreateWithSingle(Player.Create("3123", "Adam"), 1);
 
         var crews = new Crew[]
         {
-            new(Player.Create(playerId, citizenName),
+            new(Player.Create(PlayerId, CitizenName),
                 Location.DefaultLocation(),
                 LanguageCollections.Default(),
                 members,
                 Activity.Default())
         };
 
-        _crewRepositoriesContext.CommandRepositoryMock = new CrewCommandRepositoryMock();
-        _crewRepositoriesContext.ValidationRepositoryMocks = new CrewValidationRepositoryMock();
-        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crews);
+        crewRepositoriesContext.CommandRepositoryMock = new CrewCommandRepositoryMock();
+        crewRepositoriesContext.ValidationRepositoryMocks = new CrewValidationRepositoryMock();
+        crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crews);
     }
 
     [Given(@"there is the following crews in the system")]
     public void GivenThereIsTheFollowingCrewsInTheSystem(Table table)
     {
         var crews = table.Rows.Select(CreateCrewFromRow).ToArray();
-        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crews);
+        crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crews);
     }
 
     private static Crew CreateCrewFromRow(TableRow row)
@@ -80,6 +71,12 @@ public class CrewRepositoryArrangeSteps
         var location = new Location(row["System"], row["PlanetarySystem"], row["PlanetMoon"], row["Location"]);
         var activity = Activity.Create(row["Activity"], row["Description"]);
 
+        if (row.TryGetValue("CrewId", out var crewId))
+        {
+            return new Crew(crewId, Player.Create(playerId, playerName), location, language, members, activity,
+                DateTime.UtcNow);
+        }
+        
         return new Crew(Player.Create(playerId, playerName), location, language, members, activity);
     }
 
