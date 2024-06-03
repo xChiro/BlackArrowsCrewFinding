@@ -129,6 +129,6 @@ public class CrewCreatorTest
         string description, ICrewCreatorResponse crewCreatorResponse)
     {
         await CrewCreatorExecutioner.Execute(sut, crewCreatorResponse,
-            Array.Empty<string>(), Location.DefaultLocation(), "Mining", totalCrew, description);
+            Array.Empty<string>(), Location.Default(), "Mining", totalCrew, description);
     }
 }

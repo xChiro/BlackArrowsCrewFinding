@@ -68,7 +68,7 @@ public class ActiveCrewRetrievalTest
 
     private static Crew CreateCrew(string id)
     {
-        return new Crew(id, Player.Create("1", "Adam"), Location.DefaultLocation(),
+        return new Crew(id, Player.Create("1", "Adam"), Location.Default(),
             LanguageCollections.Default(), PlayerCollection.CreateEmpty(3), Activity.Default(), DateTime.UtcNow);
     }
 }

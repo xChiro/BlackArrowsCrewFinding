@@ -12,7 +12,7 @@ public static class CrewCreatorExecutioner
         string activity = "Mining", int totalCrew = 2, string description = "Description")
     {
         var request = CrewPartyCreatorRequest(totalCrew,
-            expectedLocation ?? Location.DefaultLocation(),
+            expectedLocation ?? Location.Default(),
             languages ?? [], activity, description);
 
         await sut.Create(request, responseMock);

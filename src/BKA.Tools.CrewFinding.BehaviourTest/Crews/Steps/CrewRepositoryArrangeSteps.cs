@@ -18,7 +18,7 @@ public class CrewRepositoryArrangeSteps(CrewRepositoriesContext crewRepositories
         var crewParties = new Crew[]
         {
             new(Player.Create(PlayerId, CitizenName),
-                Location.DefaultLocation(),
+                Location.Default(),
                 LanguageCollections.Default(),
                 PlayerCollection.CreateEmpty(4),
                 Activity.Default())
@@ -41,7 +41,7 @@ public class CrewRepositoryArrangeSteps(CrewRepositoriesContext crewRepositories
         var crews = new Crew[]
         {
             new(Player.Create(PlayerId, CitizenName),
-                Location.DefaultLocation(),
+                Location.Default(),
                 LanguageCollections.Default(),
                 members,
                 Activity.Default())

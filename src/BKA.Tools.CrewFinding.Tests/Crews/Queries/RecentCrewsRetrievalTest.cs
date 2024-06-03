@@ -47,7 +47,7 @@ public class RecentCrewsRetrievalTest
     public async void Given_There_Are_Recent_Crews_When_Retrieving_Recent_Crews_Then_Should_Return_Recent_Crews()
     {
         // Arrange
-        var expectedCrew = new Crew(Guid.NewGuid().ToString(), Player.Create("1", "Adam"), Location.DefaultLocation(),
+        var expectedCrew = new Crew(Guid.NewGuid().ToString(), Player.Create("1", "Adam"), Location.Default(),
             LanguageCollections.Default(), PlayerCollection.CreateEmpty(3), Activity.Default(), DateTime.UtcNow);
         var recentCrews = GenerateCrews(expectedCrew, CrewAgeThresholdInHours);
 
@@ -91,7 +91,7 @@ public class RecentCrewsRetrievalTest
         const string citizenName = "Adam";
 
         var oldCrew = new Crew(randomId, Player.Create(randomCaptainId, citizenName),
-            Location.DefaultLocation(),
+            Location.Default(),
             LanguageCollections.Default(), PlayerCollection.CreateEmpty(3), Activity.Default(),
             DateTime.UtcNow.AddHours(-crewAgeThresholdInHours - 1));
 

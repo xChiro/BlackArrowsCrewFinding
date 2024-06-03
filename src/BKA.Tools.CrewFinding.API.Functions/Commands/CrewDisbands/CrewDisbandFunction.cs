@@ -10,7 +10,7 @@ public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILoggerFactor
     
     [Function("CrewDisbandFunction")]
     public async Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "DELETE", Route = "Crews/Disband")] HttpRequestData req)
+        [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Crews/Disband")] HttpRequestData req)
     {
         try
         {
@@ -23,7 +23,7 @@ public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILoggerFactor
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex.Message, ex);
+            _logger.LogError(ex, ex.Message);
             return InternalServerErrorResponse(req);
         }
     }

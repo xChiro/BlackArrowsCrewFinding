@@ -7,7 +7,7 @@ public static class CrewDefaultAssert
 {
     public static void AssertDefaultLocation(Crew crew)
     {
-        crew.ReunionPoint.Should().BeEquivalentTo(Location.DefaultLocation());
+        crew.ReunionPoint.Should().BeEquivalentTo(Location.Default());
     }
 
     public static void AssertDefaultLanguages(Crew crew)

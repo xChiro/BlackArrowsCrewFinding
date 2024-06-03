@@ -13,7 +13,7 @@ public class LocationTests
         string planetMoon, string place)
     {
         // Arrange
-        var expected = Location.DefaultLocation();
+        var expected = Location.Default();
 
         // Act
         var results = new Location(system, planetarySystem, planetMoon, place);

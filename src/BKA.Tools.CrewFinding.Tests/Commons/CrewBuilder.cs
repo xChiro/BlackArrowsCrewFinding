@@ -9,7 +9,7 @@ public static class CrewBuilder
 {
     public static Crew Build(string id, Player captain)
     {
-        return new Crew(id, captain, Location.DefaultLocation(), LanguageCollections.Default(),
+        return new Crew(id, captain, Location.Default(), LanguageCollections.Default(),
             PlayerCollection.CreateEmpty(4), Activity.Default(), DateTime.UtcNow);
     }
 }

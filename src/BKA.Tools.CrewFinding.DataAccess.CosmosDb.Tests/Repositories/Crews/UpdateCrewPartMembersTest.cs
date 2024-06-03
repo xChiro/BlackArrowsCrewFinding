@@ -52,7 +52,7 @@ public class UpdateCrewPartMembersTest : IAsyncLifetime
     {
         return new Crew(
             Player.Create("24", "Rowan"),
-            Location.DefaultLocation(),
+            Location.Default(),
             LanguageCollections.Default(),
             PlayerCollection.CreateWithSingle(Player.Create("123412", "Adam"), 1),
             Activity.Default());

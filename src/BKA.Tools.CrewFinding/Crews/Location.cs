@@ -20,7 +20,7 @@ public record Location
     public string PlanetMoon { get; }
     public string Place { get; }
     
-    public static Location DefaultLocation() =>
+    public static Location Default() =>
         new(DefaultSystem, DefaultPlanetarySystem, DefaultPlanetMoon, DefaultPlace);
 
     public virtual bool Equals(Location? other) => other is not null && System == other.System &&

@@ -86,7 +86,7 @@ public class CrewLeaverTest
     {
         return new Crew(crewId,
             playerToLeave,
-            Location.DefaultLocation(),
+            Location.Default(),
             LanguageCollections.Default(),
             PlayerCollection.CreateWithSingle(playerToLeave, 1), 
             Activity.Default(),

@@ -12,7 +12,7 @@ public class CrewCreatorLocationTest
     public async Task Create_Crew_Without_Location_Uses_Default()
     {
         // Arrange
-        var expectedLocation = Location.DefaultLocation();
+        var expectedLocation = Location.Default();
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
         var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock);
 

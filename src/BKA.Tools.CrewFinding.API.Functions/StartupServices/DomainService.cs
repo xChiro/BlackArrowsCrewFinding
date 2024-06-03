@@ -8,6 +8,7 @@ using BKA.Tools.CrewFinding.Crews.Queries.Recents;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
+using BKA.Tools.CrewFinding.Tests.Crews.Queries.Recent;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
@@ -60,7 +61,7 @@ public static class DomainService
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>()));
-        
+
         service.AddScoped<ICrewJoiner>(
             serviceProvider =>
                 new CrewJoiner(
@@ -74,5 +75,8 @@ public static class DomainService
             new CrewLeaver(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                 serviceProvider.GetRequiredService<ICrewCommandRepository>(),
                 serviceProvider.GetRequiredService<IUserSession>()));
+
+        service.AddScoped<IActiveCrewRetrieval>(serviceProvider =>
+            new ActiveCrewRetrieval(serviceProvider.GetRequiredService<ICrewQueryRepository>()));
     }
 }

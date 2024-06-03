@@ -45,7 +45,7 @@ public class CrewLanguageTest
     private static void ExecuteCrewCreation(ICrewCreator sut, int totalCrew,
         string[] languages)
     {
-        var request = new CrewCreatorRequest(totalCrew, Location.DefaultLocation(), 
+        var request = new CrewCreatorRequest(totalCrew, Location.Default(), 
             languages, Activity.Default().Name);
 
         sut.Create(request, new CrewCreatorResponseMock());

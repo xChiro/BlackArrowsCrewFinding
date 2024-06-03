@@ -20,7 +20,7 @@ public class MultipleCrewsRestrictionTest
         var crewPartyCreator =
             CrewCreatorBuilder.Build(crewPartyQueriesMock, true, playerId: captainId);
         
-        var request = new CrewCreatorRequest(5, Location.DefaultLocation(), ["ES"], "Activity");
+        var request = new CrewCreatorRequest(5, Location.Default(), ["ES"], "Activity");
 
         // Act & Assert
         await Assert.ThrowsAsync<PlayerMultipleCrewsException>(() =>

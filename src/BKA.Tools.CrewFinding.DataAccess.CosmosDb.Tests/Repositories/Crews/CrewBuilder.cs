@@ -12,7 +12,7 @@ public static class CrewBuilder
         
         return new Crew(
             captain,
-            Location.DefaultLocation(),
+            Location.Default(),
             LanguageCollections.Default(),
             PlayerCollection.CreateEmpty(maxAllowed),
             Activity.Default());
