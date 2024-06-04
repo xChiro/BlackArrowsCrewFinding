@@ -26,7 +26,11 @@ env:
   AZURE_FUNCTIONAPP_NAME: 'bka-crewfinding'   # set this to your function app name on Azure
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'src'       # set this to the path to your function app project, defaults to the repository root
   DOTNET_VERSION: '8.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
-
+  
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
   build-and-deploy:
     runs-on: windows-latest # For Linux, use ubuntu-latest
