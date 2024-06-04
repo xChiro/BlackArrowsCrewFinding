@@ -9,7 +9,7 @@ public class RecentCrewsFunction(IRecentCrewsRetrieval recentCrewsRetrieval, ILo
 
     [Function("RecentCrewsFunction")]
     public async Task<HttpResponseData> Run(
-        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Crews/Recent")] HttpRequestData req,
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Recent/Crews")] HttpRequestData req,
         FunctionContext executionContext)
     {
         try
