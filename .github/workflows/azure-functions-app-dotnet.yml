@@ -31,7 +31,7 @@ jobs:
   build-and-deploy:
     runs-on: windows-latest # For Linux, use ubuntu-latest
     environment: dev
-    steps:
+    steps:    
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v4
 
@@ -52,7 +52,21 @@ jobs:
         pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
         dotnet build --configuration Release --output ./output
         popd
-
+        
+    - name: Azure login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A35028B130084375A5607070C575DA0E }}
+        tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_DABC2438193049DE8FE15BF4767B6EA9 }}
+        subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_C3EA9F8E5C9F4900A2AC32CB4073C0EA }}
+          
+    - name: Azure CLI script
+      uses: azure/cli@v2
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az account show
+            
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       id: fa
