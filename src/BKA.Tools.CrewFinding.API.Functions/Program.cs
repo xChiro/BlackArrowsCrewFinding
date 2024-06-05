@@ -11,12 +11,12 @@ var userSession = new UserSessionFilter();
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults(options =>
         options.UseMiddleware<UserSessionWorkerMiddleware>())
-    .ConfigureServices((context, service) =>
+    .ConfigureServices((_, service) =>
     {
-        service.AddScoped<IUserSession>(_ => userSession);
-        service.AddScoped<IUserSessionFilter>(_ => userSession);
         service.AddHttpContextAccessor();
         service.AddLogging();
+        service.AddScoped<IUserSession>(_ => userSession);
+        service.AddScoped<IUserSessionFilter>(_ => userSession);
         RepositoryService.AddRepositories(service, containerBuilder);
         DomainService.AddServices(service);
     })
