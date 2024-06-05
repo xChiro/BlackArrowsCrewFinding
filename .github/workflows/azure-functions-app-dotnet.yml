@@ -50,5 +50,6 @@ jobs:
       uses: Azure/functions-action@v1
       id: fa
       with:
+        app-name: 'bkacrewfinding'
         package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E0E5CF707023480C9BF43E447BDB6A43 }} # Remove publish-profile to use Azure RBAC
