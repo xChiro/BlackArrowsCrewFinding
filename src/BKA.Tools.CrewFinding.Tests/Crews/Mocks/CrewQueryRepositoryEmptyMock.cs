@@ -17,6 +17,11 @@ public class CrewQueryRepositoryEmptyMock : ICrewQueryRepository
         return Task.FromResult(Array.Empty<Crew>());
     }
 
+    public Task<Crew[]> GetCrewsExpiredByDate(DateTime expiryDate)
+    {
+        return Task.FromResult(Array.Empty<Crew>());
+    }
+
     public Task<Crew?> GetActiveCrewByPlayerId(string playerId)
     {
         return Task.FromResult<Crew?>(null);

@@ -1,6 +1,7 @@
 using BKA.Tools.CrewFinding.Crews;
+using BKA.Tools.CrewFinding.Crews.Queries;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Queries.Recent;
+namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 
 public class CrewResponseMock : ICrewResponse
 {

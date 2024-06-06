@@ -98,97 +98,6 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                            "CrewId",
-                            "CaptainHandle",
-                            "CreatedAgoHours",
-                            "MaxCrewSize",
-                            "System",
-                            "PlanetarySystem",
-                            "PlanetMoon",
-                            "Location",
-                            "Description",
-                            "Activity",
-                            "CurrentCrewSize"});
-                table3.AddRow(new string[] {
-                            "1234",
-                            "Rowan",
-                            "1",
-                            "4",
-                            "Stanton",
-                            "Crusader",
-                            "Crusader",
-                            "Seraphim Station",
-                            "Elite bounty hunters",
-                            "Bounty Hunting",
-                            "4"});
-                table3.AddRow(new string[] {
-                            "3124",
-                            "Ada",
-                            "3",
-                            "5",
-                            "Terra",
-                            "Sol",
-                            "Terra",
-                            "New Austin",
-                            "Space explorers",
-                            "Exploration",
-                            "3"});
-#line 4
-        testRunner.Given("there is the following crews in the system", ((string)(null)), table3, "Given ");
-#line hidden
-#line 8
-        testRunner.When("I want to obtain the crew with identification code \"1234\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                            "CrewId",
-                            "CaptainHandle",
-                            "CreatedAgoHours",
-                            "MaxCrewSize",
-                            "System",
-                            "PlanetarySystem",
-                            "PlanetMoon",
-                            "Location",
-                            "Description",
-                            "Activity",
-                            "CurrentCrewSize"});
-                table4.AddRow(new string[] {
-                            "1234",
-                            "Rowan",
-                            "1",
-                            "4",
-                            "Stanton",
-                            "Crusader",
-                            "Crusader",
-                            "Seraphim Station",
-                            "Elite bounty hunters",
-                            "Bounty Hunting",
-                            "4"});
-#line 9
-        testRunner.Then("I should get the following crew", ((string)(null)), table4, "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.SkippableFactAttribute(DisplayName="Obtain an active crew by identification code that does not exist")]
-        [Xunit.TraitAttribute("FeatureTitle", "Get an active crew by identification code")]
-        [Xunit.TraitAttribute("Description", "Obtain an active crew by identification code that does not exist")]
-        public void ObtainAnActiveCrewByIdentificationCodeThatDoesNotExist()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Obtain an active crew by identification code that does not exist", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 13
-    this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
                 TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                             "CrewId",
                             "CaptainHandle",
@@ -225,8 +134,99 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Space explorers",
                             "Exploration",
                             "3"});
-#line 14
+#line 4
         testRunner.Given("there is the following crews in the system", ((string)(null)), table5, "Given ");
+#line hidden
+#line 8
+        testRunner.When("I want to obtain the crew with identification code \"1234\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "CrewId",
+                            "CaptainHandle",
+                            "CreatedAgoHours",
+                            "MaxCrewSize",
+                            "System",
+                            "PlanetarySystem",
+                            "PlanetMoon",
+                            "Location",
+                            "Description",
+                            "Activity",
+                            "CurrentCrewSize"});
+                table6.AddRow(new string[] {
+                            "1234",
+                            "Rowan",
+                            "1",
+                            "4",
+                            "Stanton",
+                            "Crusader",
+                            "Crusader",
+                            "Seraphim Station",
+                            "Elite bounty hunters",
+                            "Bounty Hunting",
+                            "4"});
+#line 9
+        testRunner.Then("I should get the following crew", ((string)(null)), table6, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Obtain an active crew by identification code that does not exist")]
+        [Xunit.TraitAttribute("FeatureTitle", "Get an active crew by identification code")]
+        [Xunit.TraitAttribute("Description", "Obtain an active crew by identification code that does not exist")]
+        public void ObtainAnActiveCrewByIdentificationCodeThatDoesNotExist()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Obtain an active crew by identification code that does not exist", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 13
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                            "CrewId",
+                            "CaptainHandle",
+                            "CreatedAgoHours",
+                            "MaxCrewSize",
+                            "System",
+                            "PlanetarySystem",
+                            "PlanetMoon",
+                            "Location",
+                            "Description",
+                            "Activity",
+                            "CurrentCrewSize"});
+                table7.AddRow(new string[] {
+                            "1234",
+                            "Rowan",
+                            "1",
+                            "4",
+                            "Stanton",
+                            "Crusader",
+                            "Crusader",
+                            "Seraphim Station",
+                            "Elite bounty hunters",
+                            "Bounty Hunting",
+                            "4"});
+                table7.AddRow(new string[] {
+                            "3124",
+                            "Ada",
+                            "3",
+                            "5",
+                            "Terra",
+                            "Sol",
+                            "Terra",
+                            "New Austin",
+                            "Space explorers",
+                            "Exploration",
+                            "3"});
+#line 14
+        testRunner.Given("there is the following crews in the system", ((string)(null)), table7, "Given ");
 #line hidden
 #line 18
         testRunner.When("I attempt to obtain the crew with identification code \"999999\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

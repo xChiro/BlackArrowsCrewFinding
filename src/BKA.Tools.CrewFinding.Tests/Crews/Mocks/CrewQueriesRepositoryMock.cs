@@ -16,8 +16,14 @@ public class CrewQueriesRepositoryMock(IEnumerable<Crew>? crews = null, string e
 
     public Task<Crew[]> GetCrews(DateTime from, DateTime to)
     {
-        var crews1 = crews?.Where(c => c.CreatedAt >= from && c.CreatedAt <= to).ToArray();
-        return Task.FromResult(crews1 ?? []);
+        var result = crews?.Where(c => c.CreatedAt >= from && c.CreatedAt <= to).ToArray();
+        return Task.FromResult(result ?? []);
+    }
+
+    public Task<Crew[]> GetCrewsExpiredByDate(DateTime expiryDate)
+    {
+        var result = crews?.Where(c => c.CreatedAt <= expiryDate).ToArray();
+        return Task.FromResult(result ?? []);
     }
 
     public Task<Crew?> GetActiveCrewByPlayerId(string playerId)

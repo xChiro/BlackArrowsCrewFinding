@@ -16,6 +16,11 @@ public class CrewQueryRepositoryMock(IReadOnlyList<Crew> crews, string expectedP
         return Task.FromResult(crews.Where(p => p.CreatedAt >= from && p.CreatedAt <= to).ToArray());
     }
 
+    public Task<Crew[]> GetCrewsExpiredByDate(DateTime expiryDate)
+    {
+        return Task.FromResult(crews.Where(p => p.CreatedAt <= expiryDate).ToArray());
+    }
+
     public Task<Crew?> GetActiveCrewByPlayerId(string playerId)
     {
         if (playerId == expectedPlayerId)

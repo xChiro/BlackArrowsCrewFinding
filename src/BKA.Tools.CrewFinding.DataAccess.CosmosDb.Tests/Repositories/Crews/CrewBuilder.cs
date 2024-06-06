@@ -1,3 +1,4 @@
+using System;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
@@ -8,13 +9,20 @@ public static class CrewBuilder
 {
     public static Crew CreateDefaultCrew(int maxAllowed = 1, string captainId = "24")
     {
+        return CreateDefaultCrew(DateTime.UtcNow, maxAllowed, captainId);
+    }
+    
+    public static Crew CreateDefaultCrew(DateTime createdAt, int maxAllowed = 1, string captainId = "24")
+    {
         var captain = Player.Create(captainId, "Rowan");
         
         return new Crew(
+            Guid.NewGuid().ToString(),
             captain,
             Location.Default(),
             LanguageCollections.Default(),
             PlayerCollection.CreateEmpty(maxAllowed),
-            Activity.Default());
+            Activity.Default(),
+            createdAt);
     }
 }

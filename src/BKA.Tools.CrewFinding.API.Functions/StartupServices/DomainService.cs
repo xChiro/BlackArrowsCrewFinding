@@ -1,14 +1,15 @@
 using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
+using BKA.Tools.CrewFinding.Crews.Commands.Expired;
 using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recents;
+using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
-using BKA.Tools.CrewFinding.Tests.Crews.Queries.Recent;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
@@ -41,11 +42,12 @@ public static class DomainService
 
     private static void AddCrewServices(IServiceCollection service, int maxCrewSize)
     {
+        var expirationThreshold = Convert.ToInt32(Configuration.GetEnvironmentVariable("expirationThreshold"));
+
         service.AddScoped<IRecentCrewsRetrieval>(
             serviceProvider =>
                 new RecentCrewsRetrieval(
-                    serviceProvider.GetRequiredService<ICrewQueryRepository>(),
-                    Convert.ToInt32(Configuration.GetEnvironmentVariable("recentCrewsHoursThreshold"))));
+                    serviceProvider.GetRequiredService<ICrewQueryRepository>(), expirationThreshold));
 
         service.AddScoped<ICrewCreator>(
             serviceProvider =>
@@ -78,5 +80,10 @@ public static class DomainService
 
         service.AddScoped<IActiveCrewRetrieval>(serviceProvider =>
             new ActiveCrewRetrieval(serviceProvider.GetRequiredService<ICrewQueryRepository>()));
+
+        service.AddScoped<IExpiredCrewRemover>(serviceProvider =>
+            new ExpiredCrewRemover(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+                serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
+                expirationThreshold));
     }
 }

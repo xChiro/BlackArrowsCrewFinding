@@ -1,6 +1,4 @@
-using System.Threading.Tasks;
-
-namespace BKA.Tools.CrewFinding.Tests.Crews.Queries.Recent;
+namespace BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 
 public interface IActiveCrewRetrieval
 {

@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
@@ -35,6 +36,20 @@ public class DisbandCrewTest(
         // Assert
         await VerifyCrewNotFoundAsync(crew.Id);
         await VerifyDisbandedCrewAsync(crew.Id);
+    }
+
+    [Fact]
+    public async Task Remove_Expired_Crews_Successfully()
+    {
+        // Arrange
+        var expiredCrew = CrewBuilder.CreateDefaultCrew(DateTime.UtcNow.AddHours(-3));
+        _crewContainer!.CreateItemAsync(CrewDocument.CreateFromCrew(expiredCrew), new PartitionKey(expiredCrew.Id)).Wait();
+        
+        // Act
+        await crewDisbandRepository.Disband(new[] {expiredCrew.Id});
+        
+        // Assert
+        await VerifyCrewNotFoundAsync(expiredCrew.Id);
     }
 
     private async Task VerifyCrewNotFoundAsync(string id)

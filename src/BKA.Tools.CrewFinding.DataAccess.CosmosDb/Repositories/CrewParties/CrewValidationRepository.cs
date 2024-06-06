@@ -19,6 +19,11 @@ public class CrewValidationRepository(Container container) : ICrewValidationRepo
         return query.ReadNextAsync().ContinueWith(task => task.Result.Any());
     }
 
+    public Task<Crew[]> GetCrewsExpiredByDate(DateTime expiryDate)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<Crew?> GetActiveCrewByPlayerId(string playerId)
     {
         const string queryString =

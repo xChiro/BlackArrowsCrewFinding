@@ -1,10 +1,6 @@
-using System.Collections.Generic;
 using System.Net;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
-using BKA.Tools.CrewFinding.Tests.Crews.Queries.Recent;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Extensions.Logging;
+using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Queries.GetCrew;
 
