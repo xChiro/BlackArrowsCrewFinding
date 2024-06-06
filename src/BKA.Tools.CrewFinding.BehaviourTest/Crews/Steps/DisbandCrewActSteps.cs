@@ -11,7 +11,6 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 public class DisbandCrewActSteps(
     PlayerContext playerContext,
     CrewRepositoriesContext crewRepositoriesContext,
-    CrewRemoverResponseMock crewRemoverResponseMock,
     ExceptionResultContext exceptionResultContext,
     SystemSettingContext systemSettingContext)
 {
@@ -50,6 +49,6 @@ public class DisbandCrewActSteps(
             crewRepositoriesContext.CommandRepositoryMock, 
             systemSettingContext.LeastCrewTimeThreshold);
 
-        await sut.Remove(crewRemoverResponseMock);
+        await sut.Remove();
     }
 }

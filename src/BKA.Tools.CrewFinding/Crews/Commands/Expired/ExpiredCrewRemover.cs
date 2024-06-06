@@ -8,7 +8,7 @@ public class ExpiredCrewRemover(
     int expirationThreshold)
     : IExpiredCrewRemover
 {
-    public async Task Remove(ICrewRemoverResponse response)
+    public async Task Remove()
     {
         var crews = await crewQueryRepositoryMock.GetCrewsExpiredByDate(DateTime.UtcNow.AddHours(-expirationThreshold));
         
@@ -16,8 +16,6 @@ public class ExpiredCrewRemover(
         {
             var crewIds = crews.Select(c => c.Id).ToArray();
             await crewCommandRepositoryMock.Disband(crewIds);
-            
-            response.RemovedCrews(crewIds);
         }
     }
 }

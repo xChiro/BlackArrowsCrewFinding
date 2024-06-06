@@ -16,15 +16,15 @@ public class ExpiredCrewRemoverTest
         // Arrange
         Crew[] activeCrews = [CrewBuilder.Build("1", Player.Create("1", "Adam"))];
         var crewQueryRepositoryMock = new CrewQueriesRepositoryMock(crews: activeCrews);
-
-        var sut = new ExpiredCrewRemover(crewQueryRepositoryMock, new CrewCommandRepositoryMock(), 3);
-        var expiredCrewRemoverResponseMock = new CrewRemoverResponseMock();
+        var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
+        
+        var sut = new ExpiredCrewRemover(crewQueryRepositoryMock, crewCommandRepositoryMock, 3);
 
         // Act
-        await sut.Remove(expiredCrewRemoverResponseMock);
+        await sut.Remove();
 
         // Assert
-        expiredCrewRemoverResponseMock.CrewIds.Should().BeEmpty();
+        crewCommandRepositoryMock.DisbandedCrewIds.Should().BeEmpty();
     }
 
     [Fact]
@@ -45,13 +45,11 @@ public class ExpiredCrewRemoverTest
         var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
 
         var sut = new ExpiredCrewRemover(crewQueryRepositoryMock, crewCommandRepositoryMock, hoursThreshold);
-        var expiredCrewRemoverResponseMock = new CrewRemoverResponseMock();
 
         // Act
-        await sut.Remove(expiredCrewRemoverResponseMock);
+        await sut.Remove();
 
         // Assert
-        expiredCrewRemoverResponseMock.CrewIds.Should().BeEquivalentTo(crewIds);
         crewCommandRepositoryMock.DisbandedCrewIds.Should().BeEquivalentTo(crewIds);
     }
 }

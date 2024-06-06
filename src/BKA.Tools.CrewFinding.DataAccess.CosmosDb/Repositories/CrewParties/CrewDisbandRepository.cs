@@ -9,7 +9,7 @@ public class CrewDisbandRepository(Container crewContainer, Container disbandedC
     {
         var currentCrewTask = crewContainer.ReadItemAsync<CrewDocument>(crewId, new PartitionKey(crewId));
         var currentCrew = await currentCrewTask;
-        
+
         var createTask =
             disbandedCrewsContainer.CreateItemAsync(currentCrew.Resource, new PartitionKey(currentCrew.Resource.Id));
         var deleteTask = crewContainer.DeleteItemAsync<CrewDocument>(crewId, new PartitionKey(crewId));
@@ -17,8 +17,9 @@ public class CrewDisbandRepository(Container crewContainer, Container disbandedC
         await Task.WhenAll(createTask, deleteTask);
     }
 
-    public Task Disband(string[] crewIds)
+    public async Task Disband(string[] crewIds)
     {
-        throw new NotImplementedException();
+        var tasks = crewIds.Select(Disband).ToArray();
+        await Task.WhenAll(tasks);
     }
 }
