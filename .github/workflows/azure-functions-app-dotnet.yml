@@ -47,8 +47,9 @@ jobs:
           dotnet test src/BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests --configuration Release --no-build --verbosity normal
 
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
+    needs: test  # Dependencia para asegurar que el despliegue solo se ejecuta si las pruebas pasan
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - name: 'Checkout GitHub Action'
         uses: actions/checkout@v4
