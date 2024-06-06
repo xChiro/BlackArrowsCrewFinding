@@ -1,8 +1,12 @@
-name: Deploy DotNet project to Azure Function App
+name: CI/CD Pipeline for DotNet Project
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'bka-crewfinding'   # set this to your function app name on Azure
@@ -10,42 +14,60 @@ env:
   DOTNET_VERSION: '8.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest # For Linux, use ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
     steps:
-    - name: 'Checkout GitHub Action'
-      uses: actions/checkout@v4
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v4
 
-    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: 'Restore Dependencies'
-      run: dotnet restore ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+      - name: 'Restore Dependencies'
+        run: dotnet restore ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
 
-    - name: 'Build Project'
-      run: dotnet build ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} --configuration Release --output ./output
+      - name: 'Build Project'
+        run: dotnet build ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} --configuration Release --output ./output
 
-    - name: 'Build and Test Behaviour Tests'
-      run: |
-        dotnet build src/BKA.Tools.CrewFinding.BehaviourTest --configuration Release
-        dotnet test src/BKA.Tools.CrewFinding.BehaviourTest --configuration Release --no-build --verbosity normal
+      - name: 'Build and Test Behaviour Tests'
+        run: |
+          dotnet build src/BKA.Tools.CrewFinding.BehaviourTest --configuration Release
+          dotnet test src/BKA.Tools.CrewFinding.BehaviourTest --configuration Release --no-build --verbosity normal
 
-    - name: 'Build and Test Unit Tests'
-      run: |
-        dotnet build src/BKA.Tools.CrewFinding.Tests --configuration Release
-        dotnet test src/BKA.Tools.CrewFinding.Tests --configuration Release --no-build --verbosity normal
+      - name: 'Build and Test Unit Tests'
+        run: |
+          dotnet build src/BKA.Tools.CrewFinding.Tests --configuration Release
+          dotnet test src/BKA.Tools.CrewFinding.Tests --configuration Release --no-build --verbosity normal
 
-    - name: 'Build and Test DataAccess Tests'
-      run: |
-        dotnet build src/BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests --configuration Release
-        dotnet test src/BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests --configuration Release --no-build --verbosity normal
+      - name: 'Build and Test DataAccess Tests'
+        run: |
+          dotnet build src/BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests --configuration Release
+          dotnet test src/BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests --configuration Release --no-build --verbosity normal
 
-    - name: 'Run Azure Functions Action'
-      uses: Azure/functions-action@v1
-      id: fa
-      with:
-        app-name: 'bkacrewfinding'
-        package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E0E5CF707023480C9BF43E447BDB6A43 }} # Remove publish-profile to use Azure RBAC
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v4
+
+      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: 'Restore Dependencies'
+        run: dotnet restore ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
+      - name: 'Build Project'
+        run: dotnet build ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} --configuration Release --output ./output
+
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: 'bkacrewfinding'
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E0E5CF707023480C9BF43E447BDB6A43 }} # Remove publish-profile to use Azure RBAC
