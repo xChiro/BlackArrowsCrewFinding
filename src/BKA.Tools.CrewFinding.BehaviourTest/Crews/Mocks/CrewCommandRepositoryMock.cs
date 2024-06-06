@@ -32,6 +32,11 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository, ICrewDisbandRep
         return Task.CompletedTask;
     }
 
+    public Task Disband(string[] crewIds)
+    {
+        throw new NotImplementedException();
+    }
+
     public Player? GetCaptain()
     {
         return _crewPartyCreated?.Captain;

@@ -20,7 +20,7 @@ public class CrewCommandRepositoryMock(string expectedCrewPartyId = "123412")
     public IEnumerable<Player>? Members { get; private set; }
     public int MaxMembersAllowed { get; private set; }
     public bool Active { get; set; }
-    public string DisbandedCrewId { get; private set; } = string.Empty;
+    public string[] DisbandedCrewIds { get; private set; } = []; 
 
     public Task CreateCrew(Crew crew)
     {
@@ -45,7 +45,14 @@ public class CrewCommandRepositoryMock(string expectedCrewPartyId = "123412")
 
     public Task Disband(string crewId)
     {
-        DisbandedCrewId = crewId;
+        DisbandedCrewIds = new[] { crewId };
+        
+        return Task.CompletedTask;
+    }
+
+    public Task Disband(string[] crewIds)
+    {
+        DisbandedCrewIds = crewIds;
         
         return Task.CompletedTask;
     }

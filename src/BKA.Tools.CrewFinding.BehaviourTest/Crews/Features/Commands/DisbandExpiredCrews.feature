@@ -1,4 +1,6 @@
 Feature: Disband All Expired Crews
+    Background:
+       Given the system is configured to get the crews created in the last "4" hours
 
     Scenario: Disband all expired crews
         Given there is the following crews in the system

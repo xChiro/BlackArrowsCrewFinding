@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.API.Functions.Models;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Queries;
 

@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Queries.Recent;
+namespace BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 
 public class ActiveCrewRetrieval(ICrewQueryRepository crewsQueryRepositoryMock) : IActiveCrewRetrieval
 {

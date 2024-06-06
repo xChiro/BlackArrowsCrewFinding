@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Cultures;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Queries.RecentCrews;
+namespace BKA.Tools.CrewFinding.API.Functions.Models;
 
 public class CrewResponse(
     string id,

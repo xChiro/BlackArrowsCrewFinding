@@ -7,7 +7,7 @@ using BKA.Tools.CrewFinding.Tests.Commons;
 using BKA.Tools.CrewFinding.Tests.Commons.Mocks;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Disbands;
+namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Removes;
 
 public class CrewDisbandmentTest
 {
@@ -37,7 +37,7 @@ public class CrewDisbandmentTest
         await sut.Disband();
 
         // Assert
-        crewCommandRepositoryMock.DisbandedCrewId.Should().Be(CrewId);
+        crewCommandRepositoryMock.DisbandedCrewIds.Should().Contain(CrewId);
     }
 
     private static CrewDisbandment SetupSutOwner(Player player, CrewCommandRepositoryMock crewCommandRepositoryMock)

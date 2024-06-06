@@ -1,6 +1,4 @@
-using BKA.Tools.CrewFinding.Crews;
-
-namespace BKA.Tools.CrewFinding.Tests.Crews.Queries.Recent;
+namespace BKA.Tools.CrewFinding.Crews.Queries;
 
 public interface ICrewResponse
 {

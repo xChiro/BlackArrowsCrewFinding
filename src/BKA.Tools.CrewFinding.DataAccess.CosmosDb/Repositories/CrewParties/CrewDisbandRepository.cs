@@ -16,4 +16,9 @@ public class CrewDisbandRepository(Container crewContainer, Container disbandedC
 
         await Task.WhenAll(createTask, deleteTask);
     }
+
+    public Task Disband(string[] crewIds)
+    {
+        throw new NotImplementedException();
+    }
 }
