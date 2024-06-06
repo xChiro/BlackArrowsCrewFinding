@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
+namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Commands
 {
     using TechTalk.SpecFlow;
     using System;
@@ -19,7 +19,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class ViewRecentlyCreatedCrewsFeature : object, Xunit.IClassFixture<ViewRecentlyCreatedCrewsFeature.FixtureData>, System.IDisposable
+    public partial class DisbandAllExpiredCrewsFeature : object, Xunit.IClassFixture<DisbandAllExpiredCrewsFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "ViewRecentlyCreatedCrews.feature"
+#line 1 "DisbandExpiredCrews.feature"
 #line hidden
         
-        public ViewRecentlyCreatedCrewsFeature(ViewRecentlyCreatedCrewsFeature.FixtureData fixtureData, BKA_Tools_CrewFinding_BehaviourTest_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public DisbandAllExpiredCrewsFeature(DisbandAllExpiredCrewsFeature.FixtureData fixtureData, BKA_Tools_CrewFinding_BehaviourTest_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Crews/Features/Queries", "View recently created Crews", null, ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Crews/Features/Commands", "Disband All Expired Crews", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,20 +75,29 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 3
+    #line hidden
+#line 4
+        testRunner.Given("the system is configured to get the crews created in the last \"4\" hours", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+        }
+        
         void System.IDisposable.Dispose()
         {
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="View recently created crews")]
-        [Xunit.TraitAttribute("FeatureTitle", "View recently created Crews")]
-        [Xunit.TraitAttribute("Description", "View recently created crews")]
-        public void ViewRecentlyCreatedCrews()
+        [Xunit.SkippableFactAttribute(DisplayName="Disband all expired crews")]
+        [Xunit.TraitAttribute("FeatureTitle", "Disband All Expired Crews")]
+        [Xunit.TraitAttribute("Description", "Disband all expired crews")]
+        public void DisbandAllExpiredCrews()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View recently created crews", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 3
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Disband all expired crews", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 6
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -98,13 +107,11 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
             else
             {
                 this.ScenarioStart();
-#line 4
-        testRunner.Given("I am a player named \"Allan\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 3
+    this.FeatureBackground();
 #line hidden
-#line 5
-        testRunner.And("the system is configured to get the crews created in the last \"5\" hours", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "CrewId",
                             "CaptainHandle",
                             "CreatedAgoHours",
                             "MaxCrewSize",
@@ -114,8 +121,10 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Location",
                             "Description",
                             "Activity",
-                            "CurrentCrewSize"});
-                table8.AddRow(new string[] {
+                            "CurrentCrewSize",
+                            "IsExpired"});
+                table3.AddRow(new string[] {
+                            "1",
                             "Rowan",
                             "1",
                             "4",
@@ -125,8 +134,10 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Seraphim Station",
                             "Elite bounty hunters",
                             "Bounty Hunting",
-                            "4"});
-                table8.AddRow(new string[] {
+                            "4",
+                            "true"});
+                table3.AddRow(new string[] {
+                            "2",
                             "Ada",
                             "3",
                             "5",
@@ -136,8 +147,10 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "New Austin",
                             "Space explorers",
                             "Exploration",
-                            "3"});
-                table8.AddRow(new string[] {
+                            "3",
+                            "false"});
+                table3.AddRow(new string[] {
+                            "3",
                             "Kai",
                             "5",
                             "3",
@@ -147,59 +160,22 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
                             "Lorville",
                             "Lunar miners",
                             "Mining",
-                            "2"});
-                table8.AddRow(new string[] {
-                            "Eve",
-                            "6",
-                            "6",
-                            "Stanton",
-                            "Crusader",
-                            "Crusader",
-                            "Port Olisar",
-                            "Intergalactic pioneers",
-                            "Trade",
-                            "5"});
-#line 6
-        testRunner.And("there is the following crews in the system", ((string)(null)), table8, "And ");
+                            "2",
+                            "true"});
+#line 7
+        testRunner.Given("there is the following crews in the system", ((string)(null)), table3, "Given ");
 #line hidden
 #line 12
-        testRunner.When("I view the recently created crews", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When("the system disbands all expired crews", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
-                            "CaptainHandle",
-                            "CreatedAgoHours",
-                            "CrewSize",
-                            "MaxCrewSize",
-                            "System",
-                            "PlanetarySystem",
-                            "PlanetMoon",
-                            "Location",
-                            "Description",
-                            "Activity"});
-                table9.AddRow(new string[] {
-                            "Rowan",
-                            "1",
-                            "4",
-                            "4",
-                            "Stanton",
-                            "Crusader",
-                            "Crusader",
-                            "Seraphim Station",
-                            "Elite bounty hunters",
-                            "Bounty Hunting"});
-                table9.AddRow(new string[] {
-                            "Ada",
-                            "3",
-                            "3",
-                            "5",
-                            "Terra",
-                            "Sol",
-                            "Terra",
-                            "New Austin",
-                            "Space explorers",
-                            "Exploration"});
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                            "CrewId"});
+                table4.AddRow(new string[] {
+                            "1"});
+                table4.AddRow(new string[] {
+                            "3"});
 #line 13
-        testRunner.Then("I should see the following crews", ((string)(null)), table9, "Then ");
+        testRunner.Then("the following crewsId should be removed", ((string)(null)), table4, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -212,12 +188,12 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Features.Queries
             
             public FixtureData()
             {
-                ViewRecentlyCreatedCrewsFeature.FeatureSetup();
+                DisbandAllExpiredCrewsFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                ViewRecentlyCreatedCrewsFeature.FeatureTearDown();
+                DisbandAllExpiredCrewsFeature.FeatureTearDown();
             }
         }
     }

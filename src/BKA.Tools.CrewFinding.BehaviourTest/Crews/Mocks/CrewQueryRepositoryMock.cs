@@ -18,7 +18,7 @@ public class CrewQueryRepositoryMock(IReadOnlyList<Crew> crews, string expectedP
 
     public Task<Crew[]> GetCrewsExpiredByDate(DateTime expiryDate)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(crews.Where(p => p.CreatedAt <= expiryDate).ToArray());
     }
 
     public Task<Crew?> GetActiveCrewByPlayerId(string playerId)

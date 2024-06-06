@@ -1,8 +1,8 @@
 using BKA.Tools.CrewFinding.Crews.Commands.Expired;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 
-public class ExpiredCrewRemoverResponseMock : IExpiredCrewRemoverResponse
+public class CrewRemoverResponseMock : ICrewRemoverResponse
 {
     public string[] CrewIds { get; private set; } = [];
 

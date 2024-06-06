@@ -4,23 +4,15 @@ using BKA.Tools.CrewFinding.Crews.Exceptions;
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 
 [Binding]
-public class DisbandCrewAssertSteps
+public class DisbandCrewAssertSteps(
+    CrewRepositoriesContext crewRepositoriesContext,
+    ExceptionResultContext exceptionResultContext)
 {
-    private readonly CrewRepositoriesContext _crewRepositoriesContext;
-    private readonly ExceptionResultContext _exceptionResultContext;
-
-    public DisbandCrewAssertSteps(CrewRepositoriesContext crewRepositoriesContext,
-        ExceptionResultContext exceptionResultContext)
-    {
-        _crewRepositoriesContext = crewRepositoriesContext;
-        _exceptionResultContext = exceptionResultContext;
-    }
-
     [Then(@"the Crew is disbanded successfully")]
     public void ThenTheCrewIsDisbandedSuccessfully()
     {
-        var isDisbandedCrewIdInStoredCrews = _crewRepositoriesContext.QueryRepositoryMock.StoredCrews
-            .Any(crew => crew.Id == _crewRepositoriesContext.CommandRepositoryMock.DisbandedCrewId);
+        var isDisbandedCrewIdInStoredCrews = crewRepositoriesContext.QueryRepositoryMock.StoredCrews
+            .Any(crew => crew.Id == crewRepositoriesContext.CommandRepositoryMock.DisbandedCrewIds.FirstOrDefault());
 
         isDisbandedCrewIdInStoredCrews.Should().BeTrue();
     }
@@ -29,6 +21,14 @@ public class DisbandCrewAssertSteps
     [Then("the system does not allow me to disband the Crew")]
     public void ThenTheSystemNotifiesMeThatThereIsNoCrewToDisband()
     {
-        _exceptionResultContext.Exception.Should().BeOfType<CrewDisbandException>();
+        exceptionResultContext.Exception.Should().BeOfType<CrewDisbandException>();
+    }
+
+    [Then(@"the following crewsId should be removed")]
+    public void ThenTheFollowingCrewsIdShouldBeRemoved(Table table)
+    {
+        var crewIds = table.Rows.Select(row => row["CrewId"]).ToList();
+
+        crewIds.Should().BeEquivalentTo(crewRepositoriesContext.CommandRepositoryMock.DisbandedCrewIds);
     }
 }

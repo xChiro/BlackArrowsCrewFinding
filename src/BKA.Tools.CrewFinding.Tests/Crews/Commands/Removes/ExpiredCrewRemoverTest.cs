@@ -18,7 +18,7 @@ public class ExpiredCrewRemoverTest
         var crewQueryRepositoryMock = new CrewQueriesRepositoryMock(crews: activeCrews);
 
         var sut = new ExpiredCrewRemover(crewQueryRepositoryMock, new CrewCommandRepositoryMock(), 3);
-        var expiredCrewRemoverResponseMock = new ExpiredCrewRemoverResponseMock();
+        var expiredCrewRemoverResponseMock = new CrewRemoverResponseMock();
 
         // Act
         await sut.Remove(expiredCrewRemoverResponseMock);
@@ -45,7 +45,7 @@ public class ExpiredCrewRemoverTest
         var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
 
         var sut = new ExpiredCrewRemover(crewQueryRepositoryMock, crewCommandRepositoryMock, hoursThreshold);
-        var expiredCrewRemoverResponseMock = new ExpiredCrewRemoverResponseMock();
+        var expiredCrewRemoverResponseMock = new CrewRemoverResponseMock();
 
         // Act
         await sut.Remove(expiredCrewRemoverResponseMock);

@@ -9,32 +9,30 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository, ICrewDisbandRep
     private Crew? _crewPartyCreated;
 
     public Player[] CrewPartyMembers { get; private set; } = Array.Empty<Player>();
-    public string DisbandedCrewId { get; set; } = string.Empty;
+    public string[] DisbandedCrewIds { get; set; } = [];
 
     public Task CreateCrew(Crew crew)
     {
         _crewPartyCreated = crew;
-
         return Task.CompletedTask;
     }
 
     public Task UpdateMembers(string crewId, IEnumerable<Player> crewMembers)
     {
         CrewPartyMembers = crewMembers.ToArray();
-        
         return Task.CompletedTask;
     }
 
     public Task Disband(string crewId)
     {
-        DisbandedCrewId = crewId;
-
+        DisbandedCrewIds = [crewId];
         return Task.CompletedTask;
     }
 
     public Task Disband(string[] crewIds)
     {
-        throw new NotImplementedException();
+        DisbandedCrewIds = crewIds;
+        return Task.CompletedTask;
     }
 
     public Player? GetCaptain()

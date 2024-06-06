@@ -1,6 +1,6 @@
 namespace BKA.Tools.CrewFinding.Crews.Commands.Expired;
 
-public interface IExpiredCrewRemoverResponse
+public interface ICrewRemoverResponse
 {
     public void RemovedCrews(string[] crewIds);
 }

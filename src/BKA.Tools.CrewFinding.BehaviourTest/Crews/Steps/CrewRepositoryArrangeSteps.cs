@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.BehaviourTest.Commons.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
 using BKA.Tools.CrewFinding.Crews;
@@ -7,7 +8,9 @@ using BKA.Tools.CrewFinding.Players;
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 
 [Binding]
-public class CrewRepositoryArrangeSteps(CrewRepositoriesContext crewRepositoriesContext)
+public class CrewRepositoryArrangeSteps(
+    CrewRepositoriesContext crewRepositoriesContext,
+    SystemSettingContext systemSettingContext)
 {
     private const string PlayerId = "playerId";
     private const string CitizenName = "playerName";
@@ -59,25 +62,36 @@ public class CrewRepositoryArrangeSteps(CrewRepositoriesContext crewRepositories
         crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(crews);
     }
 
-    private static Crew CreateCrewFromRow(TableRow row)
+    private Crew CreateCrewFromRow(TableRow row)
     {
         var playerId = Guid.NewGuid().ToString();
         var playerName = row["CaptainHandle"];
         var maxCrewSize = int.Parse(row["MaxCrewSize"]);
-        var language = LanguageCollections.Default();
-
         var members = CreateMembers(maxCrewSize, Convert.ToInt32(row["CurrentCrewSize"]));
-
         var location = new Location(row["System"], row["PlanetarySystem"], row["PlanetMoon"], row["Location"]);
         var activity = Activity.Create(row["Activity"], row["Description"]);
+        var createdAt = GetCreatedAt(row);
+        var crewId = GetCrewId(row);
+        var player = Player.Create(playerId, playerName);
 
-        if (row.TryGetValue("CrewId", out var crewId))
+        return new Crew(crewId, player, location, LanguageCollections.Default(), members, activity, createdAt);
+    }
+
+    private DateTime GetCreatedAt(TableRow row)
+    {
+        var createdAt = DateTime.UtcNow;
+        
+        if (row.TryGetValue("IsExpired", out var isExpiredString) && bool.Parse(isExpiredString))
         {
-            return new Crew(crewId, Player.Create(playerId, playerName), location, language, members, activity,
-                DateTime.UtcNow);
+            createdAt = createdAt.AddHours(-systemSettingContext.LeastCrewTimeThreshold);
         }
         
-        return new Crew(Player.Create(playerId, playerName), location, language, members, activity);
+        return createdAt;
+    }
+
+    private static string GetCrewId(TableRow row)
+    {
+        return row.TryGetValue("CrewId", out var crewId) ? crewId : Guid.NewGuid().ToString();
     }
 
     private static PlayerCollection CreateMembers(int maxCrewSize, int totalMembers)
