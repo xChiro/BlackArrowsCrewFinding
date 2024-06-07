@@ -1,4 +1,4 @@
-name: Main CI/CD Pipeline for Function Project
+name: CI/CD Pipeline for DotNet Project
 
 on:
   push:
@@ -34,10 +34,13 @@ jobs:
           dotnet build ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} --configuration Release --output ./output
 
       - name: 'Save Build Output'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-output
           path: ./output
+
+      - name: 'List uploaded artifacts'
+        run: ls -R ./output
 
       - name: 'Build and Test Behaviour Tests'
         run: |
@@ -72,6 +75,9 @@ jobs:
         with:
           name: build-output
           path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output
+
+      - name: 'List downloaded artifacts'
+        run: ls -R ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
