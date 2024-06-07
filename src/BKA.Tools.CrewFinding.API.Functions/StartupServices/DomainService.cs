@@ -42,7 +42,7 @@ public static class DomainService
 
     private static void AddCrewServices(IServiceCollection service, int maxCrewSize)
     {
-        var expirationThreshold = Convert.ToInt32(Configuration.GetEnvironmentVariable("expirationThreshold"));
+        var expirationThreshold = Convert.ToInt32(Configuration.GetEnvironmentVariable("recentCrewsHoursThreshold"));
 
         service.AddScoped<IRecentCrewsRetrieval>(
             serviceProvider =>
