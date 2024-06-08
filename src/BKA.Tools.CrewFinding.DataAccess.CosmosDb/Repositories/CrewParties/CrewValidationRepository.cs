@@ -21,7 +21,14 @@ public class CrewValidationRepository(Container container) : ICrewValidationRepo
 
     public Task<Crew[]> GetCrewsExpiredByDate(DateTime expiryDate)
     {
-        throw new NotImplementedException();
+        const string queryString = "SELECT * FROM c WHERE c.createdAt <= @expiryDate";
+
+        var queryDefinition = new QueryDefinition(queryString)
+            .WithParameter("@expiryDate", expiryDate);
+
+        var query = container.GetItemQueryIterator<CrewDocument>(queryDefinition);
+
+        return query.ReadNextAsync().ContinueWith(task => task.Result.Select(c => c.ToCrew()).ToArray());
     }
 
     public Task<Crew?> GetActiveCrewByPlayerId(string playerId)
@@ -44,7 +51,8 @@ public class CrewValidationRepository(Container container) : ICrewValidationRepo
             var itemResponseAsync = await container.ReadItemAsync<CrewDocument>(crewId, new PartitionKey(crewId));
 
             return itemResponseAsync.StatusCode == System.Net.HttpStatusCode.NotFound
-                ? null : itemResponseAsync.Resource.ToCrew();
+                ? null
+                : itemResponseAsync.Resource.ToCrew();
         }
         catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
         {
@@ -55,13 +63,13 @@ public class CrewValidationRepository(Container container) : ICrewValidationRepo
     public Task<Crew[]> GetCrews(DateTime from, DateTime to)
     {
         const string queryString = "SELECT * FROM c WHERE c.createdAt >= @from AND c.createdAt <= @to";
-        
+
         var queryDefinition = new QueryDefinition(queryString)
             .WithParameter("@from", from)
             .WithParameter("@to", to);
-        
+
         var query = container.GetItemQueryIterator<CrewDocument>(queryDefinition);
-        
+
         return query.ReadNextAsync().ContinueWith(task => task.Result.Select(c => c.ToCrew()).ToArray());
     }
 }

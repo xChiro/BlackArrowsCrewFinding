@@ -46,7 +46,22 @@ public class GetCrewQueryTest(
         // Assert
         crew.Should().BeNull();
     }
+    
+    [Fact]
+    public async Task Get_Expired_Crews_Successfully()
+    {
+        // Arrange
+        _crewDocument = CrewBuilder.CreateDefaultCrew();
+        await CreateDocument(_crewDocument);
 
+        // Act
+        var crews = await crewQueryRepository.GetCrewsExpiredByDate(_crewDocument.CreatedAt);
+
+        // Assert
+        crews.Should().NotBeEmpty();
+        crews.Should().ContainEquivalentOf(_crewDocument);
+    }
+    
     private async Task CreateDocument(Crew crew)
     {
         var crewDocument = CrewDocument.CreateFromCrew(crew);
