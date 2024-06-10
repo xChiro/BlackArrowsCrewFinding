@@ -154,7 +154,7 @@ public class CrewJoinerTest
     {
         crewPartyCommands ??= new CrewCommandRepositoryMock();
         ICrewQueryRepository crewQueriesRepositoryMock =
-            crew == null ? new CrewQueryRepositoryEmptyMock() : new CrewQueriesRepositoryMock(crews: [crew]);
+            crew == null ? new CrewQueryRepositoryEmptyMock() : new CrewQueryRepositoryMock(crews: [crew]);
         var crewValidationRepositoryMock = new CrewValidationRepositoryMock(playerInParty);
 
         return new CrewJoiner(crewValidationRepositoryMock, crewQueriesRepositoryMock, crewPartyCommands,

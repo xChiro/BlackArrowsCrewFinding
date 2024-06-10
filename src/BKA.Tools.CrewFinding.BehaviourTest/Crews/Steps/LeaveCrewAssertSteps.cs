@@ -29,7 +29,7 @@ public class LeaveCrewAssertSteps
     [Then(@"the player receives a message indicating the player is not a member of the Crew")]
     public void ThenThePlayerReceivesAMessageIndicatingThePlayerIsNotAMemberOfTheCrew()
     {
-        _exceptionResultContext.Exception.Should().BeOfType<PlayerNotInCrewException>();
+        _exceptionResultContext.Exception.Should().BeOfType<NoCrewMemberException>();
     }
 
     [Then(@"the player receives a message indicating the Crew does not exist")]

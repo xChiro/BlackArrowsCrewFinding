@@ -15,7 +15,7 @@ public class ExpiredCrewRemoverTest
     {
         // Arrange
         Crew[] activeCrews = [CrewBuilder.Build("1", Player.Create("1", "Adam"))];
-        var crewQueryRepositoryMock = new CrewQueriesRepositoryMock(crews: activeCrews);
+        var crewQueryRepositoryMock = new CrewQueryRepositoryMock(crews: activeCrews);
         var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
         
         var sut = new ExpiredCrewRemover(crewQueryRepositoryMock, crewCommandRepositoryMock, 3);
@@ -41,7 +41,7 @@ public class ExpiredCrewRemoverTest
             CrewBuilder.Build("34", Player.Create("14", "Allan"))
         ];
         
-        var crewQueryRepositoryMock = new CrewQueriesRepositoryMock(crews: activeCrews);
+        var crewQueryRepositoryMock = new CrewQueryRepositoryMock(crews: activeCrews);
         var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
 
         var sut = new ExpiredCrewRemover(crewQueryRepositoryMock, crewCommandRepositoryMock, hoursThreshold);
