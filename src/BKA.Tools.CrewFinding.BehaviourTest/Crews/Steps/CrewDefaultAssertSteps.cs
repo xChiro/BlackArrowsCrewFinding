@@ -1,5 +1,4 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
-using BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps.Assertions;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 

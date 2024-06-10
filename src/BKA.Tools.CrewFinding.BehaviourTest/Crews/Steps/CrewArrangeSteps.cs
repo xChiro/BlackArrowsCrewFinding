@@ -1,6 +1,7 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
+using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 
@@ -51,10 +52,16 @@ public class CrewArrangeSteps(
     }
 
     [Given(@"I am a member of the crew with id ""(.*)""")]
-    public void GivenIAmAMemberOfTheCrewWithIdAndName(string crewId)
+    public void GivenIAmAMemberOfTheCrewWithId(string crewId)
     {
         var crew = crewContext.ToCrew(crewId, playerContext.PlayerName);
         crewRepositoriesContext.ValidationRepositoryMocks = new CrewValidationRepositoryMock(true);
         crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
+    }
+
+    [Given(@"the crew have a member with id ""(.*)""")]
+    public void GivenTheCrewHaveAMemberWithId(string memberId)
+    {
+        crewRepositoriesContext.QueryRepositoryMock.StoredCrews[0].Members.Add(Player.Create(memberId, "memberName"));
     }
 }

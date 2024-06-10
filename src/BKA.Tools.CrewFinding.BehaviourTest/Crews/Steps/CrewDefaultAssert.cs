@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Cultures;
 
-namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps.Assertions;
+namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 
 public static class CrewDefaultAssert
 {
