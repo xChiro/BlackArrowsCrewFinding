@@ -18,7 +18,7 @@ public class LeaveCrewFunction(ICrewLeaver crewLeaver, ILoggerFactory loggerFact
             await crewLeaver.Leave();
             return OkResponse(req);
         }
-        catch(Exception e) when (e is CrewNotFoundException or PlayerNotInCrewException)
+        catch(Exception e) when (e is CrewNotFoundException or NoCrewMemberException)
         {
             return await NotSuccessResponseAsync(req, HttpStatusCode.NotFound, e.Message);
         }

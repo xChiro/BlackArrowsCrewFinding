@@ -60,9 +60,9 @@ public class ActiveCrewRetrievalTest
         return sut;
     }
 
-    private static CrewQueriesRepositoryMock CreateCrewsQueryRepositoryMock(List<Crew> crews)
+    private static CrewQueryRepositoryMock CreateCrewsQueryRepositoryMock(List<Crew> crews)
     {
-        var crewsQueryRepositoryMock = new CrewQueriesRepositoryMock(crews: crews);
+        var crewsQueryRepositoryMock = new CrewQueryRepositoryMock(crews: crews);
         
         return crewsQueryRepositoryMock;
     }

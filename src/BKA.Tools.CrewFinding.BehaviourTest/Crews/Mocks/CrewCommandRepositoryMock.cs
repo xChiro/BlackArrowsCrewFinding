@@ -8,7 +8,7 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository, ICrewDisbandRep
 {
     private Crew? _crewPartyCreated;
 
-    public Player[] CrewPartyMembers { get; private set; } = Array.Empty<Player>();
+    public Player[] CrewPartyMembers { get; private set; } = [];
     public string[] DisbandedCrewIds { get; set; } = [];
 
     public Task CreateCrew(Crew crew)

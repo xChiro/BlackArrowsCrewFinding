@@ -12,8 +12,8 @@ public class CrewLeaver(ICrewQueryRepository crewQueriesRepository,  ICrewComman
         var playerId = userSession.GetUserId();
         var crew = await crewQueriesRepository.GetActiveCrewByPlayerId(playerId);
         
-        if (crew == null || !crew.LeaveMember(playerId))
-            throw new PlayerNotInCrewException();
+        if (crew == null || !crew.RemoveMember(playerId))
+            throw new NoCrewMemberException();
 
         await crewCommandMock.UpdateMembers(crew.Id, crew.Members);
     }

@@ -32,7 +32,7 @@ public class CrewJoinerTest
         await ExecuteAndAssertException<CrewNotFoundException>(() => playerPartyJoiner.Join("1234"));
 
         // Assert
-        MembersShouldBeNull(crewPartyCommandsMock);
+        MembersShouldBeEmpty(crewPartyCommandsMock);
     }
 
     [Fact]
@@ -49,7 +49,7 @@ public class CrewJoinerTest
         await ExecuteAndAssertException<CrewFullException>(() => playerPartyJoiner.Join(crew.Id));
 
         // Assert
-        MembersShouldBeNull(crewPartyCommandsMock);
+        MembersShouldBeEmpty(crewPartyCommandsMock);
     }
 
     [Fact]
@@ -69,7 +69,7 @@ public class CrewJoinerTest
             () => playerPartyJoiner.Join(crew.Id));
 
         // Assert
-        MembersShouldBeNull(crewPartyCommandsMock);
+        MembersShouldBeEmpty(crewPartyCommandsMock);
     }
 
     [Fact]
@@ -88,7 +88,7 @@ public class CrewJoinerTest
             () => playerPartyJoiner.Join(crew.Id));
 
         // Assert
-        MembersShouldBeNull(crewPartyCommandsMock);
+        MembersShouldBeEmpty(crewPartyCommandsMock);
     }
 
     [Fact]
@@ -135,9 +135,9 @@ public class CrewJoinerTest
         crew.Members.Count().Should().Be(2);
     }
 
-    private static void MembersShouldBeNull(CrewCommandRepositoryMock crewCommandRepositoryMock)
+    private static void MembersShouldBeEmpty(CrewCommandRepositoryMock crewCommandRepositoryMock)
     {
-        crewCommandRepositoryMock.Members.Should().BeNull();
+        crewCommandRepositoryMock.Members.Should().BeNullOrEmpty();
     }
 
     private static Crew InitializeCrew(PlayerCollection playerCollection)
@@ -154,7 +154,7 @@ public class CrewJoinerTest
     {
         crewPartyCommands ??= new CrewCommandRepositoryMock();
         ICrewQueryRepository crewQueriesRepositoryMock =
-            crew == null ? new CrewQueryRepositoryEmptyMock() : new CrewQueriesRepositoryMock(crews: [crew]);
+            crew == null ? new CrewQueryRepositoryEmptyMock() : new CrewQueryRepositoryMock(crews: [crew]);
         var crewValidationRepositoryMock = new CrewValidationRepositoryMock(playerInParty);
 
         return new CrewJoiner(crewValidationRepositoryMock, crewQueriesRepositoryMock, crewPartyCommands,

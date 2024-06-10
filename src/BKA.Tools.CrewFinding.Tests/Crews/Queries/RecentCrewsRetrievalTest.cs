@@ -79,7 +79,7 @@ public class RecentCrewsRetrievalTest
 
     private static RecentCrewsRetrieval InitializeRecentCrewsRetrieval(Crew[] crews, int crewAgeThresholdInHours)
     {
-        var crewQueryRepository = new CrewQueriesRepositoryMock(crews: crews);
+        var crewQueryRepository = new CrewQueryRepositoryMock(crews: crews);
         var recentCrewsRetrieval = new RecentCrewsRetrieval(crewQueryRepository, crewAgeThresholdInHours);
         return recentCrewsRetrieval;
     }

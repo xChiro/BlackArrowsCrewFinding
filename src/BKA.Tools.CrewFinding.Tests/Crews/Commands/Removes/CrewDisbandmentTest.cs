@@ -44,7 +44,7 @@ public class CrewDisbandmentTest
     {
         var userSession = CreateUserSessionMock(player);
         var crew = CrewBuilder.Build(CrewId, player);
-        var crewValidationRepository = new CrewQueriesRepositoryMock(crews: [crew], expectedPlayerId: player.Id);
+        var crewValidationRepository = new CrewQueryRepositoryMock(crews: [crew], expectedPlayerId: player.Id);
         var sut = CreateCrewDisbandment(crewValidationRepository, crewCommandRepositoryMock, userSession);
 
         return sut;
@@ -53,14 +53,14 @@ public class CrewDisbandmentTest
     private static CrewDisbandment SetupSutNotOwner(Player player)
     {
         var userSession = CreateUserSessionMock(player);
-        var crewValidationRepository = new CrewQueriesRepositoryMock();
+        var crewValidationRepository = new CrewQueryRepositoryMock();
         var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
         var sut = CreateCrewDisbandment(crewValidationRepository, crewCommandRepositoryMock, userSession);
 
         return sut;
     }
 
-    private static CrewDisbandment CreateCrewDisbandment(CrewQueriesRepositoryMock crewValidationRepository,
+    private static CrewDisbandment CreateCrewDisbandment(CrewQueryRepositoryMock crewValidationRepository,
         CrewCommandRepositoryMock crewDisbandRepository, UserSessionMock userSession)
     {
         var sut = new CrewDisbandment(crewValidationRepository, crewDisbandRepository, userSession);

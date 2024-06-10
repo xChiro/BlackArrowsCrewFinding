@@ -17,7 +17,7 @@ public class CrewCommandRepositoryMock(string expectedCrewPartyId = "123412")
     public Activity? Activity { get; private set; }
     public Player? Captain { get; private set; }
     public DateTime? CreationDate { get; private set; }
-    public IEnumerable<Player>? Members { get; private set; }
+    public IEnumerable<Player> Members { get; private set; } = [];
     public int MaxMembersAllowed { get; private set; }
     public bool Active { get; set; }
     public string[] DisbandedCrewIds { get; private set; } = []; 

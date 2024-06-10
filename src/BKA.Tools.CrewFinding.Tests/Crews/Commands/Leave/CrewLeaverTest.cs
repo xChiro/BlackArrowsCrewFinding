@@ -40,7 +40,7 @@ public class CrewLeaverTest
         var func = () => sut.Leave();
 
         // Assert
-        func.Should().ThrowAsync<PlayerNotInCrewException>();
+        func.Should().ThrowAsync<NoCrewMemberException>();
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class CrewLeaverTest
 
     private static CrewLeaver InitializeCrewLeaver(ICrewCommandRepository crewCommandMock, Crew crew)
     {
-        var crewQueryRepository = new CrewQueriesRepositoryMock(crews: [crew], expectedPlayerId: PlayerId);
+        var crewQueryRepository = new CrewQueryRepositoryMock(crews: [crew], expectedPlayerId: PlayerId);
         return new CrewLeaver(crewQueryRepository, crewCommandMock, new UserSessionMock(PlayerId));
     }
 
