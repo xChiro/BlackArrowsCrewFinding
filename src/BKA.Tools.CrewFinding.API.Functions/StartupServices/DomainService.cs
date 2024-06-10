@@ -3,6 +3,7 @@ using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Commands.Expired;
 using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
+using BKA.Tools.CrewFinding.Crews.Commands.Kicks;
 using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recents;
@@ -85,5 +86,10 @@ public static class DomainService
             new ExpiredCrewRemover(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                 serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                 expirationThreshold));
+        
+        service.AddScoped<IMemberKicker>(serviceProvider =>
+            new MemberKicker(serviceProvider.GetRequiredService<IUserSession>(),
+                serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+                serviceProvider.GetRequiredService<ICrewCommandRepository>()));
     }
 }
