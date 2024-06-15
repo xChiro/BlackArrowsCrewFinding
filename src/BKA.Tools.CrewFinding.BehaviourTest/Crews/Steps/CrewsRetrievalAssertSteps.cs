@@ -13,7 +13,7 @@ public class CrewsRetrievalAssertSteps(CrewQueryResultContext crewQueryResultCon
         foreach (var row in table.Rows)
         {
             crewQueryResultContext.Crews.Should()
-                .Contain(c => c.Captain.CitizenName == row["CaptainHandle"]
+                .Contain(c => c.Captain.CitizenName.Value == row["CaptainHandle"]
                               && c.Activity.Name == row["Activity"] &&
                               c.Activity.Description == row["Description"]
                               && c.Members.MaxSize == int.Parse(row["MaxCrewSize"]) &&
@@ -30,7 +30,7 @@ public class CrewsRetrievalAssertSteps(CrewQueryResultContext crewQueryResultCon
     public void ThenIShouldGetTheFollowingCrew(Table table)
     {
         var firstRow = table.Rows.First();
-        crewResponseMock.Crew!.Captain.CitizenName.Should().Be(firstRow["CaptainHandle"]);
+        crewResponseMock.Crew!.Captain.CitizenName.Value.Should().Be(firstRow["CaptainHandle"]);
         crewResponseMock.Crew!.Activity.Name.Should().Be(firstRow["Activity"]);
         crewResponseMock.Crew!.Activity.Description.Should().Be(firstRow["Description"]);
         crewResponseMock.Crew!.Members.MaxSize.Should().Be(int.Parse(firstRow["MaxCrewSize"]));

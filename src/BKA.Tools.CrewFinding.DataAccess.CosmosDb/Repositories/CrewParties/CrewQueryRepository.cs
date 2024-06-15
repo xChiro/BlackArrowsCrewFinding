@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
 
-public class CrewValidationRepository(Container container) : ICrewValidationRepository, ICrewQueryRepository
+public class CrewQueryRepository(Container container, int minNameLength, int maxNameLength) : ICrewValidationRepository, ICrewQueryRepository
 {
     public Task<bool> IsPlayerInActiveCrew(string playerId)
     {
@@ -28,7 +28,7 @@ public class CrewValidationRepository(Container container) : ICrewValidationRepo
 
         var query = container.GetItemQueryIterator<CrewDocument>(queryDefinition);
 
-        return query.ReadNextAsync().ContinueWith(task => task.Result.Select(c => c.ToCrew()).ToArray());
+        return query.ReadNextAsync().ContinueWith(task => task.Result.Select(c => c.ToCrew(minNameLength, maxNameLength)).ToArray());
     }
 
     public Task<Crew?> GetActiveCrewByPlayerId(string playerId)
@@ -41,7 +41,7 @@ public class CrewValidationRepository(Container container) : ICrewValidationRepo
 
         var query = container.GetItemQueryIterator<CrewDocument>(queryDefinition);
 
-        return query.ReadNextAsync().ContinueWith(task => task.Result.FirstOrDefault()?.ToCrew());
+        return query.ReadNextAsync().ContinueWith(task => task.Result.FirstOrDefault()?.ToCrew(minNameLength, maxNameLength));
     }
 
     public async Task<Crew?> GetCrew(string crewId)
@@ -52,7 +52,7 @@ public class CrewValidationRepository(Container container) : ICrewValidationRepo
 
             return itemResponseAsync.StatusCode == System.Net.HttpStatusCode.NotFound
                 ? null
-                : itemResponseAsync.Resource.ToCrew();
+                : itemResponseAsync.Resource.ToCrew(minNameLength, maxNameLength);
         }
         catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
         {
@@ -70,6 +70,6 @@ public class CrewValidationRepository(Container container) : ICrewValidationRepo
 
         var query = container.GetItemQueryIterator<CrewDocument>(queryDefinition);
 
-        return query.ReadNextAsync().ContinueWith(task => task.Result.Select(c => c.ToCrew()).ToArray());
+        return query.ReadNextAsync().ContinueWith(task => task.Result.Select(c => c.ToCrew(minNameLength, maxNameLength)).ToArray());
     }
 }

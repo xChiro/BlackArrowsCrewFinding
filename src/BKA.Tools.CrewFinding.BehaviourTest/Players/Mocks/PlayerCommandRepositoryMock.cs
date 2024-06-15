@@ -12,4 +12,9 @@ public class PlayerCommandRepositoryMock : IPlayerCommandRepository
         StoredPlayer = player;
         return Task.CompletedTask;
     }
+
+    public Task UpdateName(string playerId, string newName)
+    {
+        throw new NotImplementedException();
+    }
 }

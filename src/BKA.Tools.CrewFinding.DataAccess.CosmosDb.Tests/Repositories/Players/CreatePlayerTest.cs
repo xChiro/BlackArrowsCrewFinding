@@ -32,7 +32,7 @@ public class CreatePlayerTest : IAsyncLifetime
     public async Task Create_A_Player_Successfully()
     {
         // Arrange
-        var player = Player.Create(_playerId, "Rowan");
+        var player = Player.Create(_playerId, "Rowan", 2, 16);
 
         // Act
         await _sut.Create(player);
@@ -41,7 +41,7 @@ public class CreatePlayerTest : IAsyncLifetime
         var playerResponse = await _playerContainer!.ReadItemAsync<PlayerDocument>(player.Id, new PartitionKey(player.Id));
         playerResponse.Resource.Should().NotBeNull();
         playerResponse.Resource!.Id.Should().Be(player.Id);
-        playerResponse.Resource!.CitizenName.Should().Be(player.CitizenName);
+        playerResponse.Resource!.CitizenName.Should().Be(player.CitizenName.Value);
     }
 
     public Task DisposeAsync()

@@ -16,13 +16,13 @@ public class CurrentPlayerProfileResponse : IPlayerProfileResponse
     public void SetResponse(Player player)
     {
         Id = player.Id;
-        CitizenName = player.CitizenName;
+        CitizenName = player.CitizenName.Value;
     }
 
     public void SetResponse(Player player, string activeCrewId, string activeCrewName)
     {
         Id = player.Id;
-        CitizenName = player.CitizenName;
+        CitizenName = player.CitizenName.Value;
         ActiveCrewId = activeCrewId;
         ActiveCrewName = activeCrewName;
     }

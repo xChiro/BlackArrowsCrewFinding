@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Crews.Ports;
 
-namespace BKA.Tools.CrewFinding.Crews.Queries.Recents;
+namespace BKA.Tools.CrewFinding.Crews.Queries.Recent;
 
 public class RecentCrewsRetrieval(ICrewQueryRepository crewQueryRepository, int crewAgeThresholdInHours)
     : IRecentCrewsRetrieval

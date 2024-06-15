@@ -47,7 +47,7 @@ public class CrewResponse(
         Languages = crew.Languages.Select(l => l.LanguageCode).ToArray();
         MaxPlayers = crew.Members.MaxSize;
         CurrentPlayers = crew.Members.Count();
-        CaptainName = crew.Captain.CitizenName;
+        CaptainName = crew.Captain.CitizenName.Value;
         Members = crew.Members;
         CreatedAt = crew.CreatedAt;
     }
@@ -63,7 +63,7 @@ public class CrewResponse(
             crew.Languages,
             crew.Members.MaxSize,
             crew.Members.Count(),
-            crew.Captain.CitizenName,
+            crew.Captain.CitizenName.Value,
             crew.Members,
             crew.CreatedAt
         );

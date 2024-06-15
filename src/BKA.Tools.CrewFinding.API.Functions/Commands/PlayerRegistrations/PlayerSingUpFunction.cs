@@ -27,10 +27,6 @@ public class PlayerSingUpFunction(IPlayerCreator playerCreator, ILoggerFactory l
         {
             return new NotFoundObjectResult(e.Message);
         }
-        catch (Exception e) when (e is CitizenNameEmptyException or CitizenNameLengthException)
-        {
-            return new BadRequestObjectResult(e.Message);
-        }
         catch (Exception ex)
         {
             _logger.LogError(ex.Message, ex);

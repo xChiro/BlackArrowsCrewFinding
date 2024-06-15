@@ -17,7 +17,7 @@ public class CrewDisbandmentTest
     public async Task Attempt_To_Disband_Crew_That_Is_Not_Owned_By_Player_Should_Throw_Exception_Async()
     {
         // Arrange
-        var sut = SetupSutNotOwner(Player.Create(Guid.NewGuid().ToString(), "Adam"));
+        var sut = SetupSutNotOwner(CreatePlayer(Guid.NewGuid().ToString(), "Adam"));
 
         // Act
         var act = async () => await sut.Disband();
@@ -31,7 +31,7 @@ public class CrewDisbandmentTest
     {
         // Arrange
         var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
-        var sut = SetupSutOwner(Player.Create(Guid.NewGuid().ToString(), "Adam"), crewCommandRepositoryMock);
+        var sut = SetupSutOwner(CreatePlayer(Guid.NewGuid().ToString(), "Adam"), crewCommandRepositoryMock);
 
         // Act
         await sut.Disband();
@@ -39,7 +39,15 @@ public class CrewDisbandmentTest
         // Assert
         crewCommandRepositoryMock.DisbandedCrewIds.Should().Contain(CrewId);
     }
+    
+    private static Player CreatePlayer(string playerId, string playerName = "playerName")
+    {
+        const int playerMinLength = 2;
+        const int playerMaxLength = 16;
 
+        return Player.Create(playerId, playerName, playerMinLength, playerMaxLength);
+    }
+    
     private static CrewDisbandment SetupSutOwner(Player player, CrewCommandRepositoryMock crewCommandRepositoryMock)
     {
         var userSession = CreateUserSessionMock(player);

@@ -62,6 +62,6 @@ public class CrewArrangeSteps(
     [Given(@"the crew have a member with id ""(.*)""")]
     public void GivenTheCrewHaveAMemberWithId(string memberId)
     {
-        crewRepositoriesContext.QueryRepositoryMock.StoredCrews[0].Members.Add(Player.Create(memberId, "memberName"));
+        crewRepositoriesContext.QueryRepositoryMock.StoredCrews[0].Members.Add(Player.Create(memberId, "memberName",2, 16));
     }
 }

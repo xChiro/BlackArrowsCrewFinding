@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Commons.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
-using BKA.Tools.CrewFinding.Crews.Queries.Recents;
+using BKA.Tools.CrewFinding.Crews.Queries.Recent;
 using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;

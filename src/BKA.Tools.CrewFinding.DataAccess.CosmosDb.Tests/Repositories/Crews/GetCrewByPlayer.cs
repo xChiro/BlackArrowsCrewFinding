@@ -26,7 +26,7 @@ public class GetCrewByPlayer(
         // Arrange
         var playerId = Guid.NewGuid().ToString();
         var crew = CrewBuilder.CreateDefaultCrew(4);
-        crew.AddMember(Player.Create(playerId, "Allan"));
+        crew.AddMember(Player.Create(playerId, "Allan", 2, 16));
         
         await _crewContainer!.CreateItemAsync(CrewDocument.CreateFromCrew(crew));
         _crewIdToBeDeleted = crew.Id;

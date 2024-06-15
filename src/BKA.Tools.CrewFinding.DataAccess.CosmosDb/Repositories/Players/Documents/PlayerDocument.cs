@@ -13,12 +13,12 @@ public class PlayerDocument
         return new PlayerDocument
         {
             Id = player.Id,
-            CitizenName = player.CitizenName
+            CitizenName = player.CitizenName.Value
         };
     }
 
-    public Player ToPlayer()
+    public Player ToPlayer(int minNameLength, int maxNameLength)
     {
-        return Player.Create(Id, CitizenName);
+        return Player.Create(Id, CitizenName, minNameLength, maxNameLength);
     }
 }

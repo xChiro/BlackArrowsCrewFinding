@@ -9,7 +9,7 @@ public class PlayerQueryRepositoryMock : IPlayerQueryRepository
     {
         Players = new List<Player>
         {
-            Player.Create(expectedPlayerId, playerName)
+            Player.Create(expectedPlayerId, playerName,2, 16)
         };
     }
 

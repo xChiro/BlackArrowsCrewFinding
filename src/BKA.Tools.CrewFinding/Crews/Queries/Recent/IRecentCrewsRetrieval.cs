@@ -1,4 +1,4 @@
-namespace BKA.Tools.CrewFinding.Crews.Queries.Recents;
+namespace BKA.Tools.CrewFinding.Crews.Queries.Recent;
 
 public interface IRecentCrewsRetrieval
 {

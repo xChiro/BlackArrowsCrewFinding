@@ -14,7 +14,7 @@ public static class CrewBuilder
     
     public static Crew CreateDefaultCrew(DateTime createdAt, int maxAllowed = 1, string captainId = "24")
     {
-        var captain = Player.Create(captainId, "Rowan");
+        var captain = Player.Create(captainId, "Rowan", 2, 16);
         
         return new Crew(
             Guid.NewGuid().ToString(),

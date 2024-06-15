@@ -11,7 +11,7 @@ public class Crew : Entity
     {
         Id = id;
         Members = members;
-        Name = new CrewName(captain.CitizenName);
+        Name = new CrewName(captain.CitizenName.Value);
         ReunionPoint = reunionPoint;
         Languages = languages;
         Activity = activity;

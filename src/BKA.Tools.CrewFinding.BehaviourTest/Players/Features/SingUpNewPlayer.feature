@@ -13,7 +13,7 @@ Feature: SingUp new players
     Scenario: As a new player, I cannot sign up with an empty StarCitizen Handle
         Given I am a player who does not have a player profile with the following UserId "1"
         When I attempt to create a new player profile with an empty StarCitizen Handle
-        Then I should receive an error message that the StarCitizen Handle cannot be empty
+        Then I should receive an error message that the StarCitizen Handle length is invalid
 
     Scenario: As a new player, I cannot sign up if the StarCitizen Handle length is invalid
         Given I am a player who does not have a player profile with the following UserId "1"

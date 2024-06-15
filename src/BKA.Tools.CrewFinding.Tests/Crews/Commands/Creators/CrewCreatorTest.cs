@@ -63,7 +63,7 @@ public class CrewCreatorTest
 
         // Assert
         createCrewPartyResultMock.Captain.Should().NotBeNull();
-        createCrewPartyResultMock.Captain!.CitizenName.Should().Be(captainName);
+        createCrewPartyResultMock.Captain!.CitizenName.Value.Should().Be(captainName);
         createCrewPartyResultMock.Captain!.Id.Should().NotBeNullOrEmpty();
         createCrewPartyResultMock.Members.Should().BeEmpty();
         createCrewPartyResultMock.MaxMembersAllowed.Should().Be(maxCrewAllowed);

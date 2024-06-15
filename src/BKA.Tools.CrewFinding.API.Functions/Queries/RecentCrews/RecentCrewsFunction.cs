@@ -1,4 +1,4 @@
-using BKA.Tools.CrewFinding.Crews.Queries.Recents;
+using BKA.Tools.CrewFinding.Crews.Queries.Recent;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Queries.RecentCrews;
 

@@ -6,7 +6,7 @@ using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 using BKA.Tools.CrewFinding.Crews.Commands.Kicks;
 using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Ports;
-using BKA.Tools.CrewFinding.Crews.Queries.Recents;
+using BKA.Tools.CrewFinding.Crews.Queries.Recent;
 using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Ports;

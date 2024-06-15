@@ -25,7 +25,7 @@ public class MembersArrangeSteps
     [Given(@"the player is a member of a Crew")]
     public void GivenThePlayerIsAMemberOfACrew()
     {
-        var player = Player.Create(_playerContext.PlayerId, _playerContext.PlayerName);
+        var player = Player.Create(_playerContext.PlayerId, _playerContext.PlayerName,2, 16);
         var crew = CreateCrew();
         
         crew.AddMember(player);
@@ -44,7 +44,7 @@ public class MembersArrangeSteps
         const string captainName = "Adam";
         
         return new Crew(
-            Player.Create("4312412", captainName),
+            Player.Create("4312412", captainName,2, 16),
             Location.Default(),
             LanguageCollections.Default(),
             PlayerCollection.CreateEmpty(4),

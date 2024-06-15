@@ -20,7 +20,7 @@ public class CrewRepositoryArrangeSteps(
     {
         var crewParties = new Crew[]
         {
-            new(Player.Create(PlayerId, CitizenName),
+            new(Player.Create(PlayerId, CitizenName,2, 16),
                 Location.Default(),
                 LanguageCollections.Default(),
                 PlayerCollection.CreateEmpty(4),
@@ -39,11 +39,11 @@ public class CrewRepositoryArrangeSteps(
     [Given(@"an existing Crew at maximum capacity from other player")]
     public void GivenAnExistingCrewAtMaximumCapacityFromOtherPlayer()
     {
-        var members = PlayerCollection.CreateWithSingle(Player.Create("3123", "Adam"), 1);
+        var members = PlayerCollection.CreateWithSingle(Player.Create("3123", "Adam",2, 16), 1);
 
         var crews = new Crew[]
         {
-            new(Player.Create(PlayerId, CitizenName),
+            new(Player.Create(PlayerId, CitizenName,2, 16),
                 Location.Default(),
                 LanguageCollections.Default(),
                 members,
@@ -72,7 +72,7 @@ public class CrewRepositoryArrangeSteps(
         var activity = Activity.Create(row["Activity"], row["Description"]);
         var createdAt = GetCreatedAt(row);
         var crewId = GetCrewId(row);
-        var player = Player.Create(playerId, playerName);
+        var player = Player.Create(playerId, playerName,2, 16);
 
         return new Crew(crewId, player, location, LanguageCollections.Default(), members, activity, createdAt);
     }
@@ -101,7 +101,7 @@ public class CrewRepositoryArrangeSteps(
         for (var i = 0; i < totalMembers; i++)
         {
             var memberId = Guid.NewGuid().ToString();
-            members.Add(Player.Create(memberId, "Member"));
+            members.Add(Player.Create(memberId, "Member",2, 16));
         }
 
         return members;

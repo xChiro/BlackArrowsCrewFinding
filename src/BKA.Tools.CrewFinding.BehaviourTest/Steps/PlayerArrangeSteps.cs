@@ -15,7 +15,7 @@ public class PlayerArrangeSteps(PlayerContext playerContext, PlayerRepositoryCon
         playerContext.PlayerName = userName;
         
         playerRepositoryContext.PlayerQueryRepositoryMock.Players.Add(
-            Player.Create(playerContext.PlayerId, playerContext.PlayerName));
+            Player.Create(playerContext.PlayerId, playerContext.PlayerName,2, 16));
     }
 
     [Given(@"the following players exist:")]
@@ -27,7 +27,7 @@ public class PlayerArrangeSteps(PlayerContext playerContext, PlayerRepositoryCon
             var playerName = row["Name"];
             
             playerRepositoryContext.PlayerQueryRepositoryMock.Players.Add(
-                Player.Create(playerId, playerName));
+                Player.Create(playerId, playerName,2, 16));
         }
     }
 
