@@ -1,8 +1,7 @@
 using System.Collections;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
-using BKA.Tools.CrewFinding.Players;
 
-namespace BKA.Tools.CrewFinding.Crews;
+namespace BKA.Tools.CrewFinding.Players;
 
 public class PlayerCollection : IEnumerable<Player>
 {
