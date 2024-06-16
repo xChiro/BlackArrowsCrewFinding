@@ -1,5 +1,4 @@
 using System.Linq;
-using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Values;
