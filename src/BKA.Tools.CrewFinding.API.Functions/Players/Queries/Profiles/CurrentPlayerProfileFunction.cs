@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Players.Profiles;
+namespace BKA.Tools.CrewFinding.API.Functions.Players.Queries.Profiles;
 
 public class CurrentPlayerProfileFunction(
     IPlayerProfileViewer playerProfileViewer,
@@ -14,7 +14,7 @@ public class CurrentPlayerProfileFunction(
 
     [Function("CurrentPlayerProfileFunction")]
     public async Task<HttpResponseData> Run(
-        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Players/Current/Profile")]
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Profiles/Current")]
         HttpRequestData req,
         FunctionContext executionContext)
     {

@@ -56,6 +56,6 @@
     <ItemGroup>
       <Folder Include="Crews\Commands\" />
       <Folder Include="Crews\Queries\" />
-      <Folder Include="Players\" />
+      <Folder Include="Players\Queries\" />
     </ItemGroup>
 </Project>

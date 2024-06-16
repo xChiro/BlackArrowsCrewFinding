@@ -4,13 +4,12 @@ using BKA.Tools.CrewFinding.Players.Exceptions;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Players.Commands.UpdateName;
 
-public class UpdateProfileNameFunction(HandleNameUpdater handleNameUpdater, ILoggerFactory loggerFactory) : FunctionBase
+public class UpdateProfileNameFunction(IHandleNameUpdater handleNameUpdater, ILoggerFactory loggerFactory) : FunctionBase
 {
     private readonly ILogger _logger = loggerFactory.CreateLogger<UpdateProfileNameFunction>();
 
     [Function("UpdateProfileNameFunction")]
-    public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "put", Route = "Players/Current/Profile/Name")] HttpRequestData req,
-        FunctionContext executionContext)
+    public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "put", Route = "Profiles/Current/Name")] HttpRequestData req)
     {
         try
         {

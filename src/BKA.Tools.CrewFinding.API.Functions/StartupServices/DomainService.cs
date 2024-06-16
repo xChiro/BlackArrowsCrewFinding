@@ -89,13 +89,15 @@ public static class DomainService
             new ExpiredCrewRemover(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                 serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                 expirationThreshold));
-        
+
         service.AddScoped<IMemberKicker>(serviceProvider =>
             new MemberKicker(serviceProvider.GetRequiredService<IUserSession>(),
                 serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                 serviceProvider.GetRequiredService<ICrewCommandRepository>()));
-        
+
         service.AddScoped<IHandleNameUpdater>(serviceProvider =>
-            new HandleNameUpdater(serviceProvider.GetRequiredService<IPlayerQueryRepository>(), serviceProvider.GetRequiredService<IPlayerCommandRepository>(), serviceProvider.GetRequiredService<IUserSession>(), maxCrewSize, minNameLength));
+            new HandleNameUpdater(serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
+                serviceProvider.GetRequiredService<IPlayerCommandRepository>(),
+                serviceProvider.GetRequiredService<IUserSession>(), maxNameLength, minNameLength));
     }
 }
