@@ -9,7 +9,7 @@ public class UpdateProfileNameFunction(HandleNameUpdater handleNameUpdater, ILog
     private readonly ILogger _logger = loggerFactory.CreateLogger<UpdateProfileNameFunction>();
 
     [Function("UpdateProfileNameFunction")]
-    public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "put")] HttpRequestData req,
+    public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "put", Route = "Players/Current/Profile/Name")] HttpRequestData req,
         FunctionContext executionContext)
     {
         try
