@@ -18,7 +18,7 @@ public class CrewResponse(
     DateTime createdAt)
 
 {
-    protected CrewResponse() : this("", "", "", Crews.Activity.Default(), Location.Default(),
+    protected CrewResponse() : this("", "", "", CrewFinding.Crews.Activity.Default(), Location.Default(),
         LanguageCollections.Default(), 0, 0, "", PlayerCollection.CreateEmpty(1), DateTime.MinValue)
     {
     }
