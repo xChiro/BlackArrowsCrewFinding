@@ -75,6 +75,15 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 3
+    #line hidden
+#line 4
+        testRunner.Given("the StarCitizen Handle must be between \"3\" and \"16\" characters in length", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+        }
+        
         void System.IDisposable.Dispose()
         {
             this.TestTearDown();
@@ -88,7 +97,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("As a player, I want to be able to update my handler name.", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 3
+#line 6
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -98,13 +107,16 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
             else
             {
                 this.ScenarioStart();
-#line 4
-        testRunner.Given("a player named \"Rowan\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 3
+    this.FeatureBackground();
 #line hidden
-#line 5
+#line 7
+        testRunner.Given("I am a player named \"Rowan\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 8
         testRunner.When("the player updates their handler name to \"Theren\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 6
+#line 9
         testRunner.Then("the player\'s handler name is \"Theren\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -114,16 +126,16 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
         [Xunit.SkippableTheoryAttribute(DisplayName="Attempting to update a handler name with invalid length")]
         [Xunit.TraitAttribute("FeatureTitle", "Players are able to update their handler name in the settings menu.")]
         [Xunit.TraitAttribute("Description", "Attempting to update a handler name with invalid length")]
-        [Xunit.InlineDataAttribute("\"Th\"", new string[0])]
-        [Xunit.InlineDataAttribute("\"\"", new string[0])]
-        [Xunit.InlineDataAttribute("\"This is a really long handler name\"", new string[0])]
+        [Xunit.InlineDataAttribute("Th", new string[0])]
+        [Xunit.InlineDataAttribute("", new string[0])]
+        [Xunit.InlineDataAttribute("This is a really long handler name", new string[0])]
         public void AttemptingToUpdateAHandlerNameWithInvalidLength(string newHandlerName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("newHandlerName", newHandlerName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Attempting to update a handler name with invalid length", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 8
+#line 11
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -133,18 +145,20 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
             else
             {
                 this.ScenarioStart();
-#line 9
-        testRunner.Given("a player named \"Rowan\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 10
-        testRunner.When("the player updates their handler name to \"Th\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 11
-        testRunner.Then("the player\'s handler name is \"Rowan\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 3
+    this.FeatureBackground();
 #line hidden
 #line 12
-        testRunner.And("the player is notified that the handler name must be between 3 and 16 characters " +
-                        "long", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.Given("I am a player named \"Rowan\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 13
+        testRunner.When(string.Format("the player attempts to update their handler name to {0}", newHandlerName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 14
+        testRunner.Then("the player is notified that the handler name has an invalid length", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 15
+        testRunner.And("the player\'s handler name is not updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

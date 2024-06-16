@@ -4,13 +4,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 
 public class PlayerRepositoryContext
 {
-    public PlayerCommandRepositoryMock PlayerCommandRepositoryMock { get; set; } 
-    
-    public PlayerQueryRepositoryMock PlayerQueryRepositoryMock { get; set; }
+    public PlayerCommandRepositoryMock PlayerCommandRepositoryMock { get; set; } = new(2, 16);
 
-    public PlayerRepositoryContext()
-    {
-        PlayerCommandRepositoryMock = new PlayerCommandRepositoryMock();
-        PlayerQueryRepositoryMock = new PlayerQueryRepositoryMock("1", "Rowan");
-    }
+    public PlayerQueryRepositoryMock PlayerQueryRepositoryMock { get; set; } = new("1", "Rowan");
 }
