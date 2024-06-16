@@ -15,7 +15,7 @@ public class PlayerCreationAssertsSteps(
         var player = playerRepositoryContext.PlayerCommandRepositoryMock.StoredPlayer;
         player.Should().NotBeNull();
         player?.Id.Should().Be(userId);
-        player?.CitizenName.Should().Be(playerName);
+        player?.CitizenName.Value.Should().Be(playerName);
     }
 
     [Then(@"I should receive an error message that the UserId cannot be empty")]
@@ -27,13 +27,7 @@ public class PlayerCreationAssertsSteps(
     [Then(@"I should receive an error message that the StarCitizen Handle length is invalid")]
     public void ThenIShouldReceiveAnErrorMessageStatingThatTheStarCitizenHandleMustBeBetweenAndCharactersInLength()
     {
-        ShouldReceiveErrorType<CitizenNameLengthException>();
-    }
-
-    [Then(@"I should receive an error message that the StarCitizen Handle cannot be empty")]
-    public void ThenIShouldReceiveAnErrorMessageThatTheStarCitizenHandleCannotBeEmpty()
-    {
-        ShouldReceiveErrorType<CitizenNameEmptyException>();
+        ShouldReceiveErrorType<HandlerNameLengthException>();
     }
 
     [Then(@"I should see my profile details:")]
@@ -43,7 +37,7 @@ public class PlayerCreationAssertsSteps(
         
         player.Should().NotBeNull();
         player?.Id.Should().Be(table.Rows[0]["Id"]);
-        player?.CitizenName.Should().Be(table.Rows[0]["Name"]);
+        player?.CitizenName.Value.Should().Be(table.Rows[0]["Name"]);
     }
 
     [Then(@"I should receive an error message that the player profile does not exist")]

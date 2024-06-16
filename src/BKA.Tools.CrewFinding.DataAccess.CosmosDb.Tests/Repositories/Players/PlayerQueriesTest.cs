@@ -24,7 +24,7 @@ public class PlayerQueriesTest(IPlayerQueryRepository queryRepository,
     {
         // Arrange
         _playerToDeleteId = Guid.NewGuid().ToString();
-        var player = Player.Create(_playerToDeleteId, "Zyanya");
+        var player = Player.Create(_playerToDeleteId, "Zyanya", 2, 16);
         await _playerContainer!.CreateItemAsync(PlayerDocument.CreateFromPlayer(player), new PartitionKey(player.Id));
 
         // Act

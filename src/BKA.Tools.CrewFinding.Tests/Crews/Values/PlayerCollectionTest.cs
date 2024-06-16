@@ -1,5 +1,4 @@
 using System.Linq;
-using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Values;
@@ -10,7 +9,7 @@ public class PlayerCollectionTest
     public void Should_Not_Add_Twice_When_Adding_Existing_Player_To_Crew()
     {
         // Arrange
-        var player = Player.Create("1", "Rowan");
+        var player = Player.Create("1", "Rowan", 2, 16);
         var members = PlayerCollection.CreateWithSingle(player, 4);
 
         // Act

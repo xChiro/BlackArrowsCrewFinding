@@ -57,7 +57,7 @@ public class CreateCrewTest(ICrewCommandRepository sut, IDatabaseSettingsProvide
     private static void ValidateCaptain(Crew crew, Response<CrewDocument> crewPartyResponse)
     {
         crewPartyResponse.Resource.CaptainId.Should().Be(crew.Captain.Id);
-        crewPartyResponse.Resource.CaptainName.Should().Be(crew.Captain.CitizenName);
+        crewPartyResponse.Resource.CaptainName.Should().Be(crew.Captain.CitizenName.Value);
     }
 
     private static void ValidateLocation(Crew crew, Response<CrewDocument> crewPartyResponse)

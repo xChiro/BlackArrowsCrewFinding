@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BKA.Tools.CrewFinding.Crews;
-using BKA.Tools.CrewFinding.Crews.Queries.Recents;
+using BKA.Tools.CrewFinding.Crews.Queries.Recent;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
@@ -47,7 +47,7 @@ public class RecentCrewsRetrievalTest
     public async void Given_There_Are_Recent_Crews_When_Retrieving_Recent_Crews_Then_Should_Return_Recent_Crews()
     {
         // Arrange
-        var expectedCrew = new Crew(Guid.NewGuid().ToString(), Player.Create("1", "Adam"), Location.Default(),
+        var expectedCrew = new Crew(Guid.NewGuid().ToString(), Player.Create("1", "Adam", 2, 16), Location.Default(),
             LanguageCollections.Default(), PlayerCollection.CreateEmpty(3), Activity.Default(), DateTime.UtcNow);
         var recentCrews = GenerateCrews(expectedCrew, CrewAgeThresholdInHours);
 
@@ -90,7 +90,7 @@ public class RecentCrewsRetrievalTest
         var randomCaptainId = Guid.NewGuid().ToString();
         const string citizenName = "Adam";
 
-        var oldCrew = new Crew(randomId, Player.Create(randomCaptainId, citizenName),
+        var oldCrew = new Crew(randomId, Player.Create(randomCaptainId, citizenName, 2, 16),
             Location.Default(),
             LanguageCollections.Default(), PlayerCollection.CreateEmpty(3), Activity.Default(),
             DateTime.UtcNow.AddHours(-crewAgeThresholdInHours - 1));

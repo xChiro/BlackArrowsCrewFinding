@@ -1,41 +1,34 @@
 using BKA.Tools.CrewFinding.Commons;
 using BKA.Tools.CrewFinding.Commons.Exceptions;
-using BKA.Tools.CrewFinding.Players.Exceptions;
 
 namespace BKA.Tools.CrewFinding.Players;
 
 public class Player : Entity
 {
-    public string CitizenName { get; }
+    public HandlerName CitizenName { get; private set; }
 
-    private Player(string id, string citizenName)
+    private Player(string id, HandlerName citizenName)
     {
         Id = id;
         CitizenName = citizenName;
     }
 
-    public static Player Create(string id, string citizenName, int minLength = 3, int maxLength = 30)
+    public static Player Create(string id, string citizenName, int minLength, int maxLength)
     {
-        (id, citizenName) = NormalizeInput(id, citizenName);
-        ValidateInput(id, citizenName, minLength, maxLength);
+        ValidateInput(id);
+        var handlerName = HandlerName.Create(citizenName, minLength, maxLength);
         
-        return new Player(id, citizenName);
+        return new Player(id, handlerName);
     }
 
-    private static (string, string) NormalizeInput(string id, string citizenName)
-    {
-        return (id.Trim(), citizenName.Trim());
-    }
-
-    private static void ValidateInput(string id, string citizenName, int minLength, int maxLength)
+    private static void ValidateInput(string id)
     {
         if (string.IsNullOrWhiteSpace(id))
             throw new UserIdInvalidException();
+    }
 
-        if (string.IsNullOrWhiteSpace(citizenName))
-            throw new CitizenNameEmptyException();
-
-        if (citizenName.Length < minLength || citizenName.Length > maxLength)
-            throw new CitizenNameLengthException(minLength);
+    public void UpdateName(string newName, int minLength, int maxLength)
+    {
+        CitizenName = HandlerName.Create(newName, minLength, maxLength);
     }
 }

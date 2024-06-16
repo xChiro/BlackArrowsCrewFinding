@@ -41,7 +41,7 @@ public class CrewDocument
         {
             Id = crew.Id,
             CaptainId = crew.Captain.Id,
-            CaptainName = crew.Captain.CitizenName,
+            CaptainName = crew.Captain.CitizenName.Value,
             MaxAllowed = crew.Members.MaxSize,
             CrewName = crew.Name.Value,
             Language = crew.Languages.Select(l => l.LanguageCode).ToArray(),
@@ -58,13 +58,13 @@ public class CrewDocument
         return document;
     }
 
-    public Crew ToCrew()
+    public Crew ToCrew(int minNameLength, int maxNameLength)
     {
-        var members = Crew.Select(m => Player.Create(m.Id, m.CitizenName)).ToList();
+        var members = Crew.Select(m => Player.Create(m.Id, m.CitizenName, minNameLength, maxNameLength)).ToList();
 
         var crew = new Crew(
             Id,
-             Player.Create(CaptainId, CaptainName),
+             Player.Create(CaptainId, CaptainName, minNameLength, maxNameLength),
             new Location(System, PlanetarySystem, PlanetMoon, Place),
             LanguageCollections.CreateFromAbbrevs(Language),
             PlayerCollection.Create(members, MaxAllowed),

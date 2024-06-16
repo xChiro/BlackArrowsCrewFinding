@@ -1,6 +1,5 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Commons.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
-using BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 using BKA.Tools.CrewFinding.Crews.Commands.Kicks;
 

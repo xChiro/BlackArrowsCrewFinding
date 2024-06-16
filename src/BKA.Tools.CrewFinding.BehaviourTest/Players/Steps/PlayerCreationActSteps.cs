@@ -39,7 +39,7 @@ public class PlayerCreationActSteps(
 
     private void ExecutePlayerCreation(string userId, string starCitizenHandle, int minLength = 3, int maxLength = 30)
     {
-        playerRepositoryContext.PlayerCommandRepositoryMock = new PlayerCommandRepositoryMock();
+        playerRepositoryContext.PlayerCommandRepositoryMock = new PlayerCommandRepositoryMock(minLength, maxLength);
         var sut = new PlayerCreator(playerRepositoryContext.PlayerCommandRepositoryMock, minLength, maxLength);
 
         try

@@ -39,7 +39,7 @@ public class CrewJoinerTest
     public async Task Attempt_To_Join_Full_Party()
     {
         // Arrange
-        var members = PlayerCollection.CreateWithSingle(Player.Create("1231412", "Allan"), 1);
+        var members = PlayerCollection.CreateWithSingle(Player.Create("1231412", "Allan",2, 16), 1);
         var crew = InitializeCrew(members);
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
         var playerPartyJoiner =
@@ -56,7 +56,7 @@ public class CrewJoinerTest
     public async Task Attempt_To_Join_To_Party_With_Player_Already_In_A_Party_Then_The_Party_Have_Two_Members()
     {
         // Arrange
-        var members = PlayerCollection.CreateWithSingle(Player.Create(PlayerId, "Rowan"), 4);
+        var members = PlayerCollection.CreateWithSingle(Player.Create(PlayerId, "Rowan",2, 16), 4);
 
         var crew = InitializeCrew(members);
         var crewPartyCommandsMock = new CrewCommandRepositoryMock();
@@ -114,7 +114,7 @@ public class CrewJoinerTest
     public async Task Join_To_Party_With_Existing_Member_Successfully()
     {
         // Arrange
-        var existingMember = Player.Create("ExistingMemberId", "ExistingMemberName");
+        var existingMember = Player.Create("ExistingMemberId", "ExistingMemberName",2, 18);
         const string newMemberId = "NewMemberId";
         const string newMemberName = "NewMemberName";
 
@@ -131,7 +131,7 @@ public class CrewJoinerTest
 
         // Assert
         crewPartyCommands.Members.Should().Contain(member => member.Id == newMemberId);
-        crewPartyCommands.Members.Should().Contain(member => member.CitizenName == newMemberName);
+        crewPartyCommands.Members.Should().Contain(member => member.CitizenName.Value == newMemberName);
         crew.Members.Count().Should().Be(2);
     }
 
@@ -142,7 +142,7 @@ public class CrewJoinerTest
 
     private static Crew InitializeCrew(PlayerCollection playerCollection)
     {
-        var crewParty = new Crew(Player.Create("1", "Rowan"),
+        var crewParty = new Crew(Player.Create("1", "Rowan",2, 16),
             new Location("Stanton", "Crusader", "Crusader", "Seraphim Station"), LanguageCollections.Default(),
             playerCollection, Activity.Default());
 

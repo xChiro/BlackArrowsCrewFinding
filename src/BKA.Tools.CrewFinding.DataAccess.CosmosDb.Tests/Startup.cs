@@ -65,17 +65,19 @@ public class Startup
         services.AddTransient<ICrewCommandRepository>(_ =>
             new CrewCommandRepository(crewContainer));
 
+        const int minNameLength = 2;
+        const int maxNameLength = 16;
         services.AddTransient<ICrewValidationRepository>(_ =>
-            new CrewValidationRepository(crewContainer));
+            new CrewQueryRepository(crewContainer,minNameLength, maxNameLength));
 
         services.AddTransient<ICrewQueryRepository>(_ =>
-            new CrewValidationRepository(crewContainer));
+            new CrewQueryRepository(crewContainer, minNameLength, maxNameLength));
 
         services.AddTransient<IPlayerCommandRepository>(_ =>
             new PlayerCommands(databaseSettingsProvider.GetPlayerContainer()));
 
         services.AddTransient<IPlayerQueryRepository>(_ =>
-            new PlayerQueries(playerContainer));
+            new PlayerQueries(playerContainer, minNameLength, maxNameLength));
         
         services.AddTransient<ICrewDisbandRepository>(_ =>
             new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));

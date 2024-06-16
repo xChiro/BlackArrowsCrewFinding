@@ -9,23 +9,18 @@ using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 
-public class UpdateCrewPartMembersTest : IAsyncLifetime
+public class UpdateCrewPartMembersTest(
+    ICrewCommandRepository crewCommandRepository,
+    IDatabaseSettingsProvider<Container> databaseSettingsProvider)
+    : IAsyncLifetime
 {
-    private readonly ICrewCommandRepository _sut;
-    private readonly IDatabaseSettingsProvider<Container> _databaseSettingsProvider;
     private Container? _container;
 
     private string _crewPartyId = string.Empty;
 
-    public UpdateCrewPartMembersTest(ICrewCommandRepository crewCommandRepository, IDatabaseSettingsProvider<Container> databaseSettingsProvider)
-    {
-        _sut = crewCommandRepository;
-        _databaseSettingsProvider = databaseSettingsProvider;
-    }
-
     public Task InitializeAsync()
     {
-        _container =_databaseSettingsProvider.GetCrewContainer();
+        _container =databaseSettingsProvider.GetCrewContainer();
         return Task.CompletedTask;
     }
 
@@ -36,25 +31,26 @@ public class UpdateCrewPartMembersTest : IAsyncLifetime
         var crewParty = CreateCrewParty();
         _crewPartyId = crewParty.Id;
         
-        await _sut.CreateCrew(crewParty);
-        var crewPartyMembers = new List<Player> {Player.Create("25", "John")};
+        await crewCommandRepository.CreateCrew(crewParty);
+        var crewPartyMembers = new List<Player> {Player.Create("25", "John", 2, 16)};
 
         // Act
-        await _sut.UpdateMembers(crewParty.Id, crewPartyMembers);
+        await crewCommandRepository.UpdateMembers(crewParty.Id, crewPartyMembers);
 
         // Assert
         var crewPartyResponse =
             await _container!.ReadItemAsync<CrewDocument>(crewParty.Id, new PartitionKey(crewParty.Id));
-        crewPartyResponse.Resource.Crew.Should().BeEquivalentTo(crewPartyMembers);
+        crewPartyResponse.Resource.Crew[0].Id.Should().Be(crewPartyMembers[0].Id);
+        crewPartyResponse.Resource.Crew[0].CitizenName.Should().Be(crewPartyMembers[0].CitizenName.Value);
     }
 
     private static Crew CreateCrewParty()
     {
         return new Crew(
-            Player.Create("24", "Rowan"),
+            Player.Create("24", "Rowan", 2, 16),
             Location.Default(),
             LanguageCollections.Default(),
-            PlayerCollection.CreateWithSingle(Player.Create("123412", "Adam"), 1),
+            PlayerCollection.CreateWithSingle(Player.Create("123412", "Adam", 2, 16), 1),
             Activity.Default());
     }
 

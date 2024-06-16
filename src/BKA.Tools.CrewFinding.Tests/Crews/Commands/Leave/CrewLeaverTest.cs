@@ -62,7 +62,7 @@ public class CrewLeaverTest
 
     private static Player CreatePlayer(string playerId, string playerName)
     {
-        return Player.Create(playerId, playerName);
+        return Player.Create(playerId, playerName, 2, 16);
     }
 
     private static CrewCommandRepositoryMock CreateCrewCommandRepositoryMock()

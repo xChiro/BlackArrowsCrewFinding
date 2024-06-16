@@ -8,6 +8,6 @@ public class PlayerQueryRepositoryAlwaysValidMock(string captainName) : IPlayerQ
 {
     public Task<Player?> GetPlayer(string playerId)
     {
-        return Task.FromResult(Player.Create(playerId, captainName))!;
+        return Task.FromResult(Player.Create(playerId, captainName, 2, 16))!;
     }
 }

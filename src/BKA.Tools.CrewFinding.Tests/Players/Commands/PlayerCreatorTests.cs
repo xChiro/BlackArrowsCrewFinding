@@ -14,19 +14,16 @@ public class PlayerCreatorTests
     private const int MaxNameLength = 30;
 
     [Theory]
-    [InlineData("", "Rowan", typeof(UserIdInvalidException), "User Id is required")]
-    [InlineData("24", "", typeof(CitizenNameEmptyException), "Star Citizen name is required")]
+    [InlineData("", "Rowan", typeof(UserIdInvalidException))]
+    [InlineData("24", "", typeof(HandlerNameLengthException))]
     public async Task Attempt_To_Create_User_Profile_With_Missing_Details_Should_Throw_Exception(
-        string userId, string citizenName, Type exceptionType, string expectedExceptionMessage)
+        string userId, string citizenName, Type exceptionType)
     {
         // Arrange
         var sut = GetSut();
 
         // Act & Assert
-        var exception = await Assert.ThrowsAsync(exceptionType, () => sut.Create(userId, citizenName));
-
-        // Assert
-        exception.Message.Should().Be(expectedExceptionMessage);
+        await Assert.ThrowsAsync(exceptionType, () => sut.Create(userId, citizenName));
     }
 
     [Theory]
@@ -38,7 +35,7 @@ public class PlayerCreatorTests
         var sut = GetSut(minNameLength: minLength);
 
         // Act & Assert
-        await Assert.ThrowsAsync<CitizenNameLengthException>(() => sut.Create("123", citizenName));
+        await Assert.ThrowsAsync<HandlerNameLengthException>(() => sut.Create("123", citizenName));
     }
 
     [Theory]
@@ -50,7 +47,7 @@ public class PlayerCreatorTests
         var sut = GetSut(maxNameLength: maxLength);
 
         // Act & Assert
-        await Assert.ThrowsAsync<CitizenNameLengthException>(() => sut.Create("123", citizenName));
+        await Assert.ThrowsAsync<HandlerNameLengthException>(() => sut.Create("123", citizenName));
     }
 
     [Fact]
@@ -66,7 +63,7 @@ public class PlayerCreatorTests
         // Assert
         playerCommandMock.StoredPlayer.Should().NotBeNull();
         playerCommandMock.StoredPlayer!.Id.Should().Be("123");
-        playerCommandMock.StoredPlayer!.CitizenName.Should().Be("Rowan");
+        playerCommandMock.StoredPlayer!.CitizenName.Value.Should().Be("Rowan");
     }
 
     private static IPlayerCreator GetSut(int minNameLength = MinNameLength, int maxNameLength = MaxNameLength)

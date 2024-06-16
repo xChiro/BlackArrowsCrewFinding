@@ -1,5 +1,6 @@
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Cultures;
+using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Models;
 
@@ -17,7 +18,7 @@ public class CrewResponse(
     DateTime createdAt)
 
 {
-    protected CrewResponse() : this("", "", "", Crews.Activity.Default(), Location.Default(),
+    protected CrewResponse() : this("", "", "", CrewFinding.Crews.Activity.Default(), Location.Default(),
         LanguageCollections.Default(), 0, 0, "", PlayerCollection.CreateEmpty(1), DateTime.MinValue)
     {
     }
@@ -46,7 +47,7 @@ public class CrewResponse(
         Languages = crew.Languages.Select(l => l.LanguageCode).ToArray();
         MaxPlayers = crew.Members.MaxSize;
         CurrentPlayers = crew.Members.Count();
-        CaptainName = crew.Captain.CitizenName;
+        CaptainName = crew.Captain.CitizenName.Value;
         Members = crew.Members;
         CreatedAt = crew.CreatedAt;
     }
@@ -62,7 +63,7 @@ public class CrewResponse(
             crew.Languages,
             crew.Members.MaxSize,
             crew.Members.Count(),
-            crew.Captain.CitizenName,
+            crew.Captain.CitizenName.Value,
             crew.Members,
             crew.CreatedAt
         );

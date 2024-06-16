@@ -168,7 +168,7 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Features
         testRunner.When("I attempt to create a new player profile with an empty StarCitizen Handle", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 16
-        testRunner.Then("I should receive an error message that the StarCitizen Handle cannot be empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then("I should receive an error message that the StarCitizen Handle length is invalid", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

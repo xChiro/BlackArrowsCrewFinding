@@ -44,7 +44,7 @@ public class CrewContext
 
     public Crew ToCrew(string captainId, string captainName)
     {
-        var captain = Player.Create(captainId, captainName);
+        var captain = Player.Create(captainId, captainName, 2, 20);
         var crewId = string.IsNullOrEmpty(CrewId) ? Guid.NewGuid().ToString() : CrewId;
 
         return new Crew(

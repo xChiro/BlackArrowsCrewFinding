@@ -55,7 +55,7 @@ public class PlayerProfileViewerTest
         var expectedCrewName = new CrewName(playerName).Value;
 
         var playerQueryMock = CreatePlayerQueryRepository(expectedPlayerId, playerName);
-        var crew = CrewBuilder.Build(expectedCrewId, Player.Create(expectedPlayerId, playerName));
+        var crew = CrewBuilder.Build(expectedCrewId, Player.Create(expectedPlayerId, playerName, 2, 16));
 
         var sut = new PlayerProfileViewer(playerQueryMock,
             new CrewQueryRepositoryMock(crews: [crew], expectedPlayerId: expectedPlayerId));
@@ -81,7 +81,7 @@ public class PlayerProfileViewerTest
     {
         playerProfileResponseMock.Player.Should().NotBeNull();
         playerProfileResponseMock.Player!.Id.Should().Be(expectedPlayerId);
-        playerProfileResponseMock.Player!.CitizenName.Should().Be(playerName);
+        playerProfileResponseMock.Player!.CitizenName.Value.Should().Be(playerName);
     }
 
     private static void ActiveCrewShouldBeEmpty(PlayerProfileResponseMock playerProfileResponseMock)
