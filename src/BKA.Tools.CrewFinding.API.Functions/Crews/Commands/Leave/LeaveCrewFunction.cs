@@ -2,7 +2,7 @@ using System.Net;
 using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Commands.LeaveCrews;
+namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.Leave;
 
 public class LeaveCrewFunction(ICrewLeaver crewLeaver, ILoggerFactory loggerFactory) : FunctionBase
 {

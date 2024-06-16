@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Queries.Profiles;
+namespace BKA.Tools.CrewFinding.API.Functions.Players.Profiles;
 
 public class CurrentPlayerProfileFunction(
     IPlayerProfileViewer playerProfileViewer,

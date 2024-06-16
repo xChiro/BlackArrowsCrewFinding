@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Commands.JoinCrews;
+namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.Joins;
 
 public class JoinCrewFunction(ICrewJoiner crewJoiner, ILoggerFactory loggerFactory) : FunctionBase
 {

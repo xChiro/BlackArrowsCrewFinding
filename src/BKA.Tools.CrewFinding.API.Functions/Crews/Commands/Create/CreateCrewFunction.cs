@@ -5,7 +5,7 @@ using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Cultures.Exceptions;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Commands.CrewCreations;
+namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.Create;
 
 public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerFactory) : FunctionBase
 {

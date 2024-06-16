@@ -2,7 +2,7 @@ using System.Net;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Queries.GetCrew;
+namespace BKA.Tools.CrewFinding.API.Functions.Crews.Queries.GetCrew;
 
 public class GetCrewFunction(ILoggerFactory loggerFactory, IActiveCrewRetrieval activeCrewRetrieval) : FunctionBase
 {

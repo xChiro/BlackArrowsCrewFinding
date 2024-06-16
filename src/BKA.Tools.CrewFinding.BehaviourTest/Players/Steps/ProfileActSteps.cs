@@ -39,11 +39,7 @@ public class ProfileActSteps(
         playerRepositoryContext.PlayerQueryRepositoryMock =
             new PlayerQueryRepositoryMock(playerContext.PlayerId, playerContext.PlayerName);
 
-        var sut = new HandleNameUpdater(playerContext.MinLength,
-            playerContext.MaxLength,
-            playerRepositoryContext.PlayerCommandRepositoryMock,
-            new UserSessionMock(playerContext.PlayerId),
-            playerRepositoryContext.PlayerQueryRepositoryMock);
+        var sut = new HandleNameUpdater(playerRepositoryContext.PlayerQueryRepositoryMock, playerRepositoryContext.PlayerCommandRepositoryMock, new UserSessionMock(playerContext.PlayerId), playerContext.MaxLength, playerContext.MinLength);
 
         return sut;
     }

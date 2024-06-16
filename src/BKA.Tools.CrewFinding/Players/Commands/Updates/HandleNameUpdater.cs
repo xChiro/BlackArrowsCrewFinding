@@ -5,11 +5,11 @@ using BKA.Tools.CrewFinding.Players.Ports;
 namespace BKA.Tools.CrewFinding.Players.Commands.Updates;
 
 public class HandleNameUpdater(
-    int minNameLength,
-    int maxNameLength,
+    IPlayerQueryRepository playerQueryRepository,
     IPlayerCommandRepository playerCommandRepository,
     IUserSession userSession,
-    IPlayerQueryRepository playerQueryRepository)
+    int maxNameLength,
+    int minNameLength)
     : IHandleNameUpdater
 {
     public async Task Update(string newName)

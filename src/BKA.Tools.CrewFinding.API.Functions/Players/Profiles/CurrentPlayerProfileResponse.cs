@@ -1,7 +1,7 @@
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Queries.Profiles;
+namespace BKA.Tools.CrewFinding.API.Functions.Players.Profiles;
 
 public class CurrentPlayerProfileResponse : IPlayerProfileResponse
 {

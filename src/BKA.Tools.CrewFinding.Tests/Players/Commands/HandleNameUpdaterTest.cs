@@ -62,8 +62,7 @@ public class HandleNameUpdaterTest
         var userSession = new UserSessionMock(sessionUserId);
         var playerQueryRepositoryMock = new PlayerQueryRepositoryValidationMock(storeUserId, "Rowan");
 
-        var sut = new HandleNameUpdater(MinNameLength, MaxNameLength, playerCommandRepositoryMock, userSession,
-            playerQueryRepositoryMock);
+        var sut = new HandleNameUpdater(playerQueryRepositoryMock, playerCommandRepositoryMock, userSession, MaxNameLength, MinNameLength);
 
         return sut;
     }

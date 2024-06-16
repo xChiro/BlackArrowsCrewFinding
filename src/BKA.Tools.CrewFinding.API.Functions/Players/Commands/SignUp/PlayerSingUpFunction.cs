@@ -2,9 +2,8 @@ using System.Web.Http;
 using BKA.Tools.CrewFinding.API.Functions.Authentications;
 using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
-using BKA.Tools.CrewFinding.Players.Exceptions;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Commands.PlayerRegistrations;
+namespace BKA.Tools.CrewFinding.API.Functions.Players.Commands.SignUp;
 
 public class PlayerSingUpFunction(IPlayerCreator playerCreator, ILoggerFactory loggerFactory) : FunctionBase
 {

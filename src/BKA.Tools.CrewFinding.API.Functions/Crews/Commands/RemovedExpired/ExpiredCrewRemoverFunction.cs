@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Crews.Commands.Expired;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Commands.RemoveExpired;
+namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.RemovedExpired;
 
 public class ExpiredCrewRemoverFunction(IExpiredCrewRemover expiredCrewRemover, ILoggerFactory loggerFactory)
 {

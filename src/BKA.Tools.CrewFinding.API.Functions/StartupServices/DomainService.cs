@@ -9,6 +9,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recent;
 using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
+using BKA.Tools.CrewFinding.Players.Commands.Updates;
 using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +45,8 @@ public static class DomainService
     private static void AddCrewServices(IServiceCollection service, int maxCrewSize)
     {
         var expirationThreshold = Convert.ToInt32(Configuration.GetEnvironmentVariable("recentCrewsHoursThreshold"));
+        var minNameLength = Convert.ToInt32(Configuration.GetEnvironmentVariable("minCitizenNameLength"));
+        var maxNameLength = Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCitizenNameLength"));
 
         service.AddScoped<IRecentCrewsRetrieval>(
             serviceProvider =>
@@ -91,5 +94,8 @@ public static class DomainService
             new MemberKicker(serviceProvider.GetRequiredService<IUserSession>(),
                 serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                 serviceProvider.GetRequiredService<ICrewCommandRepository>()));
+        
+        service.AddScoped<IHandleNameUpdater>(serviceProvider =>
+            new HandleNameUpdater(serviceProvider.GetRequiredService<IPlayerQueryRepository>(), serviceProvider.GetRequiredService<IPlayerCommandRepository>(), serviceProvider.GetRequiredService<IUserSession>(), maxCrewSize, minNameLength));
     }
 }

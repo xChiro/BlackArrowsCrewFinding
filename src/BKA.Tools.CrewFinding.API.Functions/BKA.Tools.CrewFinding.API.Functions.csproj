@@ -53,4 +53,9 @@
         <HintPath>..\..\..\..\..\.AzureToolsForIntelliJ\AzureFunctionsCoreTools\v4\4.72.0\System.IdentityModel.Tokens.Jwt.dll</HintPath>
       </Reference>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Crews\Commands\" />
+      <Folder Include="Crews\Queries\" />
+      <Folder Include="Players\" />
+    </ItemGroup>
 </Project>

@@ -1,12 +1,8 @@
-using System.Collections.Generic;
 using System.Net;
 using BKA.Tools.CrewFinding.Crews.Commands.Kicks;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Extensions.Logging;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Commands.KickMember;
+namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.KickMember;
 
 public class MemberKickerFunction(IMemberKicker memberKicker, ILoggerFactory loggerFactory) : FunctionBase
 {

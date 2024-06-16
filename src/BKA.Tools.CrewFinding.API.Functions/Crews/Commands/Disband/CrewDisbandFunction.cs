@@ -2,7 +2,7 @@ using System.Net;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Commands.CrewDisbands;
+namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.Disband;
 
 public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILoggerFactory loggerFactory) : FunctionBase
 {

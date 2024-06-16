@@ -12,8 +12,13 @@ public class PlayerCommands(Container container) : IPlayerCommandRepository
         await container.CreateItemAsync(document, new PartitionKey(document.Id));
     }
 
-    public Task UpdateName(string playerId, string newName)
+    public async Task UpdateName(string playerId, string newName)
     {
-        throw new NotImplementedException();
+        var patchOperations = new List<PatchOperation>
+        {
+            PatchOperation.Replace("/citizenName", newName)
+        };
+
+        await container.PatchItemAsync<PlayerDocument>(playerId, new PartitionKey(playerId), patchOperations);
     }
 }
