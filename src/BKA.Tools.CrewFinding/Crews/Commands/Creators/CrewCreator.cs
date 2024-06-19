@@ -20,7 +20,7 @@ public class CrewCreator(
         var crew =  request.ToCrew(captain, playersAllowed);
 
         await commandRepository.CreateCrew(crew);
-        output.SetResponse(crew.Id, crew.Name.Value);
+        output.SetResponse(crew.Id);
     }
     
     private async Task<Player> TryToGetValidCaptain(string captainId)

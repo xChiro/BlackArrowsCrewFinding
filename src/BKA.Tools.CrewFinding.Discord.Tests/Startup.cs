@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.KeyVault;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,12 +29,13 @@ public class Startup
         var discordToken = keySecretsProvider.GetSecret(config["keyVault:discordBotToken"]!);
 
         services.AddSingleton(_ =>
-            new DiscordSettings(discordToken, config["discord:guildId"]!, config["discord:parentId"]!));
+            new DiscordSettings(discordToken, config["discord:guildId"]!,
+                long.Parse(config["discord:parentId"] ?? "0")));
 
-        services.AddTransient<IDiscordHttpClient>(provider =>
+        services.AddTransient<IVoiceChannelCommandRepository>(provider =>
         {
             var discordSettings = provider.GetRequiredService<DiscordSettings>();
-            return new DiscordHttpClient(discordSettings);
+            return new VoiceChannelCommandRepository(discordSettings);
         });
     }
 }

@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BKA.Tools.CrewFinding\BKA.Tools.CrewFinding.csproj" />
+    </ItemGroup>
+
 </Project>

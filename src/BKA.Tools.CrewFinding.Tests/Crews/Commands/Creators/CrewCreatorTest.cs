@@ -28,7 +28,6 @@ public class CrewCreatorTest
 
         // Assert
         crewPartyCommandsMock.Name!.Value.Should().Be(expectedCrewName);
-        crewCreatorResponseMock.GetName().Should().Be(expectedCrewName);
     }
 
     [Fact]
