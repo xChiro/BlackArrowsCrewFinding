@@ -22,7 +22,7 @@ public static class CrewCreatorBuilder
         PlayerQueryRepositoryValidationMock playerQueryRepositoryValidationMock, string playerId = "1ASD34-344SDF")
 
     {
-        var sut = new CrewCreator(crewCommandRepository, new CrewValidationRepositoryMock(),
+        var sut = new CrewCreator(crewCommandRepository,  new CrewValidationRepositoryMock(),
             playerQueryRepositoryValidationMock, new UserSessionMock(playerId), 4);
 
         return sut;

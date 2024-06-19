@@ -7,17 +7,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 
-public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
+public class DatabaseSettingsProvider(IKeySecretProvider keySecretProvider, IConfigurationRoot configurationRoot)
+    : IDatabaseSettingsProvider<Container>
 {
-    private readonly IConfigurationRoot _configurationRoot;
-    private readonly IKeySecretProvider _keySecretProvider;
-
-    public DatabaseSettingsProvider(IKeySecretProvider keySecretProvider, IConfigurationRoot configurationRoot)
-    {
-        _keySecretProvider = keySecretProvider;
-        _configurationRoot = configurationRoot;
-    }
-
     public Container GetCrewContainer() => BuildContainer(GetCrewPartiesContainerName()).GetAwaiter().GetResult();
     public Container GetPlayerContainer() => BuildContainer(GetPlayerContainerName()).GetAwaiter().GetResult();
     public Container GetDisbandedCrewsContainer() => BuildContainer(GetDisbandedCrewsContainerName()).GetAwaiter().GetResult();
@@ -32,7 +24,7 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
 
     private Task<CosmosClient> CreateCosmosClient()
     {
-        var primaryKey = _keySecretProvider.GetSecret(GetAzureKeyName());
+        var primaryKey = keySecretProvider.GetSecret(GetAzureKeyName());
         var serializerOptions = new CustomCosmosSerializer(new JsonSerializerOptions
             {PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
 
@@ -48,31 +40,31 @@ public class DatabaseSettingsProvider : IDatabaseSettingsProvider<Container>
 
     private string GetAzureKeyName()
     {
-        return _configurationRoot["keyVault:azureKeyName"] ?? string.Empty;
+        return configurationRoot["keyVault:azureKeyName"] ?? string.Empty;
     }
 
     private string GetCosmosDbEndpoint()
     {
-        return _configurationRoot["cosmosDB:endpoint"] ?? string.Empty;
+        return configurationRoot["cosmosDB:endpoint"] ?? string.Empty;
     }
 
     private string GetCosmosDbDatabase()
     {
-        return _configurationRoot["cosmosDB:database"] ?? string.Empty;
+        return configurationRoot["cosmosDB:database"] ?? string.Empty;
     }
 
     private string GetCrewPartiesContainerName()
     {
-        return _configurationRoot["cosmosDB:crewContainer"] ?? string.Empty;
+        return configurationRoot["cosmosDB:crewContainer"] ?? string.Empty;
     }
 
     private string GetDisbandedCrewsContainerName()
     {
-        return _configurationRoot["cosmosDB:disbandedCrewsContainer"] ?? string.Empty;
+        return configurationRoot["cosmosDB:disbandedCrewsContainer"] ?? string.Empty;
     }
 
     private string GetPlayerContainerName()
     {
-        return _configurationRoot["cosmosDB:playerContainer"] ?? string.Empty;
+        return configurationRoot["cosmosDB:playerContainer"] ?? string.Empty;
     }
 }
