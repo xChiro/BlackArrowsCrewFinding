@@ -29,7 +29,7 @@ public class Startup
         var discordToken = keySecretsProvider.GetSecret(config["keyVault:discordBotToken"]!);
 
         services.AddSingleton(_ =>
-            new DiscordSettings(discordToken, config["discord:guildId"]!,
+            new DiscordSettings(discordToken, long.Parse(config["discord:guildId"] ?? "0"),
                 long.Parse(config["discord:parentId"] ?? "0")));
 
         services.AddTransient<IVoiceChannelCommandRepository>(provider =>

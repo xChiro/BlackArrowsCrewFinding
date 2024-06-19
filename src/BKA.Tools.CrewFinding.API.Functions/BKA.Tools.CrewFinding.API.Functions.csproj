@@ -36,6 +36,7 @@
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\BKA.Tools.CrewFinding.DataAccess.CosmosDb\BKA.Tools.CrewFinding.DataAccess.CosmosDb.csproj" />
+      <ProjectReference Include="..\BKA.Tools.CrewFinding.Discord\BKA.Tools.CrewFinding.Discord.csproj" />
       <ProjectReference Include="..\BKA.Tools.CrewFinding.KeyVault\BKA.Tools.CrewFinding.KeyVault.csproj" />
       <ProjectReference Include="..\BKA.Tools.CrewFinding\BKA.Tools.CrewFinding.csproj" />
     </ItemGroup>

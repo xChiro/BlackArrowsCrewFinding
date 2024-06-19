@@ -12,7 +12,7 @@ public class VoiceChannelCommandRepository : IVoiceChannelCommandRepository
     private static readonly JsonSerializerOptions JsonOptions = new() {PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
 
     private readonly HttpClient _httpClient;
-    private readonly string _guildId;
+    private readonly long _guildId;
     private readonly long _parentId;
 
     public VoiceChannelCommandRepository(DiscordSettings discordSettings)
