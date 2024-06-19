@@ -5,6 +5,8 @@ using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 using BKA.Tools.CrewFinding.Tests.Commons;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
+using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Players;
 using BKA.Tools.CrewFinding.Tests.Players.Mocks;
 
 namespace BKA.Tools.CrewFinding.Tests.Players.Queries;

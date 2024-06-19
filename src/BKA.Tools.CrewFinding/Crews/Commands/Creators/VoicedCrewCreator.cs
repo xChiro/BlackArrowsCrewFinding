@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Crews.Ports;
 
-namespace BKA.Tools.CrewFinding.Crews.Commands.Creators.VoicedCrews;
+namespace BKA.Tools.CrewFinding.Crews.Commands.Creators;
 
 public class VoicedCrewCreator(
     ICrewCreator crewCreator,

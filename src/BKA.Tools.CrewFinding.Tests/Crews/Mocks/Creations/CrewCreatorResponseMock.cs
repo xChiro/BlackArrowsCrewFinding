@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.Creations;
 
 public class CrewCreatorResponseMock : ICrewCreatorResponse
 {

@@ -1,8 +1,7 @@
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Crews.Commands.Creators.VoicedCrews;
-using BKA.Tools.CrewFinding.Tests.Crews.Commands.Creators.VoiceChannel;
+using BKA.Tools.CrewFinding.Crews.Ports;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
 public class VoicedCrewCommandRepositoryMock : IVoicedCrewCommandRepository
 {
