@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
 using BKA.Tools.CrewFinding.Crews;
@@ -26,16 +25,17 @@ public class SetVoiceChannelToCrewTest(
     public async Task Set_Voice_Channel_To_Crew_Successfully()
     {
         // Arrange
+        const string voiceChannelId = "123";
         var crew = CrewBuilder.CreateDefaultCrew(4);
         _crewId = crew.Id;
         await _container!.CreateItemAsync(CrewDocument.CreateFromCrew(crew));
 
         // Act
-        await voicedCrewCommandRepository.AddVoiceChannel(crew.Id, "123");
+        await voicedCrewCommandRepository.AddVoiceChannel(crew.Id, voiceChannelId);
 
         // Assert
         var crewResponse = await _container!.ReadItemAsync<CrewDocument>(crew.Id, new PartitionKey(crew.Id));
-        crewResponse.Resource.VoiceChannelId.Should().Be("123");
+        crewResponse.Resource.VoiceChannelId.Should().Be(voiceChannelId);
     }
 
     public async Task DisposeAsync()
@@ -49,19 +49,5 @@ public class SetVoiceChannelToCrewTest(
             return;
 
         await _container!.DeleteItemAsync<Crew>(_crewId, new PartitionKey(_crewId));
-    }
-}
-
-public class VoicedCrewCommandRepository(Container container) : IVoicedCrewCommandRepository
-{
-    
-    public async Task AddVoiceChannel(string crewId, string voiceChannelId)
-    {
-        var patchOperations = new List<PatchOperation>
-        {
-            PatchOperation.Add("/voiceChannelId", voiceChannelId)
-        };
-
-        await container.PatchItemAsync<CrewDocument>(crewId, new PartitionKey(crewId), patchOperations);
     }
 }

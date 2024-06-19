@@ -32,5 +32,7 @@ public static class RepositoryService
         service.AddSingleton<IPlayerCommandRepository>(_ => new PlayerCommands(playerContainer));
         service.AddSingleton<ICrewDisbandRepository>(_ =>
             new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));
+        service.AddSingleton<IVoicedCrewCommandRepository>(_ =>
+            new VoicedCrewCommandRepository(crewContainer));
     }
 }
