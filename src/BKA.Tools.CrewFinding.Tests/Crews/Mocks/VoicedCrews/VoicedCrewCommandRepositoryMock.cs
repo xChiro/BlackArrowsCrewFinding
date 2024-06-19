@@ -9,7 +9,7 @@ public class VoicedCrewCommandRepositoryMock : IVoicedCrewCommandRepository
 
     public string CrewId { get; private set; } = string.Empty;
 
-    public Task SetVoiceChannel(string crewId, string voiceChannelId)
+    public Task AddVoiceChannel(string crewId, string voiceChannelId)
     {
         CrewId = crewId;
         VoiceChannelId = voiceChannelId;

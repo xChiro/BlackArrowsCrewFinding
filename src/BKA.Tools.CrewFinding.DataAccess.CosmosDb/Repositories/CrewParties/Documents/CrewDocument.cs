@@ -34,6 +34,7 @@ public class CrewDocument
     public string PlanetMoon { get; set; }
 
     public string Place { get; set; }
+    public string VoiceChannelId { get; set; }
 
     public static CrewDocument CreateFromCrew(Crew crew)
     {

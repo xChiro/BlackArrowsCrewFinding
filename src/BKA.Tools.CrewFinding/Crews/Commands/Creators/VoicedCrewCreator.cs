@@ -19,7 +19,7 @@ public class VoicedCrewCreator(
         try
         {
             var voiceChannelId = await voiceChannelCommandRepository.Create(_name);
-            await voicedCrewCommandRepository.SetVoiceChannel(_id, voiceChannelId);
+            await voicedCrewCommandRepository.AddVoiceChannel(_id, voiceChannelId);
         }
         catch (Exception e)
         {

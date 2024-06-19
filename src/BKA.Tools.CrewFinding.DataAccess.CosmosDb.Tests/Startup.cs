@@ -2,6 +2,7 @@ using System;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players;
 using BKA.Tools.CrewFinding.Crews.Ports;
+using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.Crews;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 using BKA.Tools.CrewFinding.KeyVault;
 using BKA.Tools.CrewFinding.Players.Ports;
@@ -66,5 +67,8 @@ public class Startup
         
         services.AddTransient<ICrewDisbandRepository>(_ =>
             new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));
+        
+        services.AddTransient<IVoicedCrewCommandRepository>(_ =>
+            new VoicedCrewCommandRepository(crewContainer));
     }
 }
