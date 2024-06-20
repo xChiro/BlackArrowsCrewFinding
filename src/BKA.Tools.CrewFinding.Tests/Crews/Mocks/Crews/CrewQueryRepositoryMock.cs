@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
 
 public class CrewQueryRepositoryMock(IEnumerable<Crew>? crews = null, string expectedPlayerId = "")
     : ICrewQueryRepository

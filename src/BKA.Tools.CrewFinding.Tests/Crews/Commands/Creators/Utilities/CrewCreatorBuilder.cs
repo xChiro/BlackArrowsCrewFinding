@@ -1,7 +1,8 @@
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Tests.Commons.Mocks;
-using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
+using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Players;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Creators.Utilities;
 
@@ -22,7 +23,7 @@ public static class CrewCreatorBuilder
         PlayerQueryRepositoryValidationMock playerQueryRepositoryValidationMock, string playerId = "1ASD34-344SDF")
 
     {
-        var sut = new CrewCreator(crewCommandRepository, new CrewValidationRepositoryMock(),
+        var sut = new CrewCreator(crewCommandRepository,  new CrewValidationRepositoryMock(),
             playerQueryRepositoryValidationMock, new UserSessionMock(playerId), 4);
 
         return sut;

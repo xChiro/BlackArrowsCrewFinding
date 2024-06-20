@@ -24,6 +24,7 @@ public class GetCrewQueryTest(
     {
         // Arrange
         _crewDocument = CrewBuilder.CreateDefaultCrew();
+        _crewDocument.VoiceChannelId = "1234";
         await CreateDocument(_crewDocument);
 
         // Act
@@ -32,6 +33,7 @@ public class GetCrewQueryTest(
         // Assert
         crew.Should().NotBeNull();
         crew!.Id.Should().Be(_crewDocument.Id);
+        crew!.VoiceChannelId.Should().Be( _crewDocument.VoiceChannelId);
     }
     
     [Fact]

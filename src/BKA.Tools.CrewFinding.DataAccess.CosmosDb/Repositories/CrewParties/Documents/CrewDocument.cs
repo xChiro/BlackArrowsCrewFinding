@@ -12,7 +12,7 @@ public class CrewDocument
     public string CaptainId { get; set; }
 
     public string CaptainName { get; set; }
-    
+
     public int MaxAllowed { get; set; }
 
     public string CrewName { get; set; }
@@ -34,6 +34,7 @@ public class CrewDocument
     public string PlanetMoon { get; set; }
 
     public string Place { get; set; }
+    public string? VoiceChannelId { get; set; }
 
     public static CrewDocument CreateFromCrew(Crew crew)
     {
@@ -52,7 +53,8 @@ public class CrewDocument
             System = crew.ReunionPoint.System,
             PlanetarySystem = crew.ReunionPoint.PlanetarySystem,
             PlanetMoon = crew.ReunionPoint.PlanetMoon,
-            Place = crew.ReunionPoint.Place
+            Place = crew.ReunionPoint.Place,
+            VoiceChannelId = crew.VoiceChannelId
         };
 
         return document;
@@ -64,12 +66,15 @@ public class CrewDocument
 
         var crew = new Crew(
             Id,
-             Player.Create(CaptainId, CaptainName, minNameLength, maxNameLength),
+            Player.Create(CaptainId, CaptainName, minNameLength, maxNameLength),
             new Location(System, PlanetarySystem, PlanetMoon, Place),
             LanguageCollections.CreateFromAbbrevs(Language),
             PlayerCollection.Create(members, MaxAllowed),
             Activity.Create(ActivityName, ActivityDescription),
             CreatedAt);
+
+        if (VoiceChannelId != null)
+            crew.SetVoiceChannelId(VoiceChannelId);
 
         return crew;
     }

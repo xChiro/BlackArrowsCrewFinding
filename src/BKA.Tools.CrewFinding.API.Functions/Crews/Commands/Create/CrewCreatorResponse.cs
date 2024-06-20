@@ -4,10 +4,13 @@ namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.Create;
 
 public class CrewCreatorResponse : ICrewCreatorResponse
 {
-    public string CrewId { get; private set; }
+    public string Id { get; private set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
-    public void SetResponse(string id)
+
+    public void SetResponse(string id, string name)
     {
-        CrewId = id;
+        Id = id;
+        Name = name;
     }
 }

@@ -4,9 +4,9 @@ using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Commands.Expired;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Tests.Commons;
-using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Removes;
+namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Disbands;
 
 public class ExpiredCrewRemoverTest
 {

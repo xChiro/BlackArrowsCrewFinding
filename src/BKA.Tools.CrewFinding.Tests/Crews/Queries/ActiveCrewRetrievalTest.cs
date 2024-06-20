@@ -6,7 +6,7 @@ using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
-using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Queries;
 

@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Players.Commands.Updates;
 using BKA.Tools.CrewFinding.Players.Exceptions;
 using BKA.Tools.CrewFinding.Tests.Commons.Mocks;
-using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Players;
 using PlayerCommandRepositoryMock = BKA.Tools.CrewFinding.Tests.Players.Mocks.PlayerCommandRepositoryMock;
 
 namespace BKA.Tools.CrewFinding.Tests.Players.Commands;

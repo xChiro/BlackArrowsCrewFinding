@@ -7,15 +7,16 @@ namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.Disband;
 public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILoggerFactory loggerFactory) : FunctionBase
 {
     private readonly ILogger _logger = loggerFactory.CreateLogger<CrewDisbandFunction>();
-    
+
     [Function("CrewDisbandFunction")]
     public async Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Crews/Disband")] HttpRequestData req)
+        [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Crews/Disband")]
+        HttpRequestData req)
     {
         try
         {
             await crewDisbandment.Disband();
-            return req.CreateResponse(HttpStatusCode.OK);
+            return OkResponse(req);
         }
         catch (Exception e) when (e is CrewDisbandException)
         {

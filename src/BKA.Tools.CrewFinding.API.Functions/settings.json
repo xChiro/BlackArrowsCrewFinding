@@ -11,9 +11,12 @@
         "cosmosDBPlayerContainer": "Players",
         "keyVaultEndpoint": "https://bka-keyvault.vault.azure.net/",
         "keyVaultAzureKeyName": "DbCrewFindingPK",
+        "keyVaultAzureDiscordTokenName": "DiscordBotToken",
         "maxCrewSize": 100,
         "minCitizenNameLength": 2,
         "maxCitizenNameLength": 20,
-        "recentCrewsHoursThreshold": 4
+        "recentCrewsHoursThreshold": 4,
+        "discordGuildId": "1252716173599182909",
+        "discordParentId": "1252762959835562065"
     } 
 }

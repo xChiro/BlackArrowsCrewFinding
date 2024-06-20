@@ -7,7 +7,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Tests.Commons.Mocks;
-using BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Leave;
 

@@ -16,11 +16,11 @@ public class UpdateCrewPartMembersTest(
 {
     private Container? _container;
 
-    private string _crewPartyId = string.Empty;
+    private string _crewId = string.Empty;
 
     public Task InitializeAsync()
     {
-        _container =databaseSettingsProvider.GetCrewContainer();
+        _container = databaseSettingsProvider.GetCrewContainer();
         return Task.CompletedTask;
     }
 
@@ -29,8 +29,8 @@ public class UpdateCrewPartMembersTest(
     {
         // 
         var crewParty = CreateCrewParty();
-        _crewPartyId = crewParty.Id;
-        
+        _crewId = crewParty.Id;
+
         await crewCommandRepository.CreateCrew(crewParty);
         var crewPartyMembers = new List<Player> {Player.Create("25", "John", 2, 16)};
 
@@ -61,9 +61,9 @@ public class UpdateCrewPartMembersTest(
 
     private async Task CleanUpCrewParty()
     {
-        if (_crewPartyId == string.Empty)
+        if (_crewId == string.Empty)
             return;
 
-        await _container!.DeleteItemAsync<Crew>(_crewPartyId, new PartitionKey(_crewPartyId));
+        await _container!.DeleteItemAsync<Crew>(_crewId, new PartitionKey(_crewId));
     }
 }

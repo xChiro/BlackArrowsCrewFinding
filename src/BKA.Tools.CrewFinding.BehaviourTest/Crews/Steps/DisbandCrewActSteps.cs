@@ -12,7 +12,8 @@ public class DisbandCrewActSteps(
     PlayerContext playerContext,
     CrewRepositoriesContext crewRepositoriesContext,
     ExceptionResultContext exceptionResultContext,
-    SystemSettingContext systemSettingContext)
+    SystemSettingContext systemSettingContext,
+    CrewDisbandmentResponseMock crewDisbandmentResponseMock)
 {
     [When(@"I disband the Crew")]
     public async Task WhenIDisbandTheCrew()
@@ -22,7 +23,7 @@ public class DisbandCrewActSteps(
         var sut = new CrewDisbandment(crewRepositoriesContext.QueryRepositoryMock,
             crewRepositoriesContext.CommandRepositoryMock, userSessionMock);
 
-        await sut.Disband();
+        await sut.Disband(crewDisbandmentResponseMock);
     }
 
     [When(@"I attempt to disband the Crew")]
@@ -34,7 +35,7 @@ public class DisbandCrewActSteps(
 
         try
         {
-            await sut.Disband();
+            await sut.Disband(crewDisbandmentResponseMock);
         }
         catch (Exception e)
         {
@@ -50,5 +51,17 @@ public class DisbandCrewActSteps(
             systemSettingContext.LeastCrewTimeThreshold);
 
         await sut.Remove();
+    }
+}
+
+public class CrewDisbandmentResponseMock : ICrewDisbandmentResponse
+{
+    public string CrewId { get; set; } = string.Empty;
+    public string? VoiceChannelId { get; set; }
+    
+    public void SetResult(string crewId, string? voiceChannelId)
+    {
+        CrewId = crewId;
+        VoiceChannelId = voiceChannelId;
     }
 }

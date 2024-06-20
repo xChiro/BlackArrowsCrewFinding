@@ -1,7 +1,4 @@
 using System;
-using Azure.Core;
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
 using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players;
 using BKA.Tools.CrewFinding.Crews.Ports;
@@ -18,8 +15,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         var config = BuildConfiguration();
-
-        var keySecretsProvider = CreateKeySecretsProvider(config);
+        var keySecretsProvider = KeyVaultInitializer.CreateKeySecretsProvider(config["keyVault:endpoint"]!);
         var databaseSettingsProvider = CreateDatabaseSettingsProvider(keySecretsProvider, config);
 
         RegisterDependencies(services, databaseSettingsProvider);
@@ -31,17 +27,6 @@ public class Startup
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", false, true)
             .Build();
-    }
-
-    private static KeySecretProvider CreateKeySecretsProvider(IConfigurationRoot config)
-    {
-        var secretClientOptions = new SecretClientOptions();
-        secretClientOptions.AddPolicy(new KeyVaultProxyPolicy(), HttpPipelinePosition.PerCall);
-        var secretClient = new SecretClient(new Uri(config["KeyVault:endpoint"] ?? string.Empty),
-            new DefaultAzureCredential(),
-            secretClientOptions);
-
-        return new KeySecretProvider(secretClient);
     }
 
     private static DatabaseSettingsProvider CreateDatabaseSettingsProvider(
@@ -81,5 +66,8 @@ public class Startup
         
         services.AddTransient<ICrewDisbandRepository>(_ =>
             new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));
+        
+        services.AddTransient<IVoicedCrewCommandRepository>(_ =>
+            new VoicedCrewCommandRepository(crewContainer));
     }
 }

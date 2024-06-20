@@ -6,7 +6,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks;
+namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
 
 public class CrewCommandRepositoryMock(string expectedCrewPartyId = "123412")
     : ICrewCommandRepository, ICrewDisbandRepository
