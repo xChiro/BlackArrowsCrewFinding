@@ -40,7 +40,7 @@ public class Crew : Entity
 
     public Player Captain { get; }
 
-    public string? VoiceChannelId { get; private set; }
+    public string? VoiceChannelId { get; set; }
 
     public void AddMember(Player player)
     {
