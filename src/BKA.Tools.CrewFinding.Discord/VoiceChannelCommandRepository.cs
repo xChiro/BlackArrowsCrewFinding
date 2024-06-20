@@ -31,7 +31,25 @@ public class VoiceChannelCommandRepository : IVoiceChannelCommandRepository
 
     public Task Delete(string id)
     {
-        throw new NotImplementedException();
+        return DeleteChannel(id);
+    }
+
+    public bool ChannelExists(string id)
+    {
+        return GetChannel(id);
+    }
+
+    private bool GetChannel(string id)
+    {
+        var url = $"channels/{id}";
+        using var response = _httpClient.GetAsync(url).Result;
+        return response.IsSuccessStatusCode;
+    }
+
+    private Task DeleteChannel(string id)
+    {
+        var url = $"channels/{id}";
+        return _httpClient.DeleteAsync(url);
     }
 
     private async Task<ChannelCreatorResponse> CreateChannel(ChannelCreatorRequest request)

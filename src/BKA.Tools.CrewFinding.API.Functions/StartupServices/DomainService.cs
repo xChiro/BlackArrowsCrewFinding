@@ -21,7 +21,7 @@ public static class DomainService
     public static void AddServices(IServiceCollection service)
     {
         var maxCrewSize = Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCrewSize"));
-        
+
         AddCrewServices(service, maxCrewSize);
         AddPlayerServices(service);
     }
@@ -61,22 +61,28 @@ public static class DomainService
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>(), maxCrewSize);
-                
+
                 var voiceChannelCommandRepository =
                     serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>();
                 var channelCommandRepository = serviceProvider.GetRequiredService<IVoicedCrewCommandRepository>();
                 var domainLogger = serviceProvider.GetRequiredService<IDomainLogger>();
-                
+
                 return new VoicedCrewCreator(crewCreator, voiceChannelCommandRepository, channelCommandRepository,
                     domainLogger);
             });
 
         service.AddScoped<ICrewDisbandment>(
             serviceProvider =>
-                new CrewDisbandment(
+            {
+                var crewDisbandment = new CrewDisbandment(
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
-                    serviceProvider.GetRequiredService<IUserSession>()));
+                    serviceProvider.GetRequiredService<IUserSession>());
+                
+                return new VoicedCrewDisbandment(crewDisbandment,
+                    serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>(),
+                    serviceProvider.GetRequiredService<IDomainLogger>());
+            });
 
         service.AddScoped<ICrewJoiner>(
             serviceProvider =>

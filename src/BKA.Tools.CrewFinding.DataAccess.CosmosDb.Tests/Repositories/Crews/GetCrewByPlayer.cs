@@ -27,6 +27,7 @@ public class GetCrewByPlayer(
         var playerId = Guid.NewGuid().ToString();
         var crew = CrewBuilder.CreateDefaultCrew(4);
         crew.AddMember(Player.Create(playerId, "Allan", 2, 16));
+        crew.SetVoiceChannelId("1234");
         
         await _crewContainer!.CreateItemAsync(CrewDocument.CreateFromCrew(crew));
         _crewIdToBeDeleted = crew.Id;
@@ -37,6 +38,7 @@ public class GetCrewByPlayer(
         // Assert
         crewResponse.Should().NotBeNull();
         crewResponse!.Id.Should().Be(crew.Id);
+        crewResponse.VoiceChannelId.Should().Be("1234");
         crewResponse.Members.Should().ContainSingle(m => m.Id == playerId);
     }
     
