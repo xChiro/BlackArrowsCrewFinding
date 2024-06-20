@@ -34,6 +34,19 @@ public class VoiceChannelCommandRepository : IVoiceChannelCommandRepository
         return DeleteChannel(id);
     }
 
+    public async Task<string> CreateInvite(string channelId, string userId)
+    {
+        var url = $"channels/{channelId}/invites";
+
+        using var response = await _httpClient.PostAsync(url, null);
+
+        response.EnsureSuccessStatusCode();
+        
+        var invite = DeserializeResponseAsync<InviteResponse>(response).Result;
+        
+        return invite?.Code ?? throw new DiscordCreationException();
+    }
+
     public bool ChannelExists(string id)
     {
         return GetChannel(id);
@@ -76,4 +89,9 @@ public class VoiceChannelCommandRepository : IVoiceChannelCommandRepository
         var responseContent = await response.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<T>(responseContent, JsonOptions)!;
     }
+}
+
+public class InviteResponse
+{
+    public string Code { get; set; }    
 }

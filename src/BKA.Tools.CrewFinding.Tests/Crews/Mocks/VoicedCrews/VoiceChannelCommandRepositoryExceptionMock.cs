@@ -18,5 +18,9 @@ public class VoiceChannelCommandRepositoryExceptionMock<T> : IVoiceChannelComman
         DeletedChannelCallCount++;
         throw new T();
     }
-    
+
+    public Task<string> CreateInvite(string channelId, string userId)
+    {
+        throw new T();
+    }
 }

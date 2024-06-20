@@ -37,6 +37,20 @@ public class ChannelCreatorTest(IVoiceChannelCommandRepository voiceChannelComma
         // Teardown
         _channelId = null;
     }
+    
+    [Fact]
+    public async Task CreateInvite_Successfully()
+    {
+        // Arrange
+        _channelId = await voiceChannelCommandRepository.Create(ChannelName);
+        const string userId = "1250618771031199848";
+
+        // Act
+        var invite = await voiceChannelCommandRepository.CreateInvite(_channelId, userId);
+
+        // Assert
+        invite.Should().NotBeNullOrEmpty();
+    }
 
     public Task DisposeAsync()
     {

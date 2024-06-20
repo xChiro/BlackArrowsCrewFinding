@@ -19,4 +19,9 @@ public class VoiceChannelCommandRepositoryMock : IVoiceChannelCommandRepository
         DeletedChannelIds.Add(id);
         return Task.CompletedTask;
     }
+
+    public Task<string> CreateInvite(string channelId, string userId)
+    {
+        return Task.FromResult(Guid.NewGuid().ToString());
+    }
 }
