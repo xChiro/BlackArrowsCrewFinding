@@ -3,16 +3,16 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 namespace BKA.Tools.CrewFinding.Crews.Commands.Expired;
 
 public class ExpiredCrewRemover(
-    ICrewQueryRepository crewQueryRepositoryMock,
-    ICrewDisbandRepository crewCommandRepositoryMock,
+    ICrewQueryRepository crewQueryRepository,
+    ICrewDisbandRepository crewDisbandRepository,
     int expirationThreshold)
     : IExpiredCrewRemover
 {
     public async Task Remove()
     {
-        var crews = await crewQueryRepositoryMock.GetCrewsExpiredByDate(DateTime.UtcNow.AddHours(-expirationThreshold));
+        var crews = await crewQueryRepository.GetCrewsExpiredByDate(DateTime.UtcNow.AddHours(-expirationThreshold));
         var crewIds = crews.Select(c => c.Id).ToArray();
         
-        await crewCommandRepositoryMock.Disband(crewIds);
+        await crewDisbandRepository.Disband(crewIds);
     }
 }
