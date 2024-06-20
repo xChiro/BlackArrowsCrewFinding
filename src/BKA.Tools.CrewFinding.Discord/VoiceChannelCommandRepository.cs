@@ -29,6 +29,11 @@ public class VoiceChannelCommandRepository : IVoiceChannelCommandRepository
         return (await CreateChannel(request)).Id;
     }
 
+    public Task Delete(string id)
+    {
+        throw new NotImplementedException();
+    }
+
     private async Task<ChannelCreatorResponse> CreateChannel(ChannelCreatorRequest request)
     {
         var url = $"guilds/{_guildId}/channels";

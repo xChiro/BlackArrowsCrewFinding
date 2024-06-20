@@ -6,8 +6,17 @@ namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
 public class VoiceChannelCommandRepositoryExceptionMock<T> : IVoiceChannelCommandRepository where T : Exception, new()
 {
+    public int DeletedChannelCallCount { get; private set; }
+
     public Task<string> Create(string name)
     {
         throw new T();
     }
+    
+    public Task Delete(string channelId)
+    {
+        DeletedChannelCallCount++;
+        throw new T();
+    }
+    
 }

@@ -1,6 +1,5 @@
 using System;
 using BKA.Tools.CrewFinding.Crews.Ports;
-using BKA.Tools.CrewFinding.Tests.Crews.Commands.Creators.VoiceChannel;
 
 namespace BKA.Tools.CrewFinding.Tests.Commons.Mocks;
 

@@ -9,27 +9,27 @@ public class CrewDisbandment(
     ICrewDisbandRepository crewDisbandRepository,
     IUserSession userSession) : ICrewDisbandment
 {
-    public async Task Disband()
+    public async Task Disband(ICrewDisbandmentResponse? output = null)
     {
         var userId = GetUserIdFromSession();
-        var crewId = await IsCrewOwnedByUserAsync(userId);
+        var crew = await IsCrewOwnedByUserAsync(userId);
 
-        if (crewId is null)
+        if (crew is null)
             throw new CrewDisbandException();
 
-        await crewDisbandRepository.Disband(crewId);
+        await crewDisbandRepository.Disband(crew.Id);
+        
+        output?.SetResult(crew.Id, crew.VoiceChannelId);
     }
 
     private string GetUserIdFromSession()
     {
         var userId = userSession.GetUserId();
-
         return userId;
     }
 
-    private async Task<string?> IsCrewOwnedByUserAsync(string userId)
+    private async Task<Crew?> IsCrewOwnedByUserAsync(string userId)
     {
-        var crew = await crewQueryRepository.GetActiveCrewByPlayerId(userId);
-        return crew?.Id;
+        return  await crewQueryRepository.GetActiveCrewByPlayerId(userId);
     }
 }

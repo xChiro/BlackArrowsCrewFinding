@@ -6,7 +6,8 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 [Binding]
 public class DisbandCrewAssertSteps(
     CrewRepositoriesContext crewRepositoriesContext,
-    ExceptionResultContext exceptionResultContext)
+    ExceptionResultContext exceptionResultContext,
+    CrewDisbandmentResponseMock crewDisbandmentResponseMock)
 {
     [Then(@"the Crew is disbanded successfully")]
     public void ThenTheCrewIsDisbandedSuccessfully()
@@ -15,6 +16,8 @@ public class DisbandCrewAssertSteps(
             .Any(crew => crew.Id == crewRepositoriesContext.CommandRepositoryMock.DisbandedCrewIds.FirstOrDefault());
 
         isDisbandedCrewIdInStoredCrews.Should().BeTrue();
+        crewDisbandmentResponseMock.CrewId.Should()
+            .Be(crewRepositoriesContext.CommandRepositoryMock.DisbandedCrewIds.FirstOrDefault());
     }
 
     [Then("the system notifies me that there is no Crew to disband")]
