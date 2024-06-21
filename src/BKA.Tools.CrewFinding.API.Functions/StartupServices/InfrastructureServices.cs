@@ -61,7 +61,7 @@ public static class InfrastructureServices
         service.AddSingleton<ICrewDisbandRepository>(_ =>
             new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));
         service.AddSingleton<IVoiceChannelCommandRepository>(_ =>
-            new VoiceChannelCommandRepository(crewContainer));
+            new VoiceChannelCommandRepository(voiceChannelContainer));
         service.AddSingleton<IVoiceChannelQueryRepository>(_ =>
             new VoiceChannelQueryRepository(voiceChannelContainer));
     }

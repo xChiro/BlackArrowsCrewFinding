@@ -8,9 +8,9 @@ namespace BKA.Tools.CrewFinding.Channels.invites;
 
 public class ChannelInviteLinkCreator(
     IUserSession userSession,
-    IVoiceChannelHandler channelHandlerMock,
+    IVoiceChannelHandler channelHandler,
     IVoiceChannelQueryRepository voiceChannelQueryRepository,
-    ICrewQueryRepository crewQueryRepositoryMock) : IChannelInviteLinkCreator
+    ICrewQueryRepository crewQueryRepository) : IChannelInviteLinkCreator
 {
     public async Task Create(IChannelInviteLinkCreatorResponse output)
     {
@@ -28,7 +28,7 @@ public class ChannelInviteLinkCreator(
             throw new NotVoiceChannelException();
         }
 
-        var link = await channelHandlerMock.CreateInvite(voiceChannelId);
+        var link = await channelHandler.CreateInvite(voiceChannelId);
 
         output.SetResult(link);
     }
@@ -36,7 +36,7 @@ public class ChannelInviteLinkCreator(
     private async Task<Crew?> GetCrewByUserSession()
     {
         var playerId = userSession.GetUserId();
-        var crew = await crewQueryRepositoryMock.GetActiveCrewByPlayerId(playerId);
+        var crew = await crewQueryRepository.GetActiveCrewByPlayerId(playerId);
         
         return crew;
     }

@@ -5,13 +5,13 @@ using BKA.Tools.CrewFinding.Commons.Exceptions;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Discord;
 
-public class CreateChannelInviteLink(
+public class CreateChannelInviteLinkFunction(
     IChannelInviteLinkCreator channelInviteLinkCreator,
     ILoggerFactory loggerFactory) : FunctionBase
 {
-    private readonly ILogger _logger = loggerFactory.CreateLogger<CreateChannelInviteLink>();
+    private readonly ILogger _logger = loggerFactory.CreateLogger<CreateChannelInviteLinkFunction>();
 
-    [Function("CreateDiscordChannelInviteLink")]
+    [Function("CreateChannelInviteLinkFunction")]
     public async Task<HttpResponseData> Run(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "Channels/InviteLink")]
         HttpRequestData req,

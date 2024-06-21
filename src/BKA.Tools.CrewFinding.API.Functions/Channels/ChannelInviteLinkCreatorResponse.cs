@@ -8,6 +8,6 @@ public class ChannelInviteLinkCreatorResponse : IChannelInviteLinkCreatorRespons
 
     public void SetResult(string link)
     {
-        throw new NotImplementedException();
+        Link = link;
     }
 }
