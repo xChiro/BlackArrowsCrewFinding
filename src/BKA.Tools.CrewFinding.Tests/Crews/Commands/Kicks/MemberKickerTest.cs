@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Commands.Kicks;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
@@ -41,7 +42,7 @@ public class MemberKickerTest
         var act = async () => await sut.Kick("memberId");
 
         // Assert
-        await act.Should().ThrowAsync<NoCrewMemberException>();
+        await act.Should().ThrowAsync<PlayerNotInCrewException>();
         crewCommandRepositoryMock.Members.Should().BeEmpty();
     }
 

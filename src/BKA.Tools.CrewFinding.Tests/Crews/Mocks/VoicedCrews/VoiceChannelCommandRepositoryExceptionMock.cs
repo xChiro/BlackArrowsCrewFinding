@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
-public class VoiceChannelCommandRepositoryExceptionMock<T> : IVoiceChannelCommandRepository where T : Exception, new()
+public class VoiceChannelHandlerExceptionMock<T> : IVoiceChannelHandler where T : Exception, new()
 {
     public int DeletedChannelCallCount { get; private set; }
 

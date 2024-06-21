@@ -16,7 +16,7 @@ public class VoicedCrewDisbandmentTest
     {
         // Arrange
         var sut = SutVoicedCrewDisbandment(new CrewDisbandmentNotFoundMock(),
-            new VoiceChannelCommandRepositoryMock());
+            new VoiceChannelHandlerMock());
 
         // Act
         var act = async () => await sut.Disband(new CrewDisbandmentResponseMock());
@@ -31,10 +31,10 @@ public class VoicedCrewDisbandmentTest
         // Arrange
         const string crewId = "123412";
         var crewDisbandmentResponseMock = new CrewDisbandmentResponseMock();
-        var voicedCrewQueryRepositoryMock = new VoicedCrewQueryRepositoryEmptyMock();
+        var voicedCrewQueryRepositoryMock = new VoiceChannelQueryRepositoryEmptyMock();
 
         var sut = SutVoicedCrewDisbandment(new CrewDisbandmentMock(crewId),
-            new VoiceChannelCommandRepositoryMock(), voicedCrewQueryRepositoryMock);
+            new VoiceChannelHandlerMock(), voicedCrewQueryRepositoryMock);
 
         // Act
         await sut.Disband(crewDisbandmentResponseMock);
@@ -51,10 +51,10 @@ public class VoicedCrewDisbandmentTest
         const string crewId = "123412";
         const string voiceChannelId = "34423424";
         var crewDisbandmentResponseMock = new CrewDisbandmentResponseMock();
-        var voiceChannelRepositoryMock = new VoiceChannelCommandRepositoryExceptionMock<Exception>();
+        var voiceChannelRepositoryMock = new VoiceChannelHandlerExceptionMock<Exception>();
         var crewDisbandmentMock = new CrewDisbandmentMock(crewId);
         var domainLoggerMock = new DomainLoggerMock();
-        var voicedCrewQueryRepositoryMock = new VoicedCrewQueryRepositoryMock(voiceChannelId);
+        var voicedCrewQueryRepositoryMock = new VoiceChannelQueryRepositoryMock(voiceChannelId);
 
         var sut = SutVoicedCrewDisbandment(crewDisbandmentMock, voiceChannelRepositoryMock, domainLoggerMock,
             voicedCrewQueryRepositoryMock);
@@ -74,9 +74,9 @@ public class VoicedCrewDisbandmentTest
         const string crewId = "123412";
         const string voiceChannelId = "34423424";
         var crewDisbandmentResponseMock = new CrewDisbandmentResponseMock();
-        var voiceChannelRepositoryMock = new VoiceChannelCommandRepositoryMock();
+        var voiceChannelRepositoryMock = new VoiceChannelHandlerMock();
         var crewDisbandmentMock = new CrewDisbandmentMock(crewId);
-        var voicedCrewQueryRepositoryMock = new VoicedCrewQueryRepositoryMock(voiceChannelId);
+        var voicedCrewQueryRepositoryMock = new VoiceChannelQueryRepositoryMock(voiceChannelId);
 
         var sut = SutVoicedCrewDisbandment(crewDisbandmentMock, voiceChannelRepositoryMock,
             voicedCrewQueryRepositoryMock);
@@ -90,26 +90,26 @@ public class VoicedCrewDisbandmentTest
     }
 
     private VoicedCrewDisbandment SutVoicedCrewDisbandment(CrewDisbandmentNotFoundMock crewDisbandmentMock,
-        VoiceChannelCommandRepositoryMock voiceChannelRepositoryMock)
+        VoiceChannelHandlerMock voiceChannelRepositoryMock)
     {
         return SutVoicedCrewDisbandment(crewDisbandmentMock, voiceChannelRepositoryMock,
-            new VoicedCrewQueryRepositoryEmptyMock());
+            new VoiceChannelQueryRepositoryEmptyMock());
     }
 
     private static VoicedCrewDisbandment SutVoicedCrewDisbandment(ICrewDisbandment crewDisbandmentMock,
-        IVoiceChannelCommandRepository voiceChannelRepositoryMock,
-        IVoicedCrewQueryRepository voicedCrewQueryRepositoryMock)
+        IVoiceChannelHandler voiceChannelRepositoryMock,
+        IVoiceChannelQueryRepository voiceChannelQueryRepositoryMock)
     {
         return SutVoicedCrewDisbandment(crewDisbandmentMock, voiceChannelRepositoryMock, new DomainLoggerMock(),
-            voicedCrewQueryRepositoryMock);
+            voiceChannelQueryRepositoryMock);
     }
 
     private static VoicedCrewDisbandment SutVoicedCrewDisbandment(ICrewDisbandment crewDisbandmentMock,
-        IVoiceChannelCommandRepository voiceChannelRepositoryMock, IDomainLogger domainLoggerMock,
-        IVoicedCrewQueryRepository voicedCrewQueryRepositoryMock)
+        IVoiceChannelHandler voiceChannelRepositoryMock, IDomainLogger domainLoggerMock,
+        IVoiceChannelQueryRepository voiceChannelQueryRepositoryMock)
     {
         var voicedCrewDisbandment =
-            new VoicedCrewDisbandment(crewDisbandmentMock, voiceChannelRepositoryMock, voicedCrewQueryRepositoryMock,
+            new VoicedCrewDisbandment(crewDisbandmentMock, voiceChannelRepositoryMock, voiceChannelQueryRepositoryMock,
                 domainLoggerMock);
 
         return voicedCrewDisbandment;

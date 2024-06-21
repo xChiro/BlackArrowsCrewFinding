@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Channels.invites;
 using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
@@ -63,8 +64,8 @@ public static class DomainService
                     serviceProvider.GetRequiredService<IUserSession>(), maxCrewSize);
 
                 var voiceChannelCommandRepository =
-                    serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>();
-                var channelCommandRepository = serviceProvider.GetRequiredService<IVoicedCrewCommandRepository>();
+                    serviceProvider.GetRequiredService<IVoiceChannelHandler>();
+                var channelCommandRepository = serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>();
                 var domainLogger = serviceProvider.GetRequiredService<IDomainLogger>();
 
                 return new VoicedCrewCreator(crewCreator, voiceChannelCommandRepository, channelCommandRepository,
@@ -74,14 +75,15 @@ public static class DomainService
         service.AddScoped<ICrewDisbandment>(
             serviceProvider =>
             {
-                return new CrewDisbandment(
+                var crewDisbandment = new CrewDisbandment(
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>());
                 
-                // return new VoicedCrewDisbandment(crewDisbandment,
-                //     serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>(),
-                //     serviceProvider.GetRequiredService<IDomainLogger>());
+                return new VoicedCrewDisbandment(crewDisbandment,
+                    serviceProvider.GetRequiredService<IVoiceChannelHandler>(),
+                    serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
+                    serviceProvider.GetRequiredService<IDomainLogger>());
             });
 
         service.AddScoped<ICrewJoiner>(
@@ -115,5 +117,11 @@ public static class DomainService
             new HandleNameUpdater(serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
                 serviceProvider.GetRequiredService<IPlayerCommandRepository>(),
                 serviceProvider.GetRequiredService<IUserSession>(), maxNameLength, minNameLength));
+        
+        service.AddScoped<IChannelInviteLinkCreator>(serviceProvider => new ChannelInviteLinkCreator(
+            serviceProvider.GetRequiredService<IUserSession>(),
+            serviceProvider.GetRequiredService<IVoiceChannelHandler>(),
+            serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
+            serviceProvider.GetRequiredService<ICrewQueryRepository>()));
     }
 }

@@ -6,8 +6,8 @@ using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 
 namespace BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Repositories.VoiceChannels;
 
-public class SetVoiceChannelToCrewTest(
-    IVoiceChannelCommandRepository voiceChannelCommandRepository,
+public class GetVoiceChannelByCrewTest(
+    IVoiceChannelQueryRepository voiceChannelQueryRepository,
     IDatabaseSettingsProvider<Container> databaseSettingsProvider)
     : IAsyncLifetime
 {
@@ -22,21 +22,25 @@ public class SetVoiceChannelToCrewTest(
     }
 
     [Fact]
-    public async Task Set_Voice_Channel_To_Crew_Successfully()
+    public async Task Get_VoiceChannel_By_CrewId_Successfully()
     {
         // Arrange
         _crewId = Guid.NewGuid().ToString();
-        var voiceId = Guid.NewGuid().ToString();
-
+        var voiceChannelId = Guid.NewGuid().ToString();
+        
+        await _container!.CreateItemAsync(new VoiceChannelDocument
+        {
+            Id = _crewId,
+            ChannelId = voiceChannelId,
+            CrewId = _crewId,
+            CreateAt = DateTime.UtcNow
+        }, new PartitionKey(_crewId));
+    
         // Act
-        await voiceChannelCommandRepository.AddVoiceChannel(_crewId, voiceId);
+        var voiceChannel = await voiceChannelQueryRepository.GetVoiceChannelIdByCrewId(_crewId);
 
         // Assert
-        var crewResponse = await _container!.ReadItemAsync<VoiceChannelDocument>(_crewId, new PartitionKey(_crewId));
-        crewResponse?.Resource.Should().NotBeNull();
-        crewResponse!.Resource.CrewId.Should().Be(_crewId);
-        crewResponse.Resource.ChannelId.Should().Be(voiceId);
-        crewResponse.Resource.CreateAt.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0, 0, 5));
+        voiceChannel.Should().NotBeNull();
     }
 
     public async Task DisposeAsync()

@@ -1,4 +1,5 @@
 using System.Net;
+using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Commands.Kicks;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 
@@ -21,7 +22,7 @@ public class MemberKickerFunction(IMemberKicker memberKicker, ILoggerFactory log
         {
             return  await NotSuccessResponseAsync(req, HttpStatusCode.Forbidden, "Only the captain can kick members.");
         }
-        catch (NoCrewMemberException)
+        catch (PlayerNotInCrewException)
         {
             return await NotSuccessResponseAsync(req, HttpStatusCode.NotFound, "The member is not in the crew.");
         }

@@ -21,7 +21,7 @@ public class VoicedCrewCreatorTest
         // Arrange
         _crewCreatorRequest = new CrewCreatorRequest(4, Location.Default(), ["ES"], Activity.Default().Name);
         var crewCreatorExceptionMock = new CrewCreatorExceptionMock<CrewNotFoundException>();
-        var voiceChannelCommandRepositoryExceptionMock = new VoiceChannelCommandRepositoryExceptionMock<Exception>();
+        var voiceChannelCommandRepositoryExceptionMock = new VoiceChannelHandlerExceptionMock<Exception>();
 
         var sut = InitializeSut(crewCreatorExceptionMock, voiceChannelCommandRepositoryExceptionMock);
 
@@ -40,7 +40,7 @@ public class VoicedCrewCreatorTest
         var domainLoggerMock = new DomainLoggerMock();
 
         var sut = InitializeSut(new CrewCreatorMock(crewName),
-            new VoiceChannelCommandRepositoryExceptionMock<Exception>(),
+            new VoiceChannelHandlerExceptionMock<Exception>(),
             domainLoggerMock);
 
         // Act
@@ -65,9 +65,9 @@ public class VoicedCrewCreatorTest
         const string crewName = "Crew of Rowan";
         var crewCreatorResponseMock = new CrewCreatorResponseMock();
         var domainLoggerMock = new DomainLoggerMock();
-        var voicedCrewCommandRepositoryMock = new VoicedCrewCommandRepositoryMock();
+        var voicedCrewCommandRepositoryMock = new VoiceChannelCommandRepositoryMock();
 
-        var sut = InitializeSut(new CrewCreatorMock(crewName), new VoiceChannelCommandRepositoryMock(),
+        var sut = InitializeSut(new CrewCreatorMock(crewName), new VoiceChannelHandlerMock(),
             voicedCrewCommandRepositoryMock, domainLoggerMock);
 
         // Act
@@ -89,39 +89,39 @@ public class VoicedCrewCreatorTest
     }
 
     private static VoicedCrewCreator InitializeSut(ICrewCreator crewCreator,
-        IVoiceChannelCommandRepository voiceChannelCommandRepositoryExceptionMock)
+        IVoiceChannelHandler voiceChannelHandlerExceptionMock)
     {
         var sut = InitializeSut(
             crewCreator,
-            voiceChannelCommandRepositoryExceptionMock,
-            new VoicedCrewCommandRepositoryMock(),
+            voiceChannelHandlerExceptionMock,
+            new VoiceChannelCommandRepositoryMock(),
             new DomainLoggerMock());
 
         return sut;
     }
 
     private static VoicedCrewCreator InitializeSut(CrewCreatorMock crewCreator,
-        VoiceChannelCommandRepositoryExceptionMock<Exception> voiceChannelCommandRepositoryExceptionMock,
+        VoiceChannelHandlerExceptionMock<Exception> voiceChannelHandlerExceptionMock,
         IDomainLogger domainLogger)
     {
         var sut = InitializeSut(
             crewCreator,
-            voiceChannelCommandRepositoryExceptionMock,
-            new VoicedCrewCommandRepositoryMock(),
+            voiceChannelHandlerExceptionMock,
+            new VoiceChannelCommandRepositoryMock(),
             domainLogger);
 
         return sut;
     }
 
     private static VoicedCrewCreator InitializeSut(ICrewCreator crewCreator,
-        IVoiceChannelCommandRepository voiceChannelCommandRepositoryExceptionMock,
-        VoicedCrewCommandRepositoryMock voicedCrewCommandRepositoryMock,
+        IVoiceChannelHandler voiceChannelHandlerExceptionMock,
+        VoiceChannelCommandRepositoryMock voiceChannelCommandRepositoryMock,
         IDomainLogger domainLogger)
     {
         var sut = new VoicedCrewCreator(
             crewCreator,
-            voiceChannelCommandRepositoryExceptionMock,
-            voicedCrewCommandRepositoryMock,
+            voiceChannelHandlerExceptionMock,
+            voiceChannelCommandRepositoryMock,
             domainLogger);
         return sut;
     }

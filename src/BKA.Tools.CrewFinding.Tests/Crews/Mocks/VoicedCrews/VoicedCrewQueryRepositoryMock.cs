@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
+using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
-public class VoicedCrewQueryRepositoryMock(string voiceChannelId) : IVoicedCrewQueryRepository
+public class VoiceChannelQueryRepositoryMock(string voiceChannelId) : IVoiceChannelQueryRepository
 {
     public Task<string?> GetVoiceChannelIdByCrewId(string crewId)
     {

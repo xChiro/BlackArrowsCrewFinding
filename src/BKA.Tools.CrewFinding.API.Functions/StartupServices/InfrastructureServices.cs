@@ -26,7 +26,7 @@ public static class InfrastructureServices
             long.Parse(Configuration.GetEnvironmentVariable("discordGuildId")),
             long.Parse(Configuration.GetEnvironmentVariable("discordParentId")));
 
-        service.AddSingleton<IVoiceChannelCommandRepository>(_ => new VoiceChannelCommandRepository(discordSettings));
+        service.AddSingleton<IVoiceChannelHandler>(_ => new VoiceChannelHandler(discordSettings));
     }
 
     private static void AddDataBaseServices(IServiceCollection service,
@@ -46,6 +46,10 @@ public static class InfrastructureServices
         var playerContainer =
             cosmosDbContainerBuilder.Build(databaseId, Configuration.GetEnvironmentVariable("cosmosDBPlayerContainer"));
 
+        var voiceChannelContainer =
+            cosmosDbContainerBuilder.Build(databaseId,
+                Configuration.GetEnvironmentVariable("cosmosDBVoiceChannelContainer"));
+
         service.AddSingleton<ICrewCommandRepository>(_ => new CrewCommandRepository(crewContainer));
         service.AddSingleton<ICrewQueryRepository>(_ =>
             new CrewQueryRepository(crewContainer, minCitizenNameLength, maxCitizenNameLength));
@@ -56,7 +60,9 @@ public static class InfrastructureServices
         service.AddSingleton<IPlayerCommandRepository>(_ => new PlayerCommands(playerContainer));
         service.AddSingleton<ICrewDisbandRepository>(_ =>
             new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));
-        service.AddSingleton<IVoicedCrewCommandRepository>(_ =>
-            new VoicedCrewCommandRepository(crewContainer));
+        service.AddSingleton<IVoiceChannelCommandRepository>(_ =>
+            new VoiceChannelCommandRepository(crewContainer));
+        service.AddSingleton<IVoiceChannelQueryRepository>(_ =>
+            new VoiceChannelQueryRepository(voiceChannelContainer));
     }
 }

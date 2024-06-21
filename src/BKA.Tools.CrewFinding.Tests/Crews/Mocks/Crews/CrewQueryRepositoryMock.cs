@@ -7,7 +7,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
 
-public class CrewQueryRepositoryMock(IEnumerable<Crew>? crews = null, string expectedPlayerId = "")
+public class CrewQueryRepositoryMock(IEnumerable<Crew>? crews = null)
     : ICrewQueryRepository
 {
     public Task<Crew?> GetCrew(string crewId)

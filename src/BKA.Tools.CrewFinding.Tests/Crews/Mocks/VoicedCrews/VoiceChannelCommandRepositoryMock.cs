@@ -5,7 +5,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
-public class VoiceChannelCommandRepositoryMock : IVoiceChannelCommandRepository
+public class VoiceChannelHandlerMock : IVoiceChannelHandler
 {
     public List<string> DeletedVoicedCrewsId { get; } = [];
 

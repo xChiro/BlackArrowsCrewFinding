@@ -69,7 +69,10 @@ public class Startup
         services.AddTransient<ICrewDisbandRepository>(_ =>
             new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));
         
-        services.AddTransient<IVoicedCrewCommandRepository>(_ =>
-            new VoicedCrewCommandRepository(voiceChannelContainer));
+        services.AddTransient<IVoiceChannelCommandRepository>(_ =>
+            new VoiceChannelCommandRepository(voiceChannelContainer));
+        
+        services.AddTransient<IVoiceChannelQueryRepository>(_ =>
+            new VoiceChannelQueryRepository(voiceChannelContainer));
     }
 }

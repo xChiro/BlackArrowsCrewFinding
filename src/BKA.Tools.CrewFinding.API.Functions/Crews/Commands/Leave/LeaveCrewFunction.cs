@@ -1,4 +1,5 @@
 using System.Net;
+using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 
@@ -18,7 +19,7 @@ public class LeaveCrewFunction(ICrewLeaver crewLeaver, ILoggerFactory loggerFact
             await crewLeaver.Leave();
             return OkResponse(req);
         }
-        catch(Exception e) when (e is CrewNotFoundException or NoCrewMemberException)
+        catch(Exception e) when (e is CrewNotFoundException or PlayerNotInCrewException)
         {
             return await NotSuccessResponseAsync(req, HttpStatusCode.NotFound, e.Message);
         }

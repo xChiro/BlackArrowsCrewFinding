@@ -4,8 +4,8 @@ namespace BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 
 public class VoicedCrewDisbandment(
     ICrewDisbandment crewDisbandment,
-    IVoiceChannelCommandRepository voiceChannelRepository,
-    IVoicedCrewQueryRepository voicedCrewQueryRepository,
+    IVoiceChannelHandler voiceChannelRepository,
+    IVoiceChannelQueryRepository voiceChannelQueryRepository,
     IDomainLogger domainLoggerMock)
     : ICrewDisbandment, ICrewDisbandmentResponse
 {
@@ -17,7 +17,7 @@ public class VoicedCrewDisbandment(
 
         try
         {
-            var voiceId = await voicedCrewQueryRepository.GetVoiceChannelIdByCrewId(_crewId);
+            var voiceId = await voiceChannelQueryRepository.GetVoiceChannelIdByCrewId(_crewId);
 
             if (voiceId is not null)
                 await voiceChannelRepository.Delete(voiceId);
@@ -36,9 +36,4 @@ public class VoicedCrewDisbandment(
     {
         _crewId = crewId;
     }
-}
-
-public interface IVoicedCrewQueryRepository
-{
-    public Task<string?> GetVoiceChannelIdByCrewId(string crewId);
 }

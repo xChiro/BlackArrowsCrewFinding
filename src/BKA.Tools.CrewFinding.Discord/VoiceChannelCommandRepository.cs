@@ -7,7 +7,7 @@ using BKA.Tools.CrewFinding.Discord.Models;
 
 namespace BKA.Tools.CrewFinding.Discord;
 
-public class VoiceChannelCommandRepository : IVoiceChannelCommandRepository
+public class VoiceChannelHandler : IVoiceChannelHandler
 { 
     private static readonly JsonSerializerOptions JsonOptions = new() {PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
 
@@ -15,7 +15,7 @@ public class VoiceChannelCommandRepository : IVoiceChannelCommandRepository
     private readonly long _guildId;
     private readonly long _parentId;
 
-    public VoiceChannelCommandRepository(DiscordSettings discordSettings)
+    public VoiceChannelHandler(DiscordSettings discordSettings)
     {
         _httpClient = new HttpClient {BaseAddress = new Uri(DiscordSettings.GetBaseUrl())};
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bot", discordSettings.Token);
@@ -37,14 +37,13 @@ public class VoiceChannelCommandRepository : IVoiceChannelCommandRepository
     public async Task<string> CreateInvite(string channelId)
     {
         var url = $"channels/{channelId}/invites";
-
         using var response = await _httpClient.PostAsync(url, null);
 
         response.EnsureSuccessStatusCode();
         
         var invite = DeserializeResponseAsync<InviteResponse>(response).Result;
         
-        return invite?.Code ?? throw new DiscordCreationException();
+        return $"https://discord.gg/{invite.Code}";
     }
 
     public bool ChannelExists(string id)

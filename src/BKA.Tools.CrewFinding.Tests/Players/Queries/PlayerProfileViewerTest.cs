@@ -59,7 +59,7 @@ public class PlayerProfileViewerTest
         var crew = CrewBuilder.Build(expectedCrewId, Player.Create(expectedPlayerId, playerName, 2, 16));
 
         var sut = new PlayerProfileViewer(playerQueryMock,
-            new CrewQueryRepositoryMock(crews: [crew], expectedPlayerId: expectedPlayerId));
+            new CrewQueryRepositoryMock(crews: [crew]));
         var playerProfileResponseMock = new PlayerProfileResponseMock();
 
         // Act

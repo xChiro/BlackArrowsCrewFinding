@@ -4,8 +4,8 @@ namespace BKA.Tools.CrewFinding.Crews.Commands.Creators;
 
 public class VoicedCrewCreator(
     ICrewCreator crewCreator,
+    IVoiceChannelHandler voiceChannelHandler,
     IVoiceChannelCommandRepository voiceChannelCommandRepository,
-    IVoicedCrewCommandRepository voicedCrewCommandRepository,
     IDomainLogger domainLogger)
     : ICrewCreator, ICrewCreatorResponse
 {
@@ -18,8 +18,8 @@ public class VoicedCrewCreator(
 
         try
         {
-            var voiceChannelId = await voiceChannelCommandRepository.Create(_name);
-            await voicedCrewCommandRepository.AddVoiceChannel(_id, voiceChannelId);
+            var voiceChannelId = await voiceChannelHandler.Create(_name);
+            await voiceChannelCommandRepository.AddVoiceChannel(_id, voiceChannelId);
         }
         catch (Exception e)
         {

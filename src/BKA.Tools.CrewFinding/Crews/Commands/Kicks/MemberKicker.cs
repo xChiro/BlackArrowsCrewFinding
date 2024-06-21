@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
@@ -16,7 +17,7 @@ public class MemberKicker(IUserSession userSession, ICrewQueryRepository crewQue
             throw new NotCaptainException();
 
         if(!crew!.RemoveMember(memberId))
-            throw new NoCrewMemberException();
+            throw new PlayerNotInCrewException();
 
         await crewCommandRepository.UpdateMembers(crew.Id, crew.Members);
     }
