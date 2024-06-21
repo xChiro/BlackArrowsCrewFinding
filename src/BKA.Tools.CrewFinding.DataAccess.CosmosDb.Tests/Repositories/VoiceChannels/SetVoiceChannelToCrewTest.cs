@@ -26,7 +26,7 @@ public class SetVoiceChannelToCrewTest(
     {
         // Arrange
         _voiceId = Guid.NewGuid().ToString();
-        const string crewId = "123312";
+        var crewId = Guid.NewGuid().ToString();
 
         // Act
         await voicedCrewCommandRepository.AddVoiceChannel(crewId, _voiceId);
@@ -36,6 +36,7 @@ public class SetVoiceChannelToCrewTest(
         crewResponse?.Resource.Should().NotBeNull();
         crewResponse!.Resource.CrewId.Should().Be(crewId);
         crewResponse.Resource.Id.Should().Be(_voiceId);
+        crewResponse.Resource.CreateAt.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0, 0, 5));
     }
 
     public async Task DisposeAsync()

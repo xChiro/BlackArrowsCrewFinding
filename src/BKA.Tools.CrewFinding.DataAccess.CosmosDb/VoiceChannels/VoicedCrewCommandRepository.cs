@@ -11,7 +11,8 @@ public class VoicedCrewCommandRepository(Container container) : IVoicedCrewComma
         var voiceChannelDocument = new VoiceChannelDocument
         {
             Id = voiceChannelId,
-            CrewId = crewId
+            CrewId = crewId,
+            CreateAt = DateTime.UtcNow
         };
 
         await container.CreateItemAsync(voiceChannelDocument, new PartitionKey(voiceChannelId));
