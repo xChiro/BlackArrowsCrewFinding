@@ -6,5 +6,5 @@ public interface IVoiceChannelCommandRepository
     
     public Task Delete(string id);
     
-    public Task<string> CreateInvite(string channelId, string userId);
+    public Task<string> CreateInvite(string channelId);
 }

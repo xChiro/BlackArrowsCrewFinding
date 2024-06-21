@@ -46,7 +46,7 @@ public class ChannelCreatorTest(IVoiceChannelCommandRepository voiceChannelComma
         const string userId = "1250618771031199848";
 
         // Act
-        var invite = await voiceChannelCommandRepository.CreateInvite(_channelId, userId);
+        var invite = await voiceChannelCommandRepository.CreateInvite(_channelId);
 
         // Assert
         invite.Should().NotBeNullOrEmpty();

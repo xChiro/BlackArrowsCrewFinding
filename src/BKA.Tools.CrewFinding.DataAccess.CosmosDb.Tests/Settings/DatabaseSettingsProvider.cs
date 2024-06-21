@@ -13,6 +13,7 @@ public class DatabaseSettingsProvider(IKeySecretProvider keySecretProvider, ICon
     public Container GetCrewContainer() => BuildContainer(GetCrewPartiesContainerName()).GetAwaiter().GetResult();
     public Container GetPlayerContainer() => BuildContainer(GetPlayerContainerName()).GetAwaiter().GetResult();
     public Container GetDisbandedCrewsContainer() => BuildContainer(GetDisbandedCrewsContainerName()).GetAwaiter().GetResult();
+    public Container GetVoiceChannelContainer() => BuildContainer(GetVoiceChannelContainerName()).GetAwaiter().GetResult();
 
     private async Task<Container> BuildContainer(string containerId)
     {
@@ -66,5 +67,10 @@ public class DatabaseSettingsProvider(IKeySecretProvider keySecretProvider, ICon
     private string GetPlayerContainerName()
     {
         return configurationRoot["cosmosDB:playerContainer"] ?? string.Empty;
+    }
+
+    private string GetVoiceChannelContainerName()
+    {
+        return configurationRoot["cosmosDB:voiceChannelContainer"] ?? string.Empty;
     }
 }

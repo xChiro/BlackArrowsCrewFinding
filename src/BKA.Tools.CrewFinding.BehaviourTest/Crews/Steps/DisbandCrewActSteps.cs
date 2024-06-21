@@ -1,6 +1,7 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Commons.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Commons.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
+using BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Commands.Expired;
@@ -51,17 +52,5 @@ public class DisbandCrewActSteps(
             systemSettingContext.LeastCrewTimeThreshold);
 
         await sut.Remove();
-    }
-}
-
-public class CrewDisbandmentResponseMock : ICrewDisbandmentResponse
-{
-    public string CrewId { get; set; } = string.Empty;
-    public string? VoiceChannelId { get; set; }
-    
-    public void SetResult(string crewId, string? voiceChannelId)
-    {
-        CrewId = crewId;
-        VoiceChannelId = voiceChannelId;
     }
 }

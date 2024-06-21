@@ -26,7 +26,6 @@ public class CrewDisbandmentTest
         // Assert
         await act.Should().ThrowAsync<CrewDisbandException>();
         crewDisbandmentResponseMock.CrewId.Should().BeEmpty();
-        crewDisbandmentResponseMock.VoiceChannelId.Should().BeNull();
     }
 
     [Theory]
@@ -37,8 +36,7 @@ public class CrewDisbandmentTest
         // Arrange
         var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
         var crewDisbandmentResponseMock = new CrewDisbandmentResponseMock();
-        var sut = SetupSutOwner(CreatePlayer(Guid.NewGuid().ToString(), "Adam"), crewCommandRepositoryMock,
-            voiceChannelId);
+        var sut = SetupSutOwner(CreatePlayer(Guid.NewGuid().ToString(), "Adam"), crewCommandRepositoryMock);
 
         // Act
         await sut.Disband(crewDisbandmentResponseMock);
@@ -46,7 +44,6 @@ public class CrewDisbandmentTest
         // Assert
         crewCommandRepositoryMock.DisbandedCrewIds.Should().Contain(CrewId);
         crewDisbandmentResponseMock.CrewId.Should().Be(CrewId);
-        crewDisbandmentResponseMock.VoiceChannelId.Should().Be(voiceChannelId);
     }
 
     private static Player CreatePlayer(string playerId, string playerName = "playerName")
@@ -57,15 +54,10 @@ public class CrewDisbandmentTest
         return Player.Create(playerId, playerName, playerMinLength, playerMaxLength);
     }
 
-    private static CrewDisbandment SetupSutOwner(Player player, CrewCommandRepositoryMock crewCommandRepositoryMock,
-        string? voiceChannelId)
+    private static CrewDisbandment SetupSutOwner(Player player, CrewCommandRepositoryMock crewCommandRepositoryMock)
     {
         var userSession = CreateUserSessionMock(player);
         var crew = CrewBuilder.Build(CrewId, player);
-        
-        if (voiceChannelId is not null)
-            crew.SetVoiceChannelId(voiceChannelId);
-
         var crewValidationRepository = new CrewQueryRepositoryMock(crews: [crew], expectedPlayerId: player.Id);
         var sut = CreateCrewDisbandment(crewValidationRepository, crewCommandRepositoryMock, userSession);
 
@@ -99,12 +91,10 @@ public class CrewDisbandmentTest
 public class CrewDisbandmentResponseMock : ICrewDisbandmentResponse
 {
     public string CrewId { get; set; } = string.Empty;
-    public string? VoiceChannelId { get; set; }
 
 
-    public void SetResult(string crewId, string? voiceChannelId)
+    public void SetResult(string crewId)
     {
         CrewId = crewId;
-        VoiceChannelId = voiceChannelId;
     }
 }

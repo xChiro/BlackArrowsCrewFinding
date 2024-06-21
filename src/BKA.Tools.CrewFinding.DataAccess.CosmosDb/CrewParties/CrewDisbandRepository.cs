@@ -1,7 +1,7 @@
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
+using BKA.Tools.CrewFinding.Azure.DataBase.CrewParties.Documents;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
-namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
+namespace BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
 
 public class CrewDisbandRepository(Container crewContainer, Container disbandedCrewsContainer) : ICrewDisbandRepository
 {

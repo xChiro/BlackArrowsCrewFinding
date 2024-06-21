@@ -19,7 +19,7 @@ public class CrewDisbandment(
 
         await crewDisbandRepository.Disband(crew.Id);
         
-        output?.SetResult(crew.Id, crew.VoiceChannelId);
+        output?.SetResult(crew.Id);
     }
 
     private string GetUserIdFromSession()

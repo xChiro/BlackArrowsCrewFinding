@@ -34,7 +34,7 @@ public class VoiceChannelCommandRepository : IVoiceChannelCommandRepository
         return DeleteChannel(id);
     }
 
-    public async Task<string> CreateInvite(string channelId, string userId)
+    public async Task<string> CreateInvite(string channelId)
     {
         var url = $"channels/{channelId}/invites";
 

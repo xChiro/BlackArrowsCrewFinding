@@ -20,7 +20,7 @@ public class CreateDiscordChannelInviteLink(
         try
         {
             var userId = userSession.GetUserId();
-            var code = await voiceChannelCommandRepository.CreateInvite(channelId, userId);
+            var code = await voiceChannelCommandRepository.CreateInvite(channelId);
 
             return OkResponse(req, new
             {

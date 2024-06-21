@@ -13,13 +13,13 @@ public class VoiceChannelCommandRepositoryExceptionMock<T> : IVoiceChannelComman
         throw new T();
     }
     
-    public Task Delete(string channelId)
+    public Task Delete(string id)
     {
         DeletedChannelCallCount++;
         throw new T();
     }
 
-    public Task<string> CreateInvite(string channelId, string userId)
+    public Task<string> CreateInvite(string channelId)
     {
         throw new T();
     }

@@ -1,6 +1,7 @@
 using BKA.Tools.CrewFinding.Azure.DataBase;
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players;
+using BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
+using BKA.Tools.CrewFinding.Azure.DataBase.Players;
+using BKA.Tools.CrewFinding.Azure.DataBase.VoiceChannels;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Discord;
 using BKA.Tools.CrewFinding.KeyVault;

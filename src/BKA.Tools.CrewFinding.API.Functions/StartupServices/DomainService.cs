@@ -74,14 +74,14 @@ public static class DomainService
         service.AddScoped<ICrewDisbandment>(
             serviceProvider =>
             {
-                var crewDisbandment = new CrewDisbandment(
+                return new CrewDisbandment(
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>());
                 
-                return new VoicedCrewDisbandment(crewDisbandment,
-                    serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>(),
-                    serviceProvider.GetRequiredService<IDomainLogger>());
+                // return new VoicedCrewDisbandment(crewDisbandment,
+                //     serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>(),
+                //     serviceProvider.GetRequiredService<IDomainLogger>());
             });
 
         service.AddScoped<ICrewJoiner>(
