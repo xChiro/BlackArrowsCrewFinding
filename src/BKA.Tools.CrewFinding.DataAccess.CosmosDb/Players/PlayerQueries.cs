@@ -1,8 +1,8 @@
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
+using BKA.Tools.CrewFinding.Azure.DataBase.Players.Documents;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Ports;
 
-namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players;
+namespace BKA.Tools.CrewFinding.Azure.DataBase.Players;
 
 public class PlayerQueries(Container container, int minNameLength, int maxNameLength) : IPlayerQueryRepository
 {

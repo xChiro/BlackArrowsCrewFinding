@@ -32,10 +32,10 @@ public class Startup
             new DiscordSettings(discordToken, long.Parse(config["discord:guildId"] ?? "0"),
                 long.Parse(config["discord:parentId"] ?? "0")));
 
-        services.AddTransient<IVoiceChannelCommandRepository>(provider =>
+        services.AddTransient<IVoiceChannelHandler>(provider =>
         {
             var discordSettings = provider.GetRequiredService<DiscordSettings>();
-            return new VoiceChannelCommandRepository(discordSettings);
+            return new VoiceChannelHandler(discordSettings);
         });
     }
 }

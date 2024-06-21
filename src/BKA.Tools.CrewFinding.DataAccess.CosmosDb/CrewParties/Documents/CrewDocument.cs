@@ -1,9 +1,9 @@
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players.Documents;
+using BKA.Tools.CrewFinding.Azure.DataBase.Players.Documents;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Cultures;
 using BKA.Tools.CrewFinding.Players;
 
-namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
+namespace BKA.Tools.CrewFinding.Azure.DataBase.CrewParties.Documents;
 
 public class CrewDocument
 {
@@ -34,7 +34,6 @@ public class CrewDocument
     public string PlanetMoon { get; set; }
 
     public string Place { get; set; }
-    public string? VoiceChannelId { get; set; }
 
     public static CrewDocument CreateFromCrew(Crew crew)
     {
@@ -53,8 +52,7 @@ public class CrewDocument
             System = crew.ReunionPoint.System,
             PlanetarySystem = crew.ReunionPoint.PlanetarySystem,
             PlanetMoon = crew.ReunionPoint.PlanetMoon,
-            Place = crew.ReunionPoint.Place,
-            VoiceChannelId = crew.VoiceChannelId
+            Place = crew.ReunionPoint.Place
         };
 
         return document;
@@ -72,10 +70,7 @@ public class CrewDocument
             PlayerCollection.Create(members, MaxAllowed),
             Activity.Create(ActivityName, ActivityDescription),
             CreatedAt);
-
-        if (VoiceChannelId != null)
-            crew.SetVoiceChannelId(VoiceChannelId);
-
+        
         return crew;
     }
 }

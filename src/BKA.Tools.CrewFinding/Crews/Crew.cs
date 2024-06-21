@@ -40,8 +40,6 @@ public class Crew : Entity
 
     public Player Captain { get; }
 
-    public string? VoiceChannelId { get; set; }
-
     public void AddMember(Player player)
     {
         Members.Add(player);
@@ -50,10 +48,5 @@ public class Crew : Entity
     public bool RemoveMember(string playerId)
     {
         return Members.Remove(playerId);
-    }
-
-    public void SetVoiceChannelId(string voiceChannelId)
-    {
-        VoiceChannelId = voiceChannelId;
     }
 }

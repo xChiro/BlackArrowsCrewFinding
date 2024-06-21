@@ -1,5 +1,6 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
+using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
@@ -29,7 +30,7 @@ public class LeaveCrewAssertSteps
     [Then(@"the player receives a message indicating the player is not a member of the Crew")]
     public void ThenThePlayerReceivesAMessageIndicatingThePlayerIsNotAMemberOfTheCrew()
     {
-        _exceptionResultContext.Exception.Should().BeOfType<NoCrewMemberException>();
+        _exceptionResultContext.Exception.Should().BeOfType<PlayerNotInCrewException>();
     }
 
     [Then(@"the player receives a message indicating the Crew does not exist")]

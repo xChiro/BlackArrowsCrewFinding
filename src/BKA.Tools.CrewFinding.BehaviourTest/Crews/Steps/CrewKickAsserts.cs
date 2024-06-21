@@ -1,4 +1,5 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
+using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
@@ -17,7 +18,7 @@ public class CrewKickAsserts(
     [Then(@"I should see an error message indicating the player is not in the crew")]
     public void ThenIShouldSeeAnErrorMessageIndicatingThePlayerIsNotInTheCrew()
     {
-        exceptionResultContext.Exception.Should().BeOfType<NoCrewMemberException>();
+        exceptionResultContext.Exception.Should().BeOfType<PlayerNotInCrewException>();
     }
 
     [Then(@"the player with id ""(.*)"" is no longer in the crew")]

@@ -1,6 +1,7 @@
 using System;
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.Players;
+using BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
+using BKA.Tools.CrewFinding.Azure.DataBase.Players;
+using BKA.Tools.CrewFinding.Azure.DataBase.VoiceChannels;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 using BKA.Tools.CrewFinding.KeyVault;
@@ -46,6 +47,7 @@ public class Startup
         var crewContainer = databaseSettingsProvider.GetCrewContainer();
         var playerContainer = databaseSettingsProvider.GetPlayerContainer();
         var disbandedCrewsContainer = databaseSettingsProvider.GetDisbandedCrewsContainer();
+        var voiceChannelContainer = databaseSettingsProvider.GetVoiceChannelContainer();
 
         services.AddTransient<ICrewCommandRepository>(_ =>
             new CrewCommandRepository(crewContainer));
@@ -67,7 +69,10 @@ public class Startup
         services.AddTransient<ICrewDisbandRepository>(_ =>
             new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));
         
-        services.AddTransient<IVoicedCrewCommandRepository>(_ =>
-            new VoicedCrewCommandRepository(crewContainer));
+        services.AddTransient<IVoiceChannelCommandRepository>(_ =>
+            new VoiceChannelCommandRepository(voiceChannelContainer));
+        
+        services.AddTransient<IVoiceChannelQueryRepository>(_ =>
+            new VoiceChannelQueryRepository(voiceChannelContainer));
     }
 }

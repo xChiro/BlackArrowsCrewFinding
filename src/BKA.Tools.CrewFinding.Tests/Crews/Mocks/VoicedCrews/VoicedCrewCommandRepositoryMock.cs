@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
-public class VoicedCrewCommandRepositoryMock : IVoicedCrewCommandRepository
+public class VoiceChannelCommandRepositoryMock : IVoiceChannelCommandRepository
 {
     public string VoiceChannelId { get; private set; } = string.Empty;
 

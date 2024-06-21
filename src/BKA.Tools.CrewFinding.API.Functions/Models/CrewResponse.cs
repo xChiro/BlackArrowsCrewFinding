@@ -35,7 +35,6 @@ public class CrewResponse(
     public string[] Languages { get; protected set; } = languages.Select(l => l.LanguageCode).ToArray();
     public int MaxPlayers { get; protected set; } = maxPlayers;
     public int CurrentPlayers { get; protected set; } = currentPlayers;
-    public string? VoiceChannelId { get; protected set; } = voiceChannelId;
     public DateTime CreatedAt { get; protected set; } = createdAt;
 
     protected void UpdateFrom(Crew crew)
@@ -52,7 +51,6 @@ public class CrewResponse(
         CaptainName = crew.Captain.CitizenName.Value;
         Members = crew.Members;
         CreatedAt = crew.CreatedAt;
-        VoiceChannelId = crew.VoiceChannelId;
     }
 
     public static CrewResponse CreateFrom(Crew crew)
@@ -68,8 +66,7 @@ public class CrewResponse(
             crew.Members.Count(),
             crew.Captain.CitizenName.Value,
             crew.Members,
-            crew.CreatedAt,
-            crew.VoiceChannelId
+            crew.CreatedAt
         );
     }
 }

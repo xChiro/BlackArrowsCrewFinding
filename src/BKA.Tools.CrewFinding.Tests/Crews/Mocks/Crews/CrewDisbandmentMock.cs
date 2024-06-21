@@ -3,11 +3,11 @@ using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
 
-public class CrewDisbandmentMock(string crewId, string? voiceChannelId) : ICrewDisbandment
+public class CrewDisbandmentMock(string crewId) : ICrewDisbandment
 {
     public Task Disband(ICrewDisbandmentResponse? output = null)
     {
-        output?.SetResult(crewId, voiceChannelId);
+        output?.SetResult(crewId);
         return Task.CompletedTask;
     }
 }

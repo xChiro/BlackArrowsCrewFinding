@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
-public class VoiceChannelCommandRepositoryExceptionMock<T> : IVoiceChannelCommandRepository where T : Exception, new()
+public class VoiceChannelHandlerExceptionMock<T> : IVoiceChannelHandler where T : Exception, new()
 {
     public int DeletedChannelCallCount { get; private set; }
 
@@ -13,13 +13,13 @@ public class VoiceChannelCommandRepositoryExceptionMock<T> : IVoiceChannelComman
         throw new T();
     }
     
-    public Task Delete(string channelId)
+    public Task Delete(string id)
     {
         DeletedChannelCallCount++;
         throw new T();
     }
 
-    public Task<string> CreateInvite(string channelId, string userId)
+    public Task<string> CreateInvite(string channelId)
     {
         throw new T();
     }

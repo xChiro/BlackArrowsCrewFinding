@@ -1,8 +1,8 @@
-using BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties.Documents;
+using BKA.Tools.CrewFinding.Azure.DataBase.CrewParties.Documents;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
-namespace BKA.Tools.CrewFinding.Azure.DataBase.Repositories.CrewParties;
+namespace BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
 
 public class CrewQueryRepository(Container container, int minNameLength, int maxNameLength) : ICrewValidationRepository, ICrewQueryRepository
 {

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
@@ -40,7 +41,7 @@ public class CrewLeaverTest
         var func = () => sut.Leave();
 
         // Assert
-        func.Should().ThrowAsync<NoCrewMemberException>();
+        func.Should().ThrowAsync<PlayerNotInCrewException>();
     }
 
     [Fact]
@@ -78,7 +79,7 @@ public class CrewLeaverTest
 
     private static CrewLeaver InitializeCrewLeaver(ICrewCommandRepository crewCommandMock, Crew crew)
     {
-        var crewQueryRepository = new CrewQueryRepositoryMock(crews: [crew], expectedPlayerId: PlayerId);
+        var crewQueryRepository = new CrewQueryRepositoryMock(crews: [crew]);
         return new CrewLeaver(crewQueryRepository, crewCommandMock, new UserSessionMock(PlayerId));
     }
 

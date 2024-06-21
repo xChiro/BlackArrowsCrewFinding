@@ -4,12 +4,12 @@ namespace BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 
 public class VoicedCrewDisbandment(
     ICrewDisbandment crewDisbandment,
-    IVoiceChannelCommandRepository voiceChannelRepository,
+    IVoiceChannelHandler voiceChannelRepository,
+    IVoiceChannelQueryRepository voiceChannelQueryRepository,
     IDomainLogger domainLoggerMock)
     : ICrewDisbandment, ICrewDisbandmentResponse
 {
     private string _crewId = string.Empty;
-    private string? _voiceChannelId;
 
     public async Task Disband(ICrewDisbandmentResponse? output = null)
     {
@@ -17,22 +17,23 @@ public class VoicedCrewDisbandment(
 
         try
         {
-            if (_voiceChannelId is not null)
-                await voiceChannelRepository.Delete(_voiceChannelId);
+            var voiceId = await voiceChannelQueryRepository.GetVoiceChannelIdByCrewId(_crewId);
+
+            if (voiceId is not null)
+                await voiceChannelRepository.Delete(voiceId);
         }
         catch (Exception e)
         {
-            domainLoggerMock.Log(e, $"Voice channel with id {_voiceChannelId} could not be deleted.");
+            domainLoggerMock.Log(e, $"Voice channel of crew {_crewId} could not be deleted.");
         }
         finally
         {
-            output?.SetResult(_crewId, _voiceChannelId);
+            output?.SetResult(_crewId);
         }
     }
 
-    public void SetResult(string crewId, string? voiceChannelId)
+    public void SetResult(string crewId)
     {
         _crewId = crewId;
-        _voiceChannelId = voiceChannelId;
     }
 }
