@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Channels.invites;
 
-namespace BKA.Tools.CrewFinding.Tests.Channels;
+namespace BKA.Tools.CrewFinding.Tests.Channels.Mocks;
 
 public class ChannelInviteLinkCreatorResponseMock : IChannelInviteLinkCreatorResponse
 {
