@@ -8,11 +8,18 @@ public class VoiceChannelCommandRepositoryMock : IVoiceChannelCommandRepository
     public string VoiceChannelId { get; private set; } = string.Empty;
 
     public string CrewId { get; private set; } = string.Empty;
+    public string RemovedCrewId { get; set; } = string.Empty;
 
     public Task AddVoiceChannel(string crewId, string voiceChannelId)
     {
         CrewId = crewId;
         VoiceChannelId = voiceChannelId;
+        return Task.CompletedTask;
+    }
+
+    public Task RemoveChannel(string crewId)
+    {
+        RemovedCrewId = crewId;
         return Task.CompletedTask;
     }
 }

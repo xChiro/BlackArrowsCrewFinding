@@ -79,11 +79,12 @@ public static class DomainService
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>());
-                
+
                 return new VoicedCrewDisbandment(crewDisbandment,
                     serviceProvider.GetRequiredService<IVoiceChannelHandler>(),
                     serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
-                    serviceProvider.GetRequiredService<IDomainLogger>());
+                    serviceProvider.GetRequiredService<IDomainLogger>(),
+                    serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>());
             });
 
         service.AddScoped<ICrewJoiner>(

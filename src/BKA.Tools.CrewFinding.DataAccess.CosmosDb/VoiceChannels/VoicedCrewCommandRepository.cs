@@ -18,4 +18,9 @@ public class VoiceChannelCommandRepository(Container container) : IVoiceChannelC
 
         await container.CreateItemAsync(voiceChannelDocument, new PartitionKey(crewId));
     }
+
+    public Task RemoveChannel(string crewId)
+    {
+        return container.DeleteItemAsync<VoiceChannelDocument>(crewId, new PartitionKey(crewId));
+    }
 }

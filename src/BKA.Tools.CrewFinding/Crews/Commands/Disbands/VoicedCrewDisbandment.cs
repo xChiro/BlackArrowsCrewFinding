@@ -6,7 +6,8 @@ public class VoicedCrewDisbandment(
     ICrewDisbandment crewDisbandment,
     IVoiceChannelHandler voiceChannelRepository,
     IVoiceChannelQueryRepository voiceChannelQueryRepository,
-    IDomainLogger domainLoggerMock)
+    IDomainLogger domainLoggerMock, 
+    IVoiceChannelCommandRepository voiceChannelCommandRepository)
     : ICrewDisbandment, ICrewDisbandmentResponse
 {
     private string _crewId = string.Empty;
@@ -20,7 +21,10 @@ public class VoicedCrewDisbandment(
             var voiceId = await voiceChannelQueryRepository.GetVoiceChannelIdByCrewId(_crewId);
 
             if (voiceId is not null)
+            {
                 await voiceChannelRepository.Delete(voiceId);
+                await voiceChannelCommandRepository.RemoveChannel(_crewId);
+            }
         }
         catch (Exception e)
         {
