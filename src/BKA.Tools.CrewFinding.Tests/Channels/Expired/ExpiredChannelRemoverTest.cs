@@ -9,11 +9,11 @@ using BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
 namespace BKA.Tools.CrewFinding.Tests.Channels.Expired;
 
-public class ExpireChannelRemoverTest
+public class ExpiredChannelRemoverTest
 {
     private const int HoursThreshold = 3;
 
-    private static ExpireChannelRemover InitializeSut(
+    private static ExpiredChannelRemover InitializeSut(
         IVoiceChannelQueryRepository channelQueryRepository,
         IVoiceChannelCommandRepository? channelCommandRepository = null,
         IVoiceChannelHandler? channelHandler = null
@@ -22,7 +22,7 @@ public class ExpireChannelRemoverTest
         int hoursThreshold = HoursThreshold;
         var commandRepository = channelCommandRepository ?? new VoiceChannelCommandRepositoryMock();
         var handler = channelHandler ?? new VoiceChannelHandlerMock();
-        return new ExpireChannelRemover(hoursThreshold, channelQueryRepository, commandRepository, handler);
+        return new ExpiredChannelRemover(hoursThreshold, channelQueryRepository, commandRepository, handler);
     }
 
     private static VoiceChannelQueryRepositoryMock CreateVoiceChannelQueryRepositoryMock(

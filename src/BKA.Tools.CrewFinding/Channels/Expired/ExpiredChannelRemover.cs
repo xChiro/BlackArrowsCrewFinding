@@ -2,11 +2,11 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 
 namespace BKA.Tools.CrewFinding.Channels.Expired;
 
-public class ExpireChannelRemover(
+public class ExpiredChannelRemover(
     int hoursThreshold,
     IVoiceChannelQueryRepository voiceChannelQueryRepository,
     IVoiceChannelCommandRepository channelCommandRepository,
-    IVoiceChannelHandler channelHandlerMock) : IExpireChannelRemover
+    IVoiceChannelHandler channelHandlerMock) : IExpiredChannelRemover
 {
     public async Task Remove()
     {

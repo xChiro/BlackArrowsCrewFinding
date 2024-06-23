@@ -12,7 +12,6 @@ public class RemoveVoiceChannelTest(
     : IAsyncLifetime
 {
     private Container? _container;
-
     private string _crewId = string.Empty;
 
     public Task InitializeAsync()
