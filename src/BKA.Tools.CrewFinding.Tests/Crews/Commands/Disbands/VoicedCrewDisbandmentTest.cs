@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using BKA.Tools.CrewFinding.Channels;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
@@ -45,17 +46,19 @@ public class VoicedCrewDisbandmentTest
 
     [Fact]
     public async Task
-        Attempt_To_Disband_An_Existing_Crew_With_Voice_Channel_But_VoiceChannel_delete_Fails_Should_Throw_Exception_Should_Store_A_Log()
+        Attempt_To_Disband_An_Existing_Crew_With_Voice_Channel_But_VoiceChannel_Delete_Fails_Should_Throw_Exception_Should_Store_A_Log()
     {
         // Arrange
         const string crewId = "123412";
         var crewDisbandmentResponseMock = new CrewDisbandmentResponseMock();
         var voiceChannelRepositoryMock = new VoiceChannelHandlerExceptionMock<Exception>();
         var crewDisbandmentMock = new CrewDisbandmentMock(crewId);
-        var domainLoggerMock = new DomainLoggerMock(); 
-        var voicedCrewQueryRepositoryMock = new VoiceChannelQueryRepositoryMock("312341");
+        var domainLoggerMock = new DomainLoggerMock();
+        var voicedCrewQueryRepositoryMock =
+            new VoiceChannelQueryRepositoryMock(new[] {new VoiceChannel(crewId, "123")});
 
-        var sut = SetUpTest(crewDisbandmentMock, voiceChannelRepositoryMock, domainLoggerMock, voicedCrewQueryRepositoryMock);
+        var sut = SetUpTest(crewDisbandmentMock, voiceChannelRepositoryMock, domainLoggerMock,
+            voicedCrewQueryRepositoryMock);
 
         // Act
         await sut.Disband(crewDisbandmentResponseMock);
@@ -74,19 +77,20 @@ public class VoicedCrewDisbandmentTest
         var crewDisbandmentResponseMock = new CrewDisbandmentResponseMock();
         var voiceChannelRepositoryMock = new VoiceChannelHandlerMock();
         var crewDisbandmentMock = new CrewDisbandmentMock(crewId);
-        var voicedCrewQueryRepositoryMock = new VoiceChannelQueryRepositoryMock(voiceChannelId);
+        var voicedCrewQueryRepositoryMock =
+            new VoiceChannelQueryRepositoryMock([new VoiceChannel(crewId, voiceChannelId)]);
         var voicedCrewCommandRepositoryMock = new VoiceChannelCommandRepositoryMock();
 
         var sut = SetUpTest(crewDisbandmentMock, voiceChannelRepositoryMock, null, voicedCrewQueryRepositoryMock,
             voicedCrewCommandRepositoryMock);
-        
+
         // Act
         await sut.Disband(crewDisbandmentResponseMock);
 
         // Assert
         crewDisbandmentResponseMock.CrewId.Should().Be(crewId);
-        voiceChannelRepositoryMock.DeletedVoicedCrewsId.Should().Contain(voiceChannelId);
-        voicedCrewCommandRepositoryMock.RemovedCrewId.Should().Be(crewId);
+        voiceChannelRepositoryMock.DeletedVoicedCrewIds.Should().Contain(voiceChannelId);
+        voicedCrewCommandRepositoryMock.RemovedCrewId.Should().Contain(crewId);
     }
 
     private static VoicedCrewDisbandment SetUpTest(ICrewDisbandment crewDisbandmentMock,

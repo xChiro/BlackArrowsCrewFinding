@@ -1,3 +1,5 @@
+using BKA.Tools.CrewFinding.Channels;
+using BKA.Tools.CrewFinding.Channels.Expired;
 using BKA.Tools.CrewFinding.Channels.invites;
 using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
@@ -13,6 +15,7 @@ using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Commands.Updates;
 using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
+using Grpc.Net.Client.Balancer;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
@@ -124,5 +127,11 @@ public static class DomainService
             serviceProvider.GetRequiredService<IVoiceChannelHandler>(),
             serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
             serviceProvider.GetRequiredService<ICrewQueryRepository>()));
+        
+        service.AddScoped<IExpiredChannelRemover>(serviceProvider => new ExpiredChannelRemover(
+            expirationThreshold, 
+            serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(), 
+            serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>(),
+            serviceProvider.GetRequiredService<IVoiceChannelHandler>()));
     }
 }

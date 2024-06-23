@@ -7,7 +7,7 @@ namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
 public class VoiceChannelHandlerMock : IVoiceChannelHandler
 {
-    public List<string> DeletedVoicedCrewsId { get; } = [];
+    public List<string> DeletedVoicedCrewIds { get; } = [];
 
     public Task<string> Create(string name)
     {
@@ -16,7 +16,7 @@ public class VoiceChannelHandlerMock : IVoiceChannelHandler
 
     public Task Delete(string id)
     {
-        DeletedVoicedCrewsId.Add(id);
+        DeletedVoicedCrewIds.Add(id);
         return Task.CompletedTask;
     }
 

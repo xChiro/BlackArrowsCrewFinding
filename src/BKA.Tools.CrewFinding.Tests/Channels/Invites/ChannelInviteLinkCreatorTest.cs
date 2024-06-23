@@ -1,21 +1,23 @@
 using System;
 using System.Threading.Tasks;
+using BKA.Tools.CrewFinding.Channels;
 using BKA.Tools.CrewFinding.Channels.Exceptions;
 using BKA.Tools.CrewFinding.Channels.invites;
 using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players;
+using BKA.Tools.CrewFinding.Tests.Channels.Mocks;
 using BKA.Tools.CrewFinding.Tests.Commons;
 using BKA.Tools.CrewFinding.Tests.Commons.Mocks;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
-namespace BKA.Tools.CrewFinding.Tests.Channels;
+namespace BKA.Tools.CrewFinding.Tests.Channels.Invites;
 
 public class ChannelInviteLinkCreatorTest
 {
-    private readonly UserSessionMock _userSessionMock = new("some-user-id");
     private const string CrewId = "123";
+    private readonly UserSessionMock _userSessionMock = new("some-user-id");
     private readonly CrewQueryRepositoryMock _crewQueryRepositoryMock;
     private readonly ChannelInviteLinkCreatorResponseMock _responseMock = new();
 
@@ -87,7 +89,7 @@ public class ChannelInviteLinkCreatorTest
     {
         return new ChannelInviteLinkCreator(_userSessionMock,
             voiceChannelHandler,
-            new VoiceChannelQueryRepositoryMock("1234"),
+            new VoiceChannelQueryRepositoryMock(new[] {new VoiceChannel(CrewId, "123")}),
             _crewQueryRepositoryMock);
     }
 }
