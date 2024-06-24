@@ -9,6 +9,7 @@
         "cosmosDBCrewContainer": "Crews",
         "cosmosDBDisbandedCrewsContainer": "DisbandedCrews",
         "cosmosDBPlayerContainer": "Players",
+        "cosmosDBVoiceChannelContainer": "VoiceChannels",
         "keyVaultEndpoint": "https://bka-keyvault.vault.azure.net/",
         "keyVaultAzureKeyName": "DevDbCrewFindingPK",
         "keyVaultAzureDiscordTokenName": "DiscordBotToken",
