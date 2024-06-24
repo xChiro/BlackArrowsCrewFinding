@@ -9,7 +9,7 @@ using BKA.Tools.CrewFinding.Tests.Commons.Mocks;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Creations;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Creators.VoiceChannel;
+namespace BKA.Tools.CrewFinding.Tests.Channels.VoicedCrews;
 
 public class VoicedCrewCreatorTest
 {
