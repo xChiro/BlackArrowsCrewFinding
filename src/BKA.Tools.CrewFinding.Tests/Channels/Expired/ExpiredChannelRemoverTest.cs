@@ -5,7 +5,6 @@ using BKA.Tools.CrewFinding.Channels;
 using BKA.Tools.CrewFinding.Channels.Expired;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Tests.Channels.Mocks;
-using BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
 namespace BKA.Tools.CrewFinding.Tests.Channels.Expired;
 
