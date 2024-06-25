@@ -11,11 +11,6 @@ public class VoiceChannelCommandRepositoryExceptionMock<T> : IVoiceChannelComman
         throw new T();
     }
 
-    public Task AddCustomVoiceChannel(string crewId, string channelLink)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task RemoveChannel(string crewId)
     {
         throw new T();
