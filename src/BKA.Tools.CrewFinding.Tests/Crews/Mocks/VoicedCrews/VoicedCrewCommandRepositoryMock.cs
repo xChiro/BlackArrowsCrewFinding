@@ -17,6 +17,11 @@ public class VoiceChannelCommandRepositoryMock : IVoiceChannelCommandRepository
         return Task.CompletedTask;
     }
 
+    public Task AddCustomVoiceChannel(string crewId, string channelLink)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public Task RemoveChannel(string crewId)
     {
         RemovedCrewId.Add(crewId);

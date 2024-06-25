@@ -5,11 +5,8 @@ using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Ports;
-using BKA.Tools.CrewFinding.Tests.Commons.Mocks;
-using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Creations;
-using BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
-namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Creators.VoiceChannel;
+namespace BKA.Tools.CrewFinding.Tests.Channels.VoicedCrews;
 
 public class VoicedCrewCreatorTest
 {
@@ -42,7 +39,7 @@ public class VoicedCrewCreatorTest
 
         var sut = InitializeSut(new CrewCreatorMock(crewName),
             new VoiceChannelHandlerExceptionMock<Exception>(),
-            domainLoggerMock);
+            domainLogger: domainLoggerMock);
 
         // Act
         await sut.Create(
@@ -89,41 +86,23 @@ public class VoicedCrewCreatorTest
         return crewCreatorRequest;
     }
 
-    private static VoicedCrewCreator InitializeSut(ICrewCreator crewCreator,
-        IVoiceChannelHandler voiceChannelHandlerExceptionMock)
+    private static VoicedCrewCreator InitializeSut(
+        ICrewCreator? crewCreator = null,
+        IVoiceChannelHandler? voiceChannelHandler = null,
+        VoiceChannelCommandRepositoryMock? voiceChannelCommandRepositoryMock = null,
+        IDomainLogger? domainLogger = null)
     {
-        var sut = InitializeSut(
-            crewCreator,
-            voiceChannelHandlerExceptionMock,
-            new VoiceChannelCommandRepositoryMock(),
-            new DomainLoggerMock());
+        crewCreator = crewCreator ?? new CrewCreatorMock("Crew of Rowan");
+        voiceChannelHandler = voiceChannelHandler ?? new VoiceChannelHandlerMock();
+        voiceChannelCommandRepositoryMock = voiceChannelCommandRepositoryMock ?? new VoiceChannelCommandRepositoryMock();
+        domainLogger = domainLogger ?? new DomainLoggerMock();
 
-        return sut;
-    }
-
-    private static VoicedCrewCreator InitializeSut(CrewCreatorMock crewCreator,
-        VoiceChannelHandlerExceptionMock<Exception> voiceChannelHandlerExceptionMock,
-        IDomainLogger domainLogger)
-    {
-        var sut = InitializeSut(
-            crewCreator,
-            voiceChannelHandlerExceptionMock,
-            new VoiceChannelCommandRepositoryMock(),
-            domainLogger);
-
-        return sut;
-    }
-
-    private static VoicedCrewCreator InitializeSut(ICrewCreator crewCreator,
-        IVoiceChannelHandler voiceChannelHandlerExceptionMock,
-        VoiceChannelCommandRepositoryMock voiceChannelCommandRepositoryMock,
-        IDomainLogger domainLogger)
-    {
         var sut = new VoicedCrewCreator(
             crewCreator,
-            voiceChannelHandlerExceptionMock,
+            voiceChannelHandler,
             voiceChannelCommandRepositoryMock,
-            domainLogger);
+            domainLogger, 
+            "");
         return sut;
     }
 }

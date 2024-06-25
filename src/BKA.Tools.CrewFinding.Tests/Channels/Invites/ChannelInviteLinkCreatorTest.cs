@@ -8,9 +8,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Tests.Channels.Mocks;
 using BKA.Tools.CrewFinding.Tests.Commons;
-using BKA.Tools.CrewFinding.Tests.Commons.Mocks;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
-using BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 
 namespace BKA.Tools.CrewFinding.Tests.Channels.Invites;
 
@@ -77,6 +75,29 @@ public class ChannelInviteLinkCreatorTest
 
         // Assert
         _responseMock.Link.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
+    public async Task Create_ChannelInviteLink_When_Crew_Has_A_CustomChannelLink_Should_Return_CustomLink()
+    {
+        // Arrange
+        const string customLink = "https://discord.gg/zeZBpvYv";
+        var voiceChannelQueryRepositoryMock = new VoiceChannelQueryRepositoryMock([
+            new VoiceChannel(CrewId, customLink)
+        ]);
+
+        var voiceChannelHandlerMock = new VoiceChannelHandlerMock();
+        var sut = new ChannelInviteLinkCreator(_userSessionMock,
+            voiceChannelHandlerMock,
+            voiceChannelQueryRepositoryMock,
+            _crewQueryRepositoryMock);
+
+        // Act
+        await sut.Create(_responseMock);
+
+        // Assert
+        _responseMock.Link.Should().Be(customLink);
+        voiceChannelHandlerMock.CreateCallCounts.Should().Be(0);
     }
 
     private CrewQueryRepositoryMock CreateCrewQueryRepositoryMock()

@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Channels;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 
@@ -13,14 +14,16 @@ public class CreateCrewFunctionRequest
     public string[] LanguagesAbbrevs { get; set; }
     public string ActivityName { get; set; }
     public string Description { get; set; }
+    public string? CustomChannelLink { get; set; }
 
-    public CrewCreatorRequest ToCrewCreatorRequest()
+    public ICrewCreatorRequest ToCrewCreatorRequest()
     {
-        return new CrewCreatorRequest(
+        return new VoicedCrewCreatorRequest(
             CrewSize,
             new Location(System, PlanetarySystem, PlanetMoon, Place),
             LanguagesAbbrevs,
             ActivityName,
-            Description);
+            Description,
+            CustomChannelLink ?? string.Empty);
     }
 }

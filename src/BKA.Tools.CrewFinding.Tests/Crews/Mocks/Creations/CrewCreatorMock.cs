@@ -6,7 +6,7 @@ namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.Creations;
 
 public class CrewCreatorMock(string name) : ICrewCreator
 {
-    public Task Create(CrewCreatorRequest request, ICrewCreatorResponse output)
+    public Task Create(ICrewCreatorRequest request, ICrewCreatorResponse output)
     {
         output.SetResponse(Guid.NewGuid().ToString(), name);
         return Task.CompletedTask;

@@ -14,8 +14,10 @@ public class ExpiredChannelRemover(
 
         foreach (var channel in expiredChannels)
         {
-            await channelHandlerMock.Delete(channel.VoiceChannelId);
-            await channelCommandRepository.RemoveChannel(channel.VoiceChannelId);
+            if (!Uri.IsWellFormedUriString(channel.VoiceChannelId, UriKind.Absolute))
+                await channelHandlerMock.Delete(channel.VoiceChannelId);
+
+            await channelCommandRepository.RemoveChannel(channel.CrewId);
         }
     }
 }
