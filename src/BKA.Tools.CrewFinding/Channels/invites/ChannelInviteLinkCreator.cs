@@ -28,7 +28,9 @@ public class ChannelInviteLinkCreator(
             throw new NotVoiceChannelException();
         }
 
-        var link = await channelHandler.CreateInvite(voiceChannelId);
+        var link = voiceChannelId;
+        if (!Uri.IsWellFormedUriString(link, UriKind.Absolute))
+          link = await channelHandler.CreateInvite(voiceChannelId);
 
         output.SetResult(link);
     }
@@ -37,7 +39,7 @@ public class ChannelInviteLinkCreator(
     {
         var playerId = userSession.GetUserId();
         var crew = await crewQueryRepository.GetActiveCrewByPlayerId(playerId);
-        
+
         return crew;
     }
 }

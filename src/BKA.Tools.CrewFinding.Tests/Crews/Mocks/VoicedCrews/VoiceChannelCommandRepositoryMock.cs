@@ -8,9 +8,11 @@ namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.VoicedCrews;
 public class VoiceChannelHandlerMock : IVoiceChannelHandler
 {
     public List<string> DeletedVoicedCrewIds { get; } = [];
+    public int CreateCallCounts { get; private set; }
 
     public Task<string> Create(string name)
     {
+        CreateCallCounts++;
         return Task.FromResult(Guid.NewGuid().ToString());
     }
 

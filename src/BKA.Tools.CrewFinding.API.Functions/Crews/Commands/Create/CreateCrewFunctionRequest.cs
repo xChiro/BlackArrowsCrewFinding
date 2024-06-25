@@ -14,7 +14,7 @@ public class CreateCrewFunctionRequest
     public string[] LanguagesAbbrevs { get; set; }
     public string ActivityName { get; set; }
     public string Description { get; set; }
-    public string CustomChannelLink { get; set; }
+    public string? CustomChannelLink { get; set; }
 
     public ICrewCreatorRequest ToCrewCreatorRequest()
     {
@@ -24,6 +24,6 @@ public class CreateCrewFunctionRequest
             LanguagesAbbrevs,
             ActivityName,
             Description,
-            CustomChannelLink);
+            CustomChannelLink ?? string.Empty);
     }
 }
