@@ -5,7 +5,6 @@ namespace BKA.Tools.CrewFinding.Azure.DataBase.VoiceChannels;
 
 public class VoiceChannelCommandRepository(Container container) : IVoiceChannelCommandRepository
 {
-    
     public async Task AddVoiceChannel(string crewId, string voiceChannelId)
     {
         var voiceChannelDocument = new VoiceChannelDocument

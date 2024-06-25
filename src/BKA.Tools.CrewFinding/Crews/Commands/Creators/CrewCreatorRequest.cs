@@ -8,15 +8,15 @@ public record CrewCreatorRequest(
     Location Location,
     string[] LanguagesAbbrevs,
     string ActivityName,
-    string Description = "")
+    string Description = "") : ICrewCreatorRequest
 
 {
     public Crew ToCrew(Player captain, int playersAllowed)
     {
         var maxPlayersAllowed = CrewSize > playersAllowed ? playersAllowed : CrewSize;
-        
+
         return new Crew(captain, Location,
-            LanguageCollections.CreateFromAbbrevs(LanguagesAbbrevs), 
+            LanguageCollections.CreateFromAbbrevs(LanguagesAbbrevs),
             PlayerCollection.CreateEmpty(maxPlayersAllowed),
             Activity.Create(ActivityName, Description));
     }

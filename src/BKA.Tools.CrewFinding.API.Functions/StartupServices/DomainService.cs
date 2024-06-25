@@ -51,6 +51,8 @@ public static class DomainService
         var expirationThreshold = Convert.ToInt32(Configuration.GetEnvironmentVariable("recentCrewsHoursThreshold"));
         var minNameLength = Convert.ToInt32(Configuration.GetEnvironmentVariable("minCitizenNameLength"));
         var maxNameLength = Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCitizenNameLength"));
+        const string regexPattern = @"^https:\/\/discord\.gg\/([a-zA-Z0-9]{6,9})$";
+
 
         service.AddScoped<IRecentCrewsRetrieval>(
             serviceProvider =>
@@ -72,7 +74,7 @@ public static class DomainService
                 var domainLogger = serviceProvider.GetRequiredService<IDomainLogger>();
 
                 return new VoicedCrewCreator(crewCreator, voiceChannelCommandRepository, channelCommandRepository,
-                    domainLogger);
+                    domainLogger, regexPattern);
             });
 
         service.AddScoped<ICrewDisbandment>(

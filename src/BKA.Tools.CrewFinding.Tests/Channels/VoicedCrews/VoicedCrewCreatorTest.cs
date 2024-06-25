@@ -101,7 +101,8 @@ public class VoicedCrewCreatorTest
             crewCreator,
             voiceChannelHandler,
             voiceChannelCommandRepositoryMock,
-            domainLogger);
+            domainLogger, 
+            "");
         return sut;
     }
 }

@@ -14,7 +14,7 @@ public class CrewCreator(
     IUserSession userSession,
     int playersAllowed) : ICrewCreator
 {
-    public async Task Create(CrewCreatorRequest request, ICrewCreatorResponse output)
+    public async Task Create(ICrewCreatorRequest request, ICrewCreatorResponse output)
     {
         var captain = await TryToGetValidCaptain(userSession.GetUserId());
         var crew =  request.ToCrew(captain, playersAllowed);

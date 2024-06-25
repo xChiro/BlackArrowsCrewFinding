@@ -6,7 +6,7 @@ namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.Creations;
 
 public class CrewCreatorExceptionMock<T> : ICrewCreator where T : Exception, new()
 {
-    public Task Create(CrewCreatorRequest request, ICrewCreatorResponse output)
+    public Task Create(ICrewCreatorRequest request, ICrewCreatorResponse output)
     {
         throw new T();
     }
