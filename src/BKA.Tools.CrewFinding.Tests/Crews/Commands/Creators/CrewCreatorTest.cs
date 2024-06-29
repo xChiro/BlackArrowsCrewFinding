@@ -28,7 +28,7 @@ public class CrewCreatorTest
         await ExecuteCrewCreation(sut, 4, string.Empty, crewCreatorResponseMock);
 
         // Assert
-        crewPartyCommandsMock.Name!.Value.Should().Be(expectedCrewName);
+        crewPartyCommandsMock.Crew.Name!.Value.Should().Be(expectedCrewName);
     }
 
     [Fact]
@@ -52,7 +52,6 @@ public class CrewCreatorTest
     {
         // Arrange
         const string captainName = "Rowan";
-        const int maxCrewAllowed = 3;
 
         var createCrewPartyResultMock = new CrewCommandRepositoryMock();
 
@@ -60,15 +59,13 @@ public class CrewCreatorTest
             captainName: captainName);
 
         // Act
-        await ExecuteCrewCreation(sut, maxCrewAllowed);
+        await ExecuteCrewCreation(sut);
 
         // Assert
-        createCrewPartyResultMock.Captain.Should().NotBeNull();
-        createCrewPartyResultMock.Captain!.CitizenName.Value.Should().Be(captainName);
-        createCrewPartyResultMock.Captain!.Id.Should().NotBeNullOrEmpty();
-        createCrewPartyResultMock.Members.Should().BeEmpty();
-        createCrewPartyResultMock.MaxMembersAllowed.Should().Be(maxCrewAllowed);
-        createCrewPartyResultMock.Active = true;
+        createCrewPartyResultMock.Crew.Captain.Should().NotBeNull();
+        createCrewPartyResultMock.Crew.Captain!.CitizenName.Value.Should().Be(captainName);
+        createCrewPartyResultMock.Crew.Captain!.Id.Should().NotBeNullOrEmpty();
+        createCrewPartyResultMock.Crew.Members.Should().BeEmpty();
     }
 
     [Fact]
@@ -82,7 +79,7 @@ public class CrewCreatorTest
         await ExecuteCrewCreation(sut);
 
         // Assert
-        createCrewPartyResultMock.CreationDate.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+        createCrewPartyResultMock.Crew.CreatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
     }
 
     [Fact]
@@ -98,7 +95,7 @@ public class CrewCreatorTest
         await ExecuteCrewCreation(sut, 4, description, crewPartyCreatorResponseMock);
 
         // Assert
-        createCrewPartyResultMock.Activity!.Description.Should().Be(description);
+        createCrewPartyResultMock.Crew.Activity!.Description.Should().Be(description);
         crewPartyCreatorResponseMock.Id.Should().NotBeNullOrEmpty();
     }
 
@@ -115,7 +112,7 @@ public class CrewCreatorTest
         await ExecuteCrewCreation(sut, 10);
 
         // Assert
-        createCrewPartyResultMock.MaxMembersAllowed.Should().Be(maxCrewAllowed);
+        createCrewPartyResultMock.Crew.Members.MaxSize.Should().Be(maxCrewAllowed);
     }
 
     private static async Task ExecuteCrewCreation(ICrewCreator sut, int totalCrew = 4)

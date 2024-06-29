@@ -96,7 +96,7 @@ public class CrewJoinerTest
     {
         // Arrange
         var crew = InitializeCrew(PlayerCollection.CreateEmpty(4));
-        var crewPartyCommands = new CrewCommandRepositoryMock(crew.Id);
+        var crewPartyCommands = new CrewCommandRepositoryMock();
         var playerQueriesValidationMock = new PlayerQueryRepositoryValidationMock(PlayerId, "Rowan");
 
         var playerPartyJoiner =
@@ -106,7 +106,7 @@ public class CrewJoinerTest
         await playerPartyJoiner.Join(crew.Id);
 
         // Assert
-        crewPartyCommands.Members.Should().Satisfy(member => member.Id == PlayerId);
+        crewPartyCommands.Crew.Members.Should().Satisfy(member => member.Id == PlayerId);
         crew.Members.Count().Should().Be(1);
     }
 
@@ -122,7 +122,7 @@ public class CrewJoinerTest
         var playerQueriesValidationMock = new PlayerQueryRepositoryValidationMock(newMemberId, newMemberName);
 
         var crew = InitializeCrew(members);
-        var crewPartyCommands = new CrewCommandRepositoryMock(crew.Id);
+        var crewPartyCommands = new CrewCommandRepositoryMock();
         var playerPartyJoiner = CreatePlayerPartyJoiner(crew, crewPartyCommands, playerQueriesValidationMock, 
             userSession: new UserSessionMock(newMemberId));
 
@@ -130,14 +130,14 @@ public class CrewJoinerTest
         await playerPartyJoiner.Join(crew.Id);
 
         // Assert
-        crewPartyCommands.Members.Should().Contain(member => member.Id == newMemberId);
-        crewPartyCommands.Members.Should().Contain(member => member.CitizenName.Value == newMemberName);
+        crewPartyCommands.Crew.Members.Should().Contain(member => member.Id == newMemberId);
+        crewPartyCommands.Crew.Members.Should().Contain(member => member.CitizenName.Value == newMemberName);
         crew.Members.Count().Should().Be(2);
     }
 
     private static void MembersShouldBeEmpty(CrewCommandRepositoryMock crewCommandRepositoryMock)
     {
-        crewCommandRepositoryMock.Members.Should().BeNullOrEmpty();
+        crewCommandRepositoryMock.Crew.Members.Should().BeNullOrEmpty();
     }
 
     private static Crew InitializeCrew(PlayerCollection playerCollection)

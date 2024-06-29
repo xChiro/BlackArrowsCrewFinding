@@ -21,4 +21,9 @@ public class PlayerCommands(Container container) : IPlayerCommandRepository
 
         await container.PatchItemAsync<PlayerDocument>(playerId, new PartitionKey(playerId), patchOperations);
     }
+
+    public Task Delete(string playerId)
+    {
+        throw new NotImplementedException();
+    }
 }

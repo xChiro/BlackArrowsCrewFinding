@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
+using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
+using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Tests.Commons;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
@@ -73,8 +75,8 @@ public class CrewDisbandmentTest
         return sut;
     }
 
-    private static CrewDisbandment CreateCrewDisbandment(CrewQueryRepositoryMock crewValidationRepository,
-        CrewCommandRepositoryMock crewDisbandRepository, UserSessionMock userSession)
+    private static CrewDisbandment CreateCrewDisbandment(ICrewQueryRepository crewValidationRepository,
+        CrewCommandRepositoryMock crewDisbandRepository, IUserSession userSession)
     {
         var sut = new CrewDisbandment(crewValidationRepository, crewDisbandRepository, userSession);
         return sut;

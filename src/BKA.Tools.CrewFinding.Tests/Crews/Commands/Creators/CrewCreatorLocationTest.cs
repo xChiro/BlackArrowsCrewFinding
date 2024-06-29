@@ -20,7 +20,7 @@ public class CrewCreatorLocationTest
         await ExecuteSut(sut, expectedLocation);
 
         // Assert
-        createCrewPartyResultMock.StartingPlace.Should().Be(expectedLocation);
+        createCrewPartyResultMock.Crew.ReunionPoint.Should().Be(expectedLocation);
     }
 
     [Theory]
@@ -40,7 +40,7 @@ public class CrewCreatorLocationTest
         await ExecuteSut(sut, expectedLocation);
 
         // Assert
-        createCrewPartyResultMock.StartingPlace.Should().Be(expectedLocation);
+        createCrewPartyResultMock.Crew.ReunionPoint.Should().Be(expectedLocation);
     }
 
     private static async Task ExecuteSut(ICrewCreator sut, Location expectedLocation)

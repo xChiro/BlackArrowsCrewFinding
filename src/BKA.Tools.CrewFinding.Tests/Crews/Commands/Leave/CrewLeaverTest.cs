@@ -56,7 +56,7 @@ public class CrewLeaverTest
         await sut.Leave();
 
         // Assert
-        crewCommandMock.Members.Should().NotContain(player => player.Id == playerToLeave.Id);
+        crewCommandMock.Crew.Members.Should().NotContain(player => player.Id == playerToLeave.Id);
         crew.Members.Should().NotContain(player => player.Id == playerToLeave.Id);
     }
 

@@ -8,6 +8,7 @@ public class PlayerCommandRepositoryMock : IPlayerCommandRepository
 {
     public Player? StoredPlayer { get; private set; }
     public string NewName { get; set; } = string.Empty;
+    public string DeletedPlayerId { get; private set; } = string.Empty;
 
     public Task Create(Player player)
     {
@@ -18,6 +19,12 @@ public class PlayerCommandRepositoryMock : IPlayerCommandRepository
     public Task UpdateName(string playerId, string newName)
     {
         NewName = newName;
+        return Task.CompletedTask;
+    }
+
+    public Task Delete(string playerId)
+    {
+        DeletedPlayerId = playerId;
         return Task.CompletedTask;
     }
 }

@@ -1,7 +1,4 @@
-using System;
 using BKA.Tools.CrewFinding.Channels.Expired;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.Logging;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Channels.Expired;
 

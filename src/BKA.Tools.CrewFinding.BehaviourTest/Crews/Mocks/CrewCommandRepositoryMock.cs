@@ -23,6 +23,16 @@ public class CrewCommandRepositoryMock : ICrewCommandRepository, ICrewDisbandRep
         return Task.CompletedTask;
     }
 
+    public Task DeletePlayerHistory(string playerId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteCrew(string crewId)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task Disband(string crewId)
     {
         DisbandedCrewIds = [crewId];

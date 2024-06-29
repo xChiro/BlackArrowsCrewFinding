@@ -6,4 +6,6 @@ public interface ICrewCommandRepository
 {
     public Task CreateCrew(Crew crew);
     public Task UpdateMembers(string crewId, IEnumerable<Player> crewMembers);
+    public Task DeletePlayerHistory(string playerId);
+    public Task DeleteCrew(string crewId);
 }

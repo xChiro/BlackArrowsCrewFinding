@@ -18,4 +18,9 @@ public class PlayerCommandRepositoryMock(int minNameLength, int maxNameLength) :
         StoredPlayer = Player.Create(playerId, newName, minNameLength, maxNameLength);
         return Task.CompletedTask;
     }
+
+    public Task Delete(string playerId)
+    {
+        throw new NotImplementedException();
+    }
 }

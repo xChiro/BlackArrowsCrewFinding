@@ -15,7 +15,6 @@ using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Commands.Updates;
 using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
-using Grpc.Net.Client.Balancer;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;

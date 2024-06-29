@@ -25,4 +25,14 @@ public class CrewCommandRepository(Container container) : ICrewCommandRepository
 
         await container.PatchItemAsync<CrewDocument>(crewId, new PartitionKey(crewId), patchOperations);
     }
+
+    public Task DeletePlayerHistory(string playerId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteCrew(string crewId)
+    {
+        throw new NotImplementedException();
+    }
 }
