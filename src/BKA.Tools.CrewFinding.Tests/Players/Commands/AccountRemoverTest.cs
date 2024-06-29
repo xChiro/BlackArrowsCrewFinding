@@ -120,7 +120,7 @@ public class AccountRemoverTest
         var crewCommandRepositoryMock = crewCommandRepository ?? new CrewCommandRepositoryMock();
         var playerCommandRepositoryMock = playerCommandRepository ?? new PlayerCommandRepositoryMock();
 
-        return new AccountRemover(queryRepositoryExceptionMock, crewCommandRepositoryMock, UserSessionMock,
-            playerCommandRepositoryMock);
+        return new AccountRemover(queryRepositoryExceptionMock, crewCommandRepositoryMock,
+            playerCommandRepositoryMock, UserSessionMock);
     }
 }

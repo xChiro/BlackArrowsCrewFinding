@@ -10,8 +10,8 @@ namespace BKA.Tools.CrewFinding.Tests.Players.Commands;
 public class AccountRemover(
     ICrewQueryRepository crewQueryRepository,
     ICrewCommandRepository crewCommandRepository,
-    IUserSession session,
-    IPlayerCommandRepository playerCommandRepository) : IAccountRemover
+    IPlayerCommandRepository playerCommandRepository,
+    IUserSession session) : IAccountRemover
 {
     public async Task Remove()
     {
