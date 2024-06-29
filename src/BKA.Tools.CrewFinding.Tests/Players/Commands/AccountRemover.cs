@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Commons.Ports;
+using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players.Ports;
 
@@ -15,20 +16,28 @@ public class AccountRemover(
     public async Task Remove()
     {
         var playerId = session.GetUserId();
-        await crewCommandRepository.DeletePlayerHistory(playerId);
-
+        var historyDeletionTask = crewCommandRepository.DeletePlayerHistory(playerId);
         var activeCrew = await crewQueryRepository.GetActiveCrewByPlayerId(playerId);
+        
+        var removePlayerFromCrewTask = RemovePlayerFromActiveCrew(activeCrew, playerId);
 
+        Task.WaitAll(playerCommandRepository.Delete(playerId), historyDeletionTask, removePlayerFromCrewTask);
+    }
+
+    private Task RemovePlayerFromActiveCrew(Crew? activeCrew, string playerId)
+    {
+        var removePlayerFromCrewTask = Task.CompletedTask;
+        
         if (activeCrew != null && activeCrew.Captain.Id == playerId)
         {
-            await crewCommandRepository.DeleteCrew(activeCrew.Id);
+            removePlayerFromCrewTask = crewCommandRepository.DeleteCrew(activeCrew.Id);
         }
         else if (activeCrew != null)
         {
-            await crewCommandRepository.UpdateMembers(activeCrew.Id,
+            removePlayerFromCrewTask = crewCommandRepository.UpdateMembers(activeCrew.Id,
                 activeCrew.Members.Where(member => member.Id != playerId));
         }
 
-        await playerCommandRepository.Delete(playerId);
+        return removePlayerFromCrewTask;
     }
 }
