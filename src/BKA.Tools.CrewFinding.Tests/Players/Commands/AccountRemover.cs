@@ -28,9 +28,9 @@ public class AccountRemover(
     {
         var removePlayerFromCrewTask = Task.CompletedTask;
         
-        if (activeCrew != null && activeCrew.Captain.Id == playerId)
+        if (IsCaptain(activeCrew, playerId))
         {
-            removePlayerFromCrewTask = crewCommandRepository.DeleteCrew(activeCrew.Id);
+            removePlayerFromCrewTask = crewCommandRepository.DeleteCrew(activeCrew!.Id);
         }
         else if (activeCrew != null)
         {
@@ -39,5 +39,10 @@ public class AccountRemover(
         }
 
         return removePlayerFromCrewTask;
+    }
+
+    private static bool IsCaptain(Crew? activeCrew, string playerId)
+    {
+        return activeCrew != null && activeCrew.Captain.Id == playerId;
     }
 }
