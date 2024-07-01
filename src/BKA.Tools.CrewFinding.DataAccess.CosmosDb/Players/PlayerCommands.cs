@@ -24,6 +24,6 @@ public class PlayerCommands(Container container) : IPlayerCommandRepository
 
     public Task Delete(string playerId)
     {
-        throw new NotImplementedException();
+        return container.DeleteItemAsync<PlayerDocument>(playerId, new PartitionKey(playerId));
     }
 }

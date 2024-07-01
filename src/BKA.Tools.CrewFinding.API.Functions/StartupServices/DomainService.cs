@@ -12,6 +12,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recent;
 using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
+using BKA.Tools.CrewFinding.Players.Commands.Removes;
 using BKA.Tools.CrewFinding.Players.Commands.Updates;
 using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
@@ -134,5 +135,11 @@ public static class DomainService
             serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(), 
             serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>(),
             serviceProvider.GetRequiredService<IVoiceChannelHandler>()));
+        
+        service.AddScoped<IAccountRemover>(serviceProvider => new AccountRemover(
+            serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+            serviceProvider.GetRequiredService<ICrewCommandRepository>(),
+            serviceProvider.GetRequiredService<IPlayerCommandRepository>(),
+            serviceProvider.GetRequiredService<IUserSession>()));
     }
 }

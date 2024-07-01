@@ -1,11 +1,9 @@
-using System.Linq;
-using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players.Ports;
 
-namespace BKA.Tools.CrewFinding.Tests.Players.Commands;
+namespace BKA.Tools.CrewFinding.Players.Commands.Removes;
 
 public class AccountRemover(
     ICrewQueryRepository crewQueryRepository,

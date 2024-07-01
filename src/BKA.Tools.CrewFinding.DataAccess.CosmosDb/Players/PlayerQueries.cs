@@ -1,3 +1,4 @@
+using System.Text.Json;
 using BKA.Tools.CrewFinding.Azure.DataBase.Players.Documents;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Ports;
@@ -8,18 +9,15 @@ public class PlayerQueries(Container container, int minNameLength, int maxNameLe
 {
     public async Task<Player?> GetPlayer(string playerId)
     {
-        try
-        {
-            var playerDocument = await container.ReadItemAsync<PlayerDocument>(playerId, new PartitionKey(playerId));
+        var response = await container.ReadItemStreamAsync(playerId, new PartitionKey(playerId));
 
-            return playerDocument.StatusCode == System.Net.HttpStatusCode.NotFound
-                ? null
-                : playerDocument.Resource.ToPlayer(minNameLength, maxNameLength);
-        }
-        catch (CosmosException ex) when (ex.StatusCode is System.Net.HttpStatusCode.NotFound
-                                             or System.Net.HttpStatusCode.BadRequest)
+        if (!response.IsSuccessStatusCode) return null;
+        
+        var document = await new StreamReader(response.Content).ReadToEndAsync();
+        
+        return JsonSerializer.Deserialize<PlayerDocument>(document, new JsonSerializerOptions
         {
-            return null;
-        }
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        })?.ToPlayer(minNameLength, maxNameLength);
     }
 }

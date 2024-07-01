@@ -50,7 +50,8 @@ public static class InfrastructureServices
             cosmosDbContainerBuilder.Build(databaseId,
                 Configuration.GetEnvironmentVariable("cosmosDBVoiceChannelContainer"));
 
-        service.AddSingleton<ICrewCommandRepository>(_ => new CrewCommandRepository(crewContainer));
+        service.AddSingleton<ICrewCommandRepository>(_ =>
+            new CrewCommandRepository(crewContainer, disbandedCrewsContainer));
         service.AddSingleton<ICrewQueryRepository>(_ =>
             new CrewQueryRepository(crewContainer, minCitizenNameLength, maxCitizenNameLength));
         service.AddSingleton<ICrewValidationRepository>(_ =>

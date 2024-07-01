@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Players;
+using BKA.Tools.CrewFinding.Players.Commands.Removes;
 using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Tests.Commons;
 using BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
