@@ -8,24 +8,15 @@ using BKA.Tools.CrewFinding.Players;
 namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 
 [Binding]
-public class MembersArrangeSteps
+public class MembersArrangeSteps(
+    PlayerContext playerContext,
+    CrewRepositoriesContext crewRepositoriesContext,
+    CrewContext crewContext)
 {
-    private readonly PlayerContext _playerContext;
-    private readonly CrewRepositoriesContext _crewRepositoriesContext;
-    private readonly CrewContext _crewContext;
-
-    public MembersArrangeSteps(PlayerContext playerContext, CrewRepositoriesContext crewRepositoriesContext,
-        CrewContext crewContext)
-    {
-        _playerContext = playerContext;
-        _crewRepositoriesContext = crewRepositoriesContext;
-        _crewContext = crewContext;
-    }
-
     [Given(@"the player is a member of a Crew")]
     public void GivenThePlayerIsAMemberOfACrew()
     {
-        var player = Player.Create(_playerContext.PlayerId, _playerContext.PlayerName,2, 16);
+        var player = Player.Create(playerContext.PlayerId, playerContext.PlayerName,2, 16);
         var crew = CreateCrew();
         
         crew.AddMember(player);
@@ -54,7 +45,7 @@ public class MembersArrangeSteps
 
     private void SetCrew(Crew crew)
     {
-        _crewContext.CrewId = crew.Id;
-        _crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
+        crewContext.CrewId = crew.Id;
+        crewRepositoriesContext.QueryRepositoryMock = new CrewQueryRepositoryMock(new[] {crew});
     }
 }

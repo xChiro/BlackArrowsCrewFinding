@@ -43,7 +43,6 @@ public class ChannelCreatorTest(IVoiceChannelHandler voiceChannelHandler) : IAsy
     {
         // Arrange
         _channelId = await voiceChannelHandler.Create(ChannelName);
-        const string userId = "1250618771031199848";
 
         // Act
         var invite = await voiceChannelHandler.CreateInvite(_channelId);

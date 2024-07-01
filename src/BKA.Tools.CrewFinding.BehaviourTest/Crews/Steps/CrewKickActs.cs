@@ -7,7 +7,6 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 
 [Binding]
 public class CrewKickActs(
-    CrewContext crewContext,
     ExceptionResultContext exceptionResultContext,
     PlayerContext playerContext,
     CrewRepositoriesContext crewRepositoriesContext)
