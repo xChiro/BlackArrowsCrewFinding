@@ -4,4 +4,5 @@ public interface IPlayerCommandRepository
 {
     public Task Create(Player player);
     Task UpdateName(string playerId, string newName);
+    Task Delete(string playerId);
 }

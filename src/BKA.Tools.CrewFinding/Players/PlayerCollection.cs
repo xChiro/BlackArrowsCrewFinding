@@ -57,6 +57,11 @@ public class PlayerCollection : IEnumerable<Player>
         return _players.Count == MaxSize;
     }
 
+    public void Clear()
+    {
+        _players.Clear();
+    }
+
     public IEnumerator<Player> GetEnumerator()
     {
         return _players.GetEnumerator();

@@ -20,7 +20,7 @@ public class CrewCreatorActivityTest
         await ExecuteCrewCreation(sut, 4, defaultActivities);
 
         // Assert
-        createCrewPartyResultMock.Activity!.Name.Should().BeEquivalentTo(defaultActivities);
+        createCrewPartyResultMock.Crew.Activity!.Name.Should().BeEquivalentTo(defaultActivities);
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class CrewCreatorActivityTest
         await ExecuteCrewCreation(sut, 4, activity);
 
         // Assert
-        createCrewPartyResultMock.Activity!.Name.Should().BeEquivalentTo(activity);
+        createCrewPartyResultMock.Crew.Activity!.Name.Should().BeEquivalentTo(activity);
     }
 
     private static async Task ExecuteCrewCreation(ICrewCreator sut, int totalCrew,

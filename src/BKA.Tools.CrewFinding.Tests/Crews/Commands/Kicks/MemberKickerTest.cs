@@ -16,7 +16,7 @@ public class MemberKickerTest
     public async Task Attempt_To_Kick_A_Member_But_I_Dont_Have_A_Crew_Throws_CrewNotFoundException()
     {
         // Arrange
-        var player = CreatePlayer("playerId", "playerName");
+        var player = CreatePlayer("playerId");
         var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
         var sut = InitializeSutMemberKicker(player, [], crewCommandRepositoryMock);
 
@@ -25,7 +25,7 @@ public class MemberKickerTest
 
         // Assert
         await act.Should().ThrowAsync<NotCaptainException>();
-        crewCommandRepositoryMock.Members.Should().BeEmpty();
+        crewCommandRepositoryMock.Crew.Members.Should().BeEmpty();
     }
 
     [Fact]
@@ -42,7 +42,7 @@ public class MemberKickerTest
 
         // Assert
         await act.Should().ThrowAsync<PlayerNotInCrewException>();
-        crewCommandRepositoryMock.Members.Should().BeEmpty();
+        crewCommandRepositoryMock.Crew.Members.Should().BeEmpty();
     }
 
     [Fact]
@@ -66,8 +66,8 @@ public class MemberKickerTest
         // Assert
         crew.Members.Should().Contain(member);
         crew.Members.Should().NotContain(removedMember);
-        crewCommandRepositoryMock.Members.Should().Contain(member);
-        crewCommandRepositoryMock.Members.Should().NotContain(removedMember);
+        crewCommandRepositoryMock.Crew.Members.Should().Contain(member);
+        crewCommandRepositoryMock.Crew.Members.Should().NotContain(removedMember);
     }
 
     private static Player CreatePlayer(string playerId, string playerName = "playerName")

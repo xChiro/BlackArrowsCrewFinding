@@ -50,12 +50,12 @@ public class Startup
         var voiceChannelContainer = databaseSettingsProvider.GetVoiceChannelContainer();
 
         services.AddTransient<ICrewCommandRepository>(_ =>
-            new CrewCommandRepository(crewContainer));
+            new CrewCommandRepository(crewContainer, disbandedCrewsContainer));
 
         const int minNameLength = 2;
         const int maxNameLength = 16;
         services.AddTransient<ICrewValidationRepository>(_ =>
-            new CrewQueryRepository(crewContainer,minNameLength, maxNameLength));
+            new CrewQueryRepository(crewContainer, minNameLength, maxNameLength));
 
         services.AddTransient<ICrewQueryRepository>(_ =>
             new CrewQueryRepository(crewContainer, minNameLength, maxNameLength));
@@ -65,13 +65,13 @@ public class Startup
 
         services.AddTransient<IPlayerQueryRepository>(_ =>
             new PlayerQueries(playerContainer, minNameLength, maxNameLength));
-        
+
         services.AddTransient<ICrewDisbandRepository>(_ =>
             new CrewDisbandRepository(crewContainer, disbandedCrewsContainer));
-        
+
         services.AddTransient<IVoiceChannelCommandRepository>(_ =>
             new VoiceChannelCommandRepository(voiceChannelContainer));
-        
+
         services.AddTransient<IVoiceChannelQueryRepository>(_ =>
             new VoiceChannelQueryRepository(voiceChannelContainer));
     }

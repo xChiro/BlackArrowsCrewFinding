@@ -43,34 +43,27 @@ public class DisbandCrewTest(
     {
         // Arrange
         var expiredCrew = CrewBuilder.CreateDefaultCrew(DateTime.UtcNow.AddHours(-3));
-        _crewContainer!.CreateItemAsync(CrewDocument.CreateFromCrew(expiredCrew), new PartitionKey(expiredCrew.Id)).Wait();
-        
+        _crewContainer!.CreateItemAsync(CrewDocument.CreateFromCrew(expiredCrew), new PartitionKey(expiredCrew.Id))
+            .Wait();
+
         // Act
         await crewDisbandRepository.Disband(new[] {expiredCrew.Id});
-        
+
         // Assert
         await VerifyCrewNotFoundAsync(expiredCrew.Id);
     }
 
     private async Task VerifyCrewNotFoundAsync(string id)
     {
-        var response = await _crewContainer!.ReadItemStreamAsync(id, new PartitionKey(id));
-        if (response.StatusCode != HttpStatusCode.NotFound)
-        {
-            var document = await _crewContainer.ReadItemAsync<CrewDocument>(id, new PartitionKey(id));
-            document.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
+        var document = await _crewContainer!.ReadItemStreamAsync(id, new PartitionKey(id));
+        document.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     private async Task VerifyDisbandedCrewAsync(string id)
     {
-        var response = await _disbandedCrewsContainer!.ReadItemStreamAsync(id, new PartitionKey(id));
-        if (response.StatusCode == HttpStatusCode.OK)
-        {
-            var document = await _disbandedCrewsContainer.ReadItemAsync<CrewDocument>(id, new PartitionKey(id));
-            document.StatusCode.Should().Be(HttpStatusCode.OK);
-            document.Resource.Id.Should().Be(id);
-        }
+        var document = await _disbandedCrewsContainer!.ReadItemAsync<CrewDocument>(id, new PartitionKey(id));
+        document.StatusCode.Should().Be(HttpStatusCode.OK);
+        document.Resource!.Id.Should().Be(id);
     }
 
     public Task DisposeAsync()

@@ -27,6 +27,6 @@ public class MultipleCrewsRestrictionTest
             crewPartyCreator.Create(request, new CrewCreatorResponseMock()));
 
         // Assert
-        crewPartyQueriesMock.Name.Should().BeNull();
+        crewPartyQueriesMock.CreateCrewCalLCount.Should().Be(0);
     }
 }

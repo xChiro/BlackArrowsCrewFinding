@@ -6,12 +6,12 @@ using BKA.Tools.CrewFinding.Players;
 
 namespace BKA.Tools.CrewFinding.Azure.DataBase.CrewParties;
 
-public class CrewCommandRepository(Container container) : ICrewCommandRepository
+public class CrewCommandRepository(Container crewContainer, Container disbandCrewContainer) : ICrewCommandRepository
 {
     public async Task CreateCrew(Crew crew)
     {
         var document = CrewDocument.CreateFromCrew(crew);
-        await container.CreateItemAsync(document, new PartitionKey(document.Id));
+        await crewContainer.CreateItemAsync(document, new PartitionKey(document.Id));
     }
 
     public async Task UpdateMembers(string crewId, IEnumerable<Player> crewMembers)
@@ -23,6 +23,33 @@ public class CrewCommandRepository(Container container) : ICrewCommandRepository
             PatchOperation.Replace("/crew", members)
         };
 
-        await container.PatchItemAsync<CrewDocument>(crewId, new PartitionKey(crewId), patchOperations);
+        await crewContainer.PatchItemAsync<CrewDocument>(crewId, new PartitionKey(crewId), patchOperations);
+    }
+
+    public async Task DeletePlayerHistory(string playerId)
+    {
+        var queryDefinition =
+            new QueryDefinition(
+                    "SELECT * FROM c WHERE c.captainId = @playerId   OR ARRAY_CONTAINS(c.crew, {'id': @playerId}, true)")
+                .WithParameter("@playerId", playerId);
+        var resultSetIterator = disbandCrewContainer.GetItemQueryIterator<CrewDocument>(queryDefinition);
+
+        var deleteTasks = new List<Task>();
+
+        while (resultSetIterator.HasMoreResults)
+        {
+            var response = await resultSetIterator.ReadNextAsync();
+
+            deleteTasks.AddRange(response.Select(crewDocument =>
+                disbandCrewContainer.DeleteItemAsync<CrewDocument>(crewDocument.Id,
+                    new PartitionKey(crewDocument.Id))));
+        }
+
+        await Task.WhenAll(deleteTasks);
+    }
+
+    public Task DeleteCrew(string crewId)
+    {
+        throw new NotImplementedException();
     }
 }

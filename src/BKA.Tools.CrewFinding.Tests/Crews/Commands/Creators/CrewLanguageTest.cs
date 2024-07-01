@@ -17,10 +17,10 @@ public class CrewLanguageTest
         var sut = CrewCreatorBuilder.Build(createCrewPartyResultMock);
         
         // Act
-        ExecuteCrewCreation(sut, 4, Array.Empty<string>());
+        ExecuteCrewCreation(sut, 4, []);
 
         // Assert
-        createCrewPartyResultMock.Languages.Should().BeEquivalentTo(LanguageCollections.Default());
+        createCrewPartyResultMock.Crew.Languages.Should().BeEquivalentTo(LanguageCollections.Default());
     }
 
     [Theory]
@@ -39,7 +39,7 @@ public class CrewLanguageTest
         ExecuteCrewCreation(sut, 4, languagesAbbrevs);
 
         // Assert
-        createCrewPartyResultMock.Languages.Should().BeEquivalentTo(expectedLanguages);
+        createCrewPartyResultMock.Crew.Languages.Should().BeEquivalentTo(expectedLanguages);
     }
 
     private static void ExecuteCrewCreation(ICrewCreator sut, int totalCrew,

@@ -10,6 +10,8 @@ namespace BKA.Tools.CrewFinding.Tests.Crews.Mocks.Crews;
 public class CrewQueryRepositoryMock(IEnumerable<Crew>? crews = null)
     : ICrewQueryRepository
 {
+    public int GetActiveCrewByPlayerIdCountCalled { get; private set; }
+
     public Task<Crew?> GetCrew(string crewId)
     {
         return Task.FromResult(crews?.FirstOrDefault(c => c.Id == crewId));
@@ -29,6 +31,7 @@ public class CrewQueryRepositoryMock(IEnumerable<Crew>? crews = null)
 
     public Task<Crew?> GetActiveCrewByPlayerId(string playerId)
     {
+        GetActiveCrewByPlayerIdCountCalled++;
         return Task.FromResult(crews?.FirstOrDefault(c =>
             c.Captain.Id == playerId || c.Members.Any(m => m.Id == playerId)));
     }

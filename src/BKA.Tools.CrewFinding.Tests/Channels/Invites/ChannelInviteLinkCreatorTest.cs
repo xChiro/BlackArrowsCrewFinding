@@ -15,8 +15,8 @@ namespace BKA.Tools.CrewFinding.Tests.Channels.Invites;
 public class ChannelInviteLinkCreatorTest
 {
     private const string CrewId = "123";
-    private readonly UserSessionMock _userSessionMock = new("some-user-id");
-    private readonly CrewQueryRepositoryMock _crewQueryRepositoryMock;
+    private readonly UserSessionMock _userSessionMock = new();
+    private readonly ICrewQueryRepository _crewQueryRepositoryMock;
     private readonly ChannelInviteLinkCreatorResponseMock _responseMock = new();
 
     public ChannelInviteLinkCreatorTest()
@@ -100,7 +100,7 @@ public class ChannelInviteLinkCreatorTest
         voiceChannelHandlerMock.CreateCallCounts.Should().Be(0);
     }
 
-    private CrewQueryRepositoryMock CreateCrewQueryRepositoryMock()
+    private ICrewQueryRepository CreateCrewQueryRepositoryMock()
     {
         var crew = CrewBuilder.Build(CrewId, Player.Create(_userSessionMock.GetUserId(), "captain", 2, 16));
         return new CrewQueryRepositoryMock(new[] {crew});
