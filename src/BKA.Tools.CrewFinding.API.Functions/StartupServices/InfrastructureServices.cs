@@ -5,6 +5,7 @@ using BKA.Tools.CrewFinding.Azure.DataBase.VoiceChannels;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Discord;
 using BKA.Tools.CrewFinding.KeyVault;
+using BKA.Tools.CrewFinding.Notifications.SignalR;
 using BKA.Tools.CrewFinding.Players.Ports;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,10 +13,16 @@ namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
 
 public static class InfrastructureServices
 {
-    public static void AddRepositories(IServiceCollection service, KeySecretProvider keySecretsProvider)
+    public static void AddRepositories(IServiceCollection services, KeySecretProvider keySecretsProvider)
     {
-        AddDataBaseServices(service, ContainerBuilderService.CreateContainerBuilder(keySecretsProvider));
-        AddDiscordServices(service, keySecretsProvider);
+        AddDataBaseServices(services, ContainerBuilderService.CreateContainerBuilder(keySecretsProvider));
+        AddDiscordServices(services, keySecretsProvider);
+        AddSignalRServices(services);
+    }
+
+    private static void AddSignalRServices(IServiceCollection services)
+    {
+        services.AddSingleton<CrewHub>();
     }
 
     private static void AddDiscordServices(IServiceCollection service, KeySecretProvider keySecretsProvider)

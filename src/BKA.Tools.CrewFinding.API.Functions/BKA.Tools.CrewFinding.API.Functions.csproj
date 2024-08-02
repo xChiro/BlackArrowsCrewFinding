@@ -9,13 +9,17 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.WebApiCompatShim" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.22.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.2.0" />
+        <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.SignalRService" Version="1.14.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Timer" Version="4.3.1" />
         <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.17.2" />
+        <PackageReference Include="Microsoft.Azure.SignalR" Version="1.26.0" />
         <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.39" />
         <PackageReference Include="Microsoft.Azure.WebJobs.Extensions" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SignalRService" Version="1.14.0" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.6.1" />
     </ItemGroup>
     <ItemGroup>
@@ -38,6 +42,7 @@
       <ProjectReference Include="..\BKA.Tools.CrewFinding.DataAccess.CosmosDb\BKA.Tools.CrewFinding.DataAccess.CosmosDb.csproj" />
       <ProjectReference Include="..\BKA.Tools.CrewFinding.Discord\BKA.Tools.CrewFinding.Discord.csproj" />
       <ProjectReference Include="..\BKA.Tools.CrewFinding.KeyVault\BKA.Tools.CrewFinding.KeyVault.csproj" />
+      <ProjectReference Include="..\BKA.Tools.CrewFinding.Notifications.SignalR\BKA.Tools.CrewFinding.Notifications.SignalR.csproj" />
       <ProjectReference Include="..\BKA.Tools.CrewFinding\BKA.Tools.CrewFinding.csproj" />
     </ItemGroup>
     <ItemGroup>

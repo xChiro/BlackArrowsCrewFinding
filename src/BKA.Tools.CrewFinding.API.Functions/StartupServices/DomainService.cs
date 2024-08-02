@@ -11,11 +11,13 @@ using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recent;
 using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
+using BKA.Tools.CrewFinding.Notifications.SignalR;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Commands.Removes;
 using BKA.Tools.CrewFinding.Players.Commands.Updates;
 using BKA.Tools.CrewFinding.Players.Ports;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
@@ -73,8 +75,14 @@ public static class DomainService
                 var channelCommandRepository = serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>();
                 var domainLogger = serviceProvider.GetRequiredService<IDomainLogger>();
 
-                return new VoicedCrewCreator(crewCreator, voiceChannelCommandRepository, channelCommandRepository,
+                var voicedCrew = new VoicedCrewCreator(crewCreator, voiceChannelCommandRepository,
+                    channelCommandRepository,
                     domainLogger, regexPattern);
+
+                return new CrewCreatorSignalR(voicedCrew,
+                    serviceProvider.GetRequiredService<IHubContext<CrewHub>>(),
+                    serviceProvider.GetRequiredService<IUserSession>(),
+                    domainLogger);
             });
 
         service.AddScoped<ICrewDisbandment>(
@@ -123,19 +131,19 @@ public static class DomainService
             new HandleNameUpdater(serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
                 serviceProvider.GetRequiredService<IPlayerCommandRepository>(),
                 serviceProvider.GetRequiredService<IUserSession>(), maxNameLength, minNameLength));
-        
+
         service.AddScoped<IChannelInviteLinkCreator>(serviceProvider => new ChannelInviteLinkCreator(
             serviceProvider.GetRequiredService<IUserSession>(),
             serviceProvider.GetRequiredService<IVoiceChannelHandler>(),
             serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
             serviceProvider.GetRequiredService<ICrewQueryRepository>()));
-        
+
         service.AddScoped<IExpiredChannelRemover>(serviceProvider => new ExpiredChannelRemover(
-            expirationThreshold, 
-            serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(), 
+            expirationThreshold,
+            serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
             serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>(),
             serviceProvider.GetRequiredService<IVoiceChannelHandler>()));
-        
+
         service.AddScoped<IAccountRemover>(serviceProvider => new AccountRemover(
             serviceProvider.GetRequiredService<ICrewQueryRepository>(),
             serviceProvider.GetRequiredService<ICrewCommandRepository>(),

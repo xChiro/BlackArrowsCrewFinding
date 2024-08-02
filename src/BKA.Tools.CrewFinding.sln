@@ -24,6 +24,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKA.Tools.CrewFinding.Disco
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKA.Tools.CrewFinding.Discord", "BKA.Tools.CrewFinding.Discord\BKA.Tools.CrewFinding.Discord.csproj", "{922C7E72-6585-47F2-B23D-023A66BC238D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKA.Tools.CrewFinding.Notifications.SignalR.Tests", "BKA.Tools.CrewFinding.Notifications.SignalR.Tests\BKA.Tools.CrewFinding.Notifications.SignalR.Tests.csproj", "{3DC53FD3-C79E-4DEC-9D2B-C9C3148154FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKA.Tools.CrewFinding.Notifications.SignalR", "BKA.Tools.CrewFinding.Notifications.SignalR\BKA.Tools.CrewFinding.Notifications.SignalR.csproj", "{C4E87EB4-84AD-4660-86AD-33C3D3B8BF88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +70,14 @@ Global
 		{922C7E72-6585-47F2-B23D-023A66BC238D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{922C7E72-6585-47F2-B23D-023A66BC238D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{922C7E72-6585-47F2-B23D-023A66BC238D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC53FD3-C79E-4DEC-9D2B-C9C3148154FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC53FD3-C79E-4DEC-9D2B-C9C3148154FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC53FD3-C79E-4DEC-9D2B-C9C3148154FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC53FD3-C79E-4DEC-9D2B-C9C3148154FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4E87EB4-84AD-4660-86AD-33C3D3B8BF88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4E87EB4-84AD-4660-86AD-33C3D3B8BF88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4E87EB4-84AD-4660-86AD-33C3D3B8BF88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4E87EB4-84AD-4660-86AD-33C3D3B8BF88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{51B2FAF4-31CA-4F47-BE7B-4FCFF889D92C} = {40BA2BDD-DA74-45FA-8BD5-E74617079F93}
@@ -77,5 +89,7 @@ Global
 		{6D996DD0-28B9-4790-941D-96DB81E45659} = {DE8ADC97-41B7-4DD5-835B-2CD5ED570EEF}
 		{B0B5F6EF-EC30-446E-91AE-137276F2AE71} = {2A0AADB6-C654-48BF-B156-EACDF03C361B}
 		{922C7E72-6585-47F2-B23D-023A66BC238D} = {2A0AADB6-C654-48BF-B156-EACDF03C361B}
+		{3DC53FD3-C79E-4DEC-9D2B-C9C3148154FF} = {2A0AADB6-C654-48BF-B156-EACDF03C361B}
+		{C4E87EB4-84AD-4660-86AD-33C3D3B8BF88} = {2A0AADB6-C654-48BF-B156-EACDF03C361B}
 	EndGlobalSection
 EndGlobal

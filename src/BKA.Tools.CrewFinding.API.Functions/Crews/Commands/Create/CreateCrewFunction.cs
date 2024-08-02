@@ -1,12 +1,13 @@
 using System.Net;
-using BKA.Tools.CrewFinding.API.Functions.Authentications;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Cultures.Exceptions;
 using BKA.Tools.CrewFinding.Players.Exceptions;
+using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.Create;
 
+[SignalRConnection("AzureSignalRConnectionString")]
 public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerFactory) : FunctionBase
 {
     private readonly ILogger _logger = loggerFactory.CreateLogger<CreateCrewFunction>();
@@ -18,9 +19,8 @@ public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerF
     {
         try
         {
-            var tokenDecoder = new TokenDecoder(req);
             var crewFunctionRequest = await DeserializeBody<CreateCrewFunctionRequest>(req);
-            var crewCreatorResponse = await CreateCrew(tokenDecoder, crewFunctionRequest);
+            var crewCreatorResponse = await CreateCrew(crewFunctionRequest);
 
             return OkResponse(req, crewCreatorResponse);
         }
@@ -40,12 +40,12 @@ public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerF
         }
     }
 
-    private async Task<CrewCreatorResponse> CreateCrew(TokenDecoder tokenDecoder,
-        CreateCrewFunctionRequest crewFunctionRequest)
+    private async Task<CrewCreatorResponse> CreateCrew(CreateCrewFunctionRequest crewFunctionRequest)
     {
         var crewCreatorResponse = new CrewCreatorResponse();
         await crewCreator.Create(crewFunctionRequest.ToCrewCreatorRequest(),
             crewCreatorResponse);
+        
         return crewCreatorResponse;
     }
 }
