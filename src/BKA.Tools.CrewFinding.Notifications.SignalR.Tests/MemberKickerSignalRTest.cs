@@ -45,7 +45,7 @@ public class MemberKickerSignalRTest
     }
 
     [Fact]
-    public async void When_KickMember_Sent_Should_RemoveUser_From_SignalRGroup_And_SendMessage()
+    public async void When_KickMember_Should_RemoveUser_From_SignalRGroup_And_SendMessage_To_Group()
     {
         // Arrange
         const string memberId = "memberId";
@@ -66,6 +66,27 @@ public class MemberKickerSignalRTest
         signalRGroupServiceMock.RemovedConnectionId.Should().Be(connectionId);
         signalRGroupServiceMock.GroupName.Should().Be(crewId);
         signalRGroupServiceMock.Message.Should().NotBeNull();
+    }
+
+
+    [Fact]
+    public async void When_KickMember_Should_Send_Message_To_Notifying_The_KickedPlayer()
+    {
+        // Arrange
+        const string memberId = "memberId";
+        const string crewId = "2313124";
+        const string connectionId = "connectionId";
+        
+        var memberKickerMock = new MemberKickerMock(crewId);
+        var userSessionMock = new SignalRUserSessionMock(connectionId);
+        var signalRGroupServiceMock = new SignalRGroupServiceMock();
+        var sut = CreateSutMemberKickerSignalR(memberKickerMock, signalRGroupServiceMock, userSessionMock);
+        
+        // Act
+        await sut.Kick(memberId, new KickMemberResponse());
+        
+        // Assert
+        signalRGroupServiceMock.kickedConnectionId.Should().Be(connectionId);
     }
 
     private static MemberKickerSignalR CreateSutMemberKickerSignalR(IMemberKicker memberKickerMock,

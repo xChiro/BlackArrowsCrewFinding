@@ -20,6 +20,7 @@ public class MemberKickerSignalR(
         {
             signalRGroupService.RemoveUserFromGroupAsync(userSession.GetConnectionId(), memberKickerResponse.CrewId);
             signalRGroupService.SendMessageToGroupAsync(memberKickerResponse.CrewId, memberKickerResponse, "CrewMemberKicked");
+            signalRGroupService.SendMessageToUserAsync(userSession.GetConnectionId(), "You was kicked from the crew.", "CrewMemberKicked");
         }
         catch (Exception e)
         {

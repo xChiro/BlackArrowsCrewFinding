@@ -26,4 +26,9 @@ public class SignalRGroupServiceSendMessageThrowsMock<T> : ISignalRGroupService 
     {
         GroupName = groupName;
     }
+
+    public void SendMessageToUserAsync(string connectionId, string message, string methodName)
+    {
+        ConnectionId = connectionId;
+    }
 }

@@ -32,4 +32,9 @@ public class SignalRGroupServiceExceptionMock<T> : ISignalRGroupService where T 
         RemoveAllFromGroupCalls++;
         throw new T();
     }
+
+    public void SendMessageToUserAsync(string connectionId, string message, string methodName)
+    {
+        throw new T();
+    }
 }

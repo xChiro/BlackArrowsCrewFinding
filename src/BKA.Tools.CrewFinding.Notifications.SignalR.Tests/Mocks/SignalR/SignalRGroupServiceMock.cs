@@ -2,6 +2,7 @@ namespace BKA.Tools.CrewFinding.Notifications.SignalR.Tests.Mocks.SignalR;
 
 public class SignalRGroupServiceMock : ISignalRGroupService
 {
+    public string kickedConnectionId { get; private set; } = string.Empty;
     public string RemovedGroupName { get; private set; } = string.Empty;
     public string RemovedConnectionId { get; private set; } = string.Empty;
     public string AddedConnectionId { get; private set; } = string.Empty;
@@ -31,5 +32,10 @@ public class SignalRGroupServiceMock : ISignalRGroupService
     public void RemoveAllFromGroupAsync(string groupName)
     {
         RemovedGroupName = groupName;
+    }
+
+    public void SendMessageToUserAsync(string connectionId, string message, string methodName)
+    { 
+        kickedConnectionId = connectionId;
     }
 }
