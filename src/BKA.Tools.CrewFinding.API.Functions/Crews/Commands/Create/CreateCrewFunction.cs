@@ -3,15 +3,12 @@ using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Cultures.Exceptions;
 using BKA.Tools.CrewFinding.Players.Exceptions;
-using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.Create;
 
-[SignalRConnection("AzureSignalRConnectionString")]
-public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerFactory) : FunctionBase
+public class CreateCrewFunction(ICrewCreator crewCreator, ILogger<CreateCrewFunction> logger)
+    : FunctionBase
 {
-    private readonly ILogger _logger = loggerFactory.CreateLogger<CreateCrewFunction>();
-    
     [Function("CreateCrewFunction")]
     public async Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "Crews")]
@@ -21,7 +18,7 @@ public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerF
         {
             var crewFunctionRequest = await DeserializeBody<CreateCrewFunctionRequest>(req);
             var crewCreatorResponse = await CreateCrew(crewFunctionRequest);
-
+            
             return OkResponse(req, crewCreatorResponse);
         }
         catch (Exception e) when (e is ActivityDescriptionLengthException or ActivityNameLengthException
@@ -35,7 +32,7 @@ public class CreateCrewFunction(ICrewCreator crewCreator, ILoggerFactory loggerF
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex.Message, ex);
+            logger.LogError(ex.Message, ex);
             return InternalServerErrorResponse(req);
         }
     }

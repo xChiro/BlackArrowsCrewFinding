@@ -7,7 +7,7 @@ public class SignalRFunctions
     [Function("negotiate")]
     public static HttpResponseData Negotiate(
         [HttpTrigger(AuthorizationLevel.Anonymous)] HttpRequestData req,
-        [SignalRConnectionInfoInput(HubName = "crewHub")] string connectionInfo)
+        [SignalRConnectionInfoInput(HubName = "CrewHub")] string connectionInfo)
     {
         var response = req.CreateResponse(HttpStatusCode.OK);
         response.Headers.Add("Content-Type", "application/json");

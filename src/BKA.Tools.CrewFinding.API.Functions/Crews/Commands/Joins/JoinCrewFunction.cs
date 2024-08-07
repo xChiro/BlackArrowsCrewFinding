@@ -2,9 +2,11 @@ using System.Net;
 using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 using BKA.Tools.CrewFinding.Players.Exceptions;
+using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Crews.Commands.Joins;
 
+[SignalRConnection("AzureSignalRConnectionString")]
 public class JoinCrewFunction(ICrewJoiner crewJoiner, ILoggerFactory loggerFactory) : FunctionBase
 {
     private readonly ILogger _logger = loggerFactory.CreateLogger<JoinCrewFunction>();

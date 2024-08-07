@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 
-namespace BKA.Tools.CrewFinding.Notifications.SignalR.Tests.Mocks;
+namespace BKA.Tools.CrewFinding.Notifications.SignalR.Tests.Mocks.Crews;
 
 public class CrewCreatorMock(string id, string crewName) : ICrewCreator
 {

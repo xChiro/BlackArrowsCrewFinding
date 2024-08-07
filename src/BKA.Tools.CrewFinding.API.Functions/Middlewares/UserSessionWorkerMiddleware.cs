@@ -8,10 +8,16 @@ public class UserSessionWorkerMiddleware(IUserSessionFilter userSession) : IFunc
     public Task Invoke(FunctionContext context, FunctionExecutionDelegate next)
     {
         var userToken = GetUserToken(context);
-
+        var connectionId = GetConnectionId(context);
+        
+        if (!string.IsNullOrEmpty(connectionId))
+        {
+            userSession.SetConnectionId(connectionId);
+        }
+        
         if (!string.IsNullOrEmpty(userToken))
         {
-            userSession.Initialize(userToken);
+            userSession.SetToken(userToken);
         }
         else
         {
@@ -24,6 +30,16 @@ public class UserSessionWorkerMiddleware(IUserSessionFilter userSession) : IFunc
     private static string GetUserToken(FunctionContext context)
     {
         if (context.GetHttpRequestData()?.Headers.TryGetValues("Authorization", out var values) == true)
+        {
+            return values.FirstOrDefault() ?? string.Empty;
+        }
+
+        return string.Empty;
+    }
+    
+    private static string GetConnectionId(FunctionContext context)
+    {
+        if (context.GetHttpRequestData()?.Headers.TryGetValues("ConnectionId", out var values) == true)
         {
             return values.FirstOrDefault() ?? string.Empty;
         }

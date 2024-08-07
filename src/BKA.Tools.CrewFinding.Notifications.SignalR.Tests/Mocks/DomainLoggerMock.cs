@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Crews.Ports;
 
-namespace BKA.Tools.CrewFinding.Notifications.SignalR.Tests;
+namespace BKA.Tools.CrewFinding.Notifications.SignalR.Tests.Mocks;
 
 internal class DomainLoggerMock : IDomainLogger
 {

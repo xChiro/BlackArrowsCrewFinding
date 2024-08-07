@@ -7,6 +7,7 @@ using BKA.Tools.CrewFinding.Discord;
 using BKA.Tools.CrewFinding.KeyVault;
 using BKA.Tools.CrewFinding.Notifications.SignalR;
 using BKA.Tools.CrewFinding.Players.Ports;
+using Microsoft.Azure.SignalR.Management;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BKA.Tools.CrewFinding.API.Functions.StartupServices;
@@ -22,7 +23,13 @@ public static class InfrastructureServices
 
     private static void AddSignalRServices(IServiceCollection services)
     {
-        services.AddSingleton<CrewHub>();
+        var serviceManager = new ServiceManagerBuilder().WithOptions(option =>
+        {
+            option.ConnectionString = Configuration.GetEnvironmentVariable("AzureSignalRConnectionString");
+        }).BuildServiceManager();
+
+        services.AddSingleton<ISignalRGroupService, SignalRGroupService>(provider =>
+            new SignalRGroupService(provider.GetRequiredService<IDomainLogger>(), serviceManager));
     }
 
     private static void AddDiscordServices(IServiceCollection service, KeySecretProvider keySecretsProvider)

@@ -1,14 +1,13 @@
 using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Ports;
-using Microsoft.AspNetCore.SignalR;
 
 namespace BKA.Tools.CrewFinding.Notifications.SignalR;
 
 public class CrewCreatorSignalR(
     ICrewCreator crewCreator,
-    IHubContext<CrewHub> crewHubContext,
-    IUserSession userSession,
+    ISignalRGroupService signalRGroupService,
+    ISignalRUserSession userSession,
     IDomainLogger logger)
     : ICrewCreator, ICrewCreatorResponse
 {
@@ -20,17 +19,14 @@ public class CrewCreatorSignalR(
         await crewCreator.Create(request, this);
         output.SetResponse(_id, _name);
 
-        _ = Task.Run(async () =>
+        try
         {
-            try
-            {
-                await crewHubContext.Groups.AddToGroupAsync(userSession.GetUserId(), _id);
-            }
-            catch (Exception e)
-            {
-                logger.Log(e, "Error adding captain to SignalR group");
-            }
-        });
+            signalRGroupService.AddUserToGroupAsync(userSession.GetConnectionId(), _id);
+        }
+        catch (Exception e)
+        {
+            logger.Log(e, $"Error adding captain {userSession.GetUserId()} to SignalR group {_id}");
+        }
     }
 
     public void SetResponse(string id, string name)

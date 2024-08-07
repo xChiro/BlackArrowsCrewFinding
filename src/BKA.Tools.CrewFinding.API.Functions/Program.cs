@@ -5,6 +5,7 @@ using BKA.Tools.CrewFinding.API.Functions.StartupServices.FunctionsFilters;
 using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.KeyVault;
+using BKA.Tools.CrewFinding.Notifications.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -20,7 +21,8 @@ var host = new HostBuilder()
         services.AddScoped<IDomainLogger>(sp => new DomainLogger(sp.GetRequiredService<ILogger<DomainLogger>>()));
         services.AddScoped<IUserSession>(_ => userSession);
         services.AddScoped<IUserSessionFilter>(_ => userSession);
-        services.AddSignalR();
+        services.AddScoped<ISignalRUserSession>(_ => userSession);
+        services.AddSignalR().AddAzureSignalR();
 
         InfrastructureServices.AddRepositories(services, keySecretsProvider);
         DomainService.AddServices(services);
