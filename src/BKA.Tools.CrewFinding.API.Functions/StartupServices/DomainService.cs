@@ -12,6 +12,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recent;
 using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 using BKA.Tools.CrewFinding.Notifications.SignalR;
+using BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Commands.Removes;
 using BKA.Tools.CrewFinding.Players.Commands.Updates;
@@ -58,7 +59,7 @@ public static class DomainService
             serviceProvider =>
                 new RecentCrewsRetrieval(
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(), expirationThreshold));
-        
+
         service.AddScoped<ICrewCreator>(
             serviceProvider =>
             {
@@ -76,9 +77,9 @@ public static class DomainService
                 var voicedCrew = new VoicedCrewCreator(crewCreator, voiceChannelCommandRepository,
                     channelCommandRepository,
                     domainLogger, regexPattern);
-                
+
                 var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
-                
+
                 return new CrewCreatorSignalR(voicedCrew,
                     signalRGroupService,
                     serviceProvider.GetRequiredService<ISignalRUserSession>(),
@@ -112,16 +113,24 @@ public static class DomainService
 
                 var requiredService = serviceProvider.GetRequiredService<IDomainLogger>();
                 var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
-                
+
                 return new CrewJoinerSignalR(crewJoiner, signalRGroupService,
                     serviceProvider.GetRequiredService<ISignalRUserSession>(),
                     requiredService);
             });
 
         service.AddScoped<ICrewLeaver>(serviceProvider =>
-            new CrewLeaver(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
-                serviceProvider.GetRequiredService<ICrewCommandRepository>(),
-                serviceProvider.GetRequiredService<IUserSession>()));
+        {
+            var signalRUserSession = serviceProvider.GetRequiredService<ISignalRUserSession>();
+            
+            var crewLeaver = new CrewLeaver(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+                serviceProvider.GetRequiredService<ICrewCommandRepository>(), signalRUserSession);
+            
+            var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
+            var domainLogger = serviceProvider.GetRequiredService<IDomainLogger>();
+
+            return new CrewLeaverSignalR(crewLeaver, domainLogger, signalRGroupService, signalRUserSession);
+        });
 
         service.AddScoped<IActiveCrewRetrieval>(serviceProvider =>
             new ActiveCrewRetrieval(serviceProvider.GetRequiredService<ICrewQueryRepository>()));

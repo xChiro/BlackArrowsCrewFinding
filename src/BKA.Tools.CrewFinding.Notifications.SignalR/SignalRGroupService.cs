@@ -4,7 +4,7 @@ using Microsoft.Azure.SignalR.Management;
 
 namespace BKA.Tools.CrewFinding.Notifications.SignalR;
 
-public class SignalRGroupService(IDomainLogger logger, ServiceManager serviceManager) : ISignalRGroupService
+public class SignalRGroupService(IDomainLogger logger, ServiceManager serviceManager, string hubName) : ISignalRGroupService
 {
     public void AddUserToGroupAsync(string connectionId, string groupName)
     {
@@ -12,7 +12,7 @@ public class SignalRGroupService(IDomainLogger logger, ServiceManager serviceMan
         {
             try
             {
-                var hubContext = await serviceManager.CreateHubContextAsync("CrewHub", new CancellationToken());
+                var hubContext = await serviceManager.CreateHubContextAsync(hubName, new CancellationToken());
                 await hubContext.Groups.AddToGroupAsync(connectionId, groupName);
             }
             catch (Exception ex)
@@ -22,18 +22,34 @@ public class SignalRGroupService(IDomainLogger logger, ServiceManager serviceMan
         });
     }
 
-    public void SendMessageToGroupAsync<T>(string crewId, T message)
+    public void SendMessageToGroupAsync<T>(string groupName, T message, string methodName)
     {
         _ = Task.Run(async () =>
         {
             try
             {
-                var hubContext = await serviceManager.CreateHubContextAsync("CrewHub", new CancellationToken());
-                await hubContext.Clients.Group(crewId).SendAsync("NotifyPlayerJoined", message);
+                var hubContext = await serviceManager.CreateHubContextAsync(hubName, new CancellationToken());
+                await hubContext.Clients.Group(groupName).SendAsync(methodName, message);
             }
             catch (Exception ex)
             {
-                logger.Log(ex, $"Error sending message to SignalR group {crewId}");
+                logger.Log(ex, $"Error sending message to SignalR group {groupName}");
+            }
+        });
+    }
+
+    public void RemoveUserFromGroupAsync(string connectionId, string groupName)
+    {
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                var hubContext = await serviceManager.CreateHubContextAsync(hubName, new CancellationToken());
+                await hubContext.Groups.RemoveFromGroupAsync(connectionId, groupName);
+            }
+            catch (Exception ex)
+            {
+                logger.Log(ex, $"Error removing user {connectionId} from SignalR group {groupName}");
             }
         });
     }

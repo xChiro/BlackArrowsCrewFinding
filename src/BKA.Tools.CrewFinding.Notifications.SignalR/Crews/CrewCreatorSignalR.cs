@@ -1,8 +1,7 @@
-using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
-namespace BKA.Tools.CrewFinding.Notifications.SignalR;
+namespace BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
 
 public class CrewCreatorSignalR(
     ICrewCreator crewCreator,

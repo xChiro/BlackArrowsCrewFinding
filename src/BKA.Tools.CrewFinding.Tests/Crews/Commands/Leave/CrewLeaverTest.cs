@@ -21,13 +21,15 @@ public class CrewLeaverTest
     public void LeavingNonexistentCrewShouldThrowException()
     {
         // Arrange
-        var sut = InitializeCrewLeaver(PlayerId);
+        var responseMock = new CrewLeaverResponseMock();
+        var sut = InitializeCrewLeaver(PlayerId, new CrewQueryRepositoryEmptyMock());
 
         // Act
-        var func = () => sut.Leave();
+        var func = () => sut.Leave(responseMock);
 
         // Assert
         func.Should().ThrowAsync<CrewNotFoundException>();
+        responseMock.CrewId.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -37,7 +39,7 @@ public class CrewLeaverTest
         var sut = InitializeCrewLeaver(PlayerId);
 
         // Act
-        var func = () => sut.Leave();
+        var func = () => sut.Leave(new CrewLeaverResponseMock());
 
         // Assert
         func.Should().ThrowAsync<PlayerNotInCrewException>();
@@ -50,14 +52,16 @@ public class CrewLeaverTest
         var playerToLeave = CreatePlayer(PlayerId, PlayerName);
         var crew = InitializeCrew(playerToLeave, CrewId);
         var crewCommandMock = CreateCrewCommandRepositoryMock();
+        var responseMock = new CrewLeaverResponseMock();
         var sut = InitializeCrewLeaver(crewCommandMock, crew);
 
         // Act
-        await sut.Leave();
+        await sut.Leave(responseMock);
 
         // Assert
         crewCommandMock.Crew.Members.Should().NotContain(player => player.Id == playerToLeave.Id);
         crew.Members.Should().NotContain(player => player.Id == playerToLeave.Id);
+        responseMock.CrewId.Should().Be(crew.Id);
     }
 
     private static Player CreatePlayer(string playerId, string playerName)
@@ -70,15 +74,16 @@ public class CrewLeaverTest
         return new CrewCommandRepositoryMock();
     }
 
-    private static CrewLeaver InitializeCrewLeaver(string playerId)
+    private static CrewLeaver InitializeCrewLeaver(string playerId, ICrewQueryRepository? responseMock = null)
     {
         var player = CreatePlayer(playerId, PlayerName);
-        return InitializeCrewLeaver(CreateCrewCommandRepositoryMock(), InitializeCrew(player, CrewId));
+        return InitializeCrewLeaver(CreateCrewCommandRepositoryMock(), InitializeCrew(player, CrewId), responseMock);
     }
 
-    private static CrewLeaver InitializeCrewLeaver(ICrewCommandRepository crewCommandMock, Crew crew)
+    private static CrewLeaver InitializeCrewLeaver(ICrewCommandRepository crewCommandMock, Crew crew,
+        ICrewQueryRepository? crewQueryRepository = null)
     {
-        var crewQueryRepository = new CrewQueryRepositoryMock(crews: [crew]);
+        crewQueryRepository ??= new CrewQueryRepositoryMock(crews: [crew]);
         return new CrewLeaver(crewQueryRepository, crewCommandMock, new UserSessionMock(PlayerId));
     }
 
@@ -88,8 +93,18 @@ public class CrewLeaverTest
             playerToLeave,
             Location.Default(),
             LanguageCollections.Default(),
-            PlayerCollection.CreateWithSingle(playerToLeave, 1), 
+            PlayerCollection.CreateWithSingle(playerToLeave, 1),
             Activity.Default(),
             DateTime.UtcNow);
+    }
+}
+
+public class CrewLeaverResponseMock : ICrewLeaverResponse
+{
+    public string CrewId { get; private set; } = string.Empty;
+
+    public void SetResponse(string crewId)
+    {
+        CrewId = crewId;
     }
 }

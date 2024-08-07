@@ -12,13 +12,13 @@ public class LeaveCrewFunction(ICrewLeaver crewLeaver, ILoggerFactory loggerFact
     [Function("LeaveCrewFunction")]
     public async Task<HttpResponseData> Run(
         [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Crews/Leave")]
-        HttpRequestData req,
-        string id)
+        HttpRequestData req, string id)
     {
         try
         {
-            await crewLeaver.Leave();
-            return OkResponse(req);
+            var leaveCrewFunctionResponse = new LeaveCrewFunctionResponse();
+            await crewLeaver.Leave(leaveCrewFunctionResponse);
+            return OkResponse(req, leaveCrewFunctionResponse);
         }
         catch (Exception e) when (e is CrewNotFoundException or PlayerNotInCrewException)
         {

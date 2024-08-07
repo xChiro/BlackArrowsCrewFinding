@@ -1,8 +1,7 @@
-using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
-namespace BKA.Tools.CrewFinding.Notifications.SignalR;
+namespace BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
 
 public class CrewJoinerSignalR(
     ICrewJoiner crewJoinerMock,
@@ -19,15 +18,17 @@ public class CrewJoinerSignalR(
         {
             crewHubContext.AddUserToGroupAsync(userSession.GetConnectionId(), crewId);
             crewHubContext.SendMessageToGroupAsync(crewId, new
-            {
-                Type = "NotifyPlayerJoined",
-                CrewId = crewId,
-                PlayerId = userSession.GetUserId()
-            });
+                {
+                    Type = "NotifyPlayerJoined",
+                    CrewId = crewId,
+                    PlayerId = userSession.GetUserId()
+                },
+                "NotifyPlayerJoined");
         }
         catch (Exception e)
         {
-            domainLogger.Log(e, $"Error join to SignalR group with crewId: {crewId}, playerId: {userSession.GetUserId()}");
+            domainLogger.Log(e,
+                $"Error join to SignalR group with crewId: {crewId}, playerId: {userSession.GetUserId()}");
         }
     }
 }

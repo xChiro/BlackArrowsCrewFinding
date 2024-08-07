@@ -29,7 +29,7 @@ public static class InfrastructureServices
         }).BuildServiceManager();
 
         services.AddSingleton<ISignalRGroupService, SignalRGroupService>(provider =>
-            new SignalRGroupService(provider.GetRequiredService<IDomainLogger>(), serviceManager));
+            new SignalRGroupService(provider.GetRequiredService<IDomainLogger>(), serviceManager, "CrewHub"));
     }
 
     private static void AddDiscordServices(IServiceCollection service, KeySecretProvider keySecretsProvider)

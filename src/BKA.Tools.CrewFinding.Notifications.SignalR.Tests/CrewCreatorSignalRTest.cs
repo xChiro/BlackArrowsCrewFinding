@@ -76,7 +76,7 @@ public class CrewCreatorSignalR
     private static ICrewCreator CreateCrewCreatorSignalR(ISignalRGroupService crewHubContext, string userId,
         ICrewCreator? crewCreatorMock = null, ISignalRUserSession? userSessionMock = null, IDomainLogger? logger = null)
     {
-        return new Notifications.SignalR.CrewCreatorSignalR(crewCreatorMock ?? new CrewCreatorMock("233", "Name"),
+        return new Crews.CrewCreatorSignalR(crewCreatorMock ?? new CrewCreatorMock("233", "Name"),
             crewHubContext, userSessionMock ?? new SignalRUserSessionMock(userId), logger ?? new DomainLoggerMock());
     }
 
