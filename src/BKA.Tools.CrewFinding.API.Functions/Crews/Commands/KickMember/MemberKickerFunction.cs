@@ -15,8 +15,10 @@ public class MemberKickerFunction(IMemberKicker memberKicker, ILoggerFactory log
     {
         try
         {
-            await memberKicker.Kick(id);
-            return OkResponse(req);
+            var memberKickerResponse = new KickMemberResponse();
+            await memberKicker.Kick(id, memberKickerResponse);
+            
+            return OkResponse(req, memberKickerResponse);
         }
         catch (NotCaptainException)
         {

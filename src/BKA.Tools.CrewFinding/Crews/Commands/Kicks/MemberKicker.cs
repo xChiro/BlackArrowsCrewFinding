@@ -8,7 +8,7 @@ namespace BKA.Tools.CrewFinding.Crews.Commands.Kicks;
 public class MemberKicker(IUserSession userSession, ICrewQueryRepository crewQueryRepository, ICrewCommandRepository
     crewCommandRepository) : IMemberKicker
 {
-    public async Task Kick(string memberId)
+    public async Task Kick(string memberId, IMemberKickerResponse output)
     {
         var captainId = userSession.GetUserId();
         var crew = await crewQueryRepository.GetActiveCrewByPlayerId(captainId);
@@ -20,8 +20,9 @@ public class MemberKicker(IUserSession userSession, ICrewQueryRepository crewQue
             throw new PlayerNotInCrewException();
 
         await crewCommandRepository.UpdateMembers(crew.Id, crew.Members);
+        output.SetResponse(crew.Id);
     }
-    
+
     private static bool IsTheCaptain(Crew? crew, string captainId)
     {
         return crew == null || crew.Captain.Id != captainId;

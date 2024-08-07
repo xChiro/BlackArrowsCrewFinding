@@ -2,5 +2,5 @@ namespace BKA.Tools.CrewFinding.Crews.Commands.Kicks;
 
 public interface IMemberKicker
 {
-    public Task Kick(string memberId);
+    public Task Kick(string memberId, IMemberKickerResponse output);
 }

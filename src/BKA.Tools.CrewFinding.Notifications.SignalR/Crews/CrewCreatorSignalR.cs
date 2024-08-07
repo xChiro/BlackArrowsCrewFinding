@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.Crews.Ports;
 namespace BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
 
 public class CrewCreatorSignalR(
-    ICrewCreator crewCreator,
+    ICrewCreator decorated,
     ISignalRGroupService signalRGroupService,
     ISignalRUserSession userSession,
     IDomainLogger logger)
@@ -15,7 +15,7 @@ public class CrewCreatorSignalR(
 
     public async Task Create(ICrewCreatorRequest request, ICrewCreatorResponse output)
     {
-        await crewCreator.Create(request, this);
+        await decorated.Create(request, this);
         output.SetResponse(_id, _name);
 
         try

@@ -94,11 +94,17 @@ public static class DomainService
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
                     serviceProvider.GetRequiredService<IUserSession>());
 
-                return new VoicedCrewDisbandment(crewDisbandment,
+                var domainLoggerMock = serviceProvider.GetRequiredService<IDomainLogger>();
+                var voicedDisbandment = new VoicedCrewDisbandment(crewDisbandment,
                     serviceProvider.GetRequiredService<IVoiceChannelHandler>(),
                     serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
-                    serviceProvider.GetRequiredService<IDomainLogger>(),
+                    domainLoggerMock,
                     serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>());
+                
+                var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
+                
+                return new CrewDisbandmentSignalR(voicedDisbandment, signalRGroupService, domainLoggerMock);
+                
             });
 
         service.AddScoped<ICrewJoiner>(
@@ -141,9 +147,17 @@ public static class DomainService
                 expirationThreshold));
 
         service.AddScoped<IMemberKicker>(serviceProvider =>
-            new MemberKicker(serviceProvider.GetRequiredService<IUserSession>(),
+        {
+            var memberKicker = new MemberKicker(serviceProvider.GetRequiredService<IUserSession>(),
                 serviceProvider.GetRequiredService<ICrewQueryRepository>(),
-                serviceProvider.GetRequiredService<ICrewCommandRepository>()));
+                serviceProvider.GetRequiredService<ICrewCommandRepository>());
+            
+            var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
+            var signalRUserSession = serviceProvider.GetRequiredService<ISignalRUserSession>();
+            
+            return new MemberKickerSignalR(memberKicker, serviceProvider.GetRequiredService<IDomainLogger>(),
+                signalRGroupService, signalRUserSession);
+        });
 
         service.AddScoped<IHandleNameUpdater>(serviceProvider =>
             new HandleNameUpdater(serviceProvider.GetRequiredService<IPlayerQueryRepository>(),

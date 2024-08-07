@@ -1,6 +1,6 @@
 using BKA.Tools.CrewFinding.Channels.invites;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Channels;
+namespace BKA.Tools.CrewFinding.API.Functions.Channels.Invites;
 
 public class ChannelInviteLinkCreatorResponse : IChannelInviteLinkCreatorResponse
 {

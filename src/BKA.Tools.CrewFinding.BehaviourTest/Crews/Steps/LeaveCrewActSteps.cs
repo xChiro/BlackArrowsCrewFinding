@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 
-namespace BKA.Tools.CrewFinding.BehaviourTest.Crews;
+namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 
 [Binding]
 public class LeaveCrewActSteps(

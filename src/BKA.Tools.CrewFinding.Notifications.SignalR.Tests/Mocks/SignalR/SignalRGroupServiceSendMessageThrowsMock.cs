@@ -4,7 +4,6 @@ public class SignalRGroupServiceSendMessageThrowsMock<T> : ISignalRGroupService 
 {
     public string ConnectionId { get; private set; } = string.Empty;
     public string GroupName { get; private set; } = string.Empty;
-    public object? Message { get; private set; }
 
     public void AddUserToGroupAsync(string connectionId, string groupName)
     {
@@ -20,6 +19,11 @@ public class SignalRGroupServiceSendMessageThrowsMock<T> : ISignalRGroupService 
     public void RemoveUserFromGroupAsync(string connectionId, string groupName)
     {
         ConnectionId = connectionId;
+        GroupName = groupName;
+    }
+
+    public void RemoveAllFromGroupAsync(string groupName)
+    {
         GroupName = groupName;
     }
 }
