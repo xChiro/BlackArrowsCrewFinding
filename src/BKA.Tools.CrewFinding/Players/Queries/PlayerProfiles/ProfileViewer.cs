@@ -4,9 +4,9 @@ using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 
-public class PlayerProfileViewer(IPlayerQueryRepository playerQueryMock, ICrewQueryRepository crewQueryRepository) : IPlayerProfileViewer
+public class ProfileViewer(IPlayerQueryRepository playerQueryMock, ICrewQueryRepository crewQueryRepository) : IProfileViewer
 {
-    public async Task View(string playerId, IPlayerProfileResponse response)
+    public async Task View(string playerId, IProfileResponse response)
     {
         var playerTask = playerQueryMock.GetPlayer(playerId);
         var activeCrewTask = crewQueryRepository.GetActiveCrewByPlayerId(playerId);

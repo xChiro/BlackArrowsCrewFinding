@@ -13,6 +13,7 @@ using BKA.Tools.CrewFinding.Crews.Queries.Recent;
 using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
 using BKA.Tools.CrewFinding.Notifications.SignalR;
 using BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
+using BKA.Tools.CrewFinding.Notifications.SignalR.Profiles;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Commands.Removes;
 using BKA.Tools.CrewFinding.Players.Commands.Updates;
@@ -41,11 +42,17 @@ public static class DomainService
                     Convert.ToInt32(Configuration.GetEnvironmentVariable("minCitizenNameLength")),
                     Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCitizenNameLength"))));
 
-        service.AddScoped<IPlayerProfileViewer>(
+        service.AddScoped<IProfileViewer>(
             serviceProvider =>
-                new PlayerProfileViewer(
+            {
+                var profileViewer = new ProfileViewer(
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
-                    serviceProvider.GetRequiredService<ICrewQueryRepository>()));
+                    serviceProvider.GetRequiredService<ICrewQueryRepository>());
+
+                return new ProfileViewerSignalR(profileViewer,
+                    serviceProvider.GetRequiredService<ISignalRGroupService>(),
+                    serviceProvider.GetRequiredService<IDomainLogger>());
+            });
     }
 
     private static void AddCrewServices(IServiceCollection service, int maxCrewSize)
@@ -64,7 +71,7 @@ public static class DomainService
             serviceProvider =>
             {
                 var requiredService = serviceProvider.GetRequiredService<IUserSession>();
-                
+
                 var crewCreator = new CrewCreator(
                     serviceProvider.GetRequiredService<ICrewCommandRepository>(),
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
@@ -102,18 +109,17 @@ public static class DomainService
                     serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
                     domainLoggerMock,
                     serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>());
-                
+
                 var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
-                
+
                 return new CrewDisbandmentSignalR(voicedDisbandment, signalRGroupService, domainLoggerMock);
-                
             });
 
         service.AddScoped<ICrewJoiner>(
             serviceProvider =>
             {
                 var userSession = serviceProvider.GetRequiredService<IUserSession>();
-                
+
                 var crewJoiner = new CrewJoiner(
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
@@ -134,7 +140,7 @@ public static class DomainService
             var userSession = serviceProvider.GetRequiredService<IUserSession>();
             var crewLeaver = new CrewLeaver(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                 serviceProvider.GetRequiredService<ICrewCommandRepository>(), userSession);
-            
+
             var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
             var domainLogger = serviceProvider.GetRequiredService<IDomainLogger>();
 
@@ -154,9 +160,9 @@ public static class DomainService
             var memberKicker = new MemberKicker(serviceProvider.GetRequiredService<IUserSession>(),
                 serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                 serviceProvider.GetRequiredService<ICrewCommandRepository>());
-            
+
             var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
-            
+
             return new MemberKickerSignalR(memberKicker, serviceProvider.GetRequiredService<IDomainLogger>(),
                 signalRGroupService);
         });

@@ -55,10 +55,10 @@ public class PlayerCreationActSteps(
     [When(@"I get my profile")]
     public async Task WhenIGetMyProfile()
     {
-        var sut = new PlayerProfileViewer(playerRepositoryContext.PlayerQueryRepositoryMock,
+        var sut = new ProfileViewer(playerRepositoryContext.PlayerQueryRepositoryMock,
             crewRepositoriesContext.QueryRepositoryMock);
 
-        await sut.View(playerContext.PlayerId, new PlayerProfileResponseMock(playerResultsContext));
+        await sut.View(playerContext.PlayerId, new ProfileResponseMock(playerResultsContext));
     }
 
     [When(@"I attempt get my profile")]
@@ -66,9 +66,9 @@ public class PlayerCreationActSteps(
     {
         try
         {
-            var sut = new PlayerProfileViewer(playerRepositoryContext.PlayerQueryRepositoryMock,
+            var sut = new ProfileViewer(playerRepositoryContext.PlayerQueryRepositoryMock,
                 crewRepositoriesContext.QueryRepositoryMock);
-            await sut.View(playerContext.PlayerId, new PlayerProfileResponseMock(playerResultsContext));
+            await sut.View(playerContext.PlayerId, new ProfileResponseMock(playerResultsContext));
         }
         catch (Exception e)
         {

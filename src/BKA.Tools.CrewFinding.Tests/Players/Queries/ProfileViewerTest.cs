@@ -10,16 +10,16 @@ using BKA.Tools.CrewFinding.Tests.Players.Mocks;
 
 namespace BKA.Tools.CrewFinding.Tests.Players.Queries;
 
-public class PlayerProfileViewerTest
+public class ProfileViewerTest
 {
     [Fact]
     public async void Attempt_To_View_A_Player_Profile_That_Does_Not_Exist_Should_Throw_Exception()
     {
         // Arrange
         var playerQueryRepositoryValidationMock = new PlayerQueryRepositoryValidationMock("453", "Rowan");
-        var sut = new PlayerProfileViewer(playerQueryRepositoryValidationMock, new CrewQueryRepositoryEmptyMock());
+        var sut = new ProfileViewer(playerQueryRepositoryValidationMock, new CrewQueryRepositoryEmptyMock());
 
-        var playerProfileResponseMock = new PlayerProfileResponseMock();
+        var playerProfileResponseMock = new ProfileResponseMock();
 
         // Act & Assert
         await Assert.ThrowsAsync<PlayerNotFoundException>(() => sut.View("123", playerProfileResponseMock));
@@ -35,8 +35,8 @@ public class PlayerProfileViewerTest
         const string expectedPlayerId = "123";
         var playerQueryMock = CreatePlayerQueryRepository(expectedPlayerId, playerName);
 
-        var sut = new PlayerProfileViewer(playerQueryMock, new CrewQueryRepositoryEmptyMock());
-        var playerProfileResponseMock = new PlayerProfileResponseMock();
+        var sut = new ProfileViewer(playerQueryMock, new CrewQueryRepositoryEmptyMock());
+        var playerProfileResponseMock = new ProfileResponseMock();
 
         // Act
         await sut.View(expectedPlayerId, playerProfileResponseMock);
@@ -58,9 +58,9 @@ public class PlayerProfileViewerTest
         var playerQueryMock = CreatePlayerQueryRepository(expectedPlayerId, playerName);
         var crew = CrewBuilder.Build(expectedCrewId, Player.Create(expectedPlayerId, playerName, 2, 16));
 
-        var sut = new PlayerProfileViewer(playerQueryMock,
+        var sut = new ProfileViewer(playerQueryMock,
             new CrewQueryRepositoryMock(crews: [crew]));
-        var playerProfileResponseMock = new PlayerProfileResponseMock();
+        var playerProfileResponseMock = new ProfileResponseMock();
 
         // Act
         await sut.View(expectedPlayerId, playerProfileResponseMock);
@@ -77,17 +77,17 @@ public class PlayerProfileViewerTest
         return playerQueryMock;
     }
 
-    private static void PlayerShouldBeValid(PlayerProfileResponseMock playerProfileResponseMock, string expectedPlayerId,
+    private static void PlayerShouldBeValid(ProfileResponseMock profileResponseMock, string expectedPlayerId,
         string playerName)
     {
-        playerProfileResponseMock.Player.Should().NotBeNull();
-        playerProfileResponseMock.Player!.Id.Should().Be(expectedPlayerId);
-        playerProfileResponseMock.Player!.CitizenName.Value.Should().Be(playerName);
+        profileResponseMock.Player.Should().NotBeNull();
+        profileResponseMock.Player!.Id.Should().Be(expectedPlayerId);
+        profileResponseMock.Player!.CitizenName.Value.Should().Be(playerName);
     }
 
-    private static void ActiveCrewShouldBeEmpty(PlayerProfileResponseMock playerProfileResponseMock)
+    private static void ActiveCrewShouldBeEmpty(ProfileResponseMock profileResponseMock)
     {
-        playerProfileResponseMock.ActiveCrewId.Should().BeEmpty();
-        playerProfileResponseMock.ActiveCrewName.Should().BeEmpty();
+        profileResponseMock.ActiveCrewId.Should().BeEmpty();
+        profileResponseMock.ActiveCrewName.Should().BeEmpty();
     }
 }
