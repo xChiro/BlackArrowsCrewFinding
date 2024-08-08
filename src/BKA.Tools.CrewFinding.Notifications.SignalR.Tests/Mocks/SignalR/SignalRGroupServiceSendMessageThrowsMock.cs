@@ -33,7 +33,7 @@ public class SignalRGroupServiceSendMessageThrowsMock<T> : ISignalRGroupService 
         GroupName = groupName;
     }
 
-    public void SendMessageToUserIdAsync<TMessage>(string userId, TMessage message, string methodName)
+    public void SendMessageToUserAsync<TMessage>(string userId, TMessage message, string methodName)
     {
         throw new T();
     }

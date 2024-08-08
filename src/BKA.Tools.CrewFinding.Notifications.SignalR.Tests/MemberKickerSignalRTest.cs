@@ -82,6 +82,9 @@ public class MemberKickerSignalRTest
         
         // Assert
         signalRGroupServiceMock.RemovedUserId.Should().Be(memberId);
+        signalRGroupServiceMock.SendMessageToUserAsyncCalls.Should().Be(1);
+        signalRGroupServiceMock.SendMessageToGroupAsyncCalls.Should().Be(1);
+        signalRGroupServiceMock.Message.Should().NotBeNull();
     }
 
     private static MemberKickerSignalR CreateSutMemberKickerSignalR(IMemberKicker memberKickerMock,

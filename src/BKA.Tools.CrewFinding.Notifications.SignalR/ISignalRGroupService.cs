@@ -8,5 +8,5 @@ public interface ISignalRGroupService
     void RemoveUserFromGroupAsync(string userId, string groupName);
     void RemoveAllFromGroupAsync(string groupName);
     void SendMessageToGroupAsync<TMessage>(string groupName, TMessage message, string methodName);
-    void SendMessageToUserIdAsync<TMessage>(string userId, TMessage message, string methodName);
+    void SendMessageToUserAsync<TMessage>(string userId, TMessage message, string methodName);
 }

@@ -43,7 +43,7 @@ public class SignalRGroupServiceExceptionMock<T> : ISignalRGroupService where T 
         throw new T();
     }
 
-    public void SendMessageToUserIdAsync<TMessage>(string userId, TMessage message, string methodName)
+    public void SendMessageToUserAsync<TMessage>(string userId, TMessage message, string methodName)
     {
         throw new T();
     }

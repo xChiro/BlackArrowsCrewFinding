@@ -32,7 +32,7 @@ public class SignalRGroupService(IDomainLogger logger, ServiceManager serviceMan
             $"Error removing all users from SignalR group {groupName}");
     }
 
-    public void SendMessageToUserIdAsync<TMessage>(string userId, TMessage message, string methodName)
+    public void SendMessageToUserAsync<TMessage>(string userId, TMessage message, string methodName)
     {
         RunInHubContextAsync(hubContext => hubContext.Clients.User(userId).SendAsync(methodName, message),
             $"Error sending message to SignalR user {userId}");
