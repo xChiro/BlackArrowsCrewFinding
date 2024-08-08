@@ -63,11 +63,13 @@ public static class DomainService
         service.AddScoped<ICrewCreator>(
             serviceProvider =>
             {
+                var requiredService = serviceProvider.GetRequiredService<IUserSession>();
+                
                 var crewCreator = new CrewCreator(
                     serviceProvider.GetRequiredService<ICrewCommandRepository>(),
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
-                    serviceProvider.GetRequiredService<IUserSession>(), maxCrewSize);
+                    requiredService, maxCrewSize);
 
                 var voiceChannelCommandRepository =
                     serviceProvider.GetRequiredService<IVoiceChannelHandler>();
@@ -82,7 +84,7 @@ public static class DomainService
 
                 return new CrewCreatorSignalR(voicedCrew,
                     signalRGroupService,
-                    serviceProvider.GetRequiredService<ISignalRUserSession>(),
+                    requiredService,
                     domainLogger);
             });
 
@@ -110,32 +112,33 @@ public static class DomainService
         service.AddScoped<ICrewJoiner>(
             serviceProvider =>
             {
+                var userSession = serviceProvider.GetRequiredService<IUserSession>();
+                
                 var crewJoiner = new CrewJoiner(
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewCommandRepository>(),
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
-                    serviceProvider.GetRequiredService<IUserSession>());
+                    userSession);
 
                 var requiredService = serviceProvider.GetRequiredService<IDomainLogger>();
                 var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
 
                 return new CrewJoinerSignalR(crewJoiner, signalRGroupService,
-                    serviceProvider.GetRequiredService<ISignalRUserSession>(),
+                    userSession,
                     requiredService);
             });
 
         service.AddScoped<ICrewLeaver>(serviceProvider =>
         {
-            var signalRUserSession = serviceProvider.GetRequiredService<ISignalRUserSession>();
-            
+            var userSession = serviceProvider.GetRequiredService<IUserSession>();
             var crewLeaver = new CrewLeaver(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
-                serviceProvider.GetRequiredService<ICrewCommandRepository>(), signalRUserSession);
+                serviceProvider.GetRequiredService<ICrewCommandRepository>(), userSession);
             
             var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
             var domainLogger = serviceProvider.GetRequiredService<IDomainLogger>();
 
-            return new CrewLeaverSignalR(crewLeaver, domainLogger, signalRGroupService, signalRUserSession);
+            return new CrewLeaverSignalR(crewLeaver, domainLogger, signalRGroupService, userSession);
         });
 
         service.AddScoped<IActiveCrewRetrieval>(serviceProvider =>
@@ -153,10 +156,9 @@ public static class DomainService
                 serviceProvider.GetRequiredService<ICrewCommandRepository>());
             
             var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
-            var signalRUserSession = serviceProvider.GetRequiredService<ISignalRUserSession>();
             
             return new MemberKickerSignalR(memberKicker, serviceProvider.GetRequiredService<IDomainLogger>(),
-                signalRGroupService, signalRUserSession);
+                signalRGroupService);
         });
 
         service.AddScoped<IHandleNameUpdater>(serviceProvider =>

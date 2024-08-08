@@ -46,13 +46,13 @@ public class CrewLeaverSignalRTest
     public async void When_LeavingCrew_SignalRLeaveCrew_Removes_Connection_From_Group_Successfully()
     {
         // Arrange
-        const string connectionId = "connectionId";
+        const string userId = "userId";
         const string crewId = "crewId";
 
         var signalRGroupServiceMock = new SignalRGroupServiceMock();
         var domainLoggerMock = CreateDomainLoggerMock();
         var crewLeaverMock = new CrewLeaverMock(crewId);
-        var sut = CreateSutCrewLeaverSignalR(crewLeaverMock, connectionId, signalRGroupServiceMock, domainLoggerMock);
+        var sut = CreateSutCrewLeaverSignalR(crewLeaverMock, userId, signalRGroupServiceMock, domainLoggerMock);
         var output = new CrewLeaverResponseMock();
 
         // Act
@@ -61,7 +61,7 @@ public class CrewLeaverSignalRTest
         // Assert
         domainLoggerMock.LastException.Should().BeNull();
         signalRGroupServiceMock.GroupName.Should().Be(crewId);
-        signalRGroupServiceMock.RemovedConnectionId.Should().Be(connectionId);
+        signalRGroupServiceMock.RemovedUserId.Should().Be(userId);
         output.CrewId.Should().Be(crewId);
     }
 
@@ -69,13 +69,13 @@ public class CrewLeaverSignalRTest
     public async void Attempt_LeavingCrew_SignalRLeaveCrew_Throws_Then_ShouldLogError_And_Perform_LeaveCrew()
     {
         // Arrange
-        const string connectionId = "connectionId";
+        const string userId = "userId";
         const string crewId = "CrewId";
         
         var domainLoggerMock = new DomainLoggerMock();
 
         var signalRGroupServiceMock = new SignalRGroupServiceSendMessageThrowsMock<ArgumentException>();
-        var sut = CreateSutCrewLeaverSignalR(new CrewLeaverMock(crewId), "connectionId", signalRGroupServiceMock,
+        var sut = CreateSutCrewLeaverSignalR(new CrewLeaverMock(crewId), "userId", signalRGroupServiceMock,
             domainLoggerMock);
 
         // Act
@@ -83,7 +83,7 @@ public class CrewLeaverSignalRTest
 
         // Assert
         signalRGroupServiceMock.GroupName.Should().Be(crewId);
-        signalRGroupServiceMock.ConnectionId.Should().Be(connectionId);
+        signalRGroupServiceMock.UserId.Should().Be(userId);
         domainLoggerMock.LastException.Should().BeOfType<ArgumentException>();
     }
     
@@ -91,13 +91,13 @@ public class CrewLeaverSignalRTest
     public async void When_LeavingCrew_SignalRLeaveCrew_Sends_Message_To_Group_Successfully()
     {
         // Arrange
-        const string connectionId = "connectionId";
+        const string userId = "userId";
         const string crewId = "crewId";
 
         var signalRGroupServiceMock = new SignalRGroupServiceMock();
         var domainLoggerMock = CreateDomainLoggerMock();
         var crewLeaverMock = new CrewLeaverMock(crewId);
-        var sut = CreateSutCrewLeaverSignalR(crewLeaverMock, connectionId, signalRGroupServiceMock, domainLoggerMock);
+        var sut = CreateSutCrewLeaverSignalR(crewLeaverMock, userId, signalRGroupServiceMock, domainLoggerMock);
         var output = new CrewLeaverResponseMock();
 
         // Act
@@ -118,11 +118,11 @@ public class CrewLeaverSignalRTest
         return signalRGroupServiceMock;
     }
 
-    private static CrewLeaverSignalR CreateSutCrewLeaverSignalR(ICrewLeaver crewLeaverMock, string connectionId = "",
+    private static CrewLeaverSignalR CreateSutCrewLeaverSignalR(ICrewLeaver crewLeaverMock, string userId = "",
         ISignalRGroupService? signalRGroupServiceMock = null, IDomainLogger? domainLoggerMock = null)
     {
         var crewLeaverSignalR = new CrewLeaverSignalR(crewLeaverMock, domainLoggerMock ?? CreateDomainLoggerMock(),
-            signalRGroupServiceMock ?? new SignalRGroupServiceMock(), new SignalRUserSessionMock(connectionId));
+            signalRGroupServiceMock ?? new SignalRGroupServiceMock(), new UserSessionMock(userId));
 
         return crewLeaverSignalR;
     }

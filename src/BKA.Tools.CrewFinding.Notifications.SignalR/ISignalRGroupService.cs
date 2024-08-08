@@ -4,9 +4,9 @@ namespace BKA.Tools.CrewFinding.Notifications.SignalR;
 
 public interface ISignalRGroupService
 {
-    void AddUserToGroupAsync(string connectionId, string groupName);
-    void SendMessageToGroupAsync<TMessage>(string groupName, TMessage message, string methodName);
-    void RemoveUserFromGroupAsync(string connectionId, string groupName);
+    void AddUserToGroupAsync(string userId, string groupName);
+    void RemoveUserFromGroupAsync(string userId, string groupName);
     void RemoveAllFromGroupAsync(string groupName);
-    void SendMessageToUserAsync(string connectionId, string message, string methodName);
+    void SendMessageToGroupAsync<TMessage>(string groupName, TMessage message, string methodName);
+    void SendMessageToUserIdAsync<TMessage>(string userId, TMessage message, string methodName);
 }

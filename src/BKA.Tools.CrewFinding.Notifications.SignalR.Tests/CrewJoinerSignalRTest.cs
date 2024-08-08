@@ -55,7 +55,7 @@ public class CrewJoinerSignalRTest
         await sut.Join(crewId);
 
         // Assert
-        signalRGroupServiceMock.AddedConnectionId.Should().Be(connectionId);
+        signalRGroupServiceMock.UserId.Should().Be(connectionId);
         signalRGroupServiceMock.GroupName.Should().Be(crewId);
         signalRGroupServiceMock.Message.Should().NotBeNull();
     }
@@ -76,14 +76,14 @@ public class CrewJoinerSignalRTest
         // Assert
         signalRGroupServiceMock.Message.Should().NotBeNull();
         signalRGroupServiceMock.GroupName.Should().Be(crewId);
-        signalRGroupServiceMock.AddedConnectionId.Should().Be(connectionId);
+        signalRGroupServiceMock.UserId.Should().Be(connectionId);
     }
 
     private static CrewJoinerSignalR CreateCrewJoinerSignalR(ICrewJoiner crewJoinerMock,
         ISignalRGroupService signalRGroupService, DomainLoggerMock? domainLoggerMock = null,
         string connectionId = "connectionId")
     {
-        var sut = new CrewJoinerSignalR(crewJoinerMock, signalRGroupService, new SignalRUserSessionMock(connectionId),
+        var sut = new CrewJoinerSignalR(crewJoinerMock, signalRGroupService, new UserSessionMock(connectionId),
             domainLoggerMock ?? new DomainLoggerMock());
         return sut;
     }

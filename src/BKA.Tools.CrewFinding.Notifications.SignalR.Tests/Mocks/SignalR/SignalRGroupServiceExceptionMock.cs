@@ -8,7 +8,7 @@ public class SignalRGroupServiceExceptionMock<T> : ISignalRGroupService where T 
     public int RemoveUserFromGroupCalls { get; private set; }
 
 
-    public void AddUserToGroupAsync(string connectionId, string groupName)
+    public void AddUserToGroupAsync(string userId, string groupName)
     {
         AddConnectionIdToGroupCalls++;
         throw new T();
@@ -20,11 +20,16 @@ public class SignalRGroupServiceExceptionMock<T> : ISignalRGroupService where T 
         throw new T();
     }
 
-    public void RemoveUserFromGroupAsync(string connectionId, string groupName)
+    public void RemoveConnectionFromGroupAsync(string connectionId, string groupName)
     {
         RemoveUserFromGroupCalls++;
         throw new T();
-        
+    }
+
+    public void RemoveUserFromGroupAsync(string userId, string groupName)
+    {
+        RemoveUserFromGroupCalls++;
+        throw new T();
     }
 
     public void RemoveAllFromGroupAsync(string groupName)
@@ -33,7 +38,12 @@ public class SignalRGroupServiceExceptionMock<T> : ISignalRGroupService where T 
         throw new T();
     }
 
-    public void SendMessageToUserAsync(string connectionId, string message, string methodName)
+    public void SendMessageToConnectionIdAsync(string connectionId, string message, string methodName)
+    {
+        throw new T();
+    }
+
+    public void SendMessageToUserIdAsync<TMessage>(string userId, TMessage message, string methodName)
     {
         throw new T();
     }

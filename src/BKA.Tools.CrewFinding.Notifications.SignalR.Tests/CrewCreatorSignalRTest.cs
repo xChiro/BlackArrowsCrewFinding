@@ -35,7 +35,7 @@ public class CrewCreatorSignalR
         const string crewName = "Name";
         const string userId = "1";
         var exceptionHubContext = new SignalRGroupServiceExceptionMock<ArgumentException>();
-        var userSessionMock = new SignalRUserSessionMock(userId);
+        var userSessionMock = new UserSessionMock(userId);
         var crewCreatorSignalR = CreateCrewCreatorSignalR(exceptionHubContext, Guid.NewGuid().ToString(),
             new CrewCreatorMock(crewId, crewName),
             userSessionMock, new DomainLoggerMock());
@@ -69,15 +69,15 @@ public class CrewCreatorSignalR
         // Assert
         crewCreatorResponseMock.Id.Should().Be(crewId);
         crewCreatorResponseMock.Name.Should().Be(crewName);
-        signalRGroupServiceMock.AddedConnectionId.Should().Be(userId);
+        signalRGroupServiceMock.UserId.Should().Be(userId);
         signalRGroupServiceMock.GroupName.Should().Be(crewId);
     }
 
     private static ICrewCreator CreateCrewCreatorSignalR(ISignalRGroupService crewHubContext, string userId,
-        ICrewCreator? crewCreatorMock = null, ISignalRUserSession? userSessionMock = null, IDomainLogger? logger = null)
+        ICrewCreator? crewCreatorMock = null, IUserSession? userSessionMock = null, IDomainLogger? logger = null)
     {
         return new Crews.CrewCreatorSignalR(crewCreatorMock ?? new CrewCreatorMock("233", "Name"),
-            crewHubContext, userSessionMock ?? new SignalRUserSessionMock(userId), logger ?? new DomainLoggerMock());
+            crewHubContext, userSessionMock ?? new UserSessionMock(userId), logger ?? new DomainLoggerMock());
     }
 
     private static CrewCreatorResponseMock CreateCrewCreatorResponse()

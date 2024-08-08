@@ -27,9 +27,4 @@ public class UserSessionFilter : IUserSessionFilter
     {
         return _userId;
     }
-    
-    public string GetConnectionId()
-    {
-        return _connectionId;
-    }
 }

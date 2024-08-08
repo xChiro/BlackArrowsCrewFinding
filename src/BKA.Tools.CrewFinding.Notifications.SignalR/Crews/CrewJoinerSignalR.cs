@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
@@ -6,7 +7,7 @@ namespace BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
 public class CrewJoinerSignalR(
     ICrewJoiner decorated,
     ISignalRGroupService crewHubContext,
-    ISignalRUserSession userSession,
+    IUserSession userSession,
     IDomainLogger domainLogger)
     : ICrewJoiner
 {
@@ -16,7 +17,7 @@ public class CrewJoinerSignalR(
 
         try
         {
-            crewHubContext.AddUserToGroupAsync(userSession.GetConnectionId(), crewId);
+            crewHubContext.AddUserToGroupAsync(userSession.GetUserId(), crewId);
             crewHubContext.SendMessageToGroupAsync(crewId, new
                 {
                     CrewId = crewId,

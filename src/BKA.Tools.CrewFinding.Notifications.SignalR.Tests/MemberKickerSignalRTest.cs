@@ -40,7 +40,6 @@ public class MemberKickerSignalRTest
 
         // Assert
         memberKickerMock.KickedMemberId.Should().Be(memberId);
-        signalRGroupServiceMock.RemoveUserFromGroupCalls.Should().Be(1);
         domainLoggerMock.LastException.Should().NotBeNull();
     }
 
@@ -50,12 +49,10 @@ public class MemberKickerSignalRTest
         // Arrange
         const string memberId = "memberId";
         const string crewId = "2313124";
-        const string connectionId = "connectionId";
 
         var memberKickerMock = new MemberKickerMock(crewId);
-        var userSessionMock = new SignalRUserSessionMock(connectionId);
         var signalRGroupServiceMock = new SignalRGroupServiceMock();
-        var sut = CreateSutMemberKickerSignalR(memberKickerMock, signalRGroupServiceMock, userSessionMock);
+        var sut = CreateSutMemberKickerSignalR(memberKickerMock, signalRGroupServiceMock);
 
         // Act
         await sut.Kick(memberId, new KickMemberResponse());
@@ -63,7 +60,7 @@ public class MemberKickerSignalRTest
         // Assert
         memberKickerMock.KickedMemberId.Should().Be(memberId);
         signalRGroupServiceMock.RemoveUserFromGroupCalls.Should().Be(1);
-        signalRGroupServiceMock.RemovedConnectionId.Should().Be(connectionId);
+        signalRGroupServiceMock.RemovedUserId.Should().Be(memberId);
         signalRGroupServiceMock.GroupName.Should().Be(crewId);
         signalRGroupServiceMock.Message.Should().NotBeNull();
     }
@@ -75,28 +72,24 @@ public class MemberKickerSignalRTest
         // Arrange
         const string memberId = "memberId";
         const string crewId = "2313124";
-        const string connectionId = "connectionId";
         
         var memberKickerMock = new MemberKickerMock(crewId);
-        var userSessionMock = new SignalRUserSessionMock(connectionId);
         var signalRGroupServiceMock = new SignalRGroupServiceMock();
-        var sut = CreateSutMemberKickerSignalR(memberKickerMock, signalRGroupServiceMock, userSessionMock);
+        var sut = CreateSutMemberKickerSignalR(memberKickerMock, signalRGroupServiceMock);
         
         // Act
         await sut.Kick(memberId, new KickMemberResponse());
         
         // Assert
-        signalRGroupServiceMock.kickedConnectionId.Should().Be(connectionId);
+        signalRGroupServiceMock.RemovedUserId.Should().Be(memberId);
     }
 
     private static MemberKickerSignalR CreateSutMemberKickerSignalR(IMemberKicker memberKickerMock,
         ISignalRGroupService? signalRGroupServiceMock = null,
-        ISignalRUserSession? userSessionMock = null,
         IDomainLogger? domainLoggerMock = null)
     {
         var memberKicker = new MemberKickerSignalR(memberKickerMock, domainLoggerMock ?? new DomainLoggerMock(),
-            signalRGroupServiceMock ?? new SignalRGroupServiceMock(),
-            userSessionMock ?? new SignalRUserSessionMock(Guid.NewGuid().ToString()));
+            signalRGroupServiceMock ?? new SignalRGroupServiceMock());
         return memberKicker;
     }
 }

@@ -21,7 +21,6 @@ var host = new HostBuilder()
         services.AddScoped<IDomainLogger>(sp => new DomainLogger(sp.GetRequiredService<ILogger<DomainLogger>>()));
         services.AddScoped<IUserSession>(_ => userSession);
         services.AddScoped<IUserSessionFilter>(_ => userSession);
-        services.AddScoped<ISignalRUserSession>(_ => userSession);
         services.AddSignalR().AddAzureSignalR();
 
         InfrastructureServices.AddRepositories(services, keySecretsProvider);

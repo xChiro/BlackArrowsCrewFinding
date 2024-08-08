@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Creators;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
@@ -6,7 +7,7 @@ namespace BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
 public class CrewCreatorSignalR(
     ICrewCreator decorated,
     ISignalRGroupService signalRGroupService,
-    ISignalRUserSession userSession,
+    IUserSession userSession,
     IDomainLogger logger)
     : ICrewCreator, ICrewCreatorResponse
 {
@@ -20,7 +21,7 @@ public class CrewCreatorSignalR(
 
         try
         {
-            signalRGroupService.AddUserToGroupAsync(userSession.GetConnectionId(), _id);
+            signalRGroupService.AddUserToGroupAsync(userSession.GetUserId(), _id);
         }
         catch (Exception e)
         {

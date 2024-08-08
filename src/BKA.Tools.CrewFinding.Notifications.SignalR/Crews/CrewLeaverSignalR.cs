@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
@@ -7,7 +8,7 @@ public class CrewLeaverSignalR(
     ICrewLeaver decorated,
     IDomainLogger domainLogger,
     ISignalRGroupService signalRGroupService,
-    ISignalRUserSession signalRUserSession) : ICrewLeaver, ICrewLeaverResponse
+    IUserSession userSession) : ICrewLeaver, ICrewLeaverResponse
 {
     private string _crewId = string.Empty;
 
@@ -18,11 +19,10 @@ public class CrewLeaverSignalR(
 
         try
         {
-            var connectionId = signalRUserSession.GetConnectionId();
-            signalRGroupService.RemoveUserFromGroupAsync(connectionId, _crewId);
+            signalRGroupService.RemoveUserFromGroupAsync(userSession.GetUserId(), _crewId);
             signalRGroupService.SendMessageToGroupAsync(_crewId, new
             {
-                UserId = signalRUserSession.GetUserId(),
+                UserId = userSession.GetUserId(),
                 message = "Player left the crew"
             }, "PlayerLeftCrew");
         }

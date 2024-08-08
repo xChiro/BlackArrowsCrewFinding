@@ -6,8 +6,7 @@ namespace BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
 public class MemberKickerSignalR(
     IMemberKicker decorated,
     IDomainLogger domainLogger,
-    ISignalRGroupService signalRGroupService,
-    ISignalRUserSession userSession) : IMemberKicker
+    ISignalRGroupService signalRGroupService) : IMemberKicker
 {
     public async Task Kick(string memberId, IMemberKickerResponse output)
     {
@@ -18,9 +17,8 @@ public class MemberKickerSignalR(
 
         try
         {
-            signalRGroupService.RemoveUserFromGroupAsync(userSession.GetConnectionId(), memberKickerResponse.CrewId);
-            signalRGroupService.SendMessageToGroupAsync(memberKickerResponse.CrewId, memberKickerResponse, "CrewMemberKicked");
-            signalRGroupService.SendMessageToUserAsync(userSession.GetConnectionId(), "You was kicked from the crew.", "CrewMemberKicked");
+            signalRGroupService.RemoveUserFromGroupAsync(memberId, memberKickerResponse.CrewId);
+            signalRGroupService.SendMessageToUserIdAsync(memberId, "You have been kicked from the crew.", "CrewMemberKicked");
         }
         catch (Exception e)
         {

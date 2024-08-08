@@ -5,13 +5,12 @@ namespace BKA.Tools.CrewFinding.API.Functions.SignalR;
 public class SignalRFunctions
 {     
     [Function("negotiate")]
-    public static HttpResponseData Negotiate(
+    public static async Task<HttpResponseData> Negotiate(
         [HttpTrigger(AuthorizationLevel.Anonymous)] HttpRequestData req,
-        [SignalRConnectionInfoInput(HubName = "CrewHub")] string connectionInfo)
+        [SignalRConnectionInfoInput(HubName = "CrewHub", UserId = "{headers.x-ms-client-principal-id}")] SignalRConnectionInfo connectionInfo)
     {
         var response = req.CreateResponse(HttpStatusCode.OK);
-        response.Headers.Add("Content-Type", "application/json");
-        response.WriteString(connectionInfo);
+        await response.WriteAsJsonAsync(connectionInfo);
         
         return response;
     }
