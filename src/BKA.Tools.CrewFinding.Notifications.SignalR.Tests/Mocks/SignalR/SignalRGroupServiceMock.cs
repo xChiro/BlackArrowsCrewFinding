@@ -2,6 +2,7 @@ namespace BKA.Tools.CrewFinding.Notifications.SignalR.Tests.Mocks.SignalR;
 
 public class SignalRGroupServiceMock : ISignalRGroupService
 {
+    public string UserName { get; private set; } = string.Empty;
     public string RemovedGroupName { get; private set; } = string.Empty;
     public string RemovedUserId { get; private set; } = string.Empty;
     public string UserId { get; private set; } = string.Empty;

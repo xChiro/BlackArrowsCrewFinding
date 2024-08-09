@@ -3,13 +3,15 @@ using BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
 using BKA.Tools.CrewFinding.Notifications.SignalR.Tests.Mocks;
 using BKA.Tools.CrewFinding.Notifications.SignalR.Tests.Mocks.Crews;
 using BKA.Tools.CrewFinding.Notifications.SignalR.Tests.Mocks.SignalR;
+using BKA.Tools.CrewFinding.Players;
+using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.Notifications.SignalR.Tests;
 
 public class CrewJoinerSignalRTest
 {
     [Fact]
-    public Task Attempt_To_Sent_JoinMessage_To_Crew_But_Joiner_Fails_Throw_Exception()
+    public async void Attempt_To_Sent_JoinMessage_To_Crew_But_Joiner_Fails_Throw_Exception()
     {
         // Arrange
         var crewJoinerFailMock = new CrewJoinerFailMock<ArgumentException>();
@@ -20,11 +22,11 @@ public class CrewJoinerSignalRTest
         var act = async () => await sut.Join("crewId");
 
         // Assert
-        return act.Should().ThrowAsync<ArgumentException>();
+        await act.Should().ThrowAsync<ArgumentException>();
     }
 
     [Fact]
-    public async Task Attempt_To_Sent_JoinMessage_To_Crew_But_SignalR_Fails_Return_Success()
+    public async void Attempt_To_Sent_JoinMessage_To_Crew_But_SignalR_Fails_Return_Success()
     {
         // Arrange
         const string crewId = "crewId";
@@ -42,7 +44,7 @@ public class CrewJoinerSignalRTest
     }
 
     [Fact]
-    public async Task Send_Join_Player_To_SignalR_Group_Successfully()
+    public async void Send_Join_Player_To_SignalR_Group_Successfully()
     {
         // Arrange
         const string crewId = "crewId";
@@ -61,30 +63,71 @@ public class CrewJoinerSignalRTest
     }
 
     [Fact]
-    public async Task Send_Player_Joined_Message_To_SignalR_Group()
+    public async void Attempt_To_Send_Join_Player_To_SignalR_Group_But_Get_Player_Name_Fails_Continue_Successfully()
     {
         // Arrange
         const string crewId = "crewId";
-        const string connectionId = "12312312";
+        var domainLoggerMock = new DomainLoggerMock();
         var crewJoinerMock = new CrewJoinerMock();
+        var playerQueryRepositoryMock = new PlayerQueryRepositoryExceptionMock<ArgumentException>();
+        var sut = CreateCrewJoinerSignalR(crewJoinerMock, domainLoggerMock: domainLoggerMock,
+            playerQueryRepository: playerQueryRepositoryMock);
+
+        // Act
+        await sut.Join(crewId);
+
+        // Assert
+        domainLoggerMock.LastException.Should().BeOfType<ArgumentException>();
+        crewJoinerMock.CrewId.Should().Be(crewId);
+    }
+
+    [Fact]
+    public async void Send_PlayerName_To_SignalR_Group_Successfully()
+    {
+        // Arrange
+        const string connectionId = "1238012x";
+        const string crewId = "crewId";
+        const string playerName = "Rowan";
+        var crewJoinerMock = new CrewJoinerMock();
+        var playerQueryRepositoryMock = new PlayerQueryRepositoryMock(playerName);
         var signalRGroupServiceMock = new SignalRGroupServiceMock();
-        var sut = CreateCrewJoinerSignalR(crewJoinerMock, signalRGroupServiceMock, null, connectionId);
+        var sut = CreateCrewJoinerSignalR(crewJoinerMock, playerQueryRepository: playerQueryRepositoryMock,
+            signalRGroupService: signalRGroupServiceMock, connectionId: connectionId);
 
         // Act
         await sut.Join(crewId);
 
         // Assert
         signalRGroupServiceMock.Message.Should().NotBeNull();
-        signalRGroupServiceMock.GroupName.Should().Be(crewId);
-        signalRGroupServiceMock.UserId.Should().Be(connectionId);
+        signalRGroupServiceMock.Message!.Should().BeEquivalentTo(new
+        {
+            PlayerId = connectionId,
+            CitizenName = playerName
+        });
     }
 
     private static CrewJoinerSignalR CreateCrewJoinerSignalR(ICrewJoiner crewJoinerMock,
-        ISignalRGroupService signalRGroupService, DomainLoggerMock? domainLoggerMock = null,
-        string connectionId = "connectionId")
+        ISignalRGroupService? signalRGroupService = null, DomainLoggerMock? domainLoggerMock = null,
+        string connectionId = "connectionId", IPlayerQueryRepository? playerQueryRepository = null)
     {
-        var sut = new CrewJoinerSignalR(crewJoinerMock, signalRGroupService, new UserSessionMock(connectionId),
-            domainLoggerMock ?? new DomainLoggerMock());
+        var sut = new CrewJoinerSignalR(crewJoinerMock, signalRGroupService ?? new SignalRGroupServiceMock(),
+            playerQueryRepository ?? new PlayerQueryRepositoryMock("Rowan"), new UserSessionMock(connectionId), domainLoggerMock ?? new DomainLoggerMock());
         return sut;
+    }
+}
+
+public class PlayerQueryRepositoryExceptionMock<T> : IPlayerQueryRepository where T : Exception, new()
+{
+    public Task<Player?> GetPlayer(string playerId)
+    {
+        throw new T();
+    }
+}
+
+public class PlayerQueryRepositoryMock(string playerName) : IPlayerQueryRepository
+{
+    public Task<Player?> GetPlayer(string playerId)
+    {
+        return Task.FromResult<Player?>(Player.Create(playerId, playerName, 2, 16));
     }
 }

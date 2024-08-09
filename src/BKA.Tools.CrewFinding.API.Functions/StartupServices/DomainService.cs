@@ -120,19 +120,19 @@ public static class DomainService
             {
                 var userSession = serviceProvider.GetRequiredService<IUserSession>();
 
+                var playersQueryRepository = serviceProvider.GetRequiredService<IPlayerQueryRepository>();
                 var crewJoiner = new CrewJoiner(
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewCommandRepository>(),
-                    serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
+                    playersQueryRepository,
                     userSession);
 
                 var requiredService = serviceProvider.GetRequiredService<IDomainLogger>();
                 var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
 
                 return new CrewJoinerSignalR(crewJoiner, signalRGroupService,
-                    userSession,
-                    requiredService);
+                    playersQueryRepository, userSession, requiredService);
             });
 
         service.AddScoped<ICrewLeaver>(serviceProvider =>

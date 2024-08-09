@@ -21,7 +21,6 @@ public class MemberKickerSignalR(
             signalRGroupService.SendMessageToUserAsync(memberId, "You have been kicked from the crew.", "KickedFromCrew");
             signalRGroupService.SendMessageToGroupAsync(memberKickerResponse.CrewId, new
             {
-                memberKickerResponse.CrewId,
                 PlayerId = memberId
             }, "CrewMemberKicked");
         }

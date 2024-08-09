@@ -1,12 +1,14 @@
 using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.JoinRequests;
 using BKA.Tools.CrewFinding.Crews.Ports;
+using BKA.Tools.CrewFinding.Players.Ports;
 
 namespace BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
 
 public class CrewJoinerSignalR(
     ICrewJoiner decorated,
     ISignalRGroupService crewHubContext,
+    IPlayerQueryRepository playerQueryRepository,
     IUserSession userSession,
     IDomainLogger domainLogger)
     : ICrewJoiner
@@ -17,11 +19,14 @@ public class CrewJoinerSignalR(
 
         try
         {
+            var getPlayerTask = playerQueryRepository.GetPlayer(userSession.GetUserId());
             crewHubContext.AddUserToGroupAsync(userSession.GetUserId(), crewId);
+
+            var player = await getPlayerTask;
             crewHubContext.SendMessageToGroupAsync(crewId, new
                 {
-                    CrewId = crewId,
-                    PlayerId = userSession.GetUserId()
+                    PlayerId = userSession.GetUserId(),
+                    CitizenName = player?.CitizenName.Value
                 },
                 "NotifyPlayerJoined");
         }

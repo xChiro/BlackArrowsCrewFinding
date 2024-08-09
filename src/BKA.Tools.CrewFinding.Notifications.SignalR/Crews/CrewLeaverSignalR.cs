@@ -22,7 +22,7 @@ public class CrewLeaverSignalR(
             signalRGroupService.RemoveUserFromGroupAsync(userSession.GetUserId(), _crewId);
             signalRGroupService.SendMessageToGroupAsync(_crewId, new
             {
-                UserId = userSession.GetUserId(),
+                PlayerId = userSession.GetUserId(),
                 message = "Player left the crew"
             }, "PlayerLeftCrew");
         }
