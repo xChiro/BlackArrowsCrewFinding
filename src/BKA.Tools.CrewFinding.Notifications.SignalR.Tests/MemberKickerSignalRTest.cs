@@ -44,7 +44,7 @@ public class MemberKickerSignalRTest
     }
 
     [Fact]
-    public async void When_KickMember_Should_RemoveUser_From_SignalRGroup_And_SendMessage_To_Group()
+    public async void When_KickMember_Should_RemoveUser_From_SignalRGroup_And_SendMessage_To_Group_Except_KickedPlayer()
     {
         // Arrange
         const string memberId = "memberId";
@@ -63,6 +63,7 @@ public class MemberKickerSignalRTest
         signalRGroupServiceMock.RemovedUserId.Should().Be(memberId);
         signalRGroupServiceMock.GroupName.Should().Be(crewId);
         signalRGroupServiceMock.Message.Should().NotBeNull();
+        signalRGroupServiceMock.ExcludedUserIds.Should().Contain(memberId);
     }
 
 

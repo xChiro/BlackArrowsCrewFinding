@@ -11,7 +11,8 @@ public class SignalRGroupServiceSendMessageThrowsMock<T> : ISignalRGroupService 
         GroupName = groupName;
     }
 
-    public void SendMessageToGroupAsync<TMessage>(string groupName, TMessage message, string methodName)
+    public void SendMessageToGroupAsync<TMessage>(string groupName, TMessage message, string methodName,
+        string[]? exceptUserIds = null)
     {
         throw new T();
     }

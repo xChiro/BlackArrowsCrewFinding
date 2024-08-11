@@ -22,7 +22,7 @@ public class MemberKickerSignalR(
             signalRGroupService.SendMessageToGroupAsync(memberKickerResponse.CrewId, new
             {
                 PlayerId = memberId
-            }, "CrewMemberKicked");
+            }, "CrewMemberKicked", [memberId]);
         }
         catch (Exception e)
         {

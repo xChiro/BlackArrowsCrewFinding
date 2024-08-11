@@ -13,12 +13,11 @@ public class SignalRGroupService(IDomainLogger logger, ServiceManager serviceMan
             $"Error adding user {userId} to SignalR group {groupName}");
     }
 
-    public void SendMessageToGroupAsync<T>(string groupName, T message, string methodName)
+    public void SendMessageToGroupAsync<T>(string groupName, T message, string methodName, string[]? exceptUserIds = null)
     {
-        RunInHubContextAsync(hubContext => hubContext.Clients.Group(groupName).SendAsync(methodName, message),
+        RunInHubContextAsync(hubContext => hubContext.Clients.GroupExcept(groupName, exceptUserIds ?? []).SendAsync(methodName, message),
             $"Error sending message to SignalR group {groupName}");
     }
-
 
     public void RemoveUserFromGroupAsync(string userId, string groupName)
     {

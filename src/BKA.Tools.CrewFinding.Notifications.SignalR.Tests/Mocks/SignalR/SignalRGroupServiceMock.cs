@@ -2,6 +2,7 @@ namespace BKA.Tools.CrewFinding.Notifications.SignalR.Tests.Mocks.SignalR;
 
 public class SignalRGroupServiceMock : ISignalRGroupService
 {
+    public string[] ExcludedUserIds { get; private set; } = [];
     public string UserName { get; private set; } = string.Empty;
     public string RemovedGroupName { get; private set; } = string.Empty;
     public string RemovedUserId { get; private set; } = string.Empty;
@@ -18,10 +19,10 @@ public class SignalRGroupServiceMock : ISignalRGroupService
         GroupName = groupName;
     }
 
-    public void SendMessageToGroupAsync<T>(string groupName, T message, string methodName)
-    {
+    public void SendMessageToGroupAsync<TMessage>(string groupName, TMessage message, string methodName, string[]? exceptUserIds = null)    {
         GroupName = groupName;
         Message = message;
+        ExcludedUserIds = exceptUserIds ?? [];
         SendMessageToGroupAsyncCalls++;
     }
 
