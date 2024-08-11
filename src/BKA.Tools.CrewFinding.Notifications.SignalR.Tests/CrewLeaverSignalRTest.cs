@@ -107,6 +107,7 @@ public class CrewLeaverSignalRTest
         domainLoggerMock.LastException.Should().BeNull();
         signalRGroupServiceMock.GroupName.Should().Be(crewId);
         signalRGroupServiceMock.Message.Should().NotBeNull();
+        signalRGroupServiceMock.ExcludedUserIds.Should().Contain(userId);
         output.CrewId.Should().Be(crewId);
     }
 

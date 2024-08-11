@@ -24,7 +24,7 @@ public class CrewLeaverSignalR(
             {
                 PlayerId = userSession.GetUserId(),
                 message = "Player left the crew"
-            }, "PlayerLeftCrew");
+            }, "PlayerLeftCrew", [userSession.GetUserId()]);
         }
         catch (Exception e)
         {

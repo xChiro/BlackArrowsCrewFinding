@@ -20,15 +20,17 @@ public class CrewJoinerSignalR(
         try
         {
             var getPlayerTask = playerQueryRepository.GetPlayer(userSession.GetUserId());
-            crewHubContext.AddUserToGroupAsync(userSession.GetUserId(), crewId);
-
             var player = await getPlayerTask;
+            
             crewHubContext.SendMessageToGroupAsync(crewId, new
                 {
                     PlayerId = userSession.GetUserId(),
                     CitizenName = player?.CitizenName.Value
                 },
                 "NotifyPlayerJoined", [userSession.GetUserId()]);
+            
+            crewHubContext.AddUserToGroupAsync(userSession.GetUserId(), crewId);
+
         }
         catch (Exception e)
         {
