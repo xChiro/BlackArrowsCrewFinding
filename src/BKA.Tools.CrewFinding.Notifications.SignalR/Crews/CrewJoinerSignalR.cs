@@ -28,7 +28,7 @@ public class CrewJoinerSignalR(
                     PlayerId = userSession.GetUserId(),
                     CitizenName = player?.CitizenName.Value
                 },
-                "NotifyPlayerJoined");
+                "NotifyPlayerJoined", [userSession.GetUserId()]);
         }
         catch (Exception e)
         {

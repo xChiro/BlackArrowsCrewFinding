@@ -85,14 +85,14 @@ public class CrewJoinerSignalRTest
     public async void Send_PlayerName_To_SignalR_Group_Successfully()
     {
         // Arrange
-        const string connectionId = "1238012x";
+        const string userId = "1238012x";
         const string crewId = "crewId";
         const string playerName = "Rowan";
         var crewJoinerMock = new CrewJoinerMock();
         var playerQueryRepositoryMock = new PlayerQueryRepositoryMock(playerName);
         var signalRGroupServiceMock = new SignalRGroupServiceMock();
         var sut = CreateCrewJoinerSignalR(crewJoinerMock, playerQueryRepository: playerQueryRepositoryMock,
-            signalRGroupService: signalRGroupServiceMock, connectionId: connectionId);
+            signalRGroupService: signalRGroupServiceMock, userId: userId);
 
         // Act
         await sut.Join(crewId);
@@ -101,17 +101,18 @@ public class CrewJoinerSignalRTest
         signalRGroupServiceMock.Message.Should().NotBeNull();
         signalRGroupServiceMock.Message!.Should().BeEquivalentTo(new
         {
-            PlayerId = connectionId,
+            PlayerId = userId,
             CitizenName = playerName
         });
+        signalRGroupServiceMock.ExcludedUserIds.Should().Contain(userId);
     }
 
     private static CrewJoinerSignalR CreateCrewJoinerSignalR(ICrewJoiner crewJoinerMock,
         ISignalRGroupService? signalRGroupService = null, DomainLoggerMock? domainLoggerMock = null,
-        string connectionId = "connectionId", IPlayerQueryRepository? playerQueryRepository = null)
+        string userId = "connectionId", IPlayerQueryRepository? playerQueryRepository = null)
     {
         var sut = new CrewJoinerSignalR(crewJoinerMock, signalRGroupService ?? new SignalRGroupServiceMock(),
-            playerQueryRepository ?? new PlayerQueryRepositoryMock("Rowan"), new UserSessionMock(connectionId), domainLoggerMock ?? new DomainLoggerMock());
+            playerQueryRepository ?? new PlayerQueryRepositoryMock("Rowan"), new UserSessionMock(userId), domainLoggerMock ?? new DomainLoggerMock());
         return sut;
     }
 }
