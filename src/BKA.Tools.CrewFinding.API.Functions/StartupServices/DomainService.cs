@@ -98,10 +98,12 @@ public static class DomainService
         service.AddScoped<ICrewDisbandment>(
             serviceProvider =>
             {
+                var requiredService = serviceProvider.GetRequiredService<IUserSession>();
+
                 var crewDisbandment = new CrewDisbandment(
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
-                    serviceProvider.GetRequiredService<IUserSession>());
+                    requiredService);
 
                 var domainLoggerMock = serviceProvider.GetRequiredService<IDomainLogger>();
                 var voicedDisbandment = new VoicedCrewDisbandment(crewDisbandment,
@@ -112,7 +114,8 @@ public static class DomainService
 
                 var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
 
-                return new CrewDisbandmentSignalR(voicedDisbandment, signalRGroupService, domainLoggerMock);
+                return new CrewDisbandmentSignalR(voicedDisbandment, signalRGroupService, requiredService,
+                    domainLoggerMock);
             });
 
         service.AddScoped<ICrewJoiner>(

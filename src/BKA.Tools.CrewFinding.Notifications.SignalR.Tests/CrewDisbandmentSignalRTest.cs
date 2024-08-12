@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
@@ -43,18 +44,19 @@ public class CrewDisbandmentSignalRTest
         signalRGroupServiceMock.RemoveAllFromGroupCalls.Should().Be(1);
         domainLoggerMock.LastException.Should().NotBeNull();
     }
-    
+
     [Fact]
     public async void Attempt_To_DisbandCrew_Should_CompletedOperation_And_RemoveAllFromGroup_And_SendMessageToGroup()
     {
         // Arrange
         const string crewId = "crewId";
+        const string userId = "userId";
 
         var decoratedMock = new CrewDisbandmentMock();
-        var domainLoggerMock = new DomainLoggerMock();
         var signalRGroupServiceMock = new SignalRGroupServiceMock();
         var crewDisbandmentResponse = new CrewDisbandmentResponse();
-        var sut = CreateSutCrewDisbandmentSignalR(decoratedMock, signalRGroupServiceMock, domainLoggerMock);
+        var userSessionMock = new UserSessionMock(userId);
+        var sut = CreateSutCrewDisbandmentSignalR(decoratedMock, signalRGroupServiceMock, userSession: userSessionMock);
 
         // Act
         await sut.Disband(crewDisbandmentResponse);
@@ -64,13 +66,15 @@ public class CrewDisbandmentSignalRTest
         signalRGroupServiceMock.RemovedGroupName.Should().Be(crewId);
         signalRGroupServiceMock.GroupName.Should().Be(crewId);
         signalRGroupServiceMock.Message.Should().NotBeNull();
+        signalRGroupServiceMock.ExcludedUserIds.Should().Contain(userId);
     }
 
     private static CrewDisbandmentSignalR CreateSutCrewDisbandmentSignalR(ICrewDisbandment decorated,
         ISignalRGroupService? signalRGroupService = null,
-        IDomainLogger? domainLogger = null)
+        IDomainLogger? domainLogger = null,
+        IUserSession? userSession = null)
     {
         return new CrewDisbandmentSignalR(decorated, signalRGroupService ?? new SignalRGroupServiceMock(),
-            domainLogger ?? new DomainLoggerMock());
+            userSession ?? new UserSessionMock("userId"), domainLogger ?? new DomainLoggerMock());
     }
 }

@@ -1,3 +1,4 @@
+using BKA.Tools.CrewFinding.Commons.Ports;
 using BKA.Tools.CrewFinding.Crews.Commands.Disbands;
 using BKA.Tools.CrewFinding.Crews.Ports;
 
@@ -6,6 +7,7 @@ namespace BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
 public class CrewDisbandmentSignalR(
     ICrewDisbandment decorated,
     ISignalRGroupService signalRGroupService,
+    IUserSession userSession,
     IDomainLogger domainLogger) : ICrewDisbandment
 {
     public async Task Disband(ICrewDisbandmentResponse output)
@@ -20,7 +22,7 @@ public class CrewDisbandmentSignalR(
             signalRGroupService.SendMessageToGroupAsync(crewDisbandmentResponse.CrewId, new
             {
                 message = "The captain disbanded the crew."
-            }, "CrewDisbanded");
+            }, "CrewDisbanded", [userSession.GetUserId()]);
         }
         catch (Exception e)
         {
