@@ -5,8 +5,8 @@ namespace BKA.Tools.CrewFinding.API.Functions.StartupServices.FunctionsFilters;
 public class UserSessionFilter : IUserSessionFilter
 {
     private string _userId = string.Empty;
-    
-    public void Initialize(string userToken)
+
+    public void SetToken(string userToken)
     {
         var tokenDecoder = new TokenDecoder(userToken);
         _userId = tokenDecoder.GetUserId();

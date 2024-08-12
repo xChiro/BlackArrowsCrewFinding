@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.Channels.Exceptions;
 using BKA.Tools.CrewFinding.Channels.invites;
 using BKA.Tools.CrewFinding.Commons.Exceptions;
 
-namespace BKA.Tools.CrewFinding.API.Functions.Channels;
+namespace BKA.Tools.CrewFinding.API.Functions.Channels.Invites;
 
 public class CreateChannelInviteLinkFunction(
     IChannelInviteLinkCreator channelInviteLinkCreator,

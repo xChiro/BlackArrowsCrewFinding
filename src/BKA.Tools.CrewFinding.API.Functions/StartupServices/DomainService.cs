@@ -11,6 +11,9 @@ using BKA.Tools.CrewFinding.Crews.Commands.Leave;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.Crews.Queries.Recent;
 using BKA.Tools.CrewFinding.Crews.Queries.Retrievs;
+using BKA.Tools.CrewFinding.Notifications.SignalR;
+using BKA.Tools.CrewFinding.Notifications.SignalR.Crews;
+using BKA.Tools.CrewFinding.Notifications.SignalR.Profiles;
 using BKA.Tools.CrewFinding.Players.Commands.Creation;
 using BKA.Tools.CrewFinding.Players.Commands.Removes;
 using BKA.Tools.CrewFinding.Players.Commands.Updates;
@@ -39,11 +42,17 @@ public static class DomainService
                     Convert.ToInt32(Configuration.GetEnvironmentVariable("minCitizenNameLength")),
                     Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCitizenNameLength"))));
 
-        service.AddScoped<IPlayerProfileViewer>(
+        service.AddScoped<IProfileViewer>(
             serviceProvider =>
-                new PlayerProfileViewer(
+            {
+                var profileViewer = new ProfileViewer(
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
-                    serviceProvider.GetRequiredService<ICrewQueryRepository>()));
+                    serviceProvider.GetRequiredService<ICrewQueryRepository>());
+
+                return new ProfileViewerSignalR(profileViewer,
+                    serviceProvider.GetRequiredService<ISignalRGroupService>(),
+                    serviceProvider.GetRequiredService<IDomainLogger>());
+            });
     }
 
     private static void AddCrewServices(IServiceCollection service, int maxCrewSize)
@@ -53,7 +62,6 @@ public static class DomainService
         var maxNameLength = Convert.ToInt32(Configuration.GetEnvironmentVariable("maxCitizenNameLength"));
         const string regexPattern = @"^https:\/\/discord\.gg\/([a-zA-Z0-9]{6,9})$";
 
-
         service.AddScoped<IRecentCrewsRetrieval>(
             serviceProvider =>
                 new RecentCrewsRetrieval(
@@ -62,49 +70,85 @@ public static class DomainService
         service.AddScoped<ICrewCreator>(
             serviceProvider =>
             {
+                var requiredService = serviceProvider.GetRequiredService<IUserSession>();
+
                 var crewCreator = new CrewCreator(
                     serviceProvider.GetRequiredService<ICrewCommandRepository>(),
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
-                    serviceProvider.GetRequiredService<IUserSession>(), maxCrewSize);
+                    requiredService, maxCrewSize);
 
                 var voiceChannelCommandRepository =
                     serviceProvider.GetRequiredService<IVoiceChannelHandler>();
                 var channelCommandRepository = serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>();
                 var domainLogger = serviceProvider.GetRequiredService<IDomainLogger>();
 
-                return new VoicedCrewCreator(crewCreator, voiceChannelCommandRepository, channelCommandRepository,
+                var voicedCrew = new VoicedCrewCreator(crewCreator, voiceChannelCommandRepository,
+                    channelCommandRepository,
                     domainLogger, regexPattern);
+
+                var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
+
+                return new CrewCreatorSignalR(voicedCrew,
+                    signalRGroupService,
+                    requiredService,
+                    domainLogger);
             });
 
         service.AddScoped<ICrewDisbandment>(
             serviceProvider =>
             {
+                var requiredService = serviceProvider.GetRequiredService<IUserSession>();
+
                 var crewDisbandment = new CrewDisbandment(
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewDisbandRepository>(),
-                    serviceProvider.GetRequiredService<IUserSession>());
+                    requiredService);
 
-                return new VoicedCrewDisbandment(crewDisbandment,
+                var domainLoggerMock = serviceProvider.GetRequiredService<IDomainLogger>();
+                var voicedDisbandment = new VoicedCrewDisbandment(crewDisbandment,
                     serviceProvider.GetRequiredService<IVoiceChannelHandler>(),
                     serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
-                    serviceProvider.GetRequiredService<IDomainLogger>(),
+                    domainLoggerMock,
                     serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>());
+
+                var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
+
+                return new CrewDisbandmentSignalR(voicedDisbandment, signalRGroupService, requiredService,
+                    domainLoggerMock);
             });
 
         service.AddScoped<ICrewJoiner>(
             serviceProvider =>
-                new CrewJoiner(
+            {
+                var userSession = serviceProvider.GetRequiredService<IUserSession>();
+
+                var playersQueryRepository = serviceProvider.GetRequiredService<IPlayerQueryRepository>();
+                var crewJoiner = new CrewJoiner(
                     serviceProvider.GetRequiredService<ICrewValidationRepository>(),
                     serviceProvider.GetRequiredService<ICrewQueryRepository>(),
                     serviceProvider.GetRequiredService<ICrewCommandRepository>(),
-                    serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
-                    serviceProvider.GetRequiredService<IUserSession>()));
+                    playersQueryRepository,
+                    userSession);
+
+                var requiredService = serviceProvider.GetRequiredService<IDomainLogger>();
+                var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
+
+                return new CrewJoinerSignalR(crewJoiner, signalRGroupService,
+                    playersQueryRepository, userSession, requiredService);
+            });
 
         service.AddScoped<ICrewLeaver>(serviceProvider =>
-            new CrewLeaver(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
-                serviceProvider.GetRequiredService<ICrewCommandRepository>(),
-                serviceProvider.GetRequiredService<IUserSession>()));
+        {
+            var userSession = serviceProvider.GetRequiredService<IUserSession>();
+            var crewLeaver = new CrewLeaver(serviceProvider.GetRequiredService<ICrewQueryRepository>(),
+                serviceProvider.GetRequiredService<ICrewCommandRepository>(), userSession);
+
+            var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
+            var domainLogger = serviceProvider.GetRequiredService<IDomainLogger>();
+
+            return new CrewLeaverSignalR(crewLeaver, domainLogger, signalRGroupService, userSession);
+        });
 
         service.AddScoped<IActiveCrewRetrieval>(serviceProvider =>
             new ActiveCrewRetrieval(serviceProvider.GetRequiredService<ICrewQueryRepository>()));
@@ -115,27 +159,34 @@ public static class DomainService
                 expirationThreshold));
 
         service.AddScoped<IMemberKicker>(serviceProvider =>
-            new MemberKicker(serviceProvider.GetRequiredService<IUserSession>(),
+        {
+            var memberKicker = new MemberKicker(serviceProvider.GetRequiredService<IUserSession>(),
                 serviceProvider.GetRequiredService<ICrewQueryRepository>(),
-                serviceProvider.GetRequiredService<ICrewCommandRepository>()));
+                serviceProvider.GetRequiredService<ICrewCommandRepository>());
+
+            var signalRGroupService = serviceProvider.GetRequiredService<ISignalRGroupService>();
+
+            return new MemberKickerSignalR(memberKicker, serviceProvider.GetRequiredService<IDomainLogger>(),
+                signalRGroupService);
+        });
 
         service.AddScoped<IHandleNameUpdater>(serviceProvider =>
             new HandleNameUpdater(serviceProvider.GetRequiredService<IPlayerQueryRepository>(),
                 serviceProvider.GetRequiredService<IPlayerCommandRepository>(),
                 serviceProvider.GetRequiredService<IUserSession>(), maxNameLength, minNameLength));
-        
+
         service.AddScoped<IChannelInviteLinkCreator>(serviceProvider => new ChannelInviteLinkCreator(
             serviceProvider.GetRequiredService<IUserSession>(),
             serviceProvider.GetRequiredService<IVoiceChannelHandler>(),
             serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
             serviceProvider.GetRequiredService<ICrewQueryRepository>()));
-        
+
         service.AddScoped<IExpiredChannelRemover>(serviceProvider => new ExpiredChannelRemover(
-            expirationThreshold, 
-            serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(), 
+            expirationThreshold,
+            serviceProvider.GetRequiredService<IVoiceChannelQueryRepository>(),
             serviceProvider.GetRequiredService<IVoiceChannelCommandRepository>(),
             serviceProvider.GetRequiredService<IVoiceChannelHandler>()));
-        
+
         service.AddScoped<IAccountRemover>(serviceProvider => new AccountRemover(
             serviceProvider.GetRequiredService<ICrewQueryRepository>(),
             serviceProvider.GetRequiredService<ICrewCommandRepository>(),

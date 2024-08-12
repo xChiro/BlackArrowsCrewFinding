@@ -9,7 +9,7 @@ public class CrewDisbandment(
     ICrewDisbandRepository crewDisbandRepository,
     IUserSession userSession) : ICrewDisbandment
 {
-    public async Task Disband(ICrewDisbandmentResponse? output = null)
+    public async Task Disband(ICrewDisbandmentResponse output)
     {
         var userId = GetUserIdFromSession();
         var crew = await IsCrewOwnedByUserAsync(userId);
@@ -19,7 +19,7 @@ public class CrewDisbandment(
 
         await crewDisbandRepository.Disband(crew.Id);
         
-        output?.SetResult(crew.Id);
+        output.SetResult(crew.Id);
     }
 
     private string GetUserIdFromSession()

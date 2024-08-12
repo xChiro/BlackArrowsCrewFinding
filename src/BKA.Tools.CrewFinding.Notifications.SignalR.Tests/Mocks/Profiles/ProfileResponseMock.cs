@@ -1,13 +1,13 @@
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 
-namespace BKA.Tools.CrewFinding.Tests.Players.Mocks;
+namespace BKA.Tools.CrewFinding.Notifications.SignalR.Tests.Mocks.Profiles;
 
-public class PlayerProfileResponseMock : IPlayerProfileResponse
+public class ProfileResponseMock : IProfileResponse
 {
-    public Player? Player { get; set; }
-    public string ActiveCrewId { get; set; } = string.Empty;
-    public string ActiveCrewName { get; set; } = string.Empty;
+    public Player? Player { get; private set; }
+    public string ActiveCrewName { get; private set; } = string.Empty;
+    public string ActiveCrewId { get; private set; } = string.Empty;
 
     public void SetResponse(Player player)
     {

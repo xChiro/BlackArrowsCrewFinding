@@ -8,10 +8,10 @@ public class UserSessionWorkerMiddleware(IUserSessionFilter userSession) : IFunc
     public Task Invoke(FunctionContext context, FunctionExecutionDelegate next)
     {
         var userToken = GetUserToken(context);
-
+        
         if (!string.IsNullOrEmpty(userToken))
         {
-            userSession.Initialize(userToken);
+            userSession.SetToken(userToken);
         }
         else
         {

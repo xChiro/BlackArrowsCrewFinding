@@ -1,4 +1,5 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
+using BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
 using BKA.Tools.CrewFinding.Commons.Exceptions;
 using BKA.Tools.CrewFinding.Crews.Exceptions;
 
@@ -7,7 +8,8 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 [Binding]
 public class CrewKickAsserts(
     ExceptionResultContext exceptionResultContext,
-    CrewRepositoriesContext crewRepositoriesContext)
+    CrewRepositoriesContext crewRepositoriesContext,
+    KickMemberResponseMock kickMemberResponseMock)
 {
     [Then(@"I should see an error message indicating I am not the captain of the crew")]
     public void ThenIShouldSeeAnErrorMessageIndicatingIAmNotTheCaptainOfTheCrew()
@@ -26,5 +28,6 @@ public class CrewKickAsserts(
     {
         crewRepositoriesContext.CommandRepositoryMock.CrewPartyMembers.Should()
             .NotContain(player => player.Id == removedPlayerId);
+        kickMemberResponseMock.CrewId.Should().Be(crewRepositoriesContext.QueryRepositoryMock.StoredCrews[0].Id);
     }
 }

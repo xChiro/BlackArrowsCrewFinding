@@ -1,5 +1,6 @@
 using BKA.Tools.CrewFinding.BehaviourTest.Commons.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Crews.Contexts;
+using BKA.Tools.CrewFinding.BehaviourTest.Crews.Mocks;
 using BKA.Tools.CrewFinding.BehaviourTest.Players.Context;
 using BKA.Tools.CrewFinding.Crews.Commands.Kicks;
 
@@ -9,7 +10,8 @@ namespace BKA.Tools.CrewFinding.BehaviourTest.Crews.Steps;
 public class CrewKickActs(
     ExceptionResultContext exceptionResultContext,
     PlayerContext playerContext,
-    CrewRepositoriesContext crewRepositoriesContext)
+    CrewRepositoriesContext crewRepositoriesContext,
+    KickMemberResponseMock kickMemberResponseMock)
 {
     [When(@"I attempt to kick the player with id ""(.*)"" from the crew")]
     public async Task WhenIAttemptToKickThePlayerWithIdFromTheCrew(string playerId)
@@ -30,7 +32,7 @@ public class CrewKickActs(
             crewRepositoriesContext.CommandRepositoryMock);
         try
         {
-            await sut.Kick(memberId);
+            await sut.Kick(memberId, kickMemberResponseMock);
         }
         catch (Exception e)
         {

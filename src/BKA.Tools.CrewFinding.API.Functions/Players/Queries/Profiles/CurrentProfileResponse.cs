@@ -3,7 +3,7 @@ using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 
 namespace BKA.Tools.CrewFinding.API.Functions.Players.Queries.Profiles;
 
-public class CurrentPlayerProfileResponse : IPlayerProfileResponse
+public class CurrentProfileResponse : IProfileResponse
 {
     public string Id { get; private set; } = string.Empty;
     

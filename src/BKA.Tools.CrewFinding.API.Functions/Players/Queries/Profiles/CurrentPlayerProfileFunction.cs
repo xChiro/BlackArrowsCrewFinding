@@ -6,7 +6,7 @@ using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 namespace BKA.Tools.CrewFinding.API.Functions.Players.Queries.Profiles;
 
 public class CurrentPlayerProfileFunction(
-    IPlayerProfileViewer playerProfileViewer,
+    IProfileViewer profileViewer,
     IUserSession userSession,
     ILoggerFactory loggerFactory) : FunctionBase
 {
@@ -20,8 +20,8 @@ public class CurrentPlayerProfileFunction(
     {
         try
         {
-            var response = new CurrentPlayerProfileResponse();
-            await playerProfileViewer.View(userSession.GetUserId(), response);
+            var response = new CurrentProfileResponse();
+            await profileViewer.View(userSession.GetUserId(), response);
 
             return OkResponse(req, response);
         }

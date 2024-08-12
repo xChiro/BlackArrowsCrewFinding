@@ -4,7 +4,7 @@ using BKA.Tools.CrewFinding.Players.Queries.PlayerProfiles;
 
 namespace BKA.Tools.CrewFinding.BehaviourTest.Players.Mocks;
 
-public class PlayerProfileResponseMock(PlayerResultsContext playerResultsContext) : IPlayerProfileResponse
+public class ProfileResponseMock(PlayerResultsContext playerResultsContext) : IProfileResponse
 {
     public void SetResponse(Player player)
     {

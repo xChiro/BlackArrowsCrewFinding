@@ -2,7 +2,6 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Azure.DataBase.CrewParties.Documents;
-using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Crews.Ports;
 using BKA.Tools.CrewFinding.DataAccess.CosmosDb.Tests.Settings;
 using BKA.Tools.CrewFinding.Players;

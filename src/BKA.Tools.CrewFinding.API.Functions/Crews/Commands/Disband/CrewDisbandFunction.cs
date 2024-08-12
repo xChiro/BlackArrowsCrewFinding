@@ -15,8 +15,9 @@ public class CrewDisbandFunction(ICrewDisbandment crewDisbandment, ILoggerFactor
     {
         try
         {
-            await crewDisbandment.Disband();
-            return OkResponse(req);
+            var crewDisbandmentResponse = new CrewDisbandmentResponse();
+            await crewDisbandment.Disband(crewDisbandmentResponse);
+            return OkResponse(req, crewDisbandmentResponse);
         }
         catch (Exception e) when (e is CrewDisbandException)
         {

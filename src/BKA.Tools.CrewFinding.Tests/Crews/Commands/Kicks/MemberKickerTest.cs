@@ -21,7 +21,7 @@ public class MemberKickerTest
         var sut = InitializeSutMemberKicker(player, [], crewCommandRepositoryMock);
 
         // Act
-        var act = async () => await sut.Kick("memberId");
+        var act = async () => await sut.Kick("memberId", new KickMemberResponse());
 
         // Assert
         await act.Should().ThrowAsync<NotCaptainException>();
@@ -38,7 +38,7 @@ public class MemberKickerTest
         var sut = InitializeSutMemberKicker(captain, crews, crewCommandRepositoryMock);
 
         // Act
-        var act = async () => await sut.Kick("memberId");
+        var act = async () => await sut.Kick("memberId", new KickMemberResponse());
 
         // Assert
         await act.Should().ThrowAsync<PlayerNotInCrewException>();
@@ -57,17 +57,19 @@ public class MemberKickerTest
         crew.AddMember(member);
         crew.AddMember(removedMember);
 
+        var memberKickerResponse = new KickMemberResponse();
         var crewCommandRepositoryMock = new CrewCommandRepositoryMock();
         var sut = InitializeSutMemberKicker(captain, new[] {crew}, crewCommandRepositoryMock);
 
         // Act
-        await sut.Kick(removedMember.Id);
+        await sut.Kick(removedMember.Id, memberKickerResponse);
 
         // Assert
         crew.Members.Should().Contain(member);
         crew.Members.Should().NotContain(removedMember);
         crewCommandRepositoryMock.Crew.Members.Should().Contain(member);
         crewCommandRepositoryMock.Crew.Members.Should().NotContain(removedMember);
+        memberKickerResponse.CrewId.Should().Be(crew.Id);
     }
 
     private static Player CreatePlayer(string playerId, string playerName = "playerName")
