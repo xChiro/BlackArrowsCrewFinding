@@ -33,7 +33,7 @@ Coding Standards: Ensure that your code follows SOLID principles, Clean Architec
 Code Review: All contributions will be reviewed to maintain the quality and integrity of the codebase.
 License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under license. See the LICENSE file for details.
 
 Contact
 
