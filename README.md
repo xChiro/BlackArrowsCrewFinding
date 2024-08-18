@@ -35,6 +35,8 @@ License
 
 This project is licensed. See the LICENSE file for details.
 
+https://github.com/xChiro/BlackArrowsCrewFinding/blob/main/LICENSE.txt
+
 Contact
 
 For any questions or further information, please reach out to chiro@chiro-dev.com.
