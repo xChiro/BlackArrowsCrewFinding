@@ -9,7 +9,7 @@ namespace BKA.Tools.CrewFinding.Tests.Crews.Commands.Creators;
 public class CrewCreatorActivityTest
 {
     [Fact]
-    public async void Create_Crew_Without_Activity_Uses_Default()
+    public async Task Create_Crew_Without_Activity_Uses_Default()
     {
         // Arrange
         var defaultActivities = Activity.Default().Name;
