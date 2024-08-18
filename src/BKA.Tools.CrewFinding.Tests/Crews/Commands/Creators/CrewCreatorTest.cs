@@ -32,7 +32,7 @@ public class CrewCreatorTest
     }
 
     [Fact]
-    public async Task Try_To_Create_A_Crew_But_Captain_Not_Was_Found()
+    public async Task Try_To_Create_A_Crew_But_Captain_Not_Was_Found_Throws_Exception()
     {
         // Arrange
         var captainId = Guid.NewGuid().ToString();

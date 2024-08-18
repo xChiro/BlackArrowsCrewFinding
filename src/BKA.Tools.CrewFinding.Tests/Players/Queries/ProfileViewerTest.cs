@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using BKA.Tools.CrewFinding.Crews;
 using BKA.Tools.CrewFinding.Players;
 using BKA.Tools.CrewFinding.Players.Exceptions;
@@ -13,7 +14,7 @@ namespace BKA.Tools.CrewFinding.Tests.Players.Queries;
 public class ProfileViewerTest
 {
     [Fact]
-    public async void Attempt_To_View_A_Player_Profile_That_Does_Not_Exist_Should_Throw_Exception()
+    public async Task Attempt_To_View_A_Player_Profile_That_Does_Not_Exist_Should_Throw_Exception()
     {
         // Arrange
         var playerQueryRepositoryValidationMock = new PlayerQueryRepositoryValidationMock("453", "Rowan");
@@ -28,7 +29,7 @@ public class ProfileViewerTest
     }
 
     [Fact]
-    public async void View_A_Player_Profile_Who_Is_Not_Part_Of_Any_Crew_Successfully()
+    public async Task View_A_Player_Profile_Who_Is_Not_Part_Of_Any_Crew_Successfully()
     {
         // Arrange
         const string playerName = "Rowan";
@@ -47,7 +48,7 @@ public class ProfileViewerTest
     }
 
     [Fact]
-    public async void View_A_Player_Profile_Who_Is_Part_Of_A_Crew_Successfully()
+    public async Task View_A_Player_Profile_Who_Is_Part_Of_A_Crew_Successfully()
     {
         // Arrange
         const string playerName = "Rowan";
