@@ -20,7 +20,7 @@ public class CrewCreatorActivityTest
         await ExecuteCrewCreation(sut, 4, defaultActivities);
 
         // Assert
-        createCrewPartyResultMock.Crew.Activity!.Name.Should().BeEquivalentTo(defaultActivities);
+        createCrewPartyResultMock.Crew.Activity.Name.Should().BeEquivalentTo(defaultActivities);
     }
 
     [Fact]
