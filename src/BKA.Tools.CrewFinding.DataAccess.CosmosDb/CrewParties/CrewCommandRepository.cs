@@ -50,6 +50,6 @@ public class CrewCommandRepository(Container crewContainer, Container disbandCre
 
     public Task DeleteCrew(string crewId)
     {
-        throw new NotImplementedException();
+        return crewContainer.DeleteItemAsync<CrewDocument>(crewId, new PartitionKey(crewId));
     }
 }
